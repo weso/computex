@@ -26,10 +26,7 @@
 
 <> a owl:Ontology ;
   .
-#  owl:imports <../ontology.ttl> ;
-#  .
 
-  
 #--------------------------------
 # Raw Observations
 
