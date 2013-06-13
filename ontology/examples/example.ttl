@@ -152,6 +152,66 @@ obs:FD09 cex:md5-checksum "md5 for FD09" ;
 		 wi-onto:ref-indicator indicator:D ;
 		 wi-onto:ref-year 2009 ;
 		 wi-onto:value 2 .
+
+obs:CA09 cex:md5-checksum "md5 for CA09" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:created "2013-06-12" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:DatasetARaw ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "A in CHL during 2009"@en ;
+		 sdmx-concept:obsStatus sdmx-code:obsStatus-A ;
+		 wi-onto:ref-area country:CHL ;
+		 wi-onto:ref-computation cex:Raw ;
+		 wi-onto:ref-indicator indicator:A ;
+		 wi-onto:ref-year 2009 ;
+		 wi-onto:value 3 .
+         
+obs:CB09 cex:md5-checksum "md5 for CB09" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:created "2013-06-12" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:DatasetBRaw;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "B in CHL during 2009"@en ;
+		 sdmx-concept:obsStatus sdmx-code:obsStatus-A ;
+		 wi-onto:ref-area country:CHL ;
+		 wi-onto:ref-computation cex:Raw ;
+		 wi-onto:ref-indicator indicator:B ;
+		 wi-onto:ref-year 2009 ;
+		 wi-onto:value 4 .
+
+obs:CC09 cex:md5-checksum "md5 for CC09" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:created "2013-06-12" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:DatasetCRaw ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "C in CHL during 2009"@en ;
+		 sdmx-concept:obsStatus sdmx-code:obsStatus-A ;
+		 wi-onto:ref-area country:CHL ;
+		 wi-onto:ref-computation cex:Raw ;
+		 wi-onto:ref-indicator indicator:C ;
+		 wi-onto:ref-year 2009 ;
+		 wi-onto:value 6 .
+
+obs:CD09 cex:md5-checksum "md5 for FD09" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:created "2013-06-12" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:DatasetDRaw ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "D in CHL during 2009"@en ;
+		 sdmx-concept:obsStatus sdmx-code:obsStatus-A ;
+		 wi-onto:ref-area country:CHL ;
+		 wi-onto:ref-computation cex:Raw ;
+		 wi-onto:ref-indicator indicator:D ;
+		 wi-onto:ref-year 2009 ;
+		 wi-onto:value 4 .
 		 
 obs:EA10 cex:md5-checksum "md5 for EA10" ;
 		 dcterms:contributor wi-org:WESO ;
@@ -184,22 +244,7 @@ obs:EB10 a wi-onto:Observation ;
 		 wi-onto:ref-year 2010 ;
 		 wi-onto:value 8 .
 
-obs:FB10 a wi-onto:Observation ;
-         cex:md5-checksum "md5 for EA09" ;
-		 dcterms:contributor wi-org:WESO ;
-		 dcterms:created "2013-12-06" ;
-		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:DatasetBRaw ;
-		 rdf:type qb:Observation ;
-		 rdf:type wi-onto:Observation ;
-		 rdfs:label "B in FRA during 2010"@en ;
-		 sdmx-concept:obsStatus sdmx-code:obsStatus-A ;
-		 wi-onto:ref-area country:FRA ;
-		 wi-onto:ref-computation cex:Raw ;
-		 wi-onto:ref-indicator indicator:B ;
-		 wi-onto:ref-year 2010 ;
-		 wi-onto:value 6 .
-		 
+	 
 obs:EC10 a wi-onto:Observation ;
          cex:md5-checksum "md5 for EA09" ;
 		 dcterms:contributor wi-org:WESO ;
@@ -231,6 +276,22 @@ obs:ED10 cex:md5-checksum "md5 for ED10" ;
 		 wi-onto:ref-year 2010 ;
 		 wi-onto:value 6 .
 
+obs:FB10 a wi-onto:Observation ;
+         cex:md5-checksum "md5 for EA09" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:created "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:DatasetBRaw ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "B in FRA during 2010"@en ;
+		 sdmx-concept:obsStatus sdmx-code:obsStatus-A ;
+		 wi-onto:ref-area country:FRA ;
+		 wi-onto:ref-computation cex:Raw ;
+		 wi-onto:ref-indicator indicator:B ;
+		 wi-onto:ref-year 2010 ;
+		 wi-onto:value 6 .
+
 obs:FD10 a wi-onto:Observation ;
          cex:md5-checksum "md5 for FD10" ;
 		 dcterms:contributor wi-org:WESO ;
@@ -247,6 +308,69 @@ obs:FD10 a wi-onto:Observation ;
 		 wi-onto:ref-year 2010 ;
 		 wi-onto:value 3 .
 		 
+obs:CA10 cex:md5-checksum "md5 for CA10" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:created "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:DatasetARaw ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "A in CHL  during 2010"@en ;
+		 sdmx-concept:obsStatus sdmx-code:obsStatus-A ;
+		 wi-onto:ref-area country:CHL ;
+		 wi-onto:ref-computation cex:Raw ;
+		 wi-onto:ref-indicator indicator:A ;
+		 wi-onto:ref-year 2010 ;
+		 wi-onto:value 5 .
+
+obs:CB10 a wi-onto:Observation ;
+         cex:md5-checksum "md5 for CB10" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:created "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:DatasetBRaw ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "B in CHL during 2010"@en ;
+		 sdmx-concept:obsStatus sdmx-code:obsStatus-A ;
+		 wi-onto:ref-area country:CHL ;
+		 wi-onto:ref-computation cex:Raw ;
+		 wi-onto:ref-indicator indicator:B ;
+		 wi-onto:ref-year 2010 ;
+		 wi-onto:value 4 .
+
+	 
+obs:CC10 a wi-onto:Observation ;
+         cex:md5-checksum "md5 for CC10" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:created "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:DatasetCRaw ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "C in CHL during 2010"@en ;
+		 sdmx-concept:obsStatus sdmx-code:obsStatus-A ;
+		 wi-onto:ref-area country:CHL ;
+		 wi-onto:ref-computation cex:Raw ;
+		 wi-onto:ref-indicator indicator:C ;
+		 wi-onto:ref-year 2010 ;
+		 wi-onto:value 8 .
+
+obs:CD10 cex:md5-checksum "md5 for CD10" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:created "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:DatasetDRaw ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "D in CHL during 2010"@en ;
+		 sdmx-concept:obsStatus sdmx-code:obsStatus-A ;
+		 wi-onto:ref-area country:CHL ;
+		 wi-onto:ref-computation cex:Raw ;
+		 wi-onto:ref-indicator indicator:D ;
+		 wi-onto:ref-year 2010 ;
+		 wi-onto:value 6 .
+
 obs:EA11 a wi-onto:Observation ;
          cex:md5-checksum "md5 for EA11" ;
 		 dcterms:contributor wi-org:WESO ;
@@ -374,6 +498,152 @@ obs:FD11 a wi-onto:Observation ;
 		 wi-onto:ref-indicator indicator:D ;
 		 wi-onto:ref-year 2011 ;
 		 wi-onto:value 4 .
+
+obs:CA11 a wi-onto:Observation ;
+         cex:md5-checksum "md5 for CA11" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:created "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:DatasetARaw ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "A in CHL during 2011"@en ;
+		 sdmx-concept:obsStatus sdmx-code:obsStatus-A ;
+		 wi-onto:ref-area country:CHL ;
+		 wi-onto:ref-computation cex:Raw ;
+		 wi-onto:ref-indicator indicator:A ;
+		 wi-onto:ref-year 2011 ;
+		 wi-onto:value 7 .
+
+obs:CB11 a wi-onto:Observation ;
+         cex:md5-checksum "md5 for CB11" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:created "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:DatasetBRaw ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "B in CHL during 2011"@en ;
+		 sdmx-concept:obsStatus sdmx-code:obsStatus-A ;
+		 wi-onto:ref-area country:CHL ;
+		 wi-onto:ref-computation cex:Raw ;
+		 wi-onto:ref-indicator indicator:B ;
+		 wi-onto:ref-year 2011 ;
+		 wi-onto:value 4 .
+
+obs:CD11 a wi-onto:Observation ;
+         cex:md5-checksum "md5 for CD11" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:created "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:DatasetDRaw ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "D in CHL during 2011"@en ;
+		 sdmx-concept:obsStatus sdmx-code:obsStatus-A ;
+		 wi-onto:ref-area country:CHL ;
+		 wi-onto:ref-computation cex:Raw ;
+		 wi-onto:ref-indicator indicator:D ;
+		 wi-onto:ref-year 2011 ;
+		 wi-onto:value 8 .
+
+obs:EQ1 a wi-onto:Observation ;
+         cex:md5-checksum "md5 for EQ1" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:created "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:DatasetDRaw ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "Q1 in ESP during 2011"@en ;
+		 sdmx-concept:obsStatus sdmx-code:obsStatus-A ;
+		 wi-onto:ref-area country:ESP ;
+		 wi-onto:ref-computation cex:Raw ;
+		 wi-onto:ref-indicator indicator:Q1 ;
+		 wi-onto:ref-year 2011 ;
+		 wi-onto:value 6 .
+
+obs:EQ2 a wi-onto:Observation ;
+         cex:md5-checksum "md5 for EQ2" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:created "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:DatasetDRaw ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "Q2 in ESP during 2011"@en ;
+		 sdmx-concept:obsStatus sdmx-code:obsStatus-A ;
+		 wi-onto:ref-area country:ESP ;
+		 wi-onto:ref-computation cex:Raw ;
+		 wi-onto:ref-indicator indicator:Q2 ;
+		 wi-onto:ref-year 2011 ;
+		 wi-onto:value 7 .
+
+obs:FQ1 a wi-onto:Observation ;
+         cex:md5-checksum "md5 for FQ1" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:created "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:DatasetDRaw ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "Q1 in FRA during 2011"@en ;
+		 sdmx-concept:obsStatus sdmx-code:obsStatus-A ;
+		 wi-onto:ref-area country:FRA ;
+		 wi-onto:ref-computation cex:Raw ;
+		 wi-onto:ref-indicator indicator:Q1 ;
+		 wi-onto:ref-year 2011 ;
+		 wi-onto:value 7 .
+
+obs:FQ2 a wi-onto:Observation ;
+         cex:md5-checksum "md5 for FQ2" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:created "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:DatasetDRaw ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "Q2 in FRA during 2011"@en ;
+		 sdmx-concept:obsStatus sdmx-code:obsStatus-A ;
+		 wi-onto:ref-area country:FRA ;
+		 wi-onto:ref-computation cex:Raw ;
+		 wi-onto:ref-indicator indicator:Q2 ;
+		 wi-onto:ref-year 2011 ;
+		 wi-onto:value 3 .
+
+
+obs:CQ1 a wi-onto:Observation ;
+         cex:md5-checksum "md5 for CQ1" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:created "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:DatasetDRaw ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "Q1 in CHL during 2011"@en ;
+		 sdmx-concept:obsStatus sdmx-code:obsStatus-A ;
+		 wi-onto:ref-area country:CHL ;
+		 wi-onto:ref-computation cex:Raw ;
+		 wi-onto:ref-indicator indicator:Q1 ;
+		 wi-onto:ref-year 2011 ;
+		 wi-onto:value 8 .
+
+obs:CQ2 a wi-onto:Observation ;
+         cex:md5-checksum "md5 for CQ2" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:created "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:DatasetDRaw ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "Q2 in FRA during 2011"@en ;
+		 sdmx-concept:obsStatus sdmx-code:obsStatus-A ;
+		 wi-onto:ref-area country:FRA ;
+		 wi-onto:ref-computation cex:Raw ;
+		 wi-onto:ref-indicator indicator:Q2 ;
+		 wi-onto:ref-year 2011 ;
+		 wi-onto:value 4 .
+
 
 #--------------------------------
 # Indicators
