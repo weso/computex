@@ -47,7 +47,7 @@ obs:noValue a wi-onto:Observation ;
 		 wi-onto:ref-year 2009 ;
 		 .
 
-obs:withTwoValues: a wi-onto:Observation ;
+obs:withTwoValues a wi-onto:Observation ;
          cex:md5-checksum "md5 for EA09" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:created "2013-12-06" ;
