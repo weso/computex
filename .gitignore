@@ -1,6 +1,20 @@
 *.class
+validex/project/project
+validex/project/target
+validex/target
+validex/.target
+validex/bin
+validex/.cache
+validex/.classpath
+validex/.project
+validex/.settings/*
+validex/tmp
+validex/.history
+validex/dist
 
 # Package Files #
 *.jar
 *.war
 *.ear
+
+
