@@ -1,16 +1,16 @@
 *.class
-validex/project/project
-validex/project/target
-validex/target
-validex/.target
-validex/bin
-validex/.cache
-validex/.classpath
-validex/.project
-validex/.settings/*
-validex/tmp
-validex/.history
-validex/dist
+project/project
+project/target
+target
+.target
+bin
+.cache
+.classpath
+.project
+.settings/*
+tmp
+.history
+dist
 
 # Package Files #
 *.jar

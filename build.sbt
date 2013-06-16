@@ -2,7 +2,7 @@ name := "computex"
 
 version := "1.0"
 
-scalaVersion :="2.9.2"
+scalaVersion :="2.10.2"
 
 libraryDependencies ++= Seq(
   "junit" % "junit" % "4.8" % "test",
