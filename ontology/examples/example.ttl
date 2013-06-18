@@ -4,6 +4,8 @@
 @prefix indicator: <http://data.webfoundation.org/webindex/v2013/indicator/> .
 @prefix obs: <http://data.webfoundation.org/webindex/v2013/observation/> .
 @prefix organization: <http://data.webfoundation.org/webindex/v2013/organization/> .
+@prefix slice: <http://data.webfoundation.org/webindex/v2013/slice/> .
+@prefix dsd: <http://data.webfoundation.org/webindex/v2013/dsd/> .
 
 
 
@@ -276,6 +278,11 @@ obs:ED10 cex:md5-checksum "md5 for ED10" ;
 		 wi-onto:ref-year 2010 ;
 		 wi-onto:value 6 .
 
+# obs:FA10 is missing (TODO: consider removing missing observations)
+obs:FA10 a wi-onto:Observation ;
+         sdmx-concept:obsStatus sdmx-code:obsStatus-M ;
+         .
+
 obs:FB10 a wi-onto:Observation ;
          cex:md5-checksum "md5 for EA09" ;
 		 dcterms:contributor wi-org:WESO ;
@@ -291,6 +298,10 @@ obs:FB10 a wi-onto:Observation ;
 		 wi-onto:ref-indicator indicator:B ;
 		 wi-onto:ref-year 2010 ;
 		 wi-onto:value 6 .
+
+obs:FC10 a wi-onto:Observation ;
+         sdmx-concept:obsStatus sdmx-code:obsStatus-M ;
+         .
 
 obs:FD10 a wi-onto:Observation ;
          cex:md5-checksum "md5 for FD10" ;
@@ -547,6 +558,11 @@ obs:CD11 a wi-onto:Observation ;
 		 wi-onto:ref-year 2011 ;
 		 wi-onto:value 8 .
 
+# Missing
+obs:CC11 a wi-onto:Observation ;
+         sdmx-concept:obsStatus sdmx-code:obsStatus-M ;
+         .
+
 obs:EQ1 a wi-onto:Observation ;
          cex:md5-checksum "md5 for EQ1" ;
 		 dcterms:contributor wi-org:WESO ;
@@ -780,6 +796,26 @@ dataset:DatasetARaw
               ]
       .
 	  
+slice:Slice-A09Raw
+      a       qb:Slice ;
+      wi-onto:ref-indicator indicator:A ;
+      wi-onto:ref-year "2010"^^xsd:int ;
+      qb:observation obs:EA09, obs:FA09, obs:CA09 ;
+      qb:sliceStructure dataset:DatasetARaw .
+
+slice:Slice-A10Raw
+      a       qb:Slice ;
+      wi-onto:ref-indicator indicator:A ;
+      wi-onto:ref-year "2010"^^xsd:int ;
+      qb:observation obs:EA10, obs:FA10, obs:CA10 ;
+      qb:sliceStructure dataset:DatasetARaw .
+
+slice:Slice-A11Raw
+      a       qb:Slice ;
+      wi-onto:ref-indicator indicator:A ;
+      wi-onto:ref-year "2010"^^xsd:int ;
+      qb:observation obs:EA11, obs:FA11, obs:CA11 ;
+      qb:sliceStructure dataset:DatasetARaw .
 
 dataset:DatasetBRaw
       cex:md5-checksum "MD5..." ;
@@ -805,6 +841,27 @@ dataset:DatasetBRaw
               ]
       .
 
+slice:Slice-B09Raw
+      a       qb:Slice ;
+      wi-onto:ref-indicator indicator:B ;
+      wi-onto:ref-year "2009"^^xsd:int ;
+      qb:observation obs:EB09, obs:FB09, obs:CB09 ;
+      qb:sliceStructure dataset:DatasetBRaw .
+
+slice:Slice-B10Raw
+      a       qb:Slice ;
+      wi-onto:ref-indicator indicator:B ;
+      wi-onto:ref-year "2010"^^xsd:int ;
+      qb:observation obs:EB10, obs:FB10, obs:CB10 ;
+      qb:sliceStructure dataset:DatasetBRaw  .
+
+slice:Slice-B11Raw
+      a       qb:Slice ;
+      wi-onto:ref-indicator indicator:B ;
+      wi-onto:ref-year "2011"^^xsd:int ;
+      qb:observation obs:EB11, obs:FB11, obs:CB11 ;
+      qb:sliceStructure dataset:DatasetBRaw .
+
 dataset:DatasetCRaw
       cex:md5-checksum "MD5..." ;
       dcterms:contributor wi-org:WESO ;
@@ -829,6 +886,27 @@ dataset:DatasetCRaw
               ]
       .
 
+slice:Slice-C09Raw
+      a       qb:Slice ;
+      wi-onto:ref-indicator indicator:C ;
+      wi-onto:ref-year "2009"^^xsd:int ;
+      qb:observation obs:EC09, obs:FC09, obs:CC09 ;
+      qb:sliceStructure dataset:DatasetCRaw  .
+
+slice:Slice-C10Raw
+      a       qb:Slice ;
+      wi-onto:ref-indicator indicator:C ;
+      wi-onto:ref-year "2010"^^xsd:int ;
+      qb:observation obs:EC10, obs:FC10, obs:CC10 ;
+      qb:sliceStructure dataset:DatasetCRaw .
+
+slice:Slice-C11Raw
+      a       qb:Slice ;
+      wi-onto:ref-indicator indicator:C ;
+      wi-onto:ref-year "2011"^^xsd:int ;
+      qb:observation obs:EC11, obs:FC11, obs:CC11 ;
+      qb:sliceStructure dataset:DatasetCRaw .
+
 dataset:DatasetDRaw
       cex:md5-checksum "MD5..." ;
       dcterms:contributor wi-org:WESO ;
@@ -852,6 +930,90 @@ dataset:DatasetDRaw
               [ qb:measure wi-onto:ref-indicator
               ]
       .
+
+slice:Slice-D09Raw
+      a       qb:Slice ;
+      wi-onto:ref-indicator indicator:D ;
+      wi-onto:ref-year "2009"^^xsd:int ;
+      qb:observation obs:ED09, obs:FD09, obs:CD09 ;
+      qb:sliceStructure dataset:DatasetDRaw .
+
+slice:Slice-D10Raw
+      a       qb:Slice ;
+      wi-onto:ref-indicator indicator:C ;
+      wi-onto:ref-year "2010"^^xsd:int ;
+      qb:observation obs:ED10, obs:FD10, obs:CD10 ;
+      qb:sliceStructure dataset:DatasetDRaw .
+
+slice:Slice-D11Raw
+      a       qb:Slice ;
+      wi-onto:ref-indicator indicator:D ;
+      wi-onto:ref-year "2011"^^xsd:int ;
+      qb:observation obs:ED11, obs:FD11, obs:CD11 ;
+      qb:sliceStructure  dataset:DatasetDRaw .
+
+
+dataset:DatasetQ1Raw
+      cex:md5-checksum "MD5..." ;
+      dcterms:contributor wi-org:WESO ;
+      dcterms:created "2013-06-12" ;
+      dcterms:publisher wi-org:WebFoundation ;
+      rdf:type qb:DataSetDefinition ;
+      rdf:type wi-onto:Dataset ;
+      qb:component
+              [ qb:dimension wi-onto:ref-area ;
+                qb:order "1"^^xsd:long
+              ] ;
+      qb:component
+              [ qb:dimension wi-onto:ref-area ;
+                qb:order "2"^^xsd:long
+              ] ;
+      qb:component
+              [ qb:dimension wi-onto:ref-area ;
+                qb:order "3"^^xsd:long
+              ] ;
+      qb:component
+              [ qb:measure wi-onto:ref-indicator
+              ]
+      .
+
+slice:Slice-Q1Raw
+      a       qb:Slice ;
+      wi-onto:ref-indicator indicator:Q1 ;
+      wi-onto:ref-year "2011"^^xsd:int ;
+      qb:observation obs:EQ1, obs:FQ1, obs:CQ1 ;
+      qb:sliceStructure dataset:DatasetQ1Raw .
+
+dataset:DatasetQ2Raw
+      cex:md5-checksum "MD5..." ;
+      dcterms:contributor wi-org:WESO ;
+      dcterms:created "2013-06-12" ;
+      dcterms:publisher wi-org:WebFoundation ;
+      rdf:type qb:DataSetDefinition ;
+      rdf:type wi-onto:Dataset ;
+      qb:component
+              [ qb:dimension wi-onto:ref-area ;
+                qb:order "1"^^xsd:long
+              ] ;
+      qb:component
+              [ qb:dimension wi-onto:ref-area ;
+                qb:order "2"^^xsd:long
+              ] ;
+      qb:component
+              [ qb:dimension wi-onto:ref-area ;
+                qb:order "3"^^xsd:long
+              ] ;
+      qb:component
+              [ qb:measure wi-onto:ref-indicator
+              ]
+      .
+
+slice:Slice-Q2Raw
+      a       qb:Slice ;
+      wi-onto:ref-indicator indicator:Q2 ;
+      wi-onto:ref-year "2011"^^xsd:int ;
+      qb:observation obs:EQ2, obs:FQ2, obs:CQ2 ;
+      qb:sliceStructure dataset:DatasetQ2Raw .
 	  	  	  
 #---------------------------------------
 # Countries
