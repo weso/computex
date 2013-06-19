@@ -27,9 +27,9 @@ prefix xsd: <http://www.w3.org/2001/XMLSchema#>
 # TODO. At this moment, it generates a duplicated error 
 
 CONSTRUCT {
- _:error a wi-onto:Error ;
-         wi-onto:errorParam (?obs ?value1 ?value2) ;
-         wi-onto:msg "Observation has two different values" .
+ _:error a cex:Error ;
+         cex:errorParam (?obs ?value1 ?value2) ;
+         cex:msg "Observation has two different values" .
 } WHERE {
  ?obs a wi-onto:Observation .
  ?obs wi-onto:value ?value1 .

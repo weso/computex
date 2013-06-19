@@ -26,15 +26,10 @@ prefix xsd: <http://www.w3.org/2001/XMLSchema#>
 
 CONSTRUCT {
  _:error a cex:Error .
- _:error cex:errorParam ?obs .
- _:error cex:msg "Observation does not have value" .
+ _:error cex:errorParam ?obs, ?value .
+ _:error cex:msg "Observation with Status obsStatus-M (Missing) should not have value" .
 }  WHERE {
  ?obs a wi-onto:Observation .
- FILTER NOT EXISTS { 
-     ?obs wi-onto:value ?value 
-   }
- # Observations with status obsStatus-M (Missing) don't neet to have values)
- MINUS { 
-   ?obs sdmx-concept:obsStatus sdmx-code:obsStatus-M .
- }
+ ?obs sdmx-concept:obsStatus sdmx-code:obsStatus-M .
+ ?obs wi-onto:value ?value 
 } 
