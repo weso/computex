@@ -60,8 +60,9 @@ PREFIX eg:             <http://example.com/abbrv-cube/>
     it("should pass integrity check: " + name) {
      val qe = QueryExecutionFactory.create(query,model)
      try {
-       val result = qe.execAsk();
-       result should equal(false);
+       val reportModel = ModelFactory.createDefaultModel
+       qe.execConstruct(reportModel)
+       reportModel.size should be(0);
      } finally {
        qe.close();
      }

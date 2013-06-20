@@ -52,7 +52,6 @@ wi-onto:has-iso-alpha2-code a owl:DatatypeProperty, rdf:Property;
 	rdfs:label "ISO-code-alpha 2 digit"@en; 
 	rdfs:comment "This property creates a link between a country and its ISO code (2 digit)"@en;
 	rdfs:subPropertyOf dcterms:identifier; 
-	rdfs:range skos:Concept; 
 . 
 
 wi-onto:has-iso-alpha3-code a owl:DatatypeProperty, rdf:Property; 
@@ -96,7 +95,7 @@ wi-onto:ref-indicator
 wi-onto:ref-year 
     a owl:DatatypeProperty, owl:FunctionalProperty ;
     rdfs:domain wi-onto:Observation ;
-	rdfs:range xsd:Year ;
+	rdfs:range xsd:integer ;
 	.
 	
 	

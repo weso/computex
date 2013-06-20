@@ -49,11 +49,18 @@ class ComputexSuite extends FunSuite with ShouldMatchers {
    assertMsgError(reportModel, "Observation has two different values")
   }
 
-   test("Error if an observation with Missing status has value") {
+ test("Error if an observation with Missing status has value") {
    val model = loadExample("missingObsNoValues.ttl") 
    val reportModel = cex.validate(model,validationDir)  
    assert(reportModel.size > 0)
    assertMsgError(reportModel, "Observation with Status obsStatus-M (Missing) should not have value")
+  }
+
+ test("Observation does not have sheet-type") {
+   val model = loadExample("obs_noSheet-type.ttl") 
+   val reportModel = cex.validate(model,validationDir)  
+   assert(reportModel.size > 0)
+   assertMsgError(reportModel, "Observation does not have sheet-type")
   }
 
  def loadExample(name: String) : Model = {

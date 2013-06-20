@@ -24,8 +24,8 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 # An observation without a value
-obs:missingObsValues a wi-onto:Observation ;
+obs:missingObsValues a qb:Observation ;
 				     sdmx-concept:obsStatus sdmx-code:obsStatus-M ;
-					 wi-onto:value 2 
+					 cex:value 2 
 		 .
 

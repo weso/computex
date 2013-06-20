@@ -24,8 +24,8 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 
-obs:withTwoValues a wi-onto:Observation ;
-		 wi-onto:value 2 ;
-		 wi-onto:value 3 ;
+obs:withTwoValues a qb:Observation ;
+		 cex:value 2 ;
+		 cex:value 3 ;
 		 .
 

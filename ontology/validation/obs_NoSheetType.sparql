@@ -24,18 +24,13 @@ prefix wi-people:  <http://data.webfoundation.org/webindex/people/>
 prefix xsd: <http://www.w3.org/2001/XMLSchema#> 
 
 
-# TODO. At this moment, it generates a duplicated error 
-
 CONSTRUCT {
- _:error a cex:Error ;
-         cex:errorParam 
-		   [cex:name "obs" ; cex:value ?obs ] ,
-		   [cex:name "value1"; cex:value ?value1 ],
-		   [cex:name "value2"; cex:value ?value2 ] ;
-         cex:msg "Observation has two different values" .
-} WHERE {
- ?obs a qb:Observation .
- ?obs cex:value ?value1 .
- ?obs cex:value ?value2 .
- FILTER ( ?value1 != ?value2  )
-}
+ _:error a cex:Error .
+ _:error cex:errorParam [cex:name "obs"; cex:value ?obs ] .
+ _:error cex:msg "Observation does not have sheet-type" .
+}  WHERE {
+ ?obs a wi-onto:Observation .
+ FILTER NOT EXISTS { 
+     ?obs wi-onto:sheet-type ?sheetType 
+   }
+} 

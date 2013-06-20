@@ -23,7 +23,7 @@
 @prefix wi-people:  <http://data.webfoundation.org/webindex/people/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-# An observation without a value
-obs:noValue a qb:Observation ;
+# An observation without a sheet-type
+obs:noSheetType a wi-onto:Observation ;
 		 .
 
