@@ -8,6 +8,7 @@
 @prefix subindex: <http://data.webfoundation.org/webindex/v2013/subindex/> .
 @prefix index: <http://data.webfoundation.org/webindex/v2013/index/> .
 @prefix dsd: <http://data.webfoundation.org/webindex/v2013/dsd/> .
+@prefix weightSchema: <http://data.webfoundation.org/webindex/v2013/weightSchema/> .
 
 @prefix cex: <http://purl.org/weso/ontology/computex#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
@@ -882,6 +883,65 @@ index:index
 	  a cex:index ;
 	  rdfs:label "Index with ABCDQ1Q2" ;
 	  .
+#--------------------------------
+
+weightSchema:indicatorWeights a cex:WeightSchema ;
+       cex:weight [ a cex:Weight ;
+	                cex:element indicator:A ;
+                    cex:value 1  					
+				  ] ;
+	   cex:weight [ a cex:Weight ;
+	                cex:element indicator:B ;
+				    cex:value 0.5 
+				  ] ;
+	   cex:weight [ a cex:Weight ;
+	                cex:element indicator:C ;
+				    cex:value 1.0  
+				  ] ;
+	   cex:weight [ a cex:Weight ;
+	                cex:element indicator:D ;
+				    cex:value 0.5 
+				  ] ;
+	   cex:weight [ a cex:Weight ;
+	                cex:element indicator:Q1 ;
+				    cex:value 1.0 
+				  ] ;
+	   cex:weight [ a cex:Weight ;
+	                cex:element indicator:Q2 ;
+				    cex:value 0.5 
+				  ]
+  .				  
+
+weightSchema:componentWeights a cex:WeightSchema ;
+       cex:weight [ a cex:Weight ;
+	                cex:element component:AB ;
+                    cex:value 1  					
+				  ] ;
+	   cex:weight [ a cex:Weight ;
+	                cex:element component:Q2 ;
+				    cex:value 1.0 
+				  ] ;
+	   cex:weight [ a cex:Weight ;
+	                cex:element component:C ;
+				    cex:value 1.0  
+				  ] ;
+	   cex:weight [ a cex:Weight ;
+	                cex:element component:DQ1 ;
+				    cex:value 1.0 
+				  ] 
+  .				  
+
+weightSchema:componentWeights a cex:WeightSchema ;
+       cex:weight [ a cex:Weight ;
+	                cex:element subindex:ABQ2 ;
+                    cex:value 0.4  					
+				  ] ;
+	   cex:weight [ a cex:Weight ;
+	                cex:element component:CDQ1 ;
+				    cex:value 0.6 
+				  ] 
+  .				  
+  
 	  
 #--------------------------------
 # Datasets
@@ -1063,7 +1123,6 @@ slice:Slice-D11Raw
       qb:observation obs:ED11, obs:FD11, obs:CD11 ;
       qb:sliceStructure  dataset:D-Raw .
 
-
 dataset:Q1-Raw
       cex:md5-checksum "MD5..." ;
       dcterms:contributor wi-org:WESO ;
@@ -1174,11 +1233,8 @@ country:CHL
 	  geo:long -71.542969 ;
       .
 	  
-	  
 #------------------------
 # Other declarations
-
-qb:dataSet a owl:ObjectProperty .
 
 
 #------------------------
@@ -1464,7 +1520,6 @@ obs:FA10-I a wi-onto:Observation ;
          wi-onto:sheet-type wi-onto:Imputed ;
 		 cex:value 2 ;
 		 .
-
 
 obs:FB10-I a wi-onto:Observation ;
          cex:md5-checksum "md5 for EA09" ;
@@ -2798,7 +2853,6 @@ dataset:C-Normalized
               ]
       .
 	  
-	  
 slice:Slice-C09-N
       a       qb:Slice ;
       wi-onto:ref-indicator indicator:C ;
@@ -2926,4 +2980,7 @@ slice:Slice-Q2-N
       wi-onto:ref-year 2011 ;
       qb:observation obs:EQ2-N, obs:FQ2-N, obs:CQ2-N ;
       qb:sliceStructure dataset:Q2-Normalized .
+	  
+	  
+#--------------------------
 	  

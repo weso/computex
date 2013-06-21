@@ -49,7 +49,8 @@ class Computex {
      val reportModel = ModelFactory.createDefaultModel
      val qs = readQueries(validationDir)
      for (q <- qs) {
-       executeQuery(model,q,reportModel)
+       val newModel = executeQuery(model,q)
+       reportModel.add(newModel)
      }
      reportModel
  }
@@ -60,7 +61,8 @@ class Computex {
   val computedModel = ModelFactory.createDefaultModel
   val qs = readQueries(computationDir)
   for (q <- qs) {
-         executeQuery(model,q,computedModel)
+     val newModel = executeQuery(model,q)
+     computedModel.add(newModel)
   }
   computedModel
  }
@@ -81,8 +83,10 @@ class Computex {
   model.read(fileName, "","TURTLE")
  }
    
- def executeQuery(model:Model, query: Query, reportModel: Model) = {
+ def executeQuery(model:Model, query: Query) : Model = {
+  val resultModel = ModelFactory.createDefaultModel
   val qexec = QueryExecutionFactory.create(query, model)
-  qexec.execConstruct(reportModel)
+  qexec.execConstruct(resultModel)
+  resultModel
  }
 }

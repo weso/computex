@@ -9,7 +9,7 @@ scalacOptions ++= Seq("-deprecation")
 
 libraryDependencies ++= Seq(
   "commons-configuration" % "commons-configuration" % "1.7",
-  "org.apache.jena" % "jena-arq" % "2.9.3",
+  "org.apache.jena" % "jena-arq" % "2.10.1",
   "org.rogach" %% "scallop" % "0.9.1" ,
   "com.typesafe" % "config" % "1.0.1",
   "org.scalatest" % "scalatest_2.10" % "1.9.1" % "test", 
