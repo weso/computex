@@ -843,13 +843,13 @@ component:AB
       rdfs:label "Component AB"@en 
       .
 
-component:CQ2
-      cex:md5-checksum "Component C and Q2" ;
+component:C
+      cex:md5-checksum "Component C " ;
       dcterms:contributor wi-org:WESO ;
       dcterms:created "2013-06-12" ;
       dcterms:publisher wi-org:WebFoundation ;
       rdf:type cex:Component ;
-      rdfs:label "Component C and Q2"@en 
+      rdfs:label "Component C"@en 
       .
 
 component:DQ1
@@ -861,11 +861,20 @@ component:DQ1
       rdfs:label "Component D and Q1"@en 
       .
 
-subindex:ABCQ2 a cex:SubIndex ;
+component:Q2
+      cex:md5-checksum "Component Q2" ;
+      dcterms:contributor wi-org:WESO ;
+      dcterms:created "2013-06-12" ;
+      dcterms:publisher wi-org:WebFoundation ;
+      rdf:type cex:Component ;
+      rdfs:label "Component Q2"@en 
+      .
+	  
+subindex:ABQ2 a cex:SubIndex ;
       rdfs:label "Subindex ABCQ2"@en 
       .
 
-subindex:DQ1 a cex:SubIndex ;
+subindex:CDQ1 a cex:SubIndex ;
       rdfs:label "Subindex DQ1"@en 
       .
 
