@@ -7,23 +7,148 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sdmx-concept: <http://purl.org/linked-data/sdmx/2009/concept#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
 @prefix wi-onto: <http://data.webfoundation.org/webindex/ontology/> .
 @prefix wi-org: <http://data.webfoundation.org/webindex/organization/> .
 @prefix wi-people:  <http://data.webfoundation.org/webindex/people/> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<http://purl.org/weso/ontology/webindex>
+<http://purl.org/weso/ontology/computex>
     a owl:Ontology;
     owl:versionInfo "0.2";
-    rdfs:label "Webindex ontology"@en;
+    rdfs:label "Computational Index ontology"@en;
     rdfs:comment "Vocabulary for describing index structures and observations."@en;
     dcterms:created "2012-06-07"^^xsd:date;
     dcterms:modified "2013-06-07"^^xsd:date;
-    dcterms:title "Core Webindex ontology"@en;
+    dcterms:title "Core Computational Index ontology"@en;
     dcterms:author wi-people:Labra , wi-people:Chema, wi-org:WESO ;
     dcterms:publisher  wi-org:WebFoundation;
     dcterms:contributor  wi-people:Hania, wi-people:Jules ;
 	dcterms:license <http://www.opendatacommons.org/licenses/pddl/1.0/> ;
+	.
+
+
+#------------------------------------------
+# Observations
+
+cex:Observation a owl:Class, rdfs:Class ;
+             rdfs:label "Observation" ;
+             rdfs:comment "An observation" ;
+			 .
+
+	
+	
+#------------------------------------------
+# Indicators
+
+cex:Indicator a owl:Class ; a rdfs:Class ;
+    rdfs:label "Indicator" ;
+    rdfs:comment "A given indicator. Several indicators make a Component" ;
+    skos:broader wi-onto:Component .
+
+
+cex:High a skos:Concept; 
+	rdfs:label "High"@en; 
+	rdfs:comment "A high value is preferred than a lower one"@en;
+    rdfs:subClassOf wi-onto:HighLow ;
+. 
+
+cex:Low a skos:Concept; 
+	rdfs:label "Low"@en; 
+	rdfs:comment "A low value is preferred than a higher one"@en;
+    rdfs:subClassOf wi-onto:HighLow ;
+. 
+
+cex:high-low  a owl:ObjectProperty, rdf:Property;
+	rdfs:label "high-low property"@en;
+	rdfs:comment "High/Low is the preferred value?"@en; 
+	rdfs:range skos:Concept; 
+.
+
+cex:unit a owl:ObjectProperty, rdf:Property;
+	rdfs:label "unit of measure property"@en;
+	rdfs:comment "Measure unit"@en; 
+	rdfs:range rdf:Resource; 
+.
+
+cex:has-component  a owl:ObjectProperty, rdf:Property;
+	rdfs:label "has-component"@en;
+	rdfs:comment "Component that provides the indicator"@en;
+	rdfs:range wi-onto:Component ;
+	rdfs:domain wi-onto:Indicator ;
+. 
+
+#-------------------------------------------
+# Components
+
+cex:Component a owl:Class ; a rdfs:Class ;
+           rdfs:label "Component" ;
+           rdfs:comment "An aggregation of several indicators" ;
+           skos:broader wi-onto:SubIndex .
+
+
+#-------------------------------------------
+# Subindex
+		   
+cex:SubIndex a owl:Class ; a rdfs:Class ;
+          rdfs:label "A subindex" ;
+          .
+
+#------------------------------------------
+# Sheet data
+
+cex:SheetData a owl:Class, rdfs:Class;
+	rdfs:subClassOf skos:Concept ;
+	rdfs:label "Sheet data"@en;
+.
+
+cex:Raw a cex:SheetData ;
+	rdfs:label "Raw data"@en ;
+	rdfs:comment "Raw data values that have been collected from a datasource without any normalisation process."@en ;
+.
+
+cex:Imputed a cex:SheetData ;
+	rdfs:label "Imputed data"@en ;
+	rdfs:comment "Data values that have been processed from their raw version to generate an imputed version."@en ;
+.
+
+#----------------------------------------------------
+# Definitions specific to TheWebIndex
+
+
+wi-onto:PrimaryIndicator a owl:Class, rdfs:Class;
+	rdfs:subClassOf cex:Indicator ;
+	rdfs:label "Primary Indicator"@en ;
+	rdfs:comment "Primary indicator is an indicator defined by the Webfoundation."@en;
+.
+
+wi-onto:SecondaryIndicator a owl:Class, rdfs:Class;
+	rdfs:subClassOf cex:Indicator ;
+	rdfs:label "Secondary Indicator"@en ;
+	rdfs:comment "This indicator is established by third parties such as ITU, UN, etc. Its observations are part of a component."@en;
+.
+
+wi-onto:ExternalIndicator a owl:Class, rdfs:Class;
+	rdfs:subClassOf cex:Indicator ;
+	rdfs:label "External Indicator"@en ;
+	rdfs:comment "This indicator is established by third parties such as Worldbank but its observations are not part of a component."@en;
+.
+
+wi-onto:ref-area 
+    a owl:FunctionalProperty ;
+    rdfs:domain wi-onto:Observation ;
+	rdfs:range wi-onto:Area	.
+
+wi-onto:ref-indicator 
+    a owl:FunctionalProperty ;
+    rdfs:domain wi-onto:Observation ;
+	rdfs:range wi-onto:Indicator ;
+	.
+
+wi-onto:ref-year 
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:domain wi-onto:Observation ;
+	rdfs:range xsd:integer ;
 	.
 
 #----------------------------------------------
@@ -71,127 +196,4 @@ wi-onto:ref-dbpedia a owl:ObjectProperty, rdf:Property;
 	rdfs:comment "A mapping property to link an entity with a DBPedia resource"@en;
 	rdfs:range skos:Concept; 
 . 
-
-#------------------------------------------
-# Observations
-
-wi-onto:Observation a owl:Class, rdfs:Class ;
-             rdfs:label "Observation" ;
-             rdfs:comment "An observation" ;
-			 # Observations have only one wi-onto:ref-area
-			 .
-
-wi-onto:ref-area 
-    a owl:FunctionalProperty ;
-    rdfs:domain wi-onto:Observation ;
-	rdfs:range wi-onto:Area	.
-
-wi-onto:ref-indicator 
-    a owl:FunctionalProperty ;
-    rdfs:domain wi-onto:Observation ;
-	rdfs:range wi-onto:Indicator ;
-	.
-
-wi-onto:ref-year 
-    a owl:DatatypeProperty, owl:FunctionalProperty ;
-    rdfs:domain wi-onto:Observation ;
-	rdfs:range xsd:integer ;
-	.
 	
-	
-#------------------------------------------
-# Indicators
-
-wi-onto:Indicator a owl:Class ; a rdfs:Class ;
-    rdfs:label "Indicator" ;
-    rdfs:comment "A given indicator. Several indicators make a Component" ;
-    skos:broader wi-onto:Component .
-
-wi-onto:PrimaryIndicator a owl:Class, rdfs:Class;
-	rdfs:subClassOf wi-onto:Indicator ;
-	rdfs:label "Primary Indicator"@en ;
-	rdfs:comment "Primary indicator is an indicator defined by the Webfoundation."@en;
-.
-
-wi-onto:SecondaryIndicator a owl:Class, rdfs:Class;
-	rdfs:subClassOf wi-onto:Indicator ;
-	rdfs:label "Secondary Indicator"@en ;
-	rdfs:comment "This indicator is established by third parties such as ITU, UN, etc. Its observations are part of a component."@en;
-.
-
-wi-onto:ExternalIndicator a owl:Class, rdfs:Class;
-	rdfs:subClassOf wi-onto:Indicator ;
-	rdfs:label "External Indicator"@en ;
-	rdfs:comment "This indicator is established by third parties such as Worldbank but its observations are not part of a component."@en;
-.
-
-wi-onto:High a skos:Concept; 
-	rdfs:label "High"@en; 
-	rdfs:comment "A high value is preferred than a lower one"@en;
-    rdfs:subClassOf wi-onto:HighLow ;
-. 
-
-wi-onto:Low a skos:Concept; 
-	rdfs:label "Low"@en; 
-	rdfs:comment "A low value is preferred than a higher one"@en;
-    rdfs:subClassOf wi-onto:HighLow ;
-. 
-
-wi-onto:high-low  a owl:ObjectProperty, rdf:Property;
-	rdfs:label "high-low property"@en;
-	rdfs:comment "High/Low is the preferred value?"@en; 
-	rdfs:range skos:Concept; 
-.
-
-wi-onto:unit a owl:ObjectProperty, rdf:Property;
-	rdfs:label "unit of measure property"@en;
-	rdfs:comment "Measure unit"@en; 
-	rdfs:range rdf:Resource; 
-.
-
-wi-onto:has-component  a owl:ObjectProperty, rdf:Property;
-	rdfs:label "has-component"@en;
-	rdfs:comment "Component that provides the indicator"@en;
-	rdfs:range wi-onto:Component ;
-	rdfs:domain wi-onto:Indicator ;
-. 
-
-#-------------------------------------------
-# Components
-
-wi-onto:Component a owl:Class ; a rdfs:Class ;
-           rdfs:label "Component" ;
-           rdfs:comment "An aggregation of several indicators" ;
-           skos:broader wi-onto:SubIndex .
-
-
-#-------------------------------------------
-# Subindex
-		   
-wi-onto:SubIndex a owl:Class ; a rdfs:Class ;
-          rdfs:label "A subindex" ;
-          .
-
-#------------------------------------------
-# Sheet data
-
-wi-onto:SheetData a owl:Class, rdfs:Class;
-	rdfs:subClassOf skos:Concept ;
-	rdfs:label "Sheet data"@en;
-.
-
-wi-onto:Raw a wi-onto:SheetData ;
-	rdfs:label "Raw data"@en ;
-	rdfs:comment "Raw data values that have been collected from a datasource without any normalisation process."@en ;
-.
-
-wi-onto:Imputed a wi-onto:SheetData ;
-	rdfs:label "Imputed data"@en ;
-	rdfs:comment "Data values that have been processed from their raw version to generate an imputed version."@en ;
-.
-
-
-
-
-	
-
