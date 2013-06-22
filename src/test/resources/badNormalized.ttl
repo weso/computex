@@ -1,0 +1,50 @@
+@prefix component: <http://data.webfoundation.org/webindex/v2013/component/> .
+@prefix country: <http://data.webfoundation.org/webindex/v2013/country/> .
+@prefix dataset: <http://data.webfoundation.org/webindex/v2013/dataset/> .
+@prefix indicator: <http://data.webfoundation.org/webindex/v2013/indicator/> .
+@prefix obs: <http://data.webfoundation.org/webindex/v2013/observation/> .
+@prefix organization: <http://data.webfoundation.org/webindex/v2013/organization/> .
+@prefix slice: <http://data.webfoundation.org/webindex/v2013/slice/> .
+
+
+
+@prefix cex: <http://purl.org/weso/ontology/computex#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix qb: <http://purl.org/linked-data/cube#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sdmx-code:  <http://purl.org/linked-data/sdmx/2009/code#> .
+@prefix sdmx-concept: <http://purl.org/linked-data/sdmx/2009/concept#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix time:  <http://www.w3.org/2006/time#> .
+@prefix wi-onto: <http://data.webfoundation.org/webindex/ontology/> .
+@prefix wi-org: <http://data.webfoundation.org/webindex/organization/> .
+@prefix wi-people:  <http://data.webfoundation.org/webindex/people/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+obs:A a qb:Observation ;
+	  cex:value 2 ;
+	  cex:indicator indicator:I .
+
+obs:B a qb:Observation ;
+	  cex:value 4 ;
+	  cex:indicator indicator:I .
+
+obs:C a qb:Observation ;
+	  cex:value 6 ;
+	  cex:indicator indicator:I .
+	  
+obs:N a qb:Observation ;
+	  cex:value 0 ; # should be -1 
+	  cex:computation 
+	    [ a cex:Normalize ;
+		  cex:observation obs:A 
+		] ;
+	  cex:indicator cex:indicator:I .
+	  
+slice:S a qb:Slice ;
+       qb:observation obs:A , obs:B, obs:C .
+	  
+indicator:I cex:highLow cex:High .

@@ -63,7 +63,33 @@ class ComputexSuite extends FunSuite with ShouldMatchers {
    assertMsgError(reportModel, "Observation does not have sheet-type")
   }
 
- def loadExample(name: String) : Model = {
+  test("Error with bad normalized") {
+   val model = loadExample("badNormalized.ttl") 
+   val reportModel = cex.validate(model,validationDir)  
+   assert(reportModel.size > 0)
+   assertMsgError(reportModel, "Normalized value does not match computed z-score")
+  }
+
+  test("Error with bad normalized low") {
+   val model = loadExample("badNormalizedLow.ttl") 
+   val reportModel = cex.validate(model,validationDir)  
+   assert(reportModel.size > 0)
+   assertMsgError(reportModel, "Normalized value does not match computed z-score")
+  }
+
+  test("No error with good normalized") {
+   val model = loadExample("goodNormalizedHigh.ttl") 
+   val reportModel = cex.validate(model,validationDir)  
+   assert(reportModel.size === 0)
+  }
+
+  test("No error with good normalized low") {
+   val model = loadExample("goodNormalizedLow.ttl") 
+   val reportModel = cex.validate(model,validationDir)  
+   assert(reportModel.size === 0)
+  }
+
+  def loadExample(name: String) : Model = {
    val model = ModelFactory.createDefaultModel()
    cex.loadTurtle(model,ontologyURI)
    FileManager.get.readModel(model, testDataDir + name)

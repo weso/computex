@@ -44,24 +44,34 @@ cex:Observation a owl:Class, rdfs:Class ;
 cex:Indicator a owl:Class ; a rdfs:Class ;
     rdfs:label "Indicator" ;
     rdfs:comment "A given indicator. Several indicators make a Component" ;
-    skos:broader wi-onto:Component .
+    skos:broader cex:Component .
 
+cex:indicator 
+    a owl:FunctionalProperty ;
+    rdfs:domain cex:Observation ;
+	rdfs:range cex:Indicator ;
+	.
 
+	
 cex:High a skos:Concept; 
 	rdfs:label "High"@en; 
 	rdfs:comment "A high value is preferred than a lower one"@en;
-    rdfs:subClassOf wi-onto:HighLow ;
+    rdfs:subClassOf cex:HighLow ;
 . 
 
 cex:Low a skos:Concept; 
 	rdfs:label "Low"@en; 
 	rdfs:comment "A low value is preferred than a higher one"@en;
-    rdfs:subClassOf wi-onto:HighLow ;
+    rdfs:subClassOf cex:HighLow ;
 . 
 
-cex:high-low  a owl:ObjectProperty, rdf:Property;
-	rdfs:label "high-low property"@en;
-	rdfs:comment "High/Low is the preferred value?"@en; 
+cex:HighLow a skos:Concept, rdf:Class ; 
+	rdfs:label "High/Low"@en; 
+. 
+
+cex:highLow  a owl:ObjectProperty, rdf:Property;
+	rdfs:label "high/low property"@en;
+	rdfs:comment "Indicates which value if High (Low) values are preferred"@en; 
 	rdfs:range skos:Concept; 
 .
 
@@ -71,11 +81,11 @@ cex:unit a owl:ObjectProperty, rdf:Property;
 	rdfs:range rdf:Resource; 
 .
 
-cex:has-component  a owl:ObjectProperty, rdf:Property;
+cex:component  a owl:ObjectProperty, rdf:Property;
 	rdfs:label "has-component"@en;
 	rdfs:comment "Component that provides the indicator"@en;
-	rdfs:range wi-onto:Component ;
-	rdfs:domain wi-onto:Indicator ;
+	rdfs:range cex:Component ;
+	rdfs:domain cex:Indicator ;
 . 
 
 #-------------------------------------------
@@ -83,17 +93,28 @@ cex:has-component  a owl:ObjectProperty, rdf:Property;
 
 cex:Component a owl:Class ; a rdfs:Class ;
            rdfs:label "Component" ;
-           rdfs:comment "An aggregation of several indicators" ;
-           skos:broader wi-onto:SubIndex .
+           rdfs:label "Component"@en ;
+           rdfs:label "Componente"@es ;
+           rdfs:comment "A component is an aggregation of several indicators" ;
+           skos:broader cex:SubIndex .
 
 
 #-------------------------------------------
 # Subindex
 		   
 cex:SubIndex a owl:Class ; a rdfs:Class ;
-          rdfs:label "A subindex" ;
+          rdfs:label "Subindex";
+          rdfs:label "Subindex"@en ;
+          rdfs:label "Subíndice"@es ;
           .
 
+#------------------------------------------
+# Index
+
+cex:Index a owl:Class; a rdfs:Class;
+          rdfs:label "Index"@en ;
+          rdfs:label "Índice"@es ;
+		  .		  
 #------------------------------------------
 # Sheet data
 
@@ -112,9 +133,9 @@ cex:Imputed a cex:SheetData ;
 	rdfs:comment "Data values that have been processed from their raw version to generate an imputed version."@en ;
 .
 
+
 #----------------------------------------------------
 # Definitions specific to TheWebIndex
-
 
 wi-onto:PrimaryIndicator a owl:Class, rdfs:Class;
 	rdfs:subClassOf cex:Indicator ;
@@ -139,11 +160,6 @@ wi-onto:ref-area
     rdfs:domain wi-onto:Observation ;
 	rdfs:range wi-onto:Area	.
 
-wi-onto:ref-indicator 
-    a owl:FunctionalProperty ;
-    rdfs:domain wi-onto:Observation ;
-	rdfs:range wi-onto:Indicator ;
-	.
 
 wi-onto:ref-year 
     a owl:DatatypeProperty, owl:FunctionalProperty ;

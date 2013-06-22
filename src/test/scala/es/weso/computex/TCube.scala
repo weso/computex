@@ -56,7 +56,7 @@ PREFIX eg:             <http://example.com/abbrv-cube/>
     }
   }
 
-  def pass(name : String, query: Query, model: Model) = 
+  def pass(name : String, query: Query, model: Model) = {
     it("should pass integrity check: " + name) {
      val qe = QueryExecutionFactory.create(query,model)
      try {
@@ -65,8 +65,21 @@ PREFIX eg:             <http://example.com/abbrv-cube/>
        reportModel.size should be(0);
      } finally {
        qe.close();
-     }
-	}
+    }
+   }
+  }
 
+  def notPass(name:String, query: Query, model: Model) = {
+    it("should not pass integrity check: " + name) {
+     val qe = QueryExecutionFactory.create(query,model)
+     try {
+       val reportModel = ModelFactory.createDefaultModel
+       qe.execConstruct(reportModel)
+       reportModel.size should be(0);
+     } finally {
+       qe.close();
+     }
+  }
+ }
 
 }
