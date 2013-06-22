@@ -902,21 +902,21 @@ weightSchema:indicatorWeights a cex:WeightSchema ;
 				    cex:value 0.5 
 				  ] ;
 	   cex:weight [ a cex:Weight ;
-	                cex:element indicator:C ;
-				    cex:value 1.0  
-				  ] ;
-	   cex:weight [ a cex:Weight ;
-	                cex:element indicator:D ;
-				    cex:value 0.5 
-				  ] ;
-	   cex:weight [ a cex:Weight ;
-	                cex:element indicator:Q1 ;
+	                cex:element indicator:Q2 ;
 				    cex:value 1.0 
 				  ] ;
 	   cex:weight [ a cex:Weight ;
-	                cex:element indicator:Q2 ;
+	                cex:element indicator:C ;
+				    cex:value 0.5  
+				  ] ;
+	   cex:weight [ a cex:Weight ;
+	                cex:element indicator:D ;
+				    cex:value 1.0 
+				  ] ;
+	   cex:weight [ a cex:Weight ;
+	                cex:element indicator:Q1 ;
 				    cex:value 0.5 
-				  ]
+				  ] ;
   .				  
 
 weightSchema:componentWeights a cex:WeightSchema ;
@@ -3239,7 +3239,7 @@ obs:CQ2-D a qb:Observation ;
 			  cex:observation obs:CQ2-N ;
 			  cex:increment 8 ;
 			] ;   
-		 cex:value 9.1208 ;
+		 cex:value 7.679743 ;
          cex:md5-checksum "md5 for CQ2" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:created "2013-12-06" ;
@@ -3278,6 +3278,29 @@ obs:CQ1-D a qb:Observation ;
 		 
 #--------------------------
 # Weighted values
+
+obs:CQ2-W a qb:Observation ;
+		  cex:computation 
+		    [ a cex:Weight ;
+			  cex:weightSchema weightSchema:indicatorWeights ;
+			  cex:observation obs:CQ2-D ;
+			] ;   
+		 cex:value 7.67974 ;
+         cex:md5-checksum "md5 for CQ2" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:created "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:Computation ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "Q2 in CHL during 2011"@en ;
+		 sdmx-concept:obsStatus sdmx-code:obsStatus-A ;
+		 wi-onto:ref-area country:CHL ;
+		 cex:indicator indicator:Q2 ;
+		 wi-onto:ref-year 2011 ;
+         wi-onto:sheet-type wi-onto:Computation ;
+		 .
+
 	  
 obs:CQ1-W a qb:Observation ;
 		  cex:computation 
@@ -3301,27 +3324,6 @@ obs:CQ1-W a qb:Observation ;
          wi-onto:sheet-type wi-onto:Computation ;
 		 .
 
-obs:CQ2-W a qb:Observation ;
-		  cex:computation 
-		    [ a cex:Weight ;
-			  cex:weightSchema weightSchema:indicatorWeights ;
-			  cex:observation obs:CQ2-D ;
-			] ;   
-		 cex:value 7.67974 ;
-         cex:md5-checksum "md5 for CQ1" ;
-		 dcterms:contributor wi-org:WESO ;
-		 dcterms:created "2013-12-06" ;
-		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:Computation ;
-		 rdf:type qb:Observation ;
-		 rdf:type wi-onto:Observation ;
-		 rdfs:label "Q2 in CHL during 2011"@en ;
-		 sdmx-concept:obsStatus sdmx-code:obsStatus-A ;
-		 wi-onto:ref-area country:CHL ;
-		 cex:indicator indicator:Q2 ;
-		 wi-onto:ref-year 2011 ;
-         wi-onto:sheet-type wi-onto:Computation ;
-		 .
 
 ## TODO. EAB-Mean, EQ2-Mean, EC-Mean, EDQ1-Mean, FAB-Mean, ...
 
