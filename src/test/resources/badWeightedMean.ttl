@@ -1,0 +1,64 @@
+@prefix component: <http://data.webfoundation.org/webindex/v2013/component/> .
+@prefix country: <http://data.webfoundation.org/webindex/v2013/country/> .
+@prefix dataset: <http://data.webfoundation.org/webindex/v2013/dataset/> .
+@prefix indicator: <http://data.webfoundation.org/webindex/v2013/indicator/> .
+@prefix obs: <http://data.webfoundation.org/webindex/v2013/observation/> .
+@prefix organization: <http://data.webfoundation.org/webindex/v2013/organization/> .
+@prefix slice: <http://data.webfoundation.org/webindex/v2013/slice/> .
+@prefix weightSchema: <http://data.webfoundation.org/webindex/v2013/weightedSchema/> .
+
+@prefix cex: <http://purl.org/weso/ontology/computex#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix qb: <http://purl.org/linked-data/cube#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sdmx-code:  <http://purl.org/linked-data/sdmx/2009/code#> .
+@prefix sdmx-concept: <http://purl.org/linked-data/sdmx/2009/concept#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix time:  <http://www.w3.org/2006/time#> .
+@prefix wi-onto: <http://data.webfoundation.org/webindex/ontology/> .
+@prefix wi-org: <http://data.webfoundation.org/webindex/organization/> .
+@prefix wi-people:  <http://data.webfoundation.org/webindex/people/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+obs:oA a qb:Observation; 
+      cex:value 4 ;
+      cex:element indicator:A .
+	  
+obs:oB a qb:Observation; 
+      cex:value 6 ;
+      cex:element indicator:B .
+	  
+obs:oC a qb:Observation; 
+      cex:value 8 ;
+      cex:element indicator:C .
+	  
+indicator:A a cex:Indicator .
+indicator:B a cex:Indicator .
+indicator:C a cex:Indicator .
+
+weightSchema:ws a cex:WeightSchema ;
+       cex:weight [ a cex:Weight ;
+	                cex:element indicator:A ;
+                    cex:value 0.4  					
+				  ] ;
+	   cex:weight [ a cex:Weight ;
+	                cex:element indicator:B ;
+				    cex:value 0.3 
+				  ] ;
+	   cex:weight [ a cex:Weight ;
+	                cex:element indicator:C ;
+				    cex:value 0.3
+				  ] .
+
+obs:WM a qb:Observation ;
+	   cex:computation 
+		    [ a cex:WeightedMean ;
+			  cex:weightSchema weightSchema:ws ;
+			  cex:observation obs:oA, obs:oB, obs:oC ;
+			] ;   
+	    cex:value 6 ;
+	  .
+

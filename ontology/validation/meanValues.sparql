@@ -1,4 +1,4 @@
-# normalize computations using z-scores
+# check computations obtained by mean of observations
 prefix country:      <http://data.webfoundation.org/webindex/v2013/country/> 
 prefix dataset:      <http://data.webfoundation.org/webindex/v2013/dataset/> 
 prefix indicator:    <http://data.webfoundation.org/webindex/v2013/indicator/> 
@@ -20,23 +20,22 @@ CONSTRUCT {
          cex:errorParam 
 		   [cex:name "obs" ; cex:value ?obs ] ,
 		   [cex:name "existingValue"; cex:value ?existingValue ],
-		   [cex:name "increm"; cex:value ?increm ],
-		   [cex:name "iValue"; cex:value ?iValue ] 
+		   [cex:name "?mean"; cex:value ?mean ] 
 		   ;
-         cex:msg "Incremented value does not match" .
+         cex:msg "Mean value does not match" .
 } WHERE { 
  SELECT * WHERE {
  ?obs a qb:Observation ;
-      cex:computation 
-		    [ a cex:Increment ;
-			  cex:observation ?iObs ;
-			  cex:increment ?increm ;
-			] .   
- ?iObs cex:value ?iValue .
+      cex:computation ?comp .
+ ?comp a cex:Mean .
+ { SELECT (AVG(?value) as ?mean) ?comp WHERE {
+     ?comp cex:observation ?obs1 .
+	 ?obs1 cex:value ?value ;
+   } GROUP BY ?comp
+ } 
  OPTIONAL {
   ?obs cex:value ?existingValue .
  }
- BIND (?increm + ?iValue as ?incrementedValue)
- FILTER( abs(?incrementedValue - ?existingValue) > 0.01)
+ FILTER( abs(?mean - ?existingValue) > 0.01)
  }
 }

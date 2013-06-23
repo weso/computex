@@ -1,9 +1,10 @@
-# normalize computations using z-scores
 prefix country:      <http://data.webfoundation.org/webindex/v2013/country/> 
 prefix dataset:      <http://data.webfoundation.org/webindex/v2013/dataset/> 
 prefix indicator:    <http://data.webfoundation.org/webindex/v2013/indicator/> 
 prefix obs:          <http://data.webfoundation.org/webindex/v2013/observation/> 
 prefix organization: <http://data.webfoundation.org/webindex/v2013/organization> 
+prefix slice:    <http://data.webfoundation.org/webindex/v2013/slice/> 
+prefix ranking:    <http://data.webfoundation.org/webindex/v2013/ranking/> 
 
 prefix afn:			 <http://jena.hpl.hp.com/ARQ/function#>
 prefix cex:          <http://purl.org/weso/ontology/computex#> 
@@ -15,28 +16,28 @@ prefix wi-onto:      <http://data.webfoundation.org/webindex/ontology/>
 prefix xml:          <http://www.w3.org/XML/1998/namespace> 
 prefix xsd:          <http://www.w3.org/2001/XMLSchema#> 
 
-CONSTRUCT {
- _:error a cex:Error ;
-         cex:errorParam 
-		   [cex:name "obs" ; cex:value ?obs ] ,
-		   [cex:name "existingValue"; cex:value ?existingValue ],
-		   [cex:name "increm"; cex:value ?increm ],
-		   [cex:name "iValue"; cex:value ?iValue ] 
-		   ;
-         cex:msg "Incremented value does not match" .
-} WHERE { 
- SELECT * WHERE {
- ?obs a qb:Observation ;
-      cex:computation 
-		    [ a cex:Increment ;
-			  cex:observation ?iObs ;
-			  cex:increment ?increm ;
-			] .   
- ?iObs cex:value ?iValue .
- OPTIONAL {
-  ?obs cex:value ?existingValue .
- }
- BIND (?increm + ?iValue as ?incrementedValue)
- FILTER( abs(?incrementedValue - ?existingValue) > 0.01)
- }
+SELECT * WHERE {
+  ?obs cex:computation 
+		    [ a cex:Rank ;
+			  cex:slice ?slice ;
+			  cex:dimension ?dim ;
+			] ;
+        ?dim ?dimId .
+  { SELECT (GROUP_CONCAT(?dimId;separator="") as ?orderedDims) ?slice ?obs WHERE {
+     ?obs cex:computation ?comp .
+	 ?comp a cex:Rank ;
+	       cex:slice ?slice ;
+		   cex:dimension ?dim .
+
+	 ?slice qb:observation ?rankObs .
+	 ?rankObs cex:value ?value ;
+	      ?dim ?dimId .
+    } 
+	GROUP BY ?slice ?obs
+	ORDER BY DESC(?value)
+  }
+  BIND (str(?dimId) as ?dimName)
+  BIND (strbefore(?orderedDims,?dimName) as ?substr)
+  BIND ((strlen(?substr) / strlen(?dimName)) + 1 as ?rank)
+
 }

@@ -89,6 +89,94 @@ class ComputexSuite extends FunSuite with ShouldMatchers {
    assert(reportModel.size === 0)
   }
 
+  test("Error with bad incremented") {
+   val model = loadExample("badIncremented.ttl") 
+   val reportModel = cex.validate(model,validationDir)  
+   assert(reportModel.size > 0)
+   assertMsgError(reportModel, "Incremented value does not match")
+  }
+
+  test("No error with good incremented") {
+   val model = loadExample("goodIncremented.ttl") 
+   val reportModel = cex.validate(model,validationDir)  
+   assert(reportModel.size === 0)
+  }
+
+  test("Error with bad incremented no value source") {
+   val model = loadExample("badIncrementedNoValueSource.ttl") 
+   val reportModel = cex.validate(model,validationDir)  
+   assert(reportModel.size > 0)
+   assertMsgError(reportModel, "Source observation does not have value in incremented computation")
+  }
+
+  test("Error with bad mean") {
+   val model = loadExample("badMean.ttl") 
+   val reportModel = cex.validate(model,validationDir)  
+   assert(reportModel.size > 0)
+   assertMsgError(reportModel, "Mean value does not match")
+  }
+
+  test("No Error with good mean") {
+   val model = loadExample("goodMean.ttl") 
+   val reportModel = cex.validate(model,validationDir)  
+   assert(reportModel.size === 0)
+  }
+
+  test("Error with bad mean no source") {
+   val model = loadExample("badMeanNoSource.ttl") 
+   val reportModel = cex.validate(model,validationDir)  
+   assert(reportModel.size > 0)
+   assertMsgError(reportModel, "Observation does not have value in mean")
+  }
+
+  test("Error with bad copy") {
+   val model = loadExample("badCopy.ttl") 
+   val reportModel = cex.validate(model,validationDir)  
+   assert(reportModel.size > 0)
+   assertMsgError(reportModel, "Copy value does not match")
+  }
+
+  test("No Error with good copy") {
+   val model = loadExample("goodCopy.ttl") 
+   val reportModel = cex.validate(model,validationDir)  
+   assert(reportModel.size === 0)
+  }
+
+  test("Error with bad copy no source") {
+   val model = loadExample("badCopyNoSource.ttl") 
+   val reportModel = cex.validate(model,validationDir)  
+   assert(reportModel.size > 0)
+   assertMsgError(reportModel, "Observation does not have value in copy")
+  }
+
+  test("Error with bad weighted mean") {
+   val model = loadExample("badWeightedMean.ttl") 
+   val reportModel = cex.validate(model,validationDir)  
+   assert(reportModel.size > 0)
+   assertMsgError(reportModel, "Weighted Mean does not match")
+  }
+
+  test("No Error with good weighted mean") {
+   val model = loadExample("goodWeightedMean.ttl") 
+   val reportModel = cex.validate(model,validationDir)  
+   assert(reportModel.size === 0)
+  }
+  
+  test("Error with bad ranking") {
+   val model = loadExample("badRanking.ttl") 
+   val reportModel = cex.validate(model,validationDir)  
+   assert(reportModel.size > 0)
+   assertMsgError(reportModel, "Ranking value does not match")
+  }
+
+  test("No Error with good ranking") {
+   val model = loadExample("goodRanking.ttl") 
+   val reportModel = cex.validate(model,validationDir)  
+   assert(reportModel.size === 0)
+  }
+  
+  
+  
   def loadExample(name: String) : Model = {
    val model = ModelFactory.createDefaultModel()
    cex.loadTurtle(model,ontologyURI)

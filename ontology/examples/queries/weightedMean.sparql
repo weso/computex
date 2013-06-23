@@ -1,4 +1,4 @@
-# normalize computations using z-scores
+# weighted mean
 prefix country:      <http://data.webfoundation.org/webindex/v2013/country/> 
 prefix dataset:      <http://data.webfoundation.org/webindex/v2013/dataset/> 
 prefix indicator:    <http://data.webfoundation.org/webindex/v2013/indicator/> 
@@ -16,27 +16,29 @@ prefix xml:          <http://www.w3.org/XML/1998/namespace>
 prefix xsd:          <http://www.w3.org/2001/XMLSchema#> 
 
 CONSTRUCT {
- _:error a cex:Error ;
-         cex:errorParam 
-		   [cex:name "obs" ; cex:value ?obs ] ,
-		   [cex:name "existingValue"; cex:value ?existingValue ],
-		   [cex:name "increm"; cex:value ?increm ],
-		   [cex:name "iValue"; cex:value ?iValue ] 
-		   ;
-         cex:msg "Incremented value does not match" .
+ ?obs cex:existingValue ?existingValue ;
+      cex:comp ?comp ;
+	  cex:ws ?weightSchema ;
+	  cex:shouldBe ?wMean ;
+	  .
 } WHERE { 
  SELECT * WHERE {
  ?obs a qb:Observation ;
-      cex:computation 
-		    [ a cex:Increment ;
-			  cex:observation ?iObs ;
-			  cex:increment ?increm ;
-			] .   
- ?iObs cex:value ?iValue .
- OPTIONAL {
-  ?obs cex:value ?existingValue .
+      cex:computation ?comp .
+ ?comp a cex:WeightedMean ;
+       cex:weightSchema ?weightSchema .
+ { 
+  SELECT (SUM(?product) as ?wMean) ?comp WHERE {
+     ?comp cex:observation ?obs ;
+	       cex:weightSchema ?weightSchema .
+	 ?obs cex:value ?value .
+	 ?obs cex:element ?element .
+	 ?weightSchema cex:weight [ cex:element ?element ;
+                                cex:value ?weight  					
+				              ] .
+	 BIND (?value * ?weight as ?product)
+   } GROUP BY ?comp 
  }
- BIND (?increm + ?iValue as ?incrementedValue)
- FILTER( abs(?incrementedValue - ?existingValue) > 0.01)
+ ?obs cex:value ?existingValue .
  }
 }

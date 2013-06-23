@@ -141,12 +141,12 @@ cex:Computation a owl:Class, rdfs:Class ;
 	.
 
 cex:Normalize a owl:Class, rdfs:Class ;
-    rdfs:label "Normalize an observation"@en ;
+    rdfs:label "Normalize an observation (z-score)"@en ;
     rdfs:subClassOf cex:Computation ;
 	.
 
 cex:Mean a owl:Class, rdfs:Class ;
-    rdfs:label "Impute a value as the mean of other observations"@en ;
+    rdfs:label "Mean of other observations"@en ;
     rdfs:subClassOf cex:Computation ;
 	.
 
@@ -172,6 +172,16 @@ cex:Raw a owl:Class, rdfs:Class ;
 
 cex:Increment a owl:Class, rdfs:Class ;
     rdfs:label "Increment a value by a fixed quantity"@en ;
+    rdfs:subClassOf cex:Computation ;
+	.
+
+cex:WeightedMean a owl:Class, rdfs:Class ;
+    rdfs:label "Weighted mean using a weightSchema"@en ;
+    rdfs:subClassOf cex:Computation ;
+	.
+
+cex:Ranking a owl:Class, rdfs:Class ;
+    rdfs:label "Ranking of a slice"@en ;
     rdfs:subClassOf cex:Computation ;
 	.
 	

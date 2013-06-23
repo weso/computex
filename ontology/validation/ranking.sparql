@@ -1,0 +1,61 @@
+prefix country:      <http://data.webfoundation.org/webindex/v2013/country/> 
+prefix dataset:      <http://data.webfoundation.org/webindex/v2013/dataset/> 
+prefix indicator:    <http://data.webfoundation.org/webindex/v2013/indicator/> 
+prefix obs:          <http://data.webfoundation.org/webindex/v2013/observation/> 
+prefix organization: <http://data.webfoundation.org/webindex/v2013/organization> 
+prefix slice:    <http://data.webfoundation.org/webindex/v2013/slice/> 
+prefix ranking:    <http://data.webfoundation.org/webindex/v2013/ranking/> 
+
+prefix afn:			 <http://jena.hpl.hp.com/ARQ/function#>
+prefix cex:          <http://purl.org/weso/ontology/computex#> 
+prefix owl:          <http://www.w3.org/2002/07/owl#> 
+prefix qb:           <http://purl.org/linked-data/cube#>
+prefix rdf:          <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+prefix rdfs:         <http://www.w3.org/2000/01/rdf-schema#> 
+prefix wi-onto:      <http://data.webfoundation.org/webindex/ontology/> 
+prefix xml:          <http://www.w3.org/XML/1998/namespace> 
+prefix xsd:          <http://www.w3.org/2001/XMLSchema#> 
+
+CONSTRUCT {
+ _:error a cex:Error ;
+         cex:errorParam 
+		   [cex:name "obs" ; cex:value ?obs ] ,
+		   [cex:name "existingRank"; cex:value ?existingRank ],
+		   [cex:name "rank"; cex:value ?rank ] ,
+		   [cex:name "dim"; cex:value ?dim ] ,
+		   [cex:name "dimId"; cex:value ?dimId ]
+		   ;
+         cex:msg "Ranking value does not match" .
+} WHERE { 
+  ?obs cex:computation 
+		    [ a cex:Rank ;
+			  cex:slice ?slice ;
+			  cex:dimension ?dim ;
+			] ;
+        ?dim ?dimId ;
+		cex:value ?existingRank .
+  { SELECT 
+        (GROUP_CONCAT(?dimId;separator="") as ?orderedDims) 
+        (GROUP_CONCAT(?value;separator=" - ") as ?orderedValues) 
+        ?slice 
+		?obs WHERE {
+	      {	SELECT * WHERE {
+		  ?obs cex:computation ?comp .
+		  ?comp a cex:Rank ;
+	            cex:slice ?slice ;
+		        cex:dimension ?dim .
+
+		  ?slice qb:observation ?rankObs .
+		  ?rankObs cex:value ?value ;
+	      ?dim ?dimId .
+	      } ORDER BY DESC(?value)
+	     }
+       } 
+	GROUP BY ?slice ?obs
+  }
+  BIND (str(?dimId) as ?dimName)
+  BIND (strbefore(?orderedDims,?dimName) as ?substr)
+  BIND ((strlen(?substr) / strlen(?dimName)) + 1 as ?rank)
+  FILTER (abs(?rank - ?existingRank) > 0.0001)
+}
+
