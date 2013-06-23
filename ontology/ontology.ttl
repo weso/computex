@@ -123,15 +123,34 @@ cex:SheetData a owl:Class, rdfs:Class;
 	rdfs:label "Sheet data"@en;
 .
 
-cex:Raw a cex:SheetData ;
+#-----------------------------------------
+# Observation status
+
+cex:Raw a cex:ObsStatus ;
 	rdfs:label "Raw data"@en ;
 	rdfs:comment "Raw data values that have been collected from a datasource without any normalisation process."@en ;
 .
 
-cex:Imputed a cex:SheetData ;
+cex:Imputed a cex:ObsStatus ;
 	rdfs:label "Imputed data"@en ;
-	rdfs:comment "Data values that have been processed from their raw version to generate an imputed version."@en ;
+	rdfs:comment "Data values that have been imputed from their raw version"@en ;
 .
+
+cex:Normalized a cex:ObsStatus ;
+	rdfs:label "Normalized data"@en ;
+	rdfs:comment "Data values that have been normalized. Usually by z-scores"@en ;
+.
+
+cex:Computed a cex:ObsStatus ;
+	rdfs:label "Computed data"@en ;
+	rdfs:comment "Data values that have been computed by some algorithm."@en ;
+.
+
+cex:Ranked a cex:ObsStatus ;
+	rdfs:label "Ranked data"@en ;
+	rdfs:comment "Data values that have been obtained by ranking their position."@en ;
+.
+
 
 #----------------------------------------------------
 # Computations
@@ -150,8 +169,18 @@ cex:Mean a owl:Class, rdfs:Class ;
     rdfs:subClassOf cex:Computation ;
 	.
 
-cex:AverageGrowth a owl:Class, rdfs:Class ;
-    rdfs:label "Impute a value as the average growth"@en ;
+cex:AverageGrowth2 a owl:Class, rdfs:Class ;
+    rdfs:label "Impute a value as the average growth of 2 values"@en ;
+    rdfs:subClassOf cex:Computation ;
+	.
+	
+cex:AverageGrowth3 a owl:Class, rdfs:Class ;
+    rdfs:label "Impute a value as the average growth of 3 values"@en ;
+    rdfs:subClassOf cex:Computation ;
+	.
+
+cex:AverageGrowth4 a owl:Class, rdfs:Class ;
+    rdfs:label "Impute a value as the average growth of 4 values"@en ;
     rdfs:subClassOf cex:Computation ;
 	.
 	
@@ -185,6 +214,11 @@ cex:Ranking a owl:Class, rdfs:Class ;
     rdfs:subClassOf cex:Computation ;
 	.
 	
+cex:ImputedSlice a owl:Class, rdfs:Class ;
+    rdfs:label "Impute values from a Slice"@en ;
+    rdfs:subClassOf cex:Computation ;
+	.
+
 #----------------------------------------------------
 # Definitions specific to TheWebIndex
 

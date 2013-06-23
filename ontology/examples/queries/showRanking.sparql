@@ -3,8 +3,8 @@ prefix dataset:      <http://data.webfoundation.org/webindex/v2013/dataset/>
 prefix indicator:    <http://data.webfoundation.org/webindex/v2013/indicator/> 
 prefix obs:          <http://data.webfoundation.org/webindex/v2013/observation/> 
 prefix organization: <http://data.webfoundation.org/webindex/v2013/organization> 
-prefix slice:    <http://data.webfoundation.org/webindex/v2013/slice/> 
-prefix ranking:    <http://data.webfoundation.org/webindex/v2013/ranking/> 
+prefix slice:        <http://data.webfoundation.org/webindex/v2013/slice/> 
+prefix ranking:      <http://data.webfoundation.org/webindex/v2013/ranking/> 
 
 prefix afn:			 <http://jena.hpl.hp.com/ARQ/function#>
 prefix cex:          <http://purl.org/weso/ontology/computex#> 

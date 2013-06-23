@@ -1,4 +1,4 @@
-# compute z-scores
+# compute copy-Raw
 prefix country:      <http://data.webfoundation.org/webindex/v2013/country/> 
 prefix dataset:      <http://data.webfoundation.org/webindex/v2013/dataset/> 
 prefix indicator:    <http://data.webfoundation.org/webindex/v2013/indicator/> 
@@ -16,40 +16,21 @@ prefix xml:          <http://www.w3.org/XML/1998/namespace>
 prefix xsd:          <http://www.w3.org/2001/XMLSchema#> 
 
 CONSTRUCT {
+ _:obs cex:value ?value ;
+       cex:indicator ?indicator ;
+	   wi-onto:ref-year ?year .
+	   sdmx-concept:obsStatus sdmx-code:obsStatus-I .
+ ?sliceToCopy qb:observation _:obs .
+} WHERE {
+ ?slice a qb:Slice ;
+        cex:indicator ?indicator ;
+	    cex:computation [ a cex:ImputeSlice ;
+	                      cex:method cex:CopyRaw; 
+						  cex:slice ?sliceToCopy ;
+					    ] ;
+        wi-onto:ref-year ?year .
+ ?sliceToCopy qb:observation ?obs .
  ?obs cex:value ?value ;
-      cex:mean ?mean ;
-	  cex:sd ?sd ;
-	  cex:zScore ?zScore .
-} WHERE { 
- SELECT ?obs ?zScore WHERE {
- ?obs a qb:Observation .
- ?obs cex:value ?value .
- ?slice a qb:Slice .
- ?slice qb:observation ?obs .
- { SELECT ?slice (AVG(?value) as ?mean) WHERE {
-    ?slice a              qb:Slice ;
-           qb:observation ?obs .
-           ?obs cex:value ?value .
-   } GROUP BY ?slice 
- } 
-
- { SELECT ?slice (afn:sqrt(?sumSquares / ?lengthMinusOne) as ?sd) WHERE { 
-     { SELECT ?slice 
-       (SUM((?value - ?mean) * (?value - ?mean)) as ?sumSquares) 
-	   (COUNT(?obs) - 1 as ?lengthMinusOne) 
-       WHERE {
-	    ?slice qb:observation ?obs .
-        ?obs cex:value ?value .
-		{ SELECT ?slice (AVG(?value) as ?mean) WHERE {
-		    ?slice qb:observation ?obs .
-			?obs cex:value ?value .
-		  } 
-		  GROUP BY ?slice
-		}
-     } GROUP BY ?slice
-    }
-   } 
-  }
-  BIND ((?value - ?mean) / ?sd as ?zScore)
- }
+      sdmx-concept:obsStatus sdmx-code:obsStatus-A .
+		 
 }
