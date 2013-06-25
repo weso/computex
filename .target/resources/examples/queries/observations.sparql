@@ -1,0 +1,23 @@
+prefix country: <http://data.webfoundation.org/webindex/v2013/country/> 
+prefix dataset: <http://data.webfoundation.org/webindex/v2013/dataset/> 
+prefix indicator: <http://data.webfoundation.org/webindex/v2013/indicator/> 
+prefix obs: <http://data.webfoundation.org/webindex/v2013/observation/> 
+prefix organization: <http://data.webfoundation.org/webindex/v2013/organization> 
+
+prefix cex: <http://purl.org/weso/ontology/computex#> 
+prefix owl: <http://www.w3.org/2002/07/owl#> 
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+prefix xml: <http://www.w3.org/XML/1998/namespace> 
+prefix xsd: <http://www.w3.org/2001/XMLSchema#> 
+prefix wi-onto: <http://data.webfoundation.org/webindex/ontology/> 
+
+SELECT ?value ?country ?indicator ?year ?label WHERE {
+ ?x a wi-onto:Observation .
+ ?x wi-onto:value ?value .
+ ?x wi-onto:ref-area ?country .
+ ?x wi-onto:ref-indicator ?indicator .
+ ?x wi-onto:ref-year ?year .
+ ?x rdfs:label ?label .
+}
+ORDER BY ?year

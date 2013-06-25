@@ -1,0 +1,22 @@
+PREFIX rdf:            <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos:           <http://www.w3.org/2004/02/skos/core#>
+PREFIX qb:             <http://purl.org/linked-data/cube#>
+PREFIX xsd:            <http://www.w3.org/2001/XMLSchema#>
+PREFIX owl:            <http://www.w3.org/2002/07/owl#>
+PREFIX eg:             <http://example.com/abbrv-cube/>
+prefix cex: 		   <http://purl.org/weso/ontology/computex#> 
+
+# Every DataSet has a unique associated DataStructureDefinition 
+
+CONSTRUCT {
+ _:error a cex:Error .
+ _:error cex:errorParam 
+	[cex:name "dataset"; cex:value ?dataset ] .
+ _:error cex:msg "Every DataSet has a unique associated DataStructureDefinition" .
+} WHERE {
+    # Check dataset has a dsd
+    ?dataset a qb:DataSet .
+    FILTER NOT EXISTS { ?dataset qb:structure ?dsd . }
+}
+

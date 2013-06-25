@@ -1,0 +1,300 @@
+@prefix cex: <http://purl.org/weso/ontology/computex#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix qb: <http://purl.org/linked-data/cube#> .
+@prefix lg:  <http://linkedgeodata.org/ontology/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sdmx-concept: <http://purl.org/linked-data/sdmx/2009/concept#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+@prefix wi-onto: <http://data.webfoundation.org/webindex/ontology/> .
+@prefix wi-org: <http://data.webfoundation.org/webindex/organization/> .
+@prefix wi-people:  <http://data.webfoundation.org/webindex/people/> .
+
+<http://purl.org/weso/ontology/computex>
+    a owl:Ontology;
+    owl:versionInfo "0.2";
+    rdfs:label "Computational Index ontology"@en;
+    rdfs:comment "Vocabulary for describing index structures and observations."@en;
+    dcterms:created "2012-06-07"^^xsd:date;
+    dcterms:modified "2013-06-07"^^xsd:date;
+    dcterms:title "Core Computational Index ontology"@en;
+    dcterms:author wi-people:Labra , wi-people:Chema, wi-org:WESO ;
+    dcterms:publisher  wi-org:WebFoundation;
+    dcterms:contributor  wi-people:Hania, wi-people:Jules ;
+	dcterms:license <http://www.opendatacommons.org/licenses/pddl/1.0/> ;
+	.
+
+
+#------------------------------------------
+# Observations
+
+cex:Observation a owl:Class, rdfs:Class ;
+             rdfs:label "Observation" ;
+             rdfs:comment "An observation" ;
+			 .
+
+	
+	
+#------------------------------------------
+# Indicators
+
+cex:Indicator a owl:Class ; a rdfs:Class ;
+    rdfs:label "Indicator" ;
+    rdfs:comment "A given indicator. Several indicators make a Component" ;
+    skos:broader cex:Component .
+
+cex:indicator 
+    a owl:FunctionalProperty ;
+    rdfs:domain cex:Observation ;
+	rdfs:range cex:Indicator ;
+	.
+
+	
+cex:High a skos:Concept; 
+	rdfs:label "High"@en; 
+	rdfs:comment "A high value is preferred than a lower one"@en;
+    rdfs:subClassOf cex:HighLow ;
+. 
+
+cex:Low a skos:Concept; 
+	rdfs:label "Low"@en; 
+	rdfs:comment "A low value is preferred than a higher one"@en;
+    rdfs:subClassOf cex:HighLow ;
+. 
+
+cex:HighLow a skos:Concept, rdfs:Class ; 
+	rdfs:label "High/Low"@en; 
+. 
+
+cex:highLow  a owl:ObjectProperty, rdf:Property;
+	rdfs:label "high/low property"@en;
+	rdfs:comment "Indicates which value if High (Low) values are preferred"@en; 
+	rdfs:range skos:Concept; 
+.
+
+cex:unit a owl:ObjectProperty, rdf:Property;
+	rdfs:label "unit of measure property"@en;
+	rdfs:comment "Measure unit"@en; 
+	rdfs:range rdf:Resource; 
+.
+
+cex:component  a owl:ObjectProperty, rdf:Property;
+	rdfs:label "has-component"@en;
+	rdfs:comment "Component that provides the indicator"@en;
+	rdfs:range cex:Component ;
+	rdfs:domain cex:Indicator ;
+. 
+
+#-------------------------------------------
+# Components
+
+cex:Component a owl:Class ; a rdfs:Class ;
+           rdfs:label "Component" ;
+           rdfs:label "Component"@en ;
+           rdfs:label "Componente"@es ;
+           rdfs:comment "A component is an aggregation of several indicators" ;
+           skos:broader cex:SubIndex .
+
+
+#-------------------------------------------
+# Subindex
+		   
+cex:SubIndex a owl:Class ; a rdfs:Class ;
+          rdfs:label "Subindex";
+          rdfs:label "Subindex"@en ;
+          rdfs:label "Subíndice"@es ;
+          .
+
+#------------------------------------------
+# Index
+
+cex:Index a owl:Class; a rdfs:Class;
+          rdfs:label "Index"@en ;
+          rdfs:label "Índice"@es ;
+		  .		  
+#------------------------------------------
+# Sheet data
+
+cex:SheetData a owl:Class, rdfs:Class;
+	rdfs:subClassOf skos:Concept ;
+	rdfs:label "Sheet data"@en;
+.
+
+#-----------------------------------------
+# Observation status
+
+cex:Raw a cex:ObsStatus ;
+	rdfs:label "Raw data"@en ;
+	rdfs:comment "Raw data values that have been collected from a datasource without any normalisation process."@en ;
+.
+
+cex:Imputed a cex:ObsStatus ;
+	rdfs:label "Imputed data"@en ;
+	rdfs:comment "Data values that have been imputed from their raw version"@en ;
+.
+
+cex:Normalized a cex:ObsStatus ;
+	rdfs:label "Normalized data"@en ;
+	rdfs:comment "Data values that have been normalized. Usually by z-scores"@en ;
+.
+
+cex:Computed a cex:ObsStatus ;
+	rdfs:label "Computed data"@en ;
+	rdfs:comment "Data values that have been computed by some algorithm."@en ;
+.
+
+cex:Ranked a cex:ObsStatus ;
+	rdfs:label "Ranked data"@en ;
+	rdfs:comment "Data values that have been obtained by ranking their position."@en ;
+.
+
+
+#----------------------------------------------------
+# Computations
+
+cex:Computation a owl:Class, rdfs:Class ;
+    rdfs:label "Computation"@en ;
+	.
+
+cex:Normalize a owl:Class, rdfs:Class ;
+    rdfs:label "Normalize an observation (z-score)"@en ;
+    rdfs:subClassOf cex:Computation ;
+	.
+
+cex:Mean a owl:Class, rdfs:Class ;
+    rdfs:label "Mean of other observations"@en ;
+    rdfs:subClassOf cex:Computation ;
+	.
+
+cex:AverageGrowth2 a owl:Class, rdfs:Class ;
+    rdfs:label "Impute a value as the average growth of 2 values"@en ;
+    rdfs:subClassOf cex:Computation ;
+	.
+	
+cex:AverageGrowth3 a owl:Class, rdfs:Class ;
+    rdfs:label "Impute a value as the average growth of 3 values"@en ;
+    rdfs:subClassOf cex:Computation ;
+	.
+
+cex:AverageGrowth4 a owl:Class, rdfs:Class ;
+    rdfs:label "Impute a value as the average growth of 4 values"@en ;
+    rdfs:subClassOf cex:Computation ;
+	.
+	
+cex:Weight a owl:Class, rdfs:Class ;
+    rdfs:label "Obtain from an observation and a weightSchema"@en ;
+    rdfs:subClassOf cex:Computation ;
+    .	
+	
+cex:Copy a owl:Class, rdfs:Class ;
+    rdfs:label "Value copied from other observation"@en ;
+    rdfs:subClassOf cex:Computation ;
+	.
+
+cex:Raw a owl:Class, rdfs:Class ;
+    rdfs:label "Raw value, not computed"@en ;
+    rdfs:subClassOf cex:Computation ;
+	.
+
+cex:Increment a owl:Class, rdfs:Class ;
+    rdfs:label "Increment a value by a fixed quantity"@en ;
+    rdfs:subClassOf cex:Computation ;
+	.
+
+cex:WeightedMean a owl:Class, rdfs:Class ;
+    rdfs:label "Weighted mean using a weightSchema"@en ;
+    rdfs:subClassOf cex:Computation ;
+	.
+
+cex:Ranking a owl:Class, rdfs:Class ;
+    rdfs:label "Ranking of a slice"@en ;
+    rdfs:subClassOf cex:Computation ;
+	.
+	
+cex:ImputedSlice a owl:Class, rdfs:Class ;
+    rdfs:label "Impute values from a Slice"@en ;
+    rdfs:subClassOf cex:Computation ;
+	.
+
+#----------------------------------------------------
+# Definitions specific to TheWebIndex
+
+wi-onto:PrimaryIndicator a owl:Class, rdfs:Class;
+	rdfs:subClassOf cex:Indicator ;
+	rdfs:label "Primary Indicator"@en ;
+	rdfs:comment "Primary indicator is an indicator defined by the Webfoundation."@en;
+.
+
+wi-onto:SecondaryIndicator a owl:Class, rdfs:Class;
+	rdfs:subClassOf cex:Indicator ;
+	rdfs:label "Secondary Indicator"@en ;
+	rdfs:comment "This indicator is established by third parties such as ITU, UN, etc. Its observations are part of a component."@en;
+.
+
+wi-onto:ExternalIndicator a owl:Class, rdfs:Class;
+	rdfs:subClassOf cex:Indicator ;
+	rdfs:label "External Indicator"@en ;
+	rdfs:comment "This indicator is established by third parties such as Worldbank but its observations are not part of a component."@en;
+.
+
+wi-onto:ref-area 
+    a owl:FunctionalProperty ;
+    rdfs:domain wi-onto:Observation ;
+	rdfs:range wi-onto:Area	.
+
+
+wi-onto:ref-year 
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:domain wi-onto:Observation ;
+	rdfs:range xsd:integer ;
+	.
+
+#----------------------------------------------
+# Region and Country definitions
+
+wi-onto:Area a skos:Concept;
+    rdfs:label "Area"@en ;
+	rdfs:isDefinedBy <http://purl.org/weso/ontology/webindex> ;
+	skos:narrower wi-onto:Region ;
+	skos:narrower wi-onto:Country ;
+	.
+
+wi-onto:Region a skos:Concept, lg:Place;
+	rdfs:label "Region concept"@en; 
+	rdfs:comment "A region represents a set of countries."@en;
+	skos:narrower wi-onto:Country;
+.
+
+wi-onto:Country a skos:Concept, lg:Country;
+	skos:broader wi-onto:Region;
+	rdfs:label "Country concept"@en; 
+	rdfs:subClassOf wi-onto:Area ;
+.
+
+wi-onto:has-iso-alpha2-code a owl:DatatypeProperty, rdf:Property; 
+	rdfs:label "ISO-code-alpha 2 digit"@en; 
+	rdfs:comment "This property creates a link between a country and its ISO code (2 digit)"@en;
+	rdfs:subPropertyOf dcterms:identifier; 
+. 
+
+wi-onto:has-iso-alpha3-code a owl:DatatypeProperty, rdf:Property; 
+	rdfs:label "ISO-code-alpha 3 property"@en; 
+	rdfs:comment "This property creates a link between a country and its ISO code (3 digit)"@en;
+	rdfs:subPropertyOf dcterms:identifier; 
+. 
+
+wi-onto:has-country a owl:ObjectProperty, rdf:Property; 
+	rdfs:label "has Country property"@en; 
+	rdfs:comment "Creates a link between a region and a country."@en;
+	rdfs:range skos:Concept; 
+. 
+
+wi-onto:ref-dbpedia a owl:ObjectProperty, rdf:Property; 
+	rdfs:label "link to DBPedia resource"@en; 
+	rdfs:comment "A mapping property to link an entity with a DBPedia resource"@en;
+	rdfs:range skos:Concept; 
+. 
+	
