@@ -11,6 +11,11 @@ bin
 tmp
 .history
 dist
+*.bbl
+*.blg
+*.aux
+*.log
+*.out
 
 # Package Files #
 *.jar

@@ -1,0 +1,118 @@
+\documentclass{article}
+\usepackage{times}
+\usepackage{natbib}
+\usepackage{amsmath}
+\usepackage{dcolumn}
+\usepackage{graphicx}
+\usepackage{xspace}
+\usepackage{color}
+\usepackage{listings}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+%\usepackage{tabularx}
+\usepackage{array}
+%\usepackage{tabulary}%can use align in tables with line breaks
+\usepackage{multirow}
+\usepackage{rotating,makecell}
+\usepackage{booktabs} %adds new commands toprule midrule and bottomrule for professionally looking tables
+\usepackage[breaklinks=true, bookmarksopen=true,bookmarksnumbered=true]{hyperref}
+
+% listing styles
+\lstset{
+    numberbychapter=false,
+    numbers=none,
+%    numberstyle=\tiny,
+    basicstyle=\ttfamily\fontsize{8}{8},
+%		basicstyle=\ttfamily\fontsize{8}{8}\armenianfont,
+%    tabsize=2,
+%    framexleftmargin=2pt,
+    captionpos=b,
+    frame=single,
+    breaklines=true,
+    breakatwhitespace,
+    columns=fullflexible,
+    showstringspaces=false,
+    commentstyle=\color{gray}
+}
+
+
+\lstdefinestyle{rdf}{numberblanklines=true, morekeywords={}}
+\lstdefinestyle{sparql}{numberblanklines=true, 
+    morekeywords={SELECT, FROM, WHERE, FILTER, GROUP BY, IN, AS, LIMIT,
+    OFFSET,PREFIX,OPTIONAL,UNION,foaf,rdf,skos,rdfs,ex,xsd,owl,skosxl,doap,void,dbo}}
+
+\lstdefinestyle{N3}{numberblanklines=true, morekeywords={foaf, prefix, rdf,
+    skos, skosxl, rdfs, ex, xsd, wr, wt, dc, lemon, doap, doap,void, dbo, owl,
+    @prefix}}
+    
+\lstdefinestyle{Turtle}{numberblanklines=true, morekeywords={foaf, prefix, rdf,
+    skos, skosxl, rdfs, ex, xsd, wr, wt, dc, lemon, doap, doap,void, dbo, owl,
+    @prefix}}
+
+
+%\usepackage{textcomp}
+\lstdefinestyle{XML}
+{
+  morestring=[b]",
+  morestring=[s]{>}{<},
+  morecomment=[s]{<?}{?>},
+  stringstyle=\color{black},
+  identifierstyle=\color{darkblue},
+  keywordstyle=\color{cyan},
+  morekeywords={xmlns,version,type}% list your attributes here
+}
+
+\sloppy
+
+%%%%%%%%%%% Put your definitions here
+
+
+%%%%%%%%%%% End of definitions
+
+\newcommand{\TODO}[1]{{\color{red}{\textbf{TODO: {#1}}\xspace}}}
+\newcommand{\todo}[1]{{\TODO{{#1}}}}
+
+\newcommand{\CONSIDER}[1]{{\color{blue}{\textbf{CONSIDER: {#1}}\xspace}}}
+   
+\newcommand{\desc}{\noindent\emph{Description:}}
+
+\newtheoremstyle{mystyle}                % Name
+  {}                                     % Space above
+  {}                                     % Space below
+  {}                                     % Body font
+  {}                                     % Indent amount
+  {\bfseries}                            % Theorem head font
+  {.}                                    % Punctuation after theorem head
+  { }                                    % Space after theorem head, ' ', or \newline
+  {}                                     % Theorem head spec (can be left empty, meaning `normal')
+
+\theoremstyle{mystyle}
+
+
+\newtheorem*{defn}{Definition}
+
+\newtheorem{exmp}{Example} 
+%\newenvironment{exmp}
+%{}
+%{}
+
+
+\newtheorem*{descrip}{Description}
+\newtheorem*{context}{Context}
+\newtheorem*{discussion}{Discussion}
+\newtheorem*{related}{See also}
+
+\newcommand{\footnoteUrl}[1]{\footnote{\url{#1}}}
+
+\newcolumntype{d}[1]{D{.}{.}{#1}}
+
+\begin{document}
+
+\input{title}
+\input{intro}
+\input{computex}
+\input{conclusions}
+
+\bibliographystyle{abbrv}
+\bibliography{computex}
+
+\end{document}
