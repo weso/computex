@@ -1,0 +1,15 @@
+prefix : <http://example.org#> 
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?r { 
+ ?list :values ?ls .
+ ?ls rdf:first ?x1 .
+ ?ls rdf:rest/rdf:first ?x2 .
+ ?ls rdf:rest/rdf:rest/rdf:first ?x3 .
+ ?ls rdf:rest/rdf:rest/rdf:rest/rdf:first ?x4 .
+ ?x1 :value ?v1 .
+ ?x2 :value ?v2 .
+ ?x3 :value ?v3 .
+ ?x4 :value ?v4 .
+ BIND ( ((?v4 - ?v3) + (?v3 - ?v2) + (?v2 - ?v1)) / 3 as ?r)
+}
