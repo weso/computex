@@ -16,26 +16,24 @@ prefix xml:          <http://www.w3.org/XML/1998/namespace>
 prefix xsd:          <http://www.w3.org/2001/XMLSchema#> 
 
 CONSTRUCT {
- _:error a cex:Error ;
-         cex:errorParam 
-		   [cex:name "obs" ; cex:value ?obs ] ,
-		   [cex:name "existingValue"; cex:value ?existingValue ],
-		   [cex:name "?mean"; cex:value ?mean ] 
-		   ;
-         cex:msg "Mean value does not match" .
+ [ a cex:Error ;
+   cex:errorParam 
+	[cex:name "obs" ; cex:value ?obs ] ,
+	[cex:name "existingValue"; cex:value ?existingValue ],
+	[cex:name "?mean"; cex:value ?mean ] ;
+  cex:msg "Mean value does not match" ] .
 } WHERE { 
  SELECT * WHERE {
- ?obs a qb:Observation ;
-      cex:computation ?comp .
- ?comp a cex:Mean .
- { SELECT (AVG(?value) as ?mean) ?comp WHERE {
+  ?obs a qb:Observation ;
+       cex:computation ?comp .
+  ?comp a cex:Mean .
+  { SELECT (AVG(?value) as ?mean) ?comp WHERE {
      ?comp cex:observation ?obs1 .
 	 ?obs1 cex:value ?value ;
-   } GROUP BY ?comp
+  } GROUP BY ?comp
  } 
- OPTIONAL {
-  ?obs cex:value ?existingValue .
- }
+ ?obs cex:value ?existingValue .
  FILTER( abs(?mean - ?existingValue) > 0.01)
  }
 }
+

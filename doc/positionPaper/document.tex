@@ -20,11 +20,6 @@
 \lstset{
     numberbychapter=false,
     numbers=none,
-%    numberstyle=\tiny,
-    basicstyle=\ttfamily\fontsize{8}{8},
-%		basicstyle=\ttfamily\fontsize{8}{8}\armenianfont,
-%    tabsize=2,
-%    framexleftmargin=2pt,
     captionpos=b,
     frame=single,
     breaklines=true,
@@ -36,13 +31,15 @@
 
 
 \lstdefinestyle{rdf}{numberblanklines=true, morekeywords={}}
-\lstdefinestyle{sparql}{numberblanklines=true, 
-    morekeywords={SELECT, FROM, WHERE, FILTER, GROUP BY, IN, AS, LIMIT,
-    OFFSET,PREFIX,OPTIONAL,UNION,foaf,rdf,skos,rdfs,ex,xsd,owl,skosxl,doap,void,dbo}}
+\lstdefinestyle{SPARQL}{numberblanklines=true, 
+    morekeywords={SELECT, CONSTRUCT, FROM, WHERE, FILTER, GROUP BY, IN, AS,
+    LIMIT,OFFSET,PREFIX,OPTIONAL,UNION,NOT,EXISTS,AVG,
+    foaf,rdf,skos,rdfs,ex,xsd,owl,skosxl,doap,void,dbo,earl,cex,qb}}
 
-\lstdefinestyle{N3}{numberblanklines=true, morekeywords={foaf, prefix, rdf,
-    skos, skosxl, rdfs, ex, xsd, wr, wt, dc, lemon, doap, doap,void, dbo, owl,
-    @prefix}}
+\lstdefinestyle{N3}{numberblanklines=true, 
+    morekeywords={foaf, prefix, rdf,
+    qb,cex,skos, skosxl, rdfs, ex, xsd, wr, wt, dc, lemon, doap, doap,void, dbo,
+    owl, @prefix}}
     
 \lstdefinestyle{Turtle}{numberblanklines=true, morekeywords={foaf, prefix, rdf,
     skos, skosxl, rdfs, ex, xsd, wr, wt, dc, lemon, doap, doap,void, dbo, owl,

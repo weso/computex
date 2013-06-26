@@ -9,10 +9,12 @@ PREFIX eg:             <http://example.com/abbrv-cube/>
 prefix cex: 		   <http://purl.org/weso/ontology/computex#> 
 
 CONSTRUCT {
- _:error a cex:Error .
- _:error cex:errorParam 
-	[cex:name "dim"; cex:value ?dim ] .
- _:error cex:msg "Every Dimension must have a declared range" .
+ [ a cex:Error ;
+   cex:errorParam 
+	[cex:name "dim"; cex:value ?dim ] ;
+   cex:msg 
+    "Every Dimension must have a declared range" 
+ ]
 }
 WHERE {
   ?dim a qb:DimensionProperty .
