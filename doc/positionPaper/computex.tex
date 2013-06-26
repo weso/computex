@@ -82,23 +82,20 @@ The validation approach was inspired by the integrity constraint specification
  
 \begin{lstlisting}[style=SPARQL]
 CONSTRUCT {
- [ a cex:Error ;
-   cex:errorParam 
-	[cex:name "dim"; cex:value ?dim ] ;
-   cex:msg 
-    "Every Dimension must have a declared range" . ]
+ [ a cex:Error ; cex:errorParam [cex:name "dim"; cex:value ?dim ] ;
+   cex:msg "Every Dimension must have a declared range" . ]
 } WHERE {
   ?dim a qb:DimensionProperty .
   FILTER NOT EXISTS { ?dim rdfs:range [] }
 }
 \end{lstlisting}
  
- In order to make our error messages compatible with EARL~\cite{EARL}, we have
+In order to make our error messages compatible with EARL~\cite{EARL}, we have
  defined \lstinline|cex:Error| as a subclass of \lstinline|earl:TestResult| and 
  declared it to have the value \lstinline|earl:failed| for the property
  \lstinline|earl:outcome|.
  
- We have also created our own set of SPARQL Construct queries to validate the
+We have also created our own set of SPARQL Construct queries to validate the
  \emph{Computex} vocabulary terms, specially the computation of index data.
 
 For example, the following query validates that every observation 
@@ -106,11 +103,7 @@ For example, the following query validates that every observation
  
 \begin{lstlisting}[style=SPARQL]
 CONSTRUCT {
- [ a cex:Error ;
-     cex:errorParam 
-	  [cex:name "obs" ; cex:value ?obs ] ,
-	  [cex:name "value1"; cex:value ?value1 ],
-	  [cex:name "value2"; cex:value ?value2 ] ;
+ [ a cex:Error ; cex:errorParam  # ... omitted 
     cex:msg "Observation has two different values" . ]
 } WHERE {
  ?obs a qb:Observation .
@@ -126,12 +119,8 @@ mean of other observations.
 
 \begin{lstlisting}[style=SPARQL]
 CONSTRUCT {
- [ a cex:Error ;
-   cex:errorParam 
-  [cex:name "obs" ; cex:value ?obs ] ,
-  [cex:name "val"; cex:value ?val ],
-  [cex:name "?mean"; cex:value ?mean ] ;
-  cex:msg "Mean value does not match" ] .
+ [ a cex:Error ; cex:errorParam # ...omitted 
+   cex:msg "Mean value does not match" ] .
 } WHERE {  
   ?obs a qb:Observation ;
        cex:computation ?comp ;
@@ -144,8 +133,6 @@ CONSTRUCT {
  FILTER( abs(?mean - ?val) > 0.0001)
 }
 \end{lstlisting}
-
-Show some queries.
 
 \section{Expressivity limits of SPARQL queries}
 
@@ -163,19 +150,45 @@ where $\bar{x}$ is the mean and $\sigma=\sqrt{\frac{\sum_{i=1}^{N}(\bar{x}-x_i)^
 1}}$ is the standard deviation. To validate that computation using SPARQL
 queries, it is necessary to employ the \lstinline|sqrt| function. 
 This function is not available in SPARQL 1.1 although some implementations 
- like Apache Jena ARQ provide it.
+ like Jena
+ ARQ\footnoteUrl{http://jena.apache.org/documentation/query/library-function.html} 
+ provide it.
 
 \item In order to validate the ranking of an observation (in which position it
 appears in a Slice), we used the \lstinline|GROUP_CONCAT| SPARQL 1.1
-function to group the ordered list of observations. However, when one
-wants to search the observation to rank in that list, SPARQL 
+function to group the ordered list of observations. However, SPARQL 
  does not offer a function to calculate the position of a substring in a
  string\footnote{This function is called \lstinline|strpos|
- in PHP or \lstinline|indexOf| in Java}, so we had to divide the length of the
- substring before the concept's name by the length of the concept's
+ in PHP or \lstinline|indexOf| in Java}, so in order to search the concept to
+ rank, we had to divide the length of the substring before 
+ the concept's name by the length of the concept's
  name. This solution only works when all the concept's name have the same
  length.
 
-\item average growth
+\item Given a list of values $x_1,x_2\ldots{}x_n$ the expected value
+$x_{n+1}$ can be extrapolated using the forward average growth formula: 
+$x_n\times{\frac{\frac{x_{n}}{x_{n-1}}+\ldots{}+\frac{x_{2}}{x_1}}{n-1}}$. 
+
+If we represent the list of observations as an RDF collection, we were unable to
+define a SPARQL query that can express that formula for any length $n$.
+Instead, we were able to express that formula for a fixed length using SPARQL
+1.1 property path expressions. 
+
+\begin{lstlisting}[style=SPARQL]
+CONSTRUCT {
+ [ a cex:Error ; cex:errorParam # ...omitted
+   cex:msg "Average growth value does not match" ] .
+} WHERE { 
+  ?obs cex:computation [ a cex:AverageGrowth3 ;
+	                     cex:observations ?ls ;] ;
+   cex:value ?val .
+ ?ls rdf:first ?x1 .
+ ?ls rdf:rest/rdf:first ?x2 .
+ ?ls rdf:rest/rdf:rest/rdf:first ?x3 .
+ ?x1 cex:value ?v1 . ?x2 cex:value ?v2 . ?x3 cex:value ?v3 .
+ BIND ((?v1 * ((?v1 / ?v2) + (?v2 / ?v3)) / 2) as ?avgGrowth)
+ FILTER (abs(?avgGrowth - ?val) > 0.001)
+}
+\end{lstlisting}
 
 \end{itemize}

@@ -1,7 +1,7 @@
 \section{Introduction}
 
 Publishing statistical data is a promising domain where linked data approaches
-con offer a numer of advantages. 
+con offer a number of advantages. 
 
 \TODO{a paragraph about linked data and RDF}
 
@@ -12,6 +12,24 @@ new expressivity levels.
 
 
 \TODO{Talk about index data in general}
+
+The Web Index project (\url{http://thewebindex.org}) of 2012
+offered a data portal\footnoteUrl{http://data.webfoundation.org} whose data
+was obtained by transforming the raw data and the computation values from Excel 
+sheets to RDF\cite{Alvarez13}. 
+In the new version of that data portal, we are planning to automate the
+validation and even the computation of the index data from the raw data. 
+
 \TODO{Talk a little bit about the web index project, link to our publication}
 
 \TODO{Add an overview of our approach\ldots}
+
+We are currently implementing the new version of the Web Index data portal using
+this approach. At this moment, we have a running example and a validator
+implemented in Scala. 
+The source code and the example are available at
+\url{https://github.com/weso/computex}.
+
+Along the paper we will use Turtle and SPARQL notation and assume that the
+namespaces have been declared using the most common prefixes found in
+\url{http://prefix.cc}.
