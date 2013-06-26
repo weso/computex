@@ -6,30 +6,28 @@ import com.hp.hpl.jena.rdf.model.ModelFactory
 import com.hp.hpl.jena.query._
 import com.hp.hpl.jena.query.Query._
 import com.hp.hpl.jena.ontology.OntModelSpec._
+import com.hp.hpl.jena.rdf.model.ModelExtract
+import com.hp.hpl.jena.rdf.model.StatementBoundaryBase
 import org.slf4j._
 import com.hp.hpl.jena.rdf.model._
 import org.rogach.scallop._
 import com.typesafe.config._
+import es.weso.computex.entities.ErrorMessage
+import es.weso.utils.JenaUtils
+import es.weso.utils.JenaUtils.TURTLE
+import com.hp.hpl.jena.Jena
+import jena.turtle
 
 class Computex {
+  
   def computex(indexDataURI: String,
     ontologyURI: String,
-    validationDir: String) = {
-    try {
-      println("Computex: Compute and Validate index data")
+    validationDir: String): Model = {
+    println("Computex: Compute and Validate index data")
 
-      val model = loadData(ontologyURI, indexDataURI)
+    val model = loadData(ontologyURI, indexDataURI)
 
-      val validationModel = validate(model, validationDir)
-      if (validationModel.size == 0) {
-        println("No errors")
-      } else {
-        println("Validation Model: ")
-        validationModel.write(System.out, "TURTLE")
-      }
-    } catch {
-      case ex: Exception => println("Exception: " + ex)
-    }
+    validate(model, validationDir)
   }
 
   def loadData(ontologyURI: String,
@@ -53,7 +51,7 @@ class Computex {
   def readQueries(dirName: String): Array[Query] = {
     val dir = new File(dirName)
     if (dir == null || dir.listFiles == null)
-      throw new IOException("Directory: " + dirName + " not accessible")
+      throw new IOException(s"Directory: ${dirName} not accessible")
     else {
       for (file <- dir.listFiles if file.getName endsWith ".sparql") yield {
         val contents = scala.io.Source.fromFile(file).mkString;
@@ -63,7 +61,8 @@ class Computex {
   }
 
   def loadTurtle(model: Model, fileName: String) = {
-    model.read(fileName, "", "TURTLE")
+
+    model.read(fileName, "", TURTLE)
   }
 
   def executeQuery(model: Model, query: Query): Model = {

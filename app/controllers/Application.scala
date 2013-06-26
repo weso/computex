@@ -3,7 +3,9 @@ package controllers
 import play.api._
 import play.api.mvc._
 import com.typesafe.config._
+import es.weso.computex.Parser
 import es.weso.computex.Computex
+import es.weso.utils.JenaUtils.TURTLE
 
 object Application extends Controller {
 
@@ -16,9 +18,16 @@ object Application extends Controller {
     val validationDir = conf.getString("validationDir")
     val ontologyURI = conf.getString("ontologyURI")
     val indexDataURI = "file:example.ttl"//conf.getString("indexDataURI")
-    Ok(views.html.index("Your new application is ready."))
+    
     val cex = new Computex
-    cex.computex(indexDataURI, ontologyURI, validationDir)
+    
+    val model = cex.computex(indexDataURI, ontologyURI, validationDir)
+    
+    for(i<-Parser.parseErrors(model)){
+      println(i.message)
+      i.model.write(System.out,TURTLE)
+    }
+    
     Ok(views.html.index("Your new application is ready."))
   }
 
