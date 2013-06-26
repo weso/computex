@@ -165,8 +165,16 @@ queries, it is necessary to employ the \lstinline|sqrt| function.
 This function is not available in SPARQL 1.1 although some implementations 
  like Apache Jena ARQ provide it.
 
-\item 
-ranking need better XPath functions
+\item In order to validate the ranking of an observation (in which position it
+appears in a Slice), we used the \lstinline|GROUP_CONCAT| SPARQL 1.1
+function to group the ordered list of observations. However, when one
+wants to search the observation to rank in that list, SPARQL 
+ does not offer a function to calculate the position of a substring in a
+ string\footnote{This function is called \lstinline|strpos|
+ in PHP or \lstinline|indexOf| in Java}, so we had to divide the length of the
+ substring before the concept's name by the length of the concept's
+ name. This solution only works when all the concept's name have the same
+ length.
 
 \item average growth
 
