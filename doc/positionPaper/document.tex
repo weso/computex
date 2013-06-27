@@ -14,32 +14,44 @@
 \usepackage{multirow}
 \usepackage{rotating,makecell}
 \usepackage{booktabs} %adds new commands toprule midrule and bottomrule for professionally looking tables
+
 \usepackage[breaklinks=true, bookmarksopen=true,bookmarksnumbered=true]{hyperref}
+
+\definecolor{Brown}{cmyk}{0,0.81,1,0.60}
+\definecolor{OliveGreen}{cmyk}{0.64,0,0.95,0.40}
+\definecolor{CadetBlue}{cmyk}{0.62,0.57,0.23,0}
+\definecolor{lightlightgray}{gray}{0.9}
 
 % listing styles
 \lstset{
     numberbychapter=false,
+    basicstyle=\ttfamily\footnotesize,
     numbers=none,
     captionpos=b,
     frame=single,
     breaklines=true,
     breakatwhitespace,
     columns=fullflexible,
-    showstringspaces=false,
-    commentstyle=\color{gray}
+    commentstyle=\itshape\color{OliveGreen},
+    keywordstyle=\bfseries\color{CadetBlue}
 }
 
 
-\lstdefinestyle{rdf}{numberblanklines=true, morekeywords={}}
-\lstdefinestyle{SPARQL}{numberblanklines=true, 
-    morekeywords={SELECT, CONSTRUCT, FROM, WHERE, FILTER, GROUP BY, IN, AS,
+\lstdefinestyle{SPARQL}{
+  backgroundcolor=\color{lightlightgray}, % Choose background color
+  morecomment=[l]{\#},
+  morekeywords={SELECT, CONSTRUCT, FROM, WHERE, FILTER, GROUP BY, IN, AS,
     LIMIT,OFFSET,PREFIX,OPTIONAL,UNION,NOT,EXISTS,AVG,BIND,
-    foaf,rdf,skos,rdfs,ex,xsd,owl,skosxl,doap,void,dbo,earl,cex,qb}}
+    foaf,rdf,skos,rdfs,ex,xsd,owl,skosxl,doap,void,dbo,earl,cex,qb}
+ }
 
-\lstdefinestyle{N3}{numberblanklines=true, 
-    morekeywords={foaf, prefix, rdf,
-    qb,cex,skos, skosxl, rdfs, ex, xsd, wr, wt, dc, lemon, doap, doap,void, dbo,
-    owl, @prefix}}
+\lstdefinestyle{Turtle}{
+  backgroundcolor=\color{lightlightgray}, % Choose background color
+  morecomment=[l]{\#},
+  morekeywords={@PREFIX,BASE,a,foaf, @prefix, rdf,
+    qb,cex,skos, skosxl, rdf:first, rdf:next, rdf:type, rdfs, ex, xsd, wr, wt,
+    dc, lemon, doap, doap,void,dbo, owl}
+ }
     
 \lstdefinestyle{Turtle}{numberblanklines=true, morekeywords={foaf, prefix, rdf,
     skos, skosxl, rdfs, ex, xsd, wr, wt, dc, lemon, doap, doap,void, dbo, owl,

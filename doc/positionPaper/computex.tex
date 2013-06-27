@@ -1,64 +1,101 @@
 \section{Example data and Index computation process}
 
-\TODO{A small screen capture}
+Our data model consists of a list of observations which can be raw observations
+obtained from an external source or computed observations derived from other
+observations. An example observation could be declared as:
+
+\begin{lstlisting}[style=SPARQL]
+obs:obsM23 a qb:Observation ;
+ cex:computation [ a cex:Z-Score ; 
+      cex:observation obs:obsA23 ; cex:slice slice:sliceA09 ; ] ;
+ cex:value 0.56 ;
+ cex:md5-checksum "2917835203..." ;
+ cex:indicator indicator:A ;
+ cex:concept country:ESP ;
+ qb:dataSet dataset:A-Normalized ;
+ # ... other declarations omitted for brevity
+\end{lstlisting}
+
+Where we declare that the \lstinline|obs:obsM23| is an observation
+ whose value is \lstinline|0.56| that has been obtained as the Z-Score
+ of the observation \lstinline|obs:A23| using the slice
+ \lstinline|slice:sliceA09|. The observations refers to indicator
+ \lstinline|indicator:A|, to the concept \lstinline|country:ESP| and to the
+ dataset \lstinline|dataset:A-Normalized|.
+ 
+For each observation, we also add a value for 
+\lstinline|cex:md5-checksum| which is a obtained as a combination of the 
+different values of the observation and allows a user to verify the
+values declared by that observation.
+
 
 \section{Data Model and Computex Ontology}
 
-\TODO{Talk about the Computex ontology of statistical computations}
-
 \subsection{Computex Ontology}
-The \emph{Computex}\footnoteUrl{http://purl.org/weso/computex} vocabulary 
-defines terms related to the computation of statistical index data. 
-It is an specialization of the RDF Data Cube vocabulary~\cite{Cube} and is 
- compatible with it.
-
-List of terms:
+The \emph{Computex} vocabulary is available
+at~\url{http://purl.org/weso/computex}. It defines terms related to the
+computation of statistical index data and is an specialization of
+the RDF Data Cube vocabulary. The main list of terms employed in the vocabulary
+are:
 
 \begin{itemize}
-\item\textbf{Indicator}
+\item\textbf{Concept}. The concept that we are indexing. In the case of the Web
+Index project, the concepts are the different countries. In other domains, it
+could be Universities, journals, services, etc.
 
-\item\textbf{Concept}
+\item\textbf{Indicator}. A dimension that can add information to the Index
+computation. Indicators can be simple dimensions, for example: the mobile phone
+suscriptions per 100 population, or can be aggregated values from other
+indicators. 
 
-\item\textbf{Observation}. An observation. 
- It contains at least values for the properties:
-   \lstinline|cex:value|, 
+\item\textbf{Observation}. This term is compatible with the
+RDF Data Cube \lstinline|qb:Observation|. It contains values for the
+properties: \lstinline|cex:value|, 
    \lstinline|cex:indicator| and 
-   \lstinline|cex:concept|
+   \lstinline|cex:concept|, etc. The value of the observation can be a Raw value
+   obtained from an external source or a computed value obtained from other
+   observations.
 
-\item\textbf{Computation} we have declared the main computation types that we
+\item\textbf{Computation}. We have declared the main computation types that we
 have needed for the WebIndex project, which have been summarized in
 table~\ref{table:computations}. That list of computation types is not exhaustive
 and can be further extended in the future. 
 
-\item\textbf{WeightSchema} a weight schema for a list of indicators.
+\item\textbf{WeightSchema} a weight schema for a list of indicators. It consists
+of a weight associated for each indicator which can be used to compute an
+aggregated observation.
 
 \end{itemize}
 
-\begin{table*}[htb]
+\begin{table*}[tb]
 \caption{Some types of statistical computations}
 \label{table:computations}
 \begin{center}
-\begin{tabular}{ p{0.2\textwidth} p{0.5\textwidth} p{0.3\textwidth}}
+\begin{tabular}{ p{0.2\textwidth} p{0.4\textwidth} p{0.4\textwidth}}
 \toprule
 Computation & Description & Properties \\
 \hline
-Mean	    & Mean of a set of observations 
-			& \lstinline|cex:observation| \\
-Increment	& Increment an observation by a given amount 
-			& \lstinline|cex:observation| \lstinline|amount|  \\
 Raw			& No computation. Raw value obtained from external source.
 			&  \\
+Mean	    & Mean of a set of observations 
+			& \lstinline|cex:observation| \newline 
+			  \lstinline|cex:slice| \\
+Increment	& Increment an observation by a given amount 
+			& \lstinline|cex:observation| \newline 
+			  \lstinline|cex:amount|  \\
 Copy		& A copy of another observation 
 			& \lstinline|cex:observation| \\
 Z-score		& A normalization of an observation using the values from a Slice. 
-			& \lstinline|cex:observation| \lstinline|cex:slice| \\
+			& \lstinline|cex:observation| \newline 
+			  \lstinline|cex:slice| \\
 Ranking		& Position in the ranking of a slice of observations. 
-			& \lstinline|cex:observation| \lstinline|cex:slice| \\
+			& \lstinline|cex:observation| \newline 
+			  \lstinline|cex:slice| \\
 AverageGrowth(N)	& Expected average growth of N observations
 			& \lstinline|cex:observations| a collection of observations \\
 WeightedMean & Weighted mean of an observation
-			& \lstinline|cex:observation| 
-			  \lstinline|cex:slice|
+			& \lstinline|cex:observation| \newline
+			  \lstinline|cex:slice|       \newline
 			  \lstinline|cex:weightSchema| \\
 \bottomrule\\
 \end{tabular}
@@ -84,8 +121,7 @@ The validation approach was inspired by the integrity constraint specification
 CONSTRUCT {
  [ a cex:Error ; cex:errorParam [cex:name "dim"; cex:value ?dim ] ;
    cex:msg "Every Dimension must have a declared range" . ]
-} WHERE {
-  ?dim a qb:DimensionProperty .
+} WHERE { ?dim a qb:DimensionProperty .
   FILTER NOT EXISTS { ?dim rdfs:range [] }
 }
 \end{lstlisting}
@@ -97,7 +133,6 @@ In order to make our error messages compatible with EARL~\cite{EARL}, we have
  
 We have also created our own set of SPARQL Construct queries to validate the
  \emph{Computex} vocabulary terms, specially the computation of index data.
-
 For example, the following query validates that every observation 
   has at most one value.
  
@@ -105,26 +140,24 @@ For example, the following query validates that every observation
 CONSTRUCT {
  [ a cex:Error ; cex:errorParam  # ... omitted 
     cex:msg "Observation has two different values" . ]
-} WHERE {
- ?obs a qb:Observation .
- ?obs cex:value ?value1 .
- ?obs cex:value ?value2 .
+} WHERE { ?obs a qb:Observation . 
+ ?obs cex:value ?value1 . ?obs cex:value ?value2 .
  FILTER ( ?value1 != ?value2  )
 }
 \end{lstlisting}
 
-Using this approach, we have been able to develop more expressive validations.
+Using this approach, it is possible to define more expressive validations.
 For example, we were able to validate that an observation was obtained as the
 mean of other observations. 
 
 \begin{lstlisting}[style=SPARQL]
 CONSTRUCT {
  [ a cex:Error ; cex:errorParam # ...omitted 
-   cex:msg "Mean value does not match" ] .
-} WHERE {  
-  ?obs a qb:Observation ;
-       cex:computation ?comp ;
-       cex:value ?val .
+   cex:msg "Mean value does not match" ] . 
+} WHERE { 
+    ?obs a qb:Observation ;
+         cex:computation ?comp ;
+         cex:value ?val .
   ?comp a cex:Mean .
   { SELECT (AVG(?value) as ?mean) ?comp WHERE {
      ?comp cex:observation ?obs1 .

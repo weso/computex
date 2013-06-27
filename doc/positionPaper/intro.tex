@@ -1,35 +1,39 @@
 \section{Introduction}
 
-Publishing statistical data is a promising domain where linked data approaches
-con offer a number of advantages. 
+The creation and use of quantitative indexes is a widely 
+accepted practice that has been applied to numerous domains like 
+Bibliometrics (Impact factor), 
+research and academic performance (H-Index, Shanghai
+rankings), cloud computing (Global Cloud Index, by CISCO), etc. 
+We consider that those indexes and rankings could benefit from a 
+ Linked Data approach were the rankings could be seen, tracked and 
+ verified by their users.
 
-\TODO{a paragraph about linked data and RDF}
-
-The SPARQL~\cite{SPARQL10} query language has been a successful technology to
-increase the adoption RDF. 
-The current SPARQL 1.1~\cite{SPARQL11} has added
-new expressivity levels. 
-
-
-\TODO{Talk about index data in general}
-
-The Web Index project (\url{http://thewebindex.org}) of 2012
-offered a data portal\footnoteUrl{http://data.webfoundation.org} whose data
-was obtained by transforming the raw data and the computation values from Excel 
-sheets to RDF\cite{Alvarez13}. 
-In the new version of that data portal, we are planning to automate the
+We participated in the Web Index project
+(\url{http://thewebindex.org}), which created an index to measure 
+ the Web impact in different countries.
+The 2012 version offered a data
+portal\footnoteUrl{http://data.webfoundation.org} whose data was obtained 
+by transforming the raw data and the computation values 
+from Excel sheets to RDF\cite{Alvarez13}. 
+In the 2013 version of that data portal, we are planning to automate the
 validation and even the computation of the index data from the raw data. 
 
-\TODO{Talk a little bit about the web index project, link to our publication}
+We have defined a generic vocabulary 
+of computational index structures which could be applied to compute and validate any other kind of
+index and can be seen as an specialization of the RDF Data Cube
+vocabulary~\cite{Cube}.
+The validation process employs SPARQL~\cite{SPARQL11} queries to model the 
+ different integrity constraints and computation steps in a declarative way.
 
-\TODO{Add an overview of our approach\ldots}
+ At this moment, we have a running example and a validator which 
+ reads and executes the SPARQL queries. 
+ Source code and some examples are available
+ at~\url{https://github.com/weso/computex}. 
+ Although our prototype validator has been implemented in Scala, 
+ our approach is independent of any programming language 
+ as far as it can load and execute SPARQL 1.1 queries.
 
-We are currently implementing the new version of the Web Index data portal using
-this approach. At this moment, we have a running example and a validator
-implemented in Scala. 
-The source code and the example are available at
-\url{https://github.com/weso/computex}.
-
-Along the paper we will use Turtle and SPARQL notation and assume that the
+ Along the paper we will use Turtle and SPARQL notation and assume that the
 namespaces have been declared using the most common prefixes found in
 \url{http://prefix.cc}.
