@@ -1,6 +1,0 @@
-# Every Dimension must have a declared range
-
-ASK {
-  ?dim a qb:DimensionProperty .
-  FILTER NOT EXISTS { ?dim rdfs:range [] }
-}

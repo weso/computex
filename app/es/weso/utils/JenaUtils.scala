@@ -6,12 +6,12 @@ import com.hp.hpl.jena.rdf.model.Resource
 
 object JenaUtils {
 
-  val TURTLE = "TURTLE"
   val RDF_XML = "RDF/XML"
-  val N_TRIPLES = "N-Triples"
-  val RDF_JSON = "RDF/JSON"
-  val TRIG = "TRIG"
-  val N_QUADS = "N-Quads"
+  val RDF_XML_ABBR = "RDF/XML-ABBREV"
+  val N_TRIPLE = "N-TRIPLE"
+  val TURTLE = "TURTLE"
+  val TTL = "TTL"
+  val N3 = "N3"
 
   def extractModel(resource: Resource, model: Model): Model = {
     val nModel = ModelFactory.createDefaultModel()

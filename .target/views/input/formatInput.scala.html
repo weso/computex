@@ -1,0 +1,6 @@
+@(form:Form[DirectInput], eMessages: List[(es.weso.computex.entities.ErrorMessage, String)])(implicit flash:Flash)
+
+@main("Direct Input") {
+  @input.defaultInput(form)
+  @generic.format(eMessages)
+}

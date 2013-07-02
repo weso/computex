@@ -4,7 +4,9 @@
 
 # Home page
 GET     /                           controllers.Application.index
-GET     /computex                   controllers.Application.computex
+GET     /uri               			controllers.Application.byUri(uri:Option[String])
+GET 	/direct               		controllers.Application.byDirectInputGet
+POST    /direct               		controllers.Application.byDirectInputPost
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

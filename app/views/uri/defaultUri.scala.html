@@ -1,0 +1,27 @@
+@(message: es.weso.computex.entities.CMessage)(implicit flash:Flash)
+
+@import es.weso.computex.entities.CMessage
+@import es.weso.computex.entities.CMessage._
+@import helper._
+@import Option._
+
+<div id="frontforms">
+	<ul id="tabset_tabs">
+		<li class="selected"><a href="/uri"><span>Validate by</span> URI</a></li>
+		<li><a href="/direct"><span>Validate by</span> Direct Input</a></li>
+	</ul>
+	<div>
+		@helper.form(action = routes.Application.byUri(None)) {
+	      	<p class="instructions">
+				<label title="Address of page to Validate" for="uri">Address:</label>
+				<input type="text" name="uri" id="uri" size="45" value="@message.content"></input>
+			</p>
+			<p class="submit_button">
+				<input type="submit" title="Submit for validation" value="Check" ></input>
+			</p>
+		}
+	</div>
+</div>
+<div id="results_container">
+	<p class="backtop"><a href="#frontforms">↑ Top</a></p>
+</div>

@@ -1,0 +1,57 @@
+div#banner{
+	border-radius: 5px;
+}
+
+h1#title img {
+	margin: 0.4em;
+	height: 70px;
+	width: 80px
+}
+
+#frontforms{
+	maring: 0 !important;
+	padding:0 !important;
+}
+
+#frontforms{
+	margin: 2em;
+}
+
+#frontforms label{
+	background: transparent;
+}
+
+.instructions{
+	padding-left: 4em;
+	padding-right: 4em;
+	border-radius: 0 5px 0 0;
+}
+
+.instructions input#uri{
+	margin: 0 auto;
+	width: 100%;
+	max-width: none;
+	max-height: none;
+	background: #ffffff;
+}
+
+ .instructions textarea{
+	margin: 0 auto;
+	width: 100%;
+	max-width: none;
+	max-height: none;
+	background: #ffffff;
+}
+
+p.submit_button {
+	padding: 0;
+	border-radius: 0 0 5px 5px;
+}
+
+.submit_button input{
+	border-radius: 15px;
+	background: white !imporant;
+	border: 2px solid;
+	margin-bottom: 1em;
+	margin-top: 1em;
+}

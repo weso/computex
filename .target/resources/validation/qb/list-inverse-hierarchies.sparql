@@ -1,6 +1,0 @@
-SELECT ?p WHERE {
-    ?hierarchy a qb:HierarchicalCodeList;
-        qb:parentChildProperty ?pcp .
-    FILTER( isBlank(?pcp) )
-    ?pcp  owl:inverseOf ?p .
-}

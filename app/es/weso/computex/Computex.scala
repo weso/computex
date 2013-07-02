@@ -17,24 +17,27 @@ import es.weso.utils.JenaUtils
 import es.weso.utils.JenaUtils.TURTLE
 import com.hp.hpl.jena.Jena
 import jena.turtle
+import scala.io.Source
+import play.api.libs.ws.WS
+import java.net.URL
 
-class Computex {
-  
-  def computex(indexDataURI: String,
+case class Computex(){
+
+  def computex(indexDataInputStream: InputStream,
     ontologyURI: String,
     validationDir: String): Model = {
     println("Computex: Compute and Validate index data")
 
-    val model = loadData(ontologyURI, indexDataURI)
+    val model = loadData(ontologyURI, indexDataInputStream)
 
     validate(model, validationDir)
   }
 
   def loadData(ontologyURI: String,
-    indexDataURI: String): Model = {
+    indexDataInputStream: InputStream): Model = {
     val model = ModelFactory.createDefaultModel
-    loadTurtle(model, ontologyURI)
-    loadTurtle(model, indexDataURI)
+    loadTurtle(model, Computex.loadFile(ontologyURI))
+    loadTurtle(model, indexDataInputStream)
   }
 
   def validate(model: Model,
@@ -60,9 +63,8 @@ class Computex {
     }
   }
 
-  def loadTurtle(model: Model, fileName: String) = {
-
-    model.read(fileName, "", TURTLE)
+  def loadTurtle(model: Model, inputStream: InputStream) = {
+    model.read(inputStream, "", TURTLE)
   }
 
   def executeQuery(model: Model, query: Query): Model = {
@@ -70,5 +72,15 @@ class Computex {
     val qexec = QueryExecutionFactory.create(query, model)
     qexec.execConstruct(resultModel)
     resultModel
+  }
+}
+
+object Computex {
+  def loadFile(fileName: String): InputStream = {
+    val url = new URL(fileName)
+    val urlCon = url.openConnection()
+    urlCon.setConnectTimeout(2000)
+    urlCon.setReadTimeout(1000)
+    urlCon.getInputStream()
   }
 }

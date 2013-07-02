@@ -8,7 +8,7 @@ import com.hp.hpl.jena.rdf.model.Property
 
 object Parser {
 
-  def parseErrors(model: Model) = {
+  def parseErrors(model: Model) : List[ErrorMessage] = {
     val computexError: Property = model.getProperty("http://purl.org/weso/ontology/computex#Error")
     val computexMsg: Property = model.getProperty("http://purl.org/weso/ontology/computex#msg")
     val iterator = model.listStatements(null, null, computexError)
@@ -30,6 +30,6 @@ object Parser {
       errors += ErrorMessage(msg, subModel)
 
     }
-    errors
+    errors.toList
   }
 }

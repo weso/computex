@@ -1,6 +1,0 @@
-# Every Slice must have a value for every dimension in its sliceStructure
-
-ASK {
-  ?slice qb:sliceStructure [qb:componentProperty ?dim] .
-  FILTER NOT EXISTS { ?slice ?dim [] }
-}
