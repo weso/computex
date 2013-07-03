@@ -21,6 +21,7 @@ class CubeSuite extends FunSpec with ShouldMatchers {
   val cubeDataDir = conf.getString("cubeDataDir")
   val ontologyURI  = conf.getString("ontologyURI")
   val indexDataURI_ok = conf.getString("indexDataURI_ok")
+  val demoCubeUri = conf.getString("demoCubeURI")
   
   
   val cex = new Computex
@@ -35,8 +36,28 @@ PREFIX xsd:            <http://www.w3.org/2001/XMLSchema#>
 PREFIX owl:            <http://www.w3.org/2002/07/owl#>
 PREFIX eg:             <http://example.com/abbrv-cube/>
 """
+
+  describe("The Cube example") {
+    describe("should pass all the RDF Data Cube integrity tests") {
+      val model_ok = cex.loadData(demoCubeURI)
+
+      val dir = new File(cubeDataDir)
+      if (dir == null || dir.listFiles == null) 
+        throw new IOException("Directory: " + cubeDataDir + " not accessible")
+      else {
+        for (file <- dir.listFiles ;
+           if file.getName startsWith "integrity" ;
+           if file.getName endsWith ".sparql") {
+        val name = file.getName.dropRight(7) // remove ".sparql" = 7 chars 
+        val contents = PREFIXES + scala.io.Source.fromFile(file).mkString ;
+        val query = QueryFactory.create(contents) 
+        pass(name,query,model_ok)
+        }
+      }
+    }
+  }
     
-  describe("The example") {
+  describe("The Computex example") {
     describe("should pass all the RDF Data Cube integrity tests") {
       val model_ok = cex.loadData(ontologyURI,indexDataURI_ok)
 

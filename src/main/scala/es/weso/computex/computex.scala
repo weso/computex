@@ -37,6 +37,11 @@ class Computex {
     }
   }    
 
+ def loadData(dataURI: String) : Model = {
+  val model = ModelFactory.createDefaultModel
+  loadTurtle(model,dataURI)
+ }
+
  def loadData(ontologyURI: String, 
               indexDataURI: String) : Model = {
   val model = ModelFactory.createDefaultModel
