@@ -6,12 +6,17 @@ import com.hp.hpl.jena.rdf.model.ModelFactory
 import com.hp.hpl.jena.query._
 import com.hp.hpl.jena.query.Query._
 import com.hp.hpl.jena.ontology.OntModelSpec._
+import com.hp.hpl.jena.update.GraphStore;
+import com.hp.hpl.jena.update.GraphStoreFactory;
+import com.hp.hpl.jena.update.UpdateAction;
 import org.slf4j._
 import com.hp.hpl.jena.rdf.model._
 import org.rogach.scallop._
 import com.typesafe.config._
+import scala.io.Source._
 
 class Computex {
+
  def computex(indexDataURI: String,
              ontologyURI: String,
              validationDir: String,
@@ -48,7 +53,22 @@ class Computex {
   loadTurtle(model,ontologyURI)
   loadTurtle(model,indexDataURI)
  }
- 
+
+ def expandCube(model: Model,
+            closureFile: String,
+            flattenFile: String
+           ): Model = {
+    val closure = fromFile(closureFile).mkString
+    val flatten = fromFile(flattenFile).mkString
+    val ds : Dataset = DatasetFactory.create(model)
+    val graphStore : GraphStore = GraphStoreFactory.create(ds) 
+    UpdateAction.parseExecute(closure, graphStore)
+    UpdateAction.parseExecute(flatten, graphStore)
+    val result : Model = ModelFactory.createModelForGraph( graphStore.getDefaultGraph() )
+    result.setNsPrefixes(model)
+    result
+ }
+
  def validate(model: Model, 
               validationDir: String): Model = {
      val reportModel = ModelFactory.createDefaultModel

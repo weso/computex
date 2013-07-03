@@ -22,6 +22,8 @@ class CubeSuite extends FunSpec with ShouldMatchers {
   val ontologyURI  = conf.getString("ontologyURI")
   val indexDataURI_ok = conf.getString("indexDataURI_ok")
   val demoCubeUri = conf.getString("demoCubeURI")
+  val closureFile = conf.getString("closureFile")
+  val flattenFile = conf.getString("flattenFile")
   
   
   val cex = new Computex
@@ -38,9 +40,11 @@ PREFIX eg:             <http://example.com/abbrv-cube/>
 """
 
   describe("The Cube example") {
-    describe("should pass all the RDF Data Cube integrity tests") {
-      val model_ok = cex.loadData(demoCubeURI)
+  
+   val model = cex.loadData(demoCubeUri)
+   val expanded = cex.expandCube(model,closureFile,flattenFile)
 
+   describe("should pass all the RDF Data Cube integrity tests") {
       val dir = new File(cubeDataDir)
       if (dir == null || dir.listFiles == null) 
         throw new IOException("Directory: " + cubeDataDir + " not accessible")
@@ -51,31 +55,38 @@ PREFIX eg:             <http://example.com/abbrv-cube/>
         val name = file.getName.dropRight(7) // remove ".sparql" = 7 chars 
         val contents = PREFIXES + scala.io.Source.fromFile(file).mkString ;
         val query = QueryFactory.create(contents) 
-        pass(name,query,model_ok)
+        pass(name,query,expanded)
         }
       }
     }
+
+
   }
     
   describe("The Computex example") {
+
     describe("should pass all the RDF Data Cube integrity tests") {
       val model_ok = cex.loadData(ontologyURI,indexDataURI_ok)
 
       val dir = new File(cubeDataDir)
-	  if (dir == null || dir.listFiles == null) 
-		  throw new IOException("Directory: " + cubeDataDir + " not accessible")
-	  else {
-		  for (file <- dir.listFiles ;
+  
+  	  if (dir == null || dir.listFiles == null) 
+	 	    throw new IOException("Directory: " + cubeDataDir + " not accessible")
+	    else {
+		   for (file <- dir.listFiles ;
 		       if file.getName startsWith "integrity" ;
 		       if file.getName endsWith ".sparql") {
 		    val name = file.getName.dropRight(7) // remove ".sparql" = 7 chars 
 		    val contents = PREFIXES + scala.io.Source.fromFile(file).mkString ;
 		    val query = QueryFactory.create(contents) 
 		    pass(name,query,model_ok)
-		  }
-	  }
+		   }
+	   }
     }
+
   }
+
+ 
 
   def pass(name : String, query: Query, model: Model) = {
     it("should pass integrity check: " + name) {
@@ -83,6 +94,9 @@ PREFIX eg:             <http://example.com/abbrv-cube/>
      try {
        val reportModel = ModelFactory.createDefaultModel
        qe.execConstruct(reportModel)
+       if (reportModel.size != 0) { 
+         reportModel.write(System.out,"TURTLE")
+       }
        reportModel.size should be(0);
      } finally {
        qe.close();
