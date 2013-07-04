@@ -36,7 +36,6 @@ CONSTRUCT {
 		cex:value ?existingRank .
   { SELECT 
         (GROUP_CONCAT(?dimId;separator="") as ?orderedDims) 
-        (GROUP_CONCAT(?value;separator=" - ") as ?orderedValues) 
         ?slice 
 		?obs WHERE {
 	      {	SELECT * WHERE {
@@ -47,7 +46,7 @@ CONSTRUCT {
 
 		  ?slice qb:observation ?rankObs .
 		  ?rankObs cex:value ?value ;
-	      ?dim ?dimId .
+	               ?dim ?dimId .
 	      } ORDER BY DESC(?value)
 	     }
        } 

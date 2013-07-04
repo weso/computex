@@ -16,6 +16,11 @@
 \usepackage{booktabs} %adds new commands toprule midrule and bottomrule for professionally looking tables
 
 \usepackage[breaklinks=true, bookmarksopen=true,bookmarksnumbered=true]{hyperref}
+\urlstyle{same}
+% \usepackage{titling} % To modify the title
+\usepackage[hmargin=1.3in]{geometry}
+% \setlength{\droptitle}{-5em}   % This is your set screw
+
 
 \definecolor{Brown}{cmyk}{0,0.81,1,0.60}
 \definecolor{OliveGreen}{cmyk}{0.64,0,0.95,0.40}
@@ -42,15 +47,15 @@
   morecomment=[l]{\#},
   morekeywords={SELECT, CONSTRUCT, FROM, WHERE, FILTER, GROUP BY, IN, AS,
     LIMIT,OFFSET,PREFIX,OPTIONAL,UNION,NOT,EXISTS,AVG,BIND,
-    foaf,rdf,skos,rdfs,ex,xsd,owl,skosxl,doap,void,dbo,earl,cex,qb}
+    obs,foaf,rdf,skos,rdfs,ex,xsd,owl,skosxl,doap,void,dbo,earl,cex,qb}
  }
 
 \lstdefinestyle{Turtle}{
   backgroundcolor=\color{lightlightgray}, % Choose background color
   morecomment=[l]{\#},
   morekeywords={@PREFIX,BASE,a,foaf, @prefix, rdf,
-    qb,cex,skos, skosxl, rdf:first, rdf:next, rdf:type, rdfs, ex, xsd, wr, wt,
-    dc, lemon, doap, doap,void,dbo, owl}
+    obs,qb,cex,skos, skosxl, rdf, rdfs, ex, xsd, wr,
+    wt,dc,lemon,doap,void,dbo,owl}
  }
     
 \lstdefinestyle{Turtle}{numberblanklines=true, morekeywords={foaf, prefix, rdf,
@@ -120,6 +125,7 @@
 \input{intro}
 \input{computex}
 \input{conclusions}
+%\input{appendix}
 
 \bibliographystyle{abbrv}
 \bibliography{computex}

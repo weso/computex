@@ -3,8 +3,8 @@ prefix dataset:      <http://data.webfoundation.org/webindex/v2013/dataset/>
 prefix indicator:    <http://data.webfoundation.org/webindex/v2013/indicator/> 
 prefix obs:          <http://data.webfoundation.org/webindex/v2013/observation/> 
 prefix organization: <http://data.webfoundation.org/webindex/v2013/organization> 
-prefix slice:        <http://data.webfoundation.org/webindex/v2013/slice/> 
-prefix ranking:      <http://data.webfoundation.org/webindex/v2013/ranking/> 
+prefix slice:    <http://data.webfoundation.org/webindex/v2013/slice/> 
+prefix ranking:    <http://data.webfoundation.org/webindex/v2013/ranking/> 
 
 prefix afn:			 <http://jena.hpl.hp.com/ARQ/function#>
 prefix cex:          <http://purl.org/weso/ontology/computex#> 
@@ -20,25 +20,34 @@ CONSTRUCT {
  _:error a cex:Error ;
          cex:errorParam 
 		   [cex:name "obs" ; cex:value ?obs ] ,
-		   [cex:name "existingValue"; cex:value ?existingValue ] ,
-		   [cex:name "x1"; cex:value ?x1 ] ,
-		   [cex:name "v1"; cex:value ?v1 ] ,
-		   [cex:name "x2"; cex:value ?x2 ] ,
-		   [cex:name "v2"; cex:value ?v2 ] ,
-		   [cex:name "lsObs"; cex:value ?lsObs ] ,
-		   [cex:name "avgGrowth"; cex:value ?avgGrowth ] 
+		   [cex:name "existingRank"; cex:value ?existingRank ],
+		   [cex:name "rank"; cex:value ?rank ] ,
+		   [cex:name "dim"; cex:value ?dim ] ,
+		   [cex:name "dimId"; cex:value ?dimId ]
 		   ;
-         cex:msg "Average growth value does not match" .
+         cex:msg "Ranking value does not match" .
 } WHERE { 
- ?obs cex:computation 
-   [ a cex:AverageGrowth2 ;
-	   cex:observations ?lsObs ; 						   
-   ] ;
-   cex:value ?existingValue .
- ?lsObs rdf:first ?x1 .
- ?lsObs rdf:rest/rdf:first ?x2 .
- ?x1 cex:value ?v1 .
- ?x2 cex:value ?v2 .
- BIND (?v1 * (?v1 / ?v2) as ?avgGrowth)
- FILTER (abs(?avgGrowth - ?existingValue) > 0.001)
+  ?obs cex:computation 
+		    [ a cex:Rank ;
+			  cex:slice ?slice ;
+			  cex:dimension ?dim ;
+			] ;
+        ?dim ?dimId ;
+		cex:value ?existingRank .
+		
+ { SELECT (COUNT(*) as ?ranking) ?slice WHERE {
+	  ?obs cex:computation ?comp .
+	  ?comp a cex:Rank ;
+	        cex:slice ?slice ;
+		    cex:dimension ?dim .      
+	   ?rankObs cex:value ?value ;
+	            ?dim ?dimId .
+	   ?slice qb:observation ?otherObs .
+	   ?otherObs cex:value ?otherValue .
+      FILTER( ?otherValue <= ?value )
+    } 
+  GROUP BY ?otherValue
+ } 
+ FILTER (abs(?ranking - ?existingRank) > 0.0001)
 }
+

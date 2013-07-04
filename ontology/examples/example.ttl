@@ -1914,7 +1914,7 @@ obs:CB11-I a wi-onto:Observation ;
 # This observation should be computed from CC09 (=6), CC10 (=8), should infer 10
 obs:CC11-I a wi-onto:Observation ;
 		 cex:md5-checksum "md5 for CC11" ;
-		 cex:computation [ a cex:AverageGrowth2 ;
+		 cex:computation [ a cex:AverageGrowth ;
 		                   cex:observations ( obs:CC10 obs:CC09) ; 						   
 						 ] ;
          cex:indicator indicator:C ;

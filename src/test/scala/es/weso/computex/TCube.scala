@@ -66,7 +66,8 @@ PREFIX eg:             <http://example.com/abbrv-cube/>
   describe("The Computex example") {
 
     describe("should pass all the RDF Data Cube integrity tests") {
-      val model_ok = cex.loadData(ontologyURI,indexDataURI_ok)
+      val model = cex.loadData(ontologyURI,indexDataURI_ok)
+      val expanded = cex.expandCube(model,closureFile,flattenFile)
 
       val dir = new File(cubeDataDir)
   
@@ -79,7 +80,7 @@ PREFIX eg:             <http://example.com/abbrv-cube/>
 		    val name = file.getName.dropRight(7) // remove ".sparql" = 7 chars 
 		    val contents = PREFIXES + scala.io.Source.fromFile(file).mkString ;
 		    val query = QueryFactory.create(contents) 
-		    pass(name,query,model_ok)
+		    pass(name,query,expanded)
 		   }
 	   }
     }

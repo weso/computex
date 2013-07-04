@@ -3,10 +3,12 @@
 The creation and use of quantitative indexes is a widely 
 accepted practice that has been applied to numerous domains like 
 Bibliometrics (Impact factor), 
-research and academic performance (H-Index, Shanghai
-rankings), cloud computing (Global Cloud Index, by CISCO), etc. 
+research and academic performance 
+  (H-Index or Shanghai rankings), 
+cloud computing (Global Cloud Index, by CISCO), 
+etc.
 We consider that those indexes and rankings could benefit from a 
- Linked Data approach were the rankings could be seen, tracked and 
+ Linked Data approach where the rankings could be seen, tracked and 
  verified by their users.
 
 We participated in the Web Index project
@@ -14,19 +16,21 @@ We participated in the Web Index project
  the Web impact in different countries.
 The 2012 version offered a data
 portal\footnoteUrl{http://data.webfoundation.org} whose data was obtained 
-by transforming the raw data and the computation values 
-from Excel sheets to RDF\cite{Alvarez13}. 
-In the 2013 version of that data portal, we are planning to automate the
-validation and even the computation of the index data from the raw data. 
+by transforming the raw observations and precomputed values 
+from Excel sheets to RDF~\cite{Alvarez13}. 
+In the 2013 version of that data portal, we are working on 
+both validating and computing observations to automatically derivate 
+and populate new values to automate the validation and even the 
+generation of the index from raw data.
 
 We have defined a generic vocabulary 
 of computational index structures which could be applied to compute and validate any other kind of
-index and can be seen as an specialization of the RDF Data Cube
+index and can be seen as an instance of the RDF Data Cube
 vocabulary~\cite{Cube}.
 The validation process employs SPARQL~\cite{SPARQL11} queries to model the 
  different integrity constraints and computation steps in a declarative way.
 
- At this moment, we have a running example and a validator which 
+At this moment, we have a running example and a validator which 
  reads and executes the SPARQL queries. 
  Source code and some examples are available
  at~\url{https://github.com/weso/computex}. 
