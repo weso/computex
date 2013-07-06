@@ -317,42 +317,42 @@ slice:Slice-A09-Raw
       cex:indicator indicator:A ;
       wi-onto:ref-year 2009 ;
       qb:observation obs:EA09, obs:FA09, obs:CA09 ;
-      qb:sliceStructure dataset:A-Raw .
+      qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-A10-Raw
       a       qb:Slice ;
       cex:indicator indicator:A ;
       wi-onto:ref-year 2010 ;
-      qb:observation obs:EA10, obs:FA10, obs:CA10 ;
-      qb:sliceStructure dataset:A-Raw .
+      qb:observation obs:EA10, obs:CA10 ;
+      qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-A11-Raw
       a       qb:Slice ;
       cex:indicator indicator:A ;
       wi-onto:ref-year 2011 ;
       qb:observation obs:EA11, obs:FA11, obs:CA11 ;
-      qb:sliceStructure dataset:A-Raw .
+      qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-B09-Raw
       a       qb:Slice ;
       cex:indicator indicator:B ;
       wi-onto:ref-year 2009 ;
       qb:observation obs:EB09, obs:FB09, obs:CB09 ;
-      qb:sliceStructure dataset:B-Raw .
+      qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-B10-Raw
       a       qb:Slice ;
       cex:indicator indicator:B ;
       wi-onto:ref-year 2010 ;
       qb:observation obs:EB10, obs:FB10, obs:CB10 ;
-      qb:sliceStructure dataset:B-Raw  .
+      qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-B11-Raw
       a       qb:Slice ;
       cex:indicator indicator:B ;
       wi-onto:ref-year 2011 ;
       qb:observation obs:EB11, obs:FB11, obs:CB11 ;
-      qb:sliceStructure dataset:B-Raw .
+      qb:sliceStructure wi-onto:sliceByArea .
 
 
 slice:Slice-C09-Raw
@@ -360,21 +360,21 @@ slice:Slice-C09-Raw
       cex:indicator indicator:C ;
       wi-onto:ref-year 2009 ;
       qb:observation obs:EC09, obs:FC09, obs:CC09 ;
-      qb:sliceStructure dataset:C-Raw  .
+      qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-C10-Raw
       a       qb:Slice ;
       cex:indicator indicator:C ;
       wi-onto:ref-year 2010 ;
-      qb:observation obs:EC10, obs:FC10, obs:CC10 ;
-      qb:sliceStructure dataset:C-Raw .
+      qb:observation obs:EC10, obs:CC10 ;
+      qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-C11-Raw
       a       qb:Slice ;
       cex:indicator indicator:C ;
       wi-onto:ref-year 2011 ;
-      qb:observation obs:EC11, obs:FC11, obs:CC11 ;
-      qb:sliceStructure dataset:C-Raw .
+      qb:observation obs:EC11, obs:FC11 ;
+      qb:sliceStructure wi-onto:sliceByArea .
 
 
 slice:Slice-D09-Raw
@@ -382,21 +382,21 @@ slice:Slice-D09-Raw
       cex:indicator indicator:D ;
       wi-onto:ref-year 2009 ;
       qb:observation obs:ED09, obs:FD09, obs:CD09 ;
-      qb:sliceStructure dataset:D-Raw .
+      qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-D10-Raw
       a       qb:Slice ;
       cex:indicator indicator:D ;
       wi-onto:ref-year 2010 ;
       qb:observation obs:ED10, obs:FD10, obs:CD10 ;
-      qb:sliceStructure dataset:D-Raw .
+      qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-D11-Raw
       a       qb:Slice ;
       cex:indicator indicator:D ;
       wi-onto:ref-year 2011 ;
       qb:observation obs:ED11, obs:FD11, obs:CD11 ;
-      qb:sliceStructure  dataset:D-Raw .
+      qb:sliceStructure  wi-onto:sliceByArea .
 
 
 slice:Slice-Q1-Raw
@@ -404,7 +404,7 @@ slice:Slice-Q1-Raw
       cex:indicator indicator:Q1 ;
       wi-onto:ref-year 2011 ;
       qb:observation obs:EQ1, obs:FQ1, obs:CQ1 ;
-      qb:sliceStructure dataset:Q1-Raw .
+      qb:sliceStructure wi-onto:sliceByArea .
 
 
 slice:Slice-Q2-Raw
@@ -412,7 +412,7 @@ slice:Slice-Q2-Raw
       cex:indicator indicator:Q2 ;
       wi-onto:ref-year 2011 ;
       qb:observation obs:EQ2, obs:FQ2, obs:CQ2 ;
-      qb:sliceStructure dataset:Q2-Raw .
+      qb:sliceStructure wi-onto:sliceByArea .
 
 #-----------------------------------------------------
 # Slices imputed
@@ -428,7 +428,7 @@ slice:Slice-A09-Imputed
 					  ] ;
       wi-onto:ref-year 2009 ;
       qb:observation obs:EA09-I, obs:FA09-I, obs:CA09-I ;
-      qb:sliceStructure dataset:A-Imputed .
+      qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-A10-Imputed
       a       qb:Slice ;
@@ -441,7 +441,7 @@ slice:Slice-A10-Imputed
 					  ] ;
       wi-onto:ref-year 2010 ;
       qb:observation obs:EA10-I, obs:FA10-I, obs:CA10-I ;
-      qb:sliceStructure dataset:A-Imputed .
+      qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-A11-Imputed
       a       qb:Slice ;
@@ -454,7 +454,7 @@ slice:Slice-A11-Imputed
 	  cex:indicator indicator:A ;
       wi-onto:ref-year 2011 ;
       qb:observation obs:EA11-I, obs:FA11-I, obs:CA11-I ;
-      qb:sliceStructure dataset:A-Imputed .
+      qb:sliceStructure wi-onto:sliceByArea .
 
 	  
 slice:Slice-B09-Imputed
@@ -468,7 +468,7 @@ slice:Slice-B09-Imputed
 	  cex:indicator indicator:B ;
       wi-onto:ref-year 2009 ;
       qb:observation obs:EB09-I, obs:FB09-I, obs:CB09-I ;
-      qb:sliceStructure dataset:B-Imputed .
+      qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-B10-Imputed
       a       qb:Slice ;
@@ -481,7 +481,7 @@ slice:Slice-B10-Imputed
       cex:indicator indicator:B ;
       wi-onto:ref-year 2010 ;
       qb:observation obs:EB10-I, obs:FB10-I, obs:CB10-I ;
-      qb:sliceStructure dataset:B-Imputed .
+      qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-B11-Imputed
       a       qb:Slice ;
@@ -494,7 +494,7 @@ slice:Slice-B11-Imputed
       cex:indicator indicator:B ;
       wi-onto:ref-year 2011 ;
       qb:observation obs:EB11-I, obs:FB11-I, obs:CB11-I ;
-      qb:sliceStructure dataset:B-Imputed .
+      qb:sliceStructure wi-onto:sliceByArea .
 	  
 	  
 slice:Slice-C09-Imputed
@@ -508,7 +508,7 @@ slice:Slice-C09-Imputed
       cex:indicator indicator:C ;
       wi-onto:ref-year 2009 ;
       qb:observation obs:EC09-I, obs:FC09-I, obs:CC09-I ;
-      qb:sliceStructure dataset:C-Imputed .
+      qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-C10-Imputed
       a       qb:Slice ;
@@ -521,7 +521,7 @@ slice:Slice-C10-Imputed
       cex:indicator indicator:C ;
       wi-onto:ref-year 2010 ;
       qb:observation obs:EC10-I, obs:FC10-I, obs:CC10-I ;
-      qb:sliceStructure dataset:C-Imputed .
+      qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-C11-Imputed
       a       qb:Slice ;
@@ -534,7 +534,7 @@ slice:Slice-C11-Imputed
       cex:indicator indicator:C ;
       wi-onto:ref-year 2011 ;
       qb:observation obs:EC11-I, obs:FC11-I, obs:CC11-I ;
-      qb:sliceStructure dataset:C-Imputed .
+      qb:sliceStructure wi-onto:sliceByArea .
 
 	  
 slice:Slice-D09-Imputed
@@ -548,7 +548,7 @@ slice:Slice-D09-Imputed
       cex:indicator indicator:D ;
       wi-onto:ref-year 2009 ;
       qb:observation obs:ED09-I, obs:FD09-I, obs:CD09-I ;
-      qb:sliceStructure dataset:D-Imputed .
+      qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-D10-Imputed
       a       qb:Slice ;
@@ -561,7 +561,7 @@ slice:Slice-D10-Imputed
       cex:indicator indicator:D ;
       wi-onto:ref-year 2010 ;
       qb:observation obs:ED10-I, obs:FD10-I, obs:CD10-I ;
-      qb:sliceStructure dataset:D-Imputed .
+      qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-D11-Imputed
       a       qb:Slice ;
@@ -574,7 +574,7 @@ slice:Slice-D11-Imputed
       cex:indicator indicator:D ;
       wi-onto:ref-year 2011 ;
       qb:observation obs:ED11-I, obs:FD11-I, obs:CD11-I ;
-      qb:sliceStructure dataset:D-Imputed .
+      qb:sliceStructure wi-onto:sliceByArea .
 	  
 #--------------------------------------------------------------
 # Slices normalized
@@ -584,21 +584,21 @@ slice:Slice-A09-N
       cex:indicator indicator:A ;
       wi-onto:ref-year 2009 ;
       qb:observation obs:EA09-N, obs:FA09-N, obs:CA09-N ;
-      qb:sliceStructure dataset:A-Normalized .
+      qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-A10-N
       a       qb:Slice ;
       cex:indicator indicator:A ;
       wi-onto:ref-year 2010 ;
       qb:observation obs:EA10-N, obs:FA10-N, obs:CA10-N ;
-      qb:sliceStructure dataset:A-Normalized .
+      qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-A11-N
       a       qb:Slice ;
       cex:indicator indicator:A ;
       wi-onto:ref-year 2011 ;
       qb:observation obs:EA11-N, obs:FA11-N, obs:CA11-N ;
-      qb:sliceStructure dataset:A-Normalized .
+      qb:sliceStructure wi-onto:sliceByArea .
 
 
 	  
@@ -607,21 +607,21 @@ slice:Slice-B09-N
       cex:indicator indicator:B ;
       wi-onto:ref-year 2009 ;
       qb:observation obs:EB09-N, obs:FB09-N, obs:CB09-N ;
-      qb:sliceStructure dataset:B-Normalized .
+      qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-B10-N
       a       qb:Slice ;
       cex:indicator indicator:B ;
       wi-onto:ref-year 2010 ;
       qb:observation obs:EB10-N, obs:FB10-N, obs:CB10-N ;
-      qb:sliceStructure dataset:B-Normalized .
+      qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-B11-N
       a       qb:Slice ;
       cex:indicator indicator:B ;
       wi-onto:ref-year 2011 ;
       qb:observation obs:EB11-N, obs:FB11-N, obs:CB11-N ;
-      qb:sliceStructure dataset:B-Normalized .
+      qb:sliceStructure wi-onto:sliceByArea .
 
 	  
 slice:Slice-C09-N
@@ -629,21 +629,21 @@ slice:Slice-C09-N
       cex:indicator indicator:C ;
       wi-onto:ref-year 2009 ;
       qb:observation obs:EC09-N, obs:FC09-N, obs:CC09-N ;
-      qb:sliceStructure dataset:C-Normalized .
+      qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-C10-N
       a       qb:Slice ;
       cex:indicator indicator:C ;
       wi-onto:ref-year 2010 ;
       qb:observation obs:EC10-N, obs:FC10-N, obs:CC10-N ;
-      qb:sliceStructure dataset:C-Normalized .
+      qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-C11-N
       a       qb:Slice ;
       cex:indicator indicator:C ;
       wi-onto:ref-year 2011 ;
       qb:observation obs:EC11-N, obs:FC11-N, obs:CC11-N ;
-      qb:sliceStructure dataset:C-Normalized .
+      qb:sliceStructure wi-onto:sliceByArea .
 
 	  
 slice:Slice-D09-N
@@ -651,21 +651,21 @@ slice:Slice-D09-N
       cex:indicator indicator:D ;
       wi-onto:ref-year 2009 ;
       qb:observation obs:ED09-N, obs:FD09-N, obs:CD09-N ;
-      qb:sliceStructure dataset:D-Normalized .
+      qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-D10-N
       a       qb:Slice ;
       cex:indicator indicator:D ;
       wi-onto:ref-year 2010 ;
       qb:observation obs:ED10-N, obs:FD10-N, obs:CD10-N ;
-      qb:sliceStructure dataset:D-Normalized .
+      qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-D11-N
       a       qb:Slice ;
       cex:indicator indicator:D ;
       wi-onto:ref-year 2011 ;
       qb:observation obs:ED11-N, obs:FD11-N, obs:CD11-N ;
-      qb:sliceStructure dataset:D-Normalized .
+      qb:sliceStructure wi-onto:sliceByArea .
 
 	  
 slice:Slice-Q1-N
@@ -673,7 +673,7 @@ slice:Slice-Q1-N
       cex:indicator indicator:Q1 ;
       wi-onto:ref-year 2011 ;
       qb:observation obs:EQ1-N, obs:FQ1-N, obs:CQ1-N ;
-      qb:sliceStructure dataset:Q1-Normalized .
+      qb:sliceStructure wi-onto:sliceByArea .
 
 	  
 slice:Slice-Q2-N
@@ -681,8 +681,66 @@ slice:Slice-Q2-N
       cex:indicator indicator:Q2 ;
       wi-onto:ref-year 2011 ;
       qb:observation obs:EQ2-N, obs:FQ2-N, obs:CQ2-N ;
-      qb:sliceStructure dataset:Q2-Normalized .
+      qb:sliceStructure wi-onto:sliceByArea .
 
+#---------------------------------------------------------------
+# Computations
+
+slice:AB-Mean
+      a       qb:Slice ;
+      cex:indicator component:AB ;
+      wi-onto:ref-year 2011 ;
+      qb:observation obs:EAB-Mean, obs:FAB-Mean, obs:CAB-Mean ;
+	  qb:sliceStructure wi-onto:sliceByArea 
+	  .
+
+slice:Q2-Mean
+      a       qb:Slice ;
+      cex:indicator component:Q2 ;
+      wi-onto:ref-year 2011 ;
+      qb:observation obs:EQ2-Mean, obs:FQ2-Mean, obs:CQ2-Mean ;
+	  qb:sliceStructure wi-onto:sliceByArea
+	  .
+
+slice:C-Mean
+      a       qb:Slice ;
+      cex:indicator component:C ;
+      wi-onto:ref-year 2011 ;
+      qb:observation obs:EC-Mean, obs:FC-Mean, obs:CC-Mean ;
+	  qb:sliceStructure wi-onto:sliceByArea
+	  .
+
+slice:DQ1-Mean
+      a       qb:Slice ;
+      cex:indicator component:DQ1 ;
+      wi-onto:ref-year 2011 ;
+      qb:observation obs:EDQ1-Mean, obs:FDQ1-Mean, obs:CDQ1-Mean ;
+	  qb:sliceStructure wi-onto:sliceByArea
+	  .
+	  
+slice:ABQ2-Mean
+      a       qb:Slice ;
+      cex:indicator subindex:ABQ2 ;
+      wi-onto:ref-year 2011 ;
+      qb:observation obs:EABQ2, obs:FABQ2, obs:CABQ2 ;
+	  qb:sliceStructure wi-onto:sliceByArea
+	  .
+
+slice:CDQ1-Mean
+      a       qb:Slice ;
+      cex:indicator subindex:CDQ1 ;
+      wi-onto:ref-year 2011 ;
+      qb:observation obs:ECDQ1, obs:FCDQ1, obs:CCDQ1 ;
+	  qb:sliceStructure wi-onto:sliceByArea
+	  .
+
+slice:Composite
+      a       qb:Slice ;
+      cex:indicator index:index ;
+      wi-onto:ref-year 2011 ;
+      qb:observation obs:E-Composite, obs:F-Composite, obs:C-Composite ;
+	  qb:sliceStructure wi-onto:sliceByArea
+	  .
 
 #---------------------------------------------------------------
 # Observations
@@ -962,22 +1020,22 @@ obs:ED10 cex:md5-checksum "md5 for ED10" ;
 		 cex:value 6 .
 
 # obs:FA10 is missing (TODO: consider removing missing observations)
-obs:FA10 a wi-onto:Observation ;
-		 cex:md5-checksum "md5 for ED10" ;
-		 dcterms:contributor wi-org:WESO ;
-		 dcterms:issued "2013-12-06" ;
-		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:A-Raw ;
-		 rdf:type qb:Observation ;
-		 rdf:type wi-onto:Observation ;
-		 rdfs:label "A in FIN during 2010"@en ;
-		 sdmx-concept:obsStatus sdmx-code:obsStatus-M ;
-		 wi-onto:ref-area country:FIN ;
-		 cex:computation [a cex:Raw ] ;
-		 cex:indicator indicator:A ;
-		 wi-onto:ref-year 2010 ;
-         wi-onto:sheet-type wi-onto:Raw ;
-         .
+#obs:FA10 a wi-onto:Observation ;
+#		 cex:md5-checksum "md5 for ED10" ;
+#		 dcterms:contributor wi-org:WESO ;
+#		 dcterms:issued "2013-12-06" ;
+#		 dcterms:publisher wi-org:WebFoundation ;
+#		 qb:dataSet dataset:A-Raw ;
+#		 rdf:type qb:Observation ;
+#		 rdf:type wi-onto:Observation ;
+#		 rdfs:label "A in FIN during 2010"@en ;
+#		 sdmx-concept:obsStatus sdmx-code:obsStatus-M ;
+#		 wi-onto:ref-area country:FIN ;
+#		 cex:computation [a cex:Raw ] ;
+#		 cex:indicator indicator:A ;
+#		 wi-onto:ref-year 2010 ;
+#        wi-onto:sheet-type wi-onto:Raw ;
+#         .
 
 obs:FB10 a wi-onto:Observation ;
          cex:md5-checksum "md5 for EA09" ;
@@ -996,22 +1054,24 @@ obs:FB10 a wi-onto:Observation ;
          wi-onto:sheet-type wi-onto:Raw ;
 		 cex:value 6 .
 
-obs:FC10 a wi-onto:Observation ;
-         cex:md5-checksum "md5 for FC10" ;
-		 dcterms:contributor wi-org:WESO ;
-		 dcterms:issued "2013-12-06" ;
-		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:C-Raw ;
-		 rdf:type qb:Observation ;
-		 rdf:type wi-onto:Observation ;
-		 rdfs:label "C in FIN during 2010"@en ;
-         sdmx-concept:obsStatus sdmx-code:obsStatus-M ;
-		 wi-onto:ref-area country:FIN ;
-		 cex:computation [a cex:Raw ] ;
-		 cex:indicator indicator:C ;
-		 wi-onto:ref-year 2010 ;
-         wi-onto:sheet-type wi-onto:Raw ;
-         .
+# Missing observation...I am not sure if it is better to add it as Missing
+# or just not to assert anything...
+#obs:FC10 a wi-onto:Observation ;
+#         cex:md5-checksum "md5 for FC10" ;
+#		 dcterms:contributor wi-org:WESO ;
+#		 dcterms:issued "2013-12-06" ;
+#		 dcterms:publisher wi-org:WebFoundation ;
+#		 qb:dataSet dataset:C-Raw ;
+#		 rdf:type qb:Observation ;
+#		 rdf:type wi-onto:Observation ;
+#		 rdfs:label "C in FIN during 2010"@en ;
+#        sdmx-concept:obsStatus sdmx-code:obsStatus-M ;
+#		 wi-onto:ref-area country:FIN ;
+#		 cex:computation [a cex:Raw ] ;
+#		 cex:indicator indicator:C ;
+#		 wi-onto:ref-year 2010 ;
+#        wi-onto:sheet-type wi-onto:Raw ;
+#         .
 
 obs:FD10 a wi-onto:Observation ;
          cex:md5-checksum "md5 for FD10" ;
@@ -1268,22 +1328,22 @@ obs:CB11 a wi-onto:Observation ;
 		 cex:value 4 .
 
 # Missing
-obs:CC11 a wi-onto:Observation ;
-         cex:md5-checksum "md5 for CC11" ;
-		 dcterms:contributor wi-org:WESO ;
-		 dcterms:issued "2013-12-06" ;
-		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:C-Raw ;
-		 rdf:type qb:Observation ;
-		 rdf:type wi-onto:Observation ;
-		 rdfs:label "C in CHL during 2011"@en ;
-         sdmx-concept:obsStatus sdmx-code:obsStatus-M ;
-		 wi-onto:ref-area country:CHL ;
-		 cex:computation [a cex:Raw ] ;
-		 cex:indicator indicator:C ;
-		 wi-onto:ref-year 2011 ;
-         wi-onto:sheet-type wi-onto:Raw ;
-         .
+#obs:CC11 a wi-onto:Observation ;
+#         cex:md5-checksum "md5 for CC11" ;
+#		 dcterms:contributor wi-org:WESO ;
+#		 dcterms:issued "2013-12-06" ;
+#		 dcterms:publisher wi-org:WebFoundation ;
+#		 qb:dataSet dataset:C-Raw ;
+#		 rdf:type qb:Observation ;
+#		 rdf:type wi-onto:Observation ;
+#		 rdfs:label "C in CHL during 2011"@en ;
+#         sdmx-concept:obsStatus sdmx-code:obsStatus-M ;
+#		 wi-onto:ref-area country:CHL ;
+#		 cex:computation [a cex:Raw ] ;
+#		 cex:indicator indicator:C ;
+#		 wi-onto:ref-year 2011 ;
+#         wi-onto:sheet-type wi-onto:Raw ;
+#         .
 
 obs:CD11 a wi-onto:Observation ;
          cex:md5-checksum "md5 for CD11" ;
@@ -1397,9 +1457,9 @@ obs:CQ2 a wi-onto:Observation ;
 		 qb:dataSet dataset:Q2-Raw ;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
-		 rdfs:label "Q2 in FIN during 2011"@en ;
+		 rdfs:label "Q2 in CHL during 2011"@en ;
 		 sdmx-concept:obsStatus cex:Raw;
-		 wi-onto:ref-area country:FIN ;
+		 wi-onto:ref-area country:CHL ;
 		 cex:computation [a cex:Raw ] ;
 		 cex:indicator indicator:Q2 ;
 		 wi-onto:ref-year 2011 ;
@@ -3239,255 +3299,13 @@ obs:CQ2-N a wi-onto:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Q2 in FIN during 2011"@en ;
 		 sdmx-concept:obsStatus cex:Normalized;
-		 wi-onto:ref-area country:FIN ;
+		 wi-onto:ref-area country:CHL ;
 		 cex:indicator indicator:Q2 ;
 		 wi-onto:ref-year 2011 ;
          wi-onto:sheet-type wi-onto:Normalized ;
 		 .
 
-dataset:A-Normalized
-      cex:md5-checksum "MD5..." ;
-      dcterms:contributor wi-org:WESO ;
-      dcterms:issued "2013-06-12" ;
-      dcterms:publisher wi-org:WebFoundation ;
-      rdf:type qb:DataSetDefinition ;
-      rdf:type wi-onto:Dataset ;
-      qb:component
-              [ qb:dimension wi-onto:ref-area ;
-                qb:order 1
-              ] ;
-      qb:component
-              [ qb:dimension wi-onto:ref-area ;
-                qb:order 2
-              ] ;
-      qb:component
-              [ qb:dimension wi-onto:ref-area ;
-                qb:order 3
-              ] ;
-      qb:component
-              [ qb:measure cex:indicator
-              ]
-      .
 		 
-slice:Slice-A09-N
-      a       qb:Slice ;
-      cex:indicator indicator:A ;
-      wi-onto:ref-year 2009 ;
-      qb:observation obs:EA09-N, obs:FA09-N, obs:CA09-N ;
-      qb:sliceStructure dataset:A-Normalized .
-
-slice:Slice-A10-N
-      a       qb:Slice ;
-      cex:indicator indicator:A ;
-      wi-onto:ref-year 2010 ;
-      qb:observation obs:EA10-N, obs:FA10-N, obs:CA10-N ;
-      qb:sliceStructure dataset:A-Normalized .
-
-slice:Slice-A11-N
-      a       qb:Slice ;
-      cex:indicator indicator:A ;
-      wi-onto:ref-year 2011 ;
-      qb:observation obs:EA11-N, obs:FA11-N, obs:CA11-N ;
-      qb:sliceStructure dataset:A-Normalized .
-
-dataset:B-Normalized
-      cex:md5-checksum "MD5..." ;
-      dcterms:contributor wi-org:WESO ;
-      dcterms:issued "2013-06-12" ;
-      dcterms:publisher wi-org:WebFoundation ;
-      rdf:type qb:DataSetDefinition ;
-      rdf:type wi-onto:Dataset ;
-      qb:component
-              [ qb:dimension wi-onto:ref-area ;
-                qb:order 1
-              ] ;
-      qb:component
-              [ qb:dimension wi-onto:ref-area ;
-                qb:order 2
-              ] ;
-      qb:component
-              [ qb:dimension wi-onto:ref-area ;
-                qb:order 3
-              ] ;
-      qb:component
-              [ qb:measure cex:indicator
-              ]
-      .
-
-	  
-slice:Slice-B09-N
-      a       qb:Slice ;
-      cex:indicator indicator:B ;
-      wi-onto:ref-year 2009 ;
-      qb:observation obs:EB09-N, obs:FB09-N, obs:CB09-N ;
-      qb:sliceStructure dataset:B-Normalized .
-
-slice:Slice-B10-N
-      a       qb:Slice ;
-      cex:indicator indicator:B ;
-      wi-onto:ref-year 2010 ;
-      qb:observation obs:EB10-N, obs:FB10-N, obs:CB10-N ;
-      qb:sliceStructure dataset:B-Normalized .
-
-slice:Slice-B11-N
-      a       qb:Slice ;
-      cex:indicator indicator:B ;
-      wi-onto:ref-year 2011 ;
-      qb:observation obs:EB11-N, obs:FB11-N, obs:CB11-N ;
-      qb:sliceStructure dataset:B-Normalized .
-
-dataset:C-Normalized
-      cex:md5-checksum "MD5..." ;
-      dcterms:contributor wi-org:WESO ;
-      dcterms:issued "2013-06-12" ;
-      dcterms:publisher wi-org:WebFoundation ;
-      rdf:type qb:DataSetDefinition ;
-      rdf:type wi-onto:Dataset ;
-      qb:component
-              [ qb:dimension wi-onto:ref-area ;
-                qb:order 1
-              ] ;
-      qb:component
-              [ qb:dimension wi-onto:ref-area ;
-                qb:order 2
-              ] ;
-      qb:component
-              [ qb:dimension wi-onto:ref-area ;
-                qb:order 3
-              ] ;
-      qb:component
-              [ qb:measure cex:indicator
-              ]
-      .
-	  
-slice:Slice-C09-N
-      a       qb:Slice ;
-      cex:indicator indicator:C ;
-      wi-onto:ref-year 2009 ;
-      qb:observation obs:EC09-N, obs:FC09-N, obs:CC09-N ;
-      qb:sliceStructure dataset:C-Normalized .
-
-slice:Slice-C10-N
-      a       qb:Slice ;
-      cex:indicator indicator:C ;
-      wi-onto:ref-year 2010 ;
-      qb:observation obs:EC10-N, obs:FC10-N, obs:CC10-N ;
-      qb:sliceStructure dataset:C-Normalized .
-
-slice:Slice-C11-N
-      a       qb:Slice ;
-      cex:indicator indicator:C ;
-      wi-onto:ref-year 2011 ;
-      qb:observation obs:EC11-N, obs:FC11-N, obs:CC11-N ;
-      qb:sliceStructure dataset:C-Normalized .
-
-dataset:D-Normalized
-      cex:md5-checksum "MD5..." ;
-      dcterms:contributor wi-org:WESO ;
-      dcterms:issued "2013-06-12" ;
-      dcterms:publisher wi-org:WebFoundation ;
-      rdf:type qb:DataSetDefinition ;
-      rdf:type wi-onto:Dataset ;
-      qb:component
-              [ qb:dimension wi-onto:ref-area ;
-                qb:order 1
-              ] ;
-      qb:component
-              [ qb:dimension wi-onto:ref-area ;
-                qb:order 2
-              ] ;
-      qb:component
-              [ qb:dimension wi-onto:ref-area ;
-                qb:order 3
-              ] ;
-      qb:component
-              [ qb:measure cex:indicator
-              ]
-      .
-	  
-slice:Slice-D09-N
-      a       qb:Slice ;
-      cex:indicator indicator:D ;
-      wi-onto:ref-year 2009 ;
-      qb:observation obs:ED09-N, obs:FD09-N, obs:CD09-N ;
-      qb:sliceStructure dataset:D-Normalized .
-
-slice:Slice-D10-N
-      a       qb:Slice ;
-      cex:indicator indicator:D ;
-      wi-onto:ref-year 2010 ;
-      qb:observation obs:ED10-N, obs:FD10-N, obs:CD10-N ;
-      qb:sliceStructure dataset:D-Normalized .
-
-slice:Slice-D11-N
-      a       qb:Slice ;
-      cex:indicator indicator:D ;
-      wi-onto:ref-year 2011 ;
-      qb:observation obs:ED11-N, obs:FD11-N, obs:CD11-N ;
-      qb:sliceStructure dataset:D-Normalized .
-
-dataset:Q1-Normalized
-      cex:md5-checksum "MD5..." ;
-      dcterms:contributor wi-org:WESO ;
-      dcterms:issued "2013-06-12" ;
-      dcterms:publisher wi-org:WebFoundation ;
-      rdf:type qb:DataSetDefinition ;
-      rdf:type wi-onto:Dataset ;
-      qb:component
-              [ qb:dimension wi-onto:ref-area ;
-                qb:order 1
-              ] ;
-      qb:component
-              [ qb:dimension wi-onto:ref-area ;
-                qb:order 2
-              ] ;
-      qb:component
-              [ qb:dimension wi-onto:ref-area ;
-                qb:order 3
-              ] ;
-      qb:component
-              [ qb:measure cex:indicator
-              ]
-      .
-	  
-slice:Slice-Q1-N
-      a       qb:Slice ;
-      cex:indicator indicator:Q1 ;
-      wi-onto:ref-year 2011 ;
-      qb:observation obs:EQ1-N, obs:FQ1-N, obs:CQ1-N ;
-      qb:sliceStructure dataset:Q1-Normalized .
-
-dataset:Q2-Normalized
-      cex:md5-checksum "MD5..." ;
-      dcterms:contributor wi-org:WESO ;
-      dcterms:issued "2013-06-12" ;
-      dcterms:publisher wi-org:WebFoundation ;
-      rdf:type qb:DataSetDefinition ;
-      rdf:type wi-onto:Dataset ;
-      qb:component
-              [ qb:dimension wi-onto:ref-area ;
-                qb:order 1
-              ] ;
-      qb:component
-              [ qb:dimension wi-onto:ref-area ;
-                qb:order 2
-              ] ;
-      qb:component
-              [ qb:dimension wi-onto:ref-area ;
-                qb:order 3
-              ] ;
-      qb:component
-              [ qb:measure cex:indicator
-              ]
-      .
-	  
-slice:Slice-Q2-N
-      a       qb:Slice ;
-      cex:indicator indicator:Q2 ;
-      wi-onto:ref-year 2011 ;
-      qb:observation obs:EQ2-N, obs:FQ2-N, obs:CQ2-N ;
-      qb:sliceStructure dataset:Q2-Normalized .
-
 #--------------------------
 # Incremented values
 
@@ -4346,12 +4164,6 @@ obs:CAB-Mean a qb:Observation ;
          wi-onto:sheet-type wi-onto:Computation ;
 		 .
 
-slice:AB-Mean
-      a       qb:Slice ;
-      wi-onto:ref-year 2011 ;
-      qb:observation obs:EAB-Mean, obs:FAB-Mean, obs:CAB-Mean ;
-	  qb:sliceStructure dataset:Mean 
-	  .
 
 obs:EQ2-Mean a qb:Observation ;
          cex:computation 
@@ -4410,14 +4222,6 @@ obs:CQ2-Mean a qb:Observation ;
          wi-onto:sheet-type wi-onto:Computation ;
 		 .
 
-slice:Q2-Mean
-      a       qb:Slice ;
-      wi-onto:ref-year 2011 ;
-      qb:observation obs:EQ2-Mean, obs:FQ2-Mean, obs:CQ2-Mean ;
-	  qb:sliceStructure dataset:Mean 
-	  .
-
-		 
 obs:EC-Mean a qb:Observation ;
          cex:computation 
 		    [ a cex:Mean ;
@@ -4475,12 +4279,6 @@ obs:CC-Mean a qb:Observation ;
          wi-onto:sheet-type wi-onto:Computation ;
 		 .
 
-slice:C-Mean
-      a       qb:Slice ;
-      wi-onto:ref-year 2011 ;
-      qb:observation obs:EC-Mean, obs:FC-Mean, obs:CC-Mean ;
-	  qb:sliceStructure dataset:Mean 
-	  .
 		 
 obs:EDQ1-Mean a qb:Observation ;
          cex:computation 
@@ -4539,12 +4337,6 @@ obs:CDQ1-Mean a qb:Observation ;
          wi-onto:sheet-type wi-onto:Computation ;
 		 .
 
-slice:DQ1-Mean
-      a       qb:Slice ;
-      wi-onto:ref-year 2011 ;
-      qb:observation obs:EDQ1-Mean, obs:FDQ1-Mean, obs:CDQ1-Mean ;
-	  qb:sliceStructure dataset:Mean 
-	  .
 		 
 dataset:Mean a qb:Dataset .	  
 		 
@@ -4611,12 +4403,6 @@ obs:CABQ2 a qb:Observation ;
          wi-onto:sheet-type wi-onto:Computation ;
 		 .
 
-slice:ABQ2-Mean
-      a       qb:Slice ;
-      wi-onto:ref-year 2011 ;
-      qb:observation obs:EABQ2, obs:FABQ2, obs:CABQ2 ;
-	  qb:sliceStructure dataset:Mean 
-	  .
 		 
 obs:ECDQ1 a qb:Observation ;
          cex:computation 
@@ -4678,12 +4464,6 @@ obs:CCDQ1 a qb:Observation ;
          wi-onto:sheet-type wi-onto:Computation ;
 		 .
 
-slice:CDQ1-Mean
-      a       qb:Slice ;
-      wi-onto:ref-year 2011 ;
-      qb:observation obs:ECDQ1, obs:FCDQ1, obs:CCDQ1 ;
-	  qb:sliceStructure dataset:Mean 
-	  .
 
 #------------------------------------------
 # Composite values of index
@@ -4751,12 +4531,6 @@ obs:C-Composite	a qb:Observation ;
          wi-onto:sheet-type wi-onto:Computation ;
 		 .
 
-slice:Composite
-      a       qb:Slice ;
-      wi-onto:ref-year 2011 ;
-      qb:observation obs:E-Composite, obs:F-Composite, obs:C-Composite ;
-	  qb:sliceStructure dataset:Composite 
-	  .
 
 dataset:Composite a qb:Dataset .	  
 		 
@@ -5204,4 +4978,5 @@ ranking:C-Composite
 		 wi-onto:ref-year 2011 ;
          wi-onto:sheet-type wi-onto:Computation ;
 		 .
+		 
 		 

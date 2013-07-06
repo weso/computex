@@ -9,17 +9,21 @@ PREFIX eg:             <http://example.com/abbrv-cube/>
 prefix cex: 		   <http://purl.org/weso/ontology/computex#> 
 
 CONSTRUCT {
- _:error a cex:Error .
- _:error cex:errorParam 
-	[cex:name "allEqual"; cex:value ?allEqual ]  
-	.
- _:error cex:msg "No two observations in the same cube may have the same value for all dimensions" .
+ [ a cex:Error ;
+   cex:errorParam 
+	[cex:name "allEqual"; cex:value ?allEqual ]  ,
+	[cex:name "obs1"; cex:value ?obs1 ]  ,
+	[cex:name "obs2"; cex:value ?obs2 ]  
+	;
+  cex:msg 
+   "No two observations in the same cube may have the same value for all dimensions"
+ ] .
 }
 WHERE {
   FILTER( ?allEqual )
   {
     # For each pair of observations test if all the dimension values are the same
-    SELECT (MIN(?equal) AS ?allEqual) WHERE {
+    SELECT (MIN(?equal) AS ?allEqual) ?obs1 ?obs2 WHERE {
         ?obs1 qb:dataSet ?dataset .
         ?obs2 qb:dataSet ?dataset .
         FILTER (?obs1 != ?obs2)
