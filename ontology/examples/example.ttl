@@ -10,6 +10,8 @@
 @prefix dsd: <http://data.webfoundation.org/webindex/v2013/dsd/> .
 @prefix weightSchema: <http://data.webfoundation.org/webindex/v2013/weightSchema/> .
 @prefix ranking: <http://data.webfoundation.org/webindex/v2013/ranking/> .
+@prefix computation: <http://data.webfoundation.org/webindex/v2013/computation/> .
+
 
 @prefix cex: <http://purl.org/weso/ontology/computex#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
@@ -28,6 +30,23 @@
 @prefix wi-org: <http://data.webfoundation.org/webindex/organization/> .
 @prefix wi-people:  <http://data.webfoundation.org/webindex/people/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#---------------------------------------------------------------
+# WebIndex Computation flow
+
+computation:Flow a cex:ComputationFlow ;
+  cex:steps ( 
+    [a cex:CopyRaw ;
+       cex:fromDataSet dataset:A-Raw ;
+       cex:toDataSet dataset:A-Imputed 
+    ]
+    [a cex:MeanBetweenMissing ;
+       cex:dimension wi-onto:ref-year ;
+       cex:fromDataSet dataset:A-Raw ;
+       cex:toDataSet dataset:A-Imputed 
+    ]
+  ) .
+
 
 #--------------------------------------------
 # General Data structure definitions 
@@ -330,7 +349,7 @@ dataset:A-Raw
 	                    cex:method cex:MeanBetweenMissing ;
 					    cex:method cex:AvgGrowth2Missing ;
 					    cex:method cex:CopyRaw; 
-						cex:dataSet dataset:dataset:A-Imputed ;
+						cex:dataSet dataset:A-Imputed ;
 					  ] ;
       dcterms:contributor wi-org:WESO ;
       dcterms:issued "2013-07-06" ;
@@ -351,7 +370,7 @@ dataset:B-Raw
 	                    cex:method cex:MeanBetweenMissing ;
 					    cex:method cex:AvgGrowth2Missing ;
 					    cex:method cex:CopyRaw; 
-						cex:dataSet dataset:dataset:B-Imputed ;
+						cex:dataSet dataset:B-Imputed ;
 					  ] ;
       dcterms:contributor wi-org:WESO ;
       dcterms:issued "2013-07-06" ;
@@ -372,7 +391,7 @@ dataset:C-Raw
 	                    cex:method cex:MeanBetweenMissing ;
 					    cex:method cex:AvgGrowth2Missing ;
 					    cex:method cex:CopyRaw; 
-						cex:dataSet dataset:dataset:C-Imputed ;
+						cex:dataSet dataset:C-Imputed ;
 					  ] ;
       dcterms:contributor wi-org:WESO ;
       dcterms:issued "2013-07-06" ;
@@ -393,7 +412,7 @@ dataset:D-Raw
 	                    cex:method cex:MeanBetweenMissing ;
 					    cex:method cex:AvgGrowth2Missing ;
 					    cex:method cex:CopyRaw; 
-						cex:dataSet dataset:dataset:D-Imputed ;
+						cex:dataSet dataset:D-Imputed ;
 					  ] ;
       dcterms:contributor wi-org:WESO ;
       dcterms:issued "2013-07-06" ;
@@ -411,7 +430,7 @@ dataset:D-Raw
 dataset:Q1-Raw
       cex:md5-checksum "MD5..." ;
 	  cex:computation [ a cex:NormalizeDataSet ;
-						cex:dataSet dataset:dataset:Q1-Normalized ;
+						cex:dataSet dataset:Q1-Normalized ;
 					  ] ;
       dcterms:contributor wi-org:WESO ;
       dcterms:issued "2013-07-06" ;
@@ -429,7 +448,7 @@ dataset:Q1-Raw
 dataset:Q2-Raw
       cex:md5-checksum "MD5..." ;
 	  cex:computation [ a cex:NormalizeDataSet ;
-						cex:dataSet dataset:dataset:Q2-Normalized ;
+						cex:dataSet dataset:Q2-Normalized ;
 					  ] ;
       dcterms:contributor wi-org:WESO ;
       dcterms:issued "2013-07-06" ;
@@ -450,7 +469,7 @@ dataset:Q2-Raw
 dataset:A-Imputed
       cex:md5-checksum "MD5..." ;
 	  cex:computation [ a cex:NormalizeDataSet ;
-						cex:dataSet dataset:dataset:A-Normalized ;
+						cex:dataSet dataset:A-Normalized ;
 					  ] ;
       dcterms:contributor wi-org:WESO ;
       dcterms:issued "2013-07-06" ;
@@ -468,7 +487,7 @@ dataset:A-Imputed
 dataset:B-Imputed
       cex:md5-checksum "MD5..." ;
 	  cex:computation [ a cex:NormalizeDataSet ;
-						cex:dataSet dataset:dataset:B-Normalized ;
+						cex:dataSet dataset:B-Normalized ;
 					  ] ;
       dcterms:contributor wi-org:WESO ;
       dcterms:issued "2013-07-06" ;
@@ -486,7 +505,7 @@ dataset:B-Imputed
 dataset:C-Imputed
       cex:md5-checksum "MD5..." ;
 	  cex:computation [ a cex:NormalizeDataSet ;
-						cex:dataSet dataset:dataset:C-Normalized ;
+						cex:dataSet dataset:C-Normalized ;
 					  ] ;
       dcterms:contributor wi-org:WESO ;
       dcterms:issued "2013-07-06" ;
@@ -504,7 +523,7 @@ dataset:C-Imputed
 dataset:D-Imputed
       cex:md5-checksum "MD5..." ;
 	  cex:computation [ a cex:NormalizeDataSet ;
-						cex:dataSet dataset:dataset:D-Normalized ;
+						cex:dataSet dataset:D-Normalized ;
 					  ] ;
       dcterms:contributor wi-org:WESO ;
       dcterms:issued "2013-07-06" ;
