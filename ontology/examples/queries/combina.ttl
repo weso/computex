@@ -1676,11 +1676,6 @@ cex:Ranked
       rdfs:comment "Data values that have been obtained by ranking their position."@en ;
       rdfs:label "Ranked data"@en .
 
-cex:Normalized
-      a       cex:ObsStatus ;
-      rdfs:comment "Data values that have been normalized. Usually by z-scores"@en ;
-      rdfs:label "Normalized data"@en .
-
 obs:FABQ2
       a       qb:Observation , wi-onto:Observation ;
       rdfs:label "Mean of AB and Q2 in FIN during 2011"@en ;
@@ -1698,6 +1693,11 @@ obs:FABQ2
       cex:element subindex:ABQ2 ;
       cex:md5-checksum "md5 for CDQ1-Mean" ;
       cex:value 6.35 .
+
+cex:Normalized
+      a       cex:ObsStatus ;
+      rdfs:comment "Data values that have been normalized. Usually by z-scores"@en ;
+      rdfs:label "Normalized data"@en .
 
 cex:Normalize
       a       owl:Class , rdfs:Class ;
@@ -1865,12 +1865,12 @@ ranking:CDQ1
       cex:computation
               [ a       cex:Rank ;
                 cex:dimension wi-onto:ref-area ;
-                cex:slice slice:CDQ1-Mean
+                cex:slice slice:DQ1-Mean
               ] ;
       cex:computation
               [ a       cex:Rank ;
                 cex:dimension wi-onto:ref-area ;
-                cex:slice slice:DQ1-Mean
+                cex:slice slice:CDQ1-Mean
               ] ;
       cex:md5-checksum "md5 for CDQ1" , "md5 for DQ1" ;
       cex:value 1 .
@@ -1965,23 +1965,13 @@ weightSchema:indicatorWeights
       a       cex:WeightSchema ;
       cex:weight
               [ a       cex:Weight ;
-                cex:element indicator:C ;
-                cex:value 0.5
-              ] ;
-      cex:weight
-              [ a       cex:Weight ;
-                cex:element indicator:Q2 ;
-                cex:value 1.0
+                cex:element indicator:A ;
+                cex:value 1
               ] ;
       cex:weight
               [ a       cex:Weight ;
                 cex:element indicator:Q1 ;
                 cex:value 0.5
-              ] ;
-      cex:weight
-              [ a       cex:Weight ;
-                cex:element indicator:A ;
-                cex:value 1
               ] ;
       cex:weight
               [ a       cex:Weight ;
@@ -1991,6 +1981,16 @@ weightSchema:indicatorWeights
       cex:weight
               [ a       cex:Weight ;
                 cex:element indicator:B ;
+                cex:value 0.5
+              ] ;
+      cex:weight
+              [ a       cex:Weight ;
+                cex:element indicator:Q2 ;
+                cex:value 1.0
+              ] ;
+      cex:weight
+              [ a       cex:Weight ;
+                cex:element indicator:C ;
                 cex:value 0.5
               ] .
 
@@ -2341,13 +2341,13 @@ weightSchema:subindexWeights
       a       cex:WeightSchema ;
       cex:weight
               [ a       cex:Weight ;
-                cex:element subindex:CDQ1 ;
-                cex:value 0.6
+                cex:element subindex:ABQ2 ;
+                cex:value 0.4
               ] ;
       cex:weight
               [ a       cex:Weight ;
-                cex:element subindex:ABQ2 ;
-                cex:value 0.4
+                cex:element subindex:CDQ1 ;
+                cex:value 0.6
               ] .
 
 cex:Param
@@ -4304,10 +4304,6 @@ cex:errorParam
 wi-onto:DSD
       a       qb:DataStructureDefinition ;
       qb:component
-              [ qb:dimension wi-onto:ref-area ;
-                qb:order 1
-              ] ;
-      qb:component
               [ qb:dimension wi-onto:ref-year ;
                 qb:order 2
               ] ;
@@ -4324,6 +4320,10 @@ wi-onto:DSD
               ] ;
       qb:component
               [ qb:measure cex:value
+              ] ;
+      qb:component
+              [ qb:dimension wi-onto:ref-area ;
+                qb:order 1
               ] ;
       qb:sliceKey wi-onto:sliceByArea .
 
@@ -4381,12 +4381,12 @@ ranking:FDQ1
       cex:computation
               [ a       cex:Rank ;
                 cex:dimension wi-onto:ref-area ;
-                cex:slice slice:DQ1-Mean
+                cex:slice slice:CDQ1-Mean
               ] ;
       cex:computation
               [ a       cex:Rank ;
                 cex:dimension wi-onto:ref-area ;
-                cex:slice slice:CDQ1-Mean
+                cex:slice slice:DQ1-Mean
               ] ;
       cex:md5-checksum "md5 for E-Rank" ;
       cex:value 3 .
@@ -4703,7 +4703,12 @@ weightSchema:componentWeights
       a       cex:WeightSchema ;
       cex:weight
               [ a       cex:Weight ;
-                cex:element component:C ;
+                cex:element component:AB ;
+                cex:value 1
+              ] ;
+      cex:weight
+              [ a       cex:Weight ;
+                cex:element component:Q2 ;
                 cex:value 1.0
               ] ;
       cex:weight
@@ -4713,12 +4718,7 @@ weightSchema:componentWeights
               ] ;
       cex:weight
               [ a       cex:Weight ;
-                cex:element component:AB ;
-                cex:value 1
-              ] ;
-      cex:weight
-              [ a       cex:Weight ;
-                cex:element component:Q2 ;
+                cex:element component:C ;
                 cex:value 1.0
               ] .
 
