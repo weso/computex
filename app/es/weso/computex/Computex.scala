@@ -25,23 +25,24 @@ import com.hp.hpl.jena.update.GraphStore
 import com.hp.hpl.jena.update.GraphStore
 import com.hp.hpl.jena.update.GraphStoreFactory
 import com.hp.hpl.jena.update.UpdateAction
+import es.weso.computex.entities.CMessage
 
 case class Computex(val ontologyURI: String, val validationDir: String,
   val closureFile: String, val flattenFile: String) {
 
-  def computex(indexDataInputStream: InputStream): Model = {
+  def computex(message:CMessage): Model = {
     println("Computex: Compute and Validate index data")
 
-    val model = loadData(ontologyURI, indexDataInputStream)
+    val model = loadData(ontologyURI, message)
     val expandedModel = expandCube(model)
     validate(expandedModel, validationDir)
   }
 
   def loadData(ontologyURI: String,
-    indexDataInputStream: InputStream): Model = {
+    message: CMessage): Model = {
     val model = ModelFactory.createDefaultModel
-    loadTurtle(model, Computex.loadFile(ontologyURI))
-    loadTurtle(model, indexDataInputStream)
+    loadModel(model, Computex.loadFile(ontologyURI))
+    loadModel(model, message.contentIS, message.contentFormat)
   }
 
   def expandCube(model: Model): Model = {
@@ -84,8 +85,8 @@ case class Computex(val ontologyURI: String, val validationDir: String,
     }
   }
 
-  def loadTurtle(model: Model, inputStream: InputStream) = {
-    model.read(inputStream, "", TURTLE)
+  def loadModel(model: Model, inputStream: InputStream, format:String = TURTLE) = {
+    model.read(inputStream, "", format)
   }
 
   def executeQuery(model: Model, query: Query): Model = {

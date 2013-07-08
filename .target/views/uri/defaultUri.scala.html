@@ -6,19 +6,33 @@
 @import Option._
 
 <div id="frontforms">
-	<ul id="tabset_tabs">
-		<li class="selected"><a href="/uri"><span>Validate by</span> URI</a></li>
-		<li><a href="/file"><span>Validate by</span> File Upload</a></li>
-		<li><a href="/direct"><span>Validate by</span> Direct Input</a></li>
-	</ul>
+	<nav>
+		<ul id="tabset_tabs">
+			<li class="selected"><a href="/uri"><span>Validate by</span> URI</a></li>
+			<li><a href="/file"><span>Validate by</span> File Upload</a></li>
+			<li><a href="/direct"><span>Validate by</span> Direct Input</a></li>
+			<li><a href="/about">About</a></li>
+		</ul>
+	</nav>
 	<div>
 		@helper.form(action = routes.Application.byUriGET(None)) {
 	      	<p class="instructions">
 				<label title="Address of page to Validate" for="uri">URI:</label>
-				<input type="text" name="uri" id="uri" size="45" value="@message.content"></input>
+				<input type="text" name="uri" id="uri" size="45" value="@message.content"/>
 			</p>
+			<p class="instructions">
+				<label for="direct-doctype">Use Doctype:</label>
+				<select id="direct-doctype" name="doctype">
+					<option value="RDF/XML">RDF/XML</option>
+					<option value="RDF/XML-ABBREV">RDF/XML-ABBREV</option>
+					<option value="TTL" selected="selected">TTL</option>
+					<option value="N-TRIPLE">N-TRIPLE</option>
+					<option value="TURTLE">TURTLE</option>
+					<option value="N3">N3</option>
+				</select>
+	      	</p>
 			<p class="submit_button">
-				<input type="submit" title="Submit for validation" value="Check" ></input>
+				<input type="submit" title="Submit for validation" value="Check"/>
 			</p>
 		}
 	</div>

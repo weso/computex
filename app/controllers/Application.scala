@@ -28,8 +28,8 @@ import org.apache.jena.atlas.AtlasException
 import views.html.main
 import org.apache.commons.io.FileUtils
 
-case class UriPath(val uri: Option[String])
-case class DirectInput(val content: Option[String])
+case class UriPath(val uri: Option[String], val format:Option[String])
+case class DirectInput(val content: Option[String],val format:Option[String])
 
 object Application extends Controller {
 
@@ -38,11 +38,15 @@ object Application extends Controller {
 
   val uriForm: Form[UriPath] = Form(
     mapping(
-      "uri" -> optional(text))(UriPath.apply)(UriPath.unapply))
+      "uri" -> optional(text),
+      "doctype" -> optional(text)
+      )(UriPath.apply)(UriPath.unapply))
 
   val directInputForm: Form[DirectInput] = Form(
     mapping(
-      "fragment" -> optional(text))(DirectInput.apply)(DirectInput.unapply))
+      "fragment" -> optional(text),
+      "doctype" -> optional(text)
+      )(DirectInput.apply)(DirectInput.unapply))
 
   def index = Action {
     implicit request =>
@@ -64,7 +68,8 @@ object Application extends Controller {
               "http://" + uri
             } else { uri }
             try {
-              message.contentIS = Computex.loadFile(message.content);
+              message.contentIS = Computex.loadFile(message.content)
+              message.contentFormat = uriPath.format.getOrElse(TURTLE)
               message = validateStream(message)
             } catch {
               case e: FileNotFoundException =>
@@ -94,9 +99,11 @@ object Application extends Controller {
           message.message = MSG_BAD_FORMED
           BadRequest(views.html.input.defaultInputGET(message))
         },
-        inputForm => {
-          message.content = inputForm.content.getOrElse(null)
+        directInput => {
+          message.content = directInput.content.getOrElse(null)
           if (message.content != null) {
+            message.contentFormat = directInput.format.getOrElse(TURTLE)
+            println(message.contentFormat)
             message.contentIS = new ByteArrayInputStream(message.content.getBytes("UTF-8"))
             message = validateStream(message)
             Ok(views.html.generic.format(message))
@@ -132,17 +139,22 @@ object Application extends Controller {
       }
   }
 
+  def about() = Action {
+    implicit request =>
+      Ok(views.html.about.about(CMessage(FILE)))
+   }
+  
   private def validateStream(message: CMessage)(implicit request: RequestHeader): CMessage = {
     val conf: Config = ConfigFactory.load()
     val validationDir = conf.getString("validationDir")
     val ontologyURI = conf.getString("ontologyURI")
     val closureFile = conf.getString("closureFile")
     val flattenFile = conf.getString("flattenFile")
-    println("CLOSURE " + closureFile)
+
     val cex = Computex(ontologyURI, validationDir, closureFile, flattenFile)
 
     try {
-      val model = cex.computex(message.contentIS)
+      val model = cex.computex(message)
 
       val errors = Parser.parseErrors(model)
 
@@ -159,8 +171,8 @@ object Application extends Controller {
       }
 
     } catch {
-      case e: AtlasException => message.message = MSG_BAD_FORMED
-      case e: RiotException => message.message = MSG_BAD_FORMED
+      case e: AtlasException => message.message = MSG_BAD_FORMED + " as "+ message.contentFormat
+      case e: RiotException => message.message = MSG_BAD_FORMED + " as "+ message.contentFormat
     }
     message
   }

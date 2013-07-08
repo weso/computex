@@ -1,7 +1,8 @@
 header#banner{
 	border-radius: 5px;
 	margin: 1.5em 2em;
-	background: #365D95 url(../images/head-br.png) bottom right no-repeat;
+	background: #365D95;
+	border-radious: 5px;
 }
 
 h1#title img {
@@ -11,8 +12,10 @@ h1#title img {
 }
 
 footer p{
+	font-size: small;
 	text-align: center;
-	font-size: 0.9em;
+	color: #888;
+	background-color: white;
 }
 
 #frontforms{
@@ -28,10 +31,13 @@ footer p{
 	background: transparent;
 }
 
+.instructions:first-child{
+	border-radius: 0 5px 0 0;
+}
+
 .instructions{
 	padding-left: 4em;
 	padding-right: 4em;
-	border-radius: 0 5px 0 0;
 }
 
 .instructions input#uri{

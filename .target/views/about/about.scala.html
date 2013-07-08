@@ -1,0 +1,22 @@
+@(message: es.weso.computex.entities.CMessage)(implicit flash:Flash)
+
+@import es.weso.computex.entities.CMessage
+@import es.weso.computex.entities.CMessage._
+
+@main(message) {
+<div id="frontforms">
+	<nav>
+		<ul id="tabset_tabs">
+			<li><a href="/uri"><span>Validate by</span> URI</a></li>
+			<li><a href="/file"><span>Validate by</span> File Upload</a></li>
+			<li><a href="/direct"><span>Validate by</span> Direct Input</a></li>
+			<li class="selected"><a href="/about">About</a></li>
+		</ul>
+	</nav>
+	<div class="doc">
+		<h2>About Computex Validation Service</h2>
+		<h3>About WESO RG</h3>
+		<p>WESO is a multidisciplinary research group from the Department of Computer Science, Spanish Philology and Philosophy at the University of Oviedo, The group is involved in semantic web research, education and technology transfer.</p>
+	</div>
+</div>
+}

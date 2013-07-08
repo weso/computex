@@ -9,6 +9,7 @@ GET 	/direct               		controllers.Application.byDirectInputGET
 POST    /direct               		controllers.Application.byDirectInputPOST
 GET 	/file              			controllers.Application.byFileUploadGET
 POST    /file	               		controllers.Application.byFileUploadPOST
+GET     /about	               		controllers.Application.about
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

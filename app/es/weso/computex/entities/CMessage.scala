@@ -1,11 +1,13 @@
 package es.weso.computex.entities
 
 import java.io.InputStream
+import es.weso.utils.JenaUtils
 
 case class CMessage(val action : String) {
   var message: String = CMessage.MSG_OK
   var content: String = null
   var contentIS : InputStream = null
+  var contentFormat : String = JenaUtils.TTL
   var errorMessages: List[(String, String)] = List.empty
 
   def size = errorMessages.size

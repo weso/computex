@@ -15,7 +15,7 @@
 	    <h2 class="@if(message.message equals MSG_OK){valid}else{invalid}">@message.message</h2>
 	    <p class="backtop"><a href="#frontforms">↑ Top</a></p>
 	    <div id="result">
-	    	<h3 class="invalid">Validation Output: @message.size Errors</h3>
+	    	<h3 class="invalid">Validation Output: @message.size RDF Data Cube Validation Service Errors</h3>
 	    	<ol id="error_loop">
 	    	@message.errorMessages.zipWithIndex.map { e =>
 	    		<li class="msg_err">

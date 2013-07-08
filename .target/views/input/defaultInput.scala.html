@@ -5,19 +5,33 @@
 @import helper._
 
 <div id="frontforms">
-	<ul id="tabset_tabs">
-		<li><a href="/uri"><span>Validate by</span> URI</a></li>
-		<li><a href="/file"><span>Validate by</span> File Upload</a></li>
-		<li class="selected"><a href="/direct"><span>Validate by</span> Direct Input</a></li>
-	</ul>
+	<nav>
+		<ul id="tabset_tabs">
+			<li><a href="/uri"><span>Validate by</span> URI</a></li>
+			<li><a href="/file"><span>Validate by</span> File Upload</a></li>
+			<li class="selected"><a href="/direct"><span>Validate by</span> Direct Input</a></li>
+			<li><a href="/about">About</a></li>
+		</ul>
+	</nav>
 	<div>
 		@helper.form(action = routes.Application.byDirectInputPOST) {
 	      	<p class="instructions">
 	      		<label title="Paste a complete (TTL) Document here" for="fragment">Enter the .ttl to validate:</label><br>
 	      		<textarea id="fragment" name="fragment" rows="90" cols="120">@message.content</textarea>
 	      	</p>
+	      	<p class="instructions">
+				<label for="direct-doctype">Use Doctype:</label>
+				<select id="direct-doctype" name="doctype">
+					<option value="RDF/XML">RDF/XML</option>
+					<option value="RDF/XML-ABBREV">RDF/XML-ABBREV</option>
+					<option value="TTL" selected="selected">TTL</option>
+					<option value="N-TRIPLE">N-TRIPLE</option>
+					<option value="TURTLE">TURTLE</option>
+					<option value="N3">N3</option>
+				</select>
+	      	</p>
 			<p class="submit_button">
-				<input type="submit" title="Submit for validation" value="Check" ></input>
+				<input type="submit" title="Submit for validation" value="Check"/>
 			</p>
 		}
 	</div>
