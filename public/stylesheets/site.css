@@ -1,11 +1,18 @@
-div#banner{
+header#banner{
 	border-radius: 5px;
+	margin: 1.5em 2em;
+	background: #365D95 url(../images/head-br.png) bottom right no-repeat;
 }
 
 h1#title img {
 	margin: 0.4em;
 	height: 70px;
 	width: 80px
+}
+
+footer p{
+	text-align: center;
+	font-size: 0.9em;
 }
 
 #frontforms{

@@ -24,16 +24,15 @@
          })"/>
 	</head>
     <body>
-    	<div id="banner">
+    	<header id="banner">
 			<h1 id="title">
       			<a href="/"><img alt="W3C" width="110" height="61" id="logo" src="@routes.Assets.at("images/weso.png")"></a>
 				<a href="./"><span>COMPUTEX: An RDF Data Cube Validation Service</span></a>
       		</h1>
-      	</div>
+      	</header>
         @content
-		<!--<script>
-			document.write('<script src=' + ('@routes.Assets.at("javascripts/vendor/jquery")') + '.js><\/script>')
-		</script>
-		<!--<script type="text/javascript" src="@routes.Assets.at("javascripts/site.js")"></script>-->
+		<footer>
+			<p>"COMPUTEX: An RDF Data Cube Validation Service" is a web service developed by <a href="http://www.weso.es" alt="WESO RG">WESO RG</a>.</p>
+		</footer>
 	</body>
 </html>
