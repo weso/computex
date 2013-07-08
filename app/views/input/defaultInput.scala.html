@@ -1,4 +1,4 @@
-@(message:  es.weso.computex.entities.CMessage)(implicit flash: Flash)
+@(message: es.weso.computex.entities.CMessage)(implicit flash: Flash)
 
 @import es.weso.computex.entities.CMessage
 @import es.weso.computex.entities.CMessage._
@@ -7,12 +7,13 @@
 <div id="frontforms">
 	<ul id="tabset_tabs">
 		<li><a href="/uri"><span>Validate by</span> URI</a></li>
+		<li><a href="/file"><span>Validate by</span> File Upload</a></li>
 		<li class="selected"><a href="/direct"><span>Validate by</span> Direct Input</a></li>
 	</ul>
 	<div>
-		@helper.form(action = routes.Application.byDirectInputPost) {
+		@helper.form(action = routes.Application.byDirectInputPOST) {
 	      	<p class="instructions">
-	      		<label title="Paste a complete (HTML) Document here" for="fragment">Enter the Markup to validate:</label><br>
+	      		<label title="Paste a complete (TTL) Document here" for="fragment">Enter the .ttl to validate:</label><br>
 	      		<textarea id="fragment" name="fragment" rows="90" cols="120">@message.content</textarea>
 	      	</p>
 			<p class="submit_button">
@@ -20,7 +21,4 @@
 			</p>
 		}
 	</div>
-</div>
-<div id="results_container">
-	<p class="backtop"><a href="#frontforms">↑ Top</a></p>
 </div>

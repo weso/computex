@@ -55,3 +55,29 @@ p.submit_button {
 	margin-bottom: 1em;
 	margin-top: 1em;
 }
+
+div#results_container{
+	padding-top:0;
+}
+
+div#result{
+	padding:0;
+}
+
+.msg_err {
+	padding-bottom: 1em!important;
+}
+
+.msg_err pre {
+	line-height: 0;
+	margin-bottom:0;
+}
+
+code {
+	background-color: #F9F9F9;
+	color: black;
+	line-height: 1.1em;
+	padding: 1em;
+	display: block;
+	margin: 0!important;
+}

@@ -1,6 +1,0 @@
-@(form:Form[UriPath], eMessages: List[(es.weso.computex.entities.ErrorMessage, String)])(implicit flash:Flash)
-
-@main("Welcome to Play 2.1") {
-  @uri.defaultUri(form)
-  @generic.format(eMessages)
-}

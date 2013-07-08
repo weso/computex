@@ -4,9 +4,11 @@
 
 # Home page
 GET     /                           controllers.Application.index
-GET     /uri               			controllers.Application.byUri(uri:Option[String])
-GET 	/direct               		controllers.Application.byDirectInputGet
-POST    /direct               		controllers.Application.byDirectInputPost
+GET     /uri               			controllers.Application.byUriGET(uri:Option[String])
+GET 	/direct               		controllers.Application.byDirectInputGET
+POST    /direct               		controllers.Application.byDirectInputPOST
+GET 	/file              			controllers.Application.byFileUploadGET
+POST    /file	               		controllers.Application.byFileUploadPOST
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

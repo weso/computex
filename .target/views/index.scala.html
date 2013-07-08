@@ -1,6 +1,6 @@
 @(message: es.weso.computex.entities.CMessage)(implicit flash:Flash)
 
-@main("Welcome to Play 2.1") {
+@main(message) {
     
     @uri.defaultUri(message)
     

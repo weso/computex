@@ -7,13 +7,14 @@
 
 <div id="frontforms">
 	<ul id="tabset_tabs">
-		<li class="selected"><a href="/uri"><span>Validate by</span> URI</a></li>
+		<li class="selected"><a href="/uri"><span>Validate by</span> URI</a></li
+		<li><a href="/file"><span>Validate by</span> File Upload</a></li>
 		<li><a href="/direct"><span>Validate by</span> Direct Input</a></li>
 	</ul>
 	<div>
-		@helper.form(action = routes.Application.byUri(None)) {
+		@helper.form(action = routes.Application.byUriGET(None)) {
 	      	<p class="instructions">
-				<label title="Address of page to Validate" for="uri">Address:</label>
+				<label title="Address of page to Validate" for="uri">URI:</label>
 				<input type="text" name="uri" id="uri" size="45" value="@message.content"></input>
 			</p>
 			<p class="submit_button">
@@ -21,7 +22,4 @@
 			</p>
 		}
 	</div>
-</div>
-<div id="results_container">
-	<p class="backtop"><a href="#frontforms">↑ Top</a></p>
 </div>

@@ -7,14 +7,14 @@
 <div id="frontforms">
 	<ul id="tabset_tabs">
 		<li><a href="/uri"><span>Validate by</span> URI</a></li>
-		<li><a href="/file"><span>Validate by</span> File Upload</a></li>
-		<li class="selected"><a href="/direct"><span>Validate by</span> Direct Input</a></li>
+		<li class="selected"><a href="/file"><span>Validate by</span> File Upload</a></li>
+		<li><a href="/direct"><span>Validate by</span> Direct Input</a></li>
 	</ul>
 	<div>
-		@helper.form(action = routes.Application.byDirectInputPOST) {
+		@helper.form(action = routes.Application.byFileUploadPOST, 'enctype -> "multipart/form-data") {
 	      	<p class="instructions">
-	      		<label title="Paste a complete (TTL) Document here" for="fragment">Enter the .ttl to validate:</label><br>
-	      		<textarea id="fragment" name="fragment" rows="90" cols="120">@message.content</textarea>
+	      		<label title="Choose a Local File to Upload and Validate" for="uploaded_file">File:</label>
+	      		<input type="file" id="uploaded_file" name="uploaded_file" size="30">
 	      	</p>
 			<p class="submit_button">
 				<input type="submit" title="Submit for validation" value="Check" ></input>
