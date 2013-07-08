@@ -30,11 +30,14 @@ object Main extends App {
   val validationDir = conf.getString("validationDir")
   val computationDir = conf.getString("computationDir")
   val ontologyURI  = conf.getString("ontologyURI")
+  val cubeDataDir  = conf.getString("cubeDataDir")
   val closureFile  = conf.getString("closureFile")
   val flattenFile  = conf.getString("flattenFile")
+  val findStepsQuery = conf.getString("findStepsQuery")
   val indexDataURI = opts.indexURI.get.getOrElse(conf.getString("indexDataURI")) 
 
   val cex = new Computex
-  cex.computex(indexDataURI,ontologyURI,validationDir,computationDir)
+  cex.computex(indexDataURI,ontologyURI,validationDir,computationDir,cubeDataDir,closureFile,flattenFile,findStepsQuery)
+  
 
 }

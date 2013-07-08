@@ -1,0 +1,4 @@
+@prefix : <http://example.org#> .
+
+:ls :list (:a :b :c)
+

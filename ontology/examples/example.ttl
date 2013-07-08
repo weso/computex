@@ -12,7 +12,6 @@
 @prefix ranking: <http://data.webfoundation.org/webindex/v2013/ranking/> .
 @prefix computation: <http://data.webfoundation.org/webindex/v2013/computation/> .
 
-
 @prefix cex: <http://purl.org/weso/ontology/computex#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
@@ -36,17 +35,11 @@
 
 computation:Flow a cex:ComputationFlow ;
   cex:steps ( 
-    [a cex:CopyRaw ;
-       cex:fromDataSet dataset:A-Raw ;
-       cex:toDataSet dataset:A-Imputed 
-    ]
-    [a cex:MeanBetweenMissing ;
-       cex:dimension wi-onto:ref-year ;
-       cex:fromDataSet dataset:A-Raw ;
-       cex:toDataSet dataset:A-Imputed 
-    ]
+    [ cex:query "copyRaw" ]
+#    [ cex:query "MeanBetween" ]
+#    [ cex:query "AverageGrowth" ]
+#    [ cex:query "zScores" ]
   ) .
-
 
 #--------------------------------------------
 # General Data structure definitions 

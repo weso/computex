@@ -20,7 +20,7 @@ class CubeSuite extends FunSpec with ShouldMatchers {
   val computationDir = conf.getString("computationDir")
   val cubeDataDir = conf.getString("cubeDataDir")
   val ontologyURI  = conf.getString("ontologyURI")
-  val indexDataURI_ok = conf.getString("indexDataURI_ok")
+  val demoComputexURI = conf.getString("demoComputexURI")
   val demoCubeUri = conf.getString("demoCubeURI")
   val closureFile = conf.getString("closureFile")
   val flattenFile = conf.getString("flattenFile")
@@ -40,11 +40,10 @@ PREFIX eg:             <http://example.com/abbrv-cube/>
 """
 
   describe("The Cube example") {
-  
-   val model = cex.loadData(demoCubeUri)
-   val expanded = cex.expandCube(model,closureFile,flattenFile)
 
    describe("should pass all the RDF Data Cube integrity tests") {
+      val model = cex.loadData(demoCubeUri)
+      val expanded = cex.expandCube(model,closureFile,flattenFile)
       val dir = new File(cubeDataDir)
       if (dir == null || dir.listFiles == null) 
         throw new IOException("Directory: " + cubeDataDir + " not accessible")
@@ -66,8 +65,9 @@ PREFIX eg:             <http://example.com/abbrv-cube/>
   describe("The Computex example") {
 
     describe("should pass all the RDF Data Cube integrity tests") {
-      val model = cex.loadData(ontologyURI,indexDataURI_ok)
+      val model = cex.loadData(ontologyURI,demoComputexURI)
       val expanded = cex.expandCube(model,closureFile,flattenFile)
+      cex.validate(expanded,cubeDataDir)
 
       val dir = new File(cubeDataDir)
   

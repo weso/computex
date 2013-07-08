@@ -18,7 +18,7 @@ class ComputexSuite extends FunSuite with ShouldMatchers {
   val computationDir = conf.getString("computationDir")
   val testDataDir = conf.getString("testDataDir")
   val ontologyURI  = conf.getString("ontologyURI")
-  val indexDataURI_ok = conf.getString("indexDataURI_ok")
+  val demoComputexURI = conf.getString("demoComputexURI")
   
   
   val cex = new Computex
@@ -30,7 +30,7 @@ class ComputexSuite extends FunSuite with ShouldMatchers {
    }"""
 
   test("No errors in good index data") {
-	  val model_ok = cex.loadData(ontologyURI,indexDataURI_ok)
+	  val model_ok = cex.loadData(ontologyURI,demoComputexURI)
 	  val errorModel = cex.validate(model_ok,validationDir) 
 	  errorModel.size should be(0)
   }

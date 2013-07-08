@@ -1,4 +1,4 @@
-# compute copy-Raw
+# find Steps
 prefix country:      <http://data.webfoundation.org/webindex/v2013/country/> 
 prefix dataset:      <http://data.webfoundation.org/webindex/v2013/dataset/> 
 prefix indicator:    <http://data.webfoundation.org/webindex/v2013/indicator/> 
@@ -11,27 +11,14 @@ prefix owl:          <http://www.w3.org/2002/07/owl#>
 prefix qb:           <http://purl.org/linked-data/cube#>
 prefix rdf:          <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
 prefix rdfs:         <http://www.w3.org/2000/01/rdf-schema#> 
-prefix sdmx-code:  <http://purl.org/linked-data/sdmx/2009/code#> 
-prefix sdmx-concept: <http://purl.org/linked-data/sdmx/2009/concept#> 
 prefix wi-onto:      <http://data.webfoundation.org/webindex/ontology/> 
 prefix xml:          <http://www.w3.org/XML/1998/namespace> 
 prefix xsd:          <http://www.w3.org/2001/XMLSchema#> 
+PREFIX list: 		 <http://jena.hpl.hp.com/ARQ/list#>
 
-INSERT {
- _:obs cex:value ?value ;
-       cex:indicator ?indicator ;
-	   wi-onto:ref-year ?year ;
-	   sdmx-concept:obsStatus cex:Imputed .
- ?sliceToCopy qb:observation _:obs .
-} WHERE {
- ?slice a qb:Slice ;
-        cex:indicator ?indicator ;
-	    cex:computation [ a cex:ImputeSlice ;
-	                      cex:method cex:CopyRaw; 
-						  cex:slice ?sliceToCopy ;
-					    ] ;
-        wi-onto:ref-year ?year .
- ?sliceToCopy qb:observation ?obs .
- ?obs cex:value ?value ;
-      sdmx-concept:obsStatus cex:Raw .
-}
+SELECT ?stepQuery WHERE {
+ ?computation a cex:ComputationFlow ;
+              cex:steps ?steps .
+ ?steps list:index (?index ?step) .
+ ?step cex:query ?stepQuery .
+} ORDER BY ?index
