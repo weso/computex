@@ -28,8 +28,8 @@ import org.apache.jena.atlas.AtlasException
 import views.html.main
 import org.apache.commons.io.FileUtils
 
-case class UriPath(val uri: Option[String], val format:Option[String])
-case class DirectInput(val content: Option[String],val format:Option[String])
+case class UriPath(val uri: Option[String], val format: Option[String])
+case class DirectInput(val content: Option[String], val format: Option[String])
 
 object Application extends Controller {
 
@@ -39,14 +39,12 @@ object Application extends Controller {
   val uriForm: Form[UriPath] = Form(
     mapping(
       "uri" -> optional(text),
-      "doctype" -> optional(text)
-      )(UriPath.apply)(UriPath.unapply))
+      "doctype" -> optional(text))(UriPath.apply)(UriPath.unapply))
 
   val directInputForm: Form[DirectInput] = Form(
     mapping(
       "fragment" -> optional(text),
-      "doctype" -> optional(text)
-      )(DirectInput.apply)(DirectInput.unapply))
+      "doctype" -> optional(text))(DirectInput.apply)(DirectInput.unapply))
 
   def index = Action {
     implicit request =>
@@ -142,8 +140,8 @@ object Application extends Controller {
   def about() = Action {
     implicit request =>
       Ok(views.html.about.about(CMessage(FILE)))
-   }
-  
+  }
+
   private def validateStream(message: CMessage)(implicit request: RequestHeader): CMessage = {
     val conf: Config = ConfigFactory.load()
     val validationDir = conf.getString("validationDir")
@@ -154,25 +152,15 @@ object Application extends Controller {
     val cex = Computex(ontologyURI, validationDir, closureFile, flattenFile)
 
     try {
-      val model = cex.computex(message)
+      message.integrityQueries = cex.computex(message)
 
-      val errors = Parser.parseErrors(model)
-
-      message.errorMessages = for {
-        i <- errors
-        out = new ByteArrayOutputStream()
-      } yield {
-        i.model.write(out, TURTLE)
-        (i.message, out.toString())
-      }
-
-      if (message.errorMessages.size > 0) {
+      if (message.size > 0) {
         message.message = MSG_ERROR
       }
 
     } catch {
-      case e: AtlasException => message.message = MSG_BAD_FORMED + " as "+ message.contentFormat
-      case e: RiotException => message.message = MSG_BAD_FORMED + " as "+ message.contentFormat
+      case e: AtlasException => message.message = MSG_BAD_FORMED + " as " + message.contentFormat
+      case e: RiotException => message.message = MSG_BAD_FORMED + " as " + message.contentFormat
     }
     message
   }

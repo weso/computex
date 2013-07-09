@@ -26,11 +26,12 @@ import com.hp.hpl.jena.update.GraphStore
 import com.hp.hpl.jena.update.GraphStoreFactory
 import com.hp.hpl.jena.update.UpdateAction
 import es.weso.computex.entities.CMessage
+import es.weso.computex.entities.IntegrityQuery
 
 case class Computex(val ontologyURI: String, val validationDir: String,
   val closureFile: String, val flattenFile: String) {
 
-  def computex(message:CMessage): Model = {
+  def computex(message:CMessage): Map[String, IntegrityQuery] = {
     println("Computex: Compute and Validate index data")
 
     val model = loadData(ontologyURI, message)
@@ -58,29 +59,35 @@ case class Computex(val ontologyURI: String, val validationDir: String,
   }
 
   def validate(model: Model,
-    validationDir: String): Model = runQueries(model, validationDir)
+    validationDir: String): Map[String, IntegrityQuery] = runQueries(model, validationDir)
 
   def compute(model: Model,
-    computationDir: String): Model = runQueries(model, computationDir)
+    computationDir: String): Map[String, IntegrityQuery] = runQueries(model, computationDir)
 
-  def runQueries(model: Model, dir: String): Model = {
-    val currentModel = ModelFactory.createDefaultModel
-    val qs = readQueries(dir)
-    for (q <- qs) {
-      val newModel = executeQuery(model, q)
-      currentModel.add(newModel)
+  def runQueries(model: Model, dir: String): Map[String, IntegrityQuery] = {
+    val iQueries = for {
+      q <- readQueries(dir)
+      currentModel = executeQuery(model, q._2)
+    }yield{
+      val iQuery = Parser.parse(q, currentModel)
+      iQuery.query._1 -> iQuery
     }
-    currentModel
+    iQueries.toMap
   }
 
-  def readQueries(dirName: String): Array[Query] = {
+  def readQueries(dirName: String): Array[(String, Query)] = {
+    val pattern = """.*-(.+).sparql""".r
     val dir = new File(dirName)
     if (dir == null || dir.listFiles == null)
       throw new IOException(s"Directory: ${dirName} not accessible")
     else {
       for (file <- dir.listFiles if file.getName endsWith ".sparql") yield {
-        val contents = fromFile(file).mkString;
-        QueryFactory.create(contents)
+        val contents = fromFile(file).mkString
+        val queryName = file.getName match {
+          case pattern(i) => i
+          case _ => "UNKNOWN QUERY NAME"
+        }     
+        (queryName, QueryFactory.create(contents))
       }
     }
   }

@@ -8,9 +8,9 @@ case class CMessage(val action : String) {
   var content: String = null
   var contentIS : InputStream = null
   var contentFormat : String = JenaUtils.TTL
-  var errorMessages: List[(String, String)] = List.empty
+  var integrityQueries: Map[String, IntegrityQuery] = Map.empty
 
-  def size = errorMessages.size
+  def size = integrityQueries.map(_._2.size).foldLeft(0)(_+_)
   
   def status = message match {
     case CMessage.MSG_OK | CMessage.MSG_EMPTY => CMessage.VALID
