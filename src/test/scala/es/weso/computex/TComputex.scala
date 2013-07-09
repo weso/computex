@@ -10,7 +10,7 @@ import com.hp.hpl.jena.rdf.model._
 import com.hp.hpl.jena.util.FileManager;
 import scala.collection.JavaConversions._
 
-class ComputexSuite extends FunSuite with ShouldMatchers {
+class ComputexSuite extends FunSpec with SparqlSuite with ShouldMatchers {
 
   val conf : Config = ConfigFactory.load()
 
@@ -18,8 +18,12 @@ class ComputexSuite extends FunSuite with ShouldMatchers {
   val computationDir = conf.getString("computationDir")
   val testDataDir = conf.getString("testDataDir")
   val ontologyURI  = conf.getString("ontologyURI")
-  val demoComputexURI = conf.getString("demoComputexURI")
-  
+  val demoURI = conf.getString("demoURI")
+  val demoAbbrURI = conf.getString("demoAbbrURI")
+  val closureFile = conf.getString("closureFile")
+  val flattenFile = conf.getString("flattenFile")
+  val findStepsQuery = conf.getString("findStepsQuery")
+
   
   val cex = new Computex
   
@@ -29,147 +33,155 @@ class ComputexSuite extends FunSuite with ShouldMatchers {
     ?e a cex:Error ; cex:msg ?msg . 
    }"""
 
-  test("No errors in good index data") {
-	  val model_ok = cex.loadData(ontologyURI,demoComputexURI)
-	  val errorModel = cex.validate(model_ok,validationDir) 
-	  errorModel.size should be(0)
+  describe("No errors in demo data") {
+	  val model = cex.loadData(ontologyURI,demoURI)
+      passDir(model,validationDir)
   }
 
-  test("Error if obs has no value") {
+  describe("No errors in demo abbr data when expanded") {
+	  val model = cex.loadData(ontologyURI,demoAbbrURI)
+	  val expandedCube = cex.expandCube(model,closureFile,flattenFile)
+	  val expandedCex = cex.expandComputex(expandedCube,computationDir,findStepsQuery)
+	  passDir(model,validationDir)
+    } 
+
+  describe("The validation process") {
+    
+  it("Should raise error if obs has no value") {
    val model = loadExample("obs_noValue.ttl") 
    val reportModel = cex.validate(model,validationDir)  
    assert(reportModel.size > 0)
    assertMsgError(reportModel, "Observation does not have value")
   }
 
- test("Error if an observation has 2 values") {
+ it("Should raise error if an observation has 2 values") {
    val model = loadExample("obs2Values.ttl") 
    val reportModel = cex.validate(model,validationDir)  
    assert(reportModel.size > 0)
    assertMsgError(reportModel, "Observation has two different values")
   }
 
- test("Error if an observation with Missing status has value") {
+ it("Should raise error if an observation with Missing status has value") {
    val model = loadExample("missingObsNoValues.ttl") 
    val reportModel = cex.validate(model,validationDir)  
    assert(reportModel.size > 0)
    assertMsgError(reportModel, "Observation with Status obsStatus-M (Missing) should not have value")
   }
 
- test("Observation does not have sheet-type") {
+ it("Checks an Observation that does not have sheet-type") {
    val model = loadExample("obs_noSheet-type.ttl") 
    val reportModel = cex.validate(model,validationDir)  
    assert(reportModel.size > 0)
    assertMsgError(reportModel, "Observation does not have sheet-type")
   }
 
-  test("Error with bad normalized") {
+  it("Should raise error with bad normalized") {
    val model = loadExample("badNormalized.ttl") 
    val reportModel = cex.validate(model,validationDir)  
    assert(reportModel.size > 0)
    assertMsgError(reportModel, "Normalized value does not match computed z-score")
   }
 
-  test("Error with bad normalized low") {
+  it("Should raise error with bad normalized low") {
    val model = loadExample("badNormalizedLow.ttl") 
    val reportModel = cex.validate(model,validationDir)  
    assert(reportModel.size > 0)
    assertMsgError(reportModel, "Normalized value does not match computed z-score")
   }
 
-  test("No error with good normalized") {
+  it("Should raise No error with good normalized") {
    val model = loadExample("goodNormalizedHigh.ttl") 
    val reportModel = cex.validate(model,validationDir)  
    assert(reportModel.size === 0)
   }
 
-  test("No error with good normalized low") {
+  it("Should raise No error with good normalized low") {
    val model = loadExample("goodNormalizedLow.ttl") 
    val reportModel = cex.validate(model,validationDir)  
    assert(reportModel.size === 0)
   }
 
-  test("Error with bad incremented") {
+  it("Should raise Error with bad incremented") {
    val model = loadExample("badIncremented.ttl") 
    val reportModel = cex.validate(model,validationDir)  
    assert(reportModel.size > 0)
    assertMsgError(reportModel, "Incremented value does not match")
   }
 
-  test("No error with good incremented") {
+  it("Should raise No error with good incremented") {
    val model = loadExample("goodIncremented.ttl") 
    val reportModel = cex.validate(model,validationDir)  
    assert(reportModel.size === 0)
   }
 
-  test("Error with bad incremented no value source") {
+  it("Should raise Error with bad incremented no value source") {
    val model = loadExample("badIncrementedNoValueSource.ttl") 
    val reportModel = cex.validate(model,validationDir)  
    assert(reportModel.size > 0)
    assertMsgError(reportModel, "Source observation does not have value in incremented computation")
   }
 
-  test("Error with bad mean") {
+  it("Should raise Error with bad mean") {
    val model = loadExample("badMean.ttl") 
    val reportModel = cex.validate(model,validationDir)  
    assert(reportModel.size > 0)
    assertMsgError(reportModel, "Mean value does not match")
   }
 
-  test("No Error with good mean") {
+  it("Should raise No Error with good mean") {
    val model = loadExample("goodMean.ttl") 
    val reportModel = cex.validate(model,validationDir)  
    assert(reportModel.size === 0)
   }
 
-  test("Error with bad mean no source") {
+  it("Should raise Error with bad mean no source") {
    val model = loadExample("badMeanNoSource.ttl") 
    val reportModel = cex.validate(model,validationDir)  
    assert(reportModel.size > 0)
    assertMsgError(reportModel, "Observation does not have value in mean")
   }
 
-  test("Error with bad copy") {
+  it("Should raise Error with bad copy") {
    val model = loadExample("badCopy.ttl") 
    val reportModel = cex.validate(model,validationDir)  
    assert(reportModel.size > 0)
    assertMsgError(reportModel, "Copy value does not match")
   }
 
-  test("No Error with good copy") {
+  it("Should raise No Error with good copy") {
    val model = loadExample("goodCopy.ttl") 
    val reportModel = cex.validate(model,validationDir)  
    assert(reportModel.size === 0)
   }
 
-  test("Error with bad copy no source") {
+  it("Should raise Error with bad copy no source") {
    val model = loadExample("badCopyNoSource.ttl") 
    val reportModel = cex.validate(model,validationDir)  
    assert(reportModel.size > 0)
    assertMsgError(reportModel, "Observation does not have value in copy")
   }
 
-  test("Error with bad weighted mean") {
+  it("Should raise Error with bad weighted mean") {
    val model = loadExample("badWeightedMean.ttl") 
    val reportModel = cex.validate(model,validationDir)  
    assert(reportModel.size > 0)
    assertMsgError(reportModel, "Weighted Mean does not match")
   }
 
-  test("No Error with good weighted mean") {
+  it("Should raise No Error with good weighted mean") {
    val model = loadExample("goodWeightedMean.ttl") 
    val reportModel = cex.validate(model,validationDir)  
    assert(reportModel.size === 0)
   }
   
-  test("Error with bad ranking") {
+  it("Should raise Error with bad ranking") {
    val model = loadExample("badRanking.ttl") 
    val reportModel = cex.validate(model,validationDir)  
    assert(reportModel.size > 0)
    assertMsgError(reportModel, "Ranking value does not match")
   }
 
-  test("No Error with good ranking") {
+  it("Should raise No Error with good ranking") {
    val model = loadExample("goodRanking.ttl") 
    val reportModel = cex.validate(model,validationDir)  
    assert(reportModel.size === 0)
@@ -184,6 +196,8 @@ class ComputexSuite extends FunSuite with ShouldMatchers {
    model
  }
  
+ }
+  
  def assertMsgError(model : Model, msg: String) = {
    val results = 
 		   QueryExecutionFactory.create(queryErrorMsg, model).execSelect;

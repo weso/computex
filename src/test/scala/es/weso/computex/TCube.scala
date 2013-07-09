@@ -12,7 +12,7 @@ import scala.collection.JavaConversions._
 import java.io.IOException
 import java.io.File
 
-class CubeSuite extends FunSpec with ShouldMatchers {
+class CubeSuite extends FunSpec with SparqlSuite with ShouldMatchers {
 
   val conf : Config = ConfigFactory.load()
 
@@ -20,7 +20,8 @@ class CubeSuite extends FunSpec with ShouldMatchers {
   val computationDir = conf.getString("computationDir")
   val cubeDataDir = conf.getString("cubeDataDir")
   val ontologyURI  = conf.getString("ontologyURI")
-  val demoComputexURI = conf.getString("demoComputexURI")
+  val demoURI = conf.getString("demoURI")
+  val demoAbbrURI = conf.getString("demoAbbrURI")
   val demoCubeUri = conf.getString("demoCubeURI")
   val closureFile = conf.getString("closureFile")
   val flattenFile = conf.getString("flattenFile")
@@ -44,78 +45,29 @@ PREFIX eg:             <http://example.com/abbrv-cube/>
    describe("should pass all the RDF Data Cube integrity tests") {
       val model = cex.loadData(demoCubeUri)
       val expanded = cex.expandCube(model,closureFile,flattenFile)
-      val dir = new File(cubeDataDir)
-      if (dir == null || dir.listFiles == null) 
-        throw new IOException("Directory: " + cubeDataDir + " not accessible")
-      else {
-        for (file <- dir.listFiles ;
-           if file.getName startsWith "integrity" ;
-           if file.getName endsWith ".sparql") {
-        val name = file.getName.dropRight(7) // remove ".sparql" = 7 chars 
-        val contents = PREFIXES + scala.io.Source.fromFile(file).mkString ;
-        val query = QueryFactory.create(contents) 
-        pass(name,query,expanded)
-        }
-      }
+      passDir(model,cubeDataDir)
     }
-
-
   }
-    
+
+  describe("The Computex Abbr example") {
+
+    describe("should pass all the RDF Data Cube integrity tests") {
+      val model = cex.loadData(ontologyURI,demoAbbrURI)
+      val expanded = cex.expandCube(model,closureFile,flattenFile)
+      cex.validate(expanded,cubeDataDir)
+      passDir(expanded,cubeDataDir)
+    }
+  }
+  
   describe("The Computex example") {
 
     describe("should pass all the RDF Data Cube integrity tests") {
-      val model = cex.loadData(ontologyURI,demoComputexURI)
+      val model = cex.loadData(ontologyURI,demoURI)
       val expanded = cex.expandCube(model,closureFile,flattenFile)
-      cex.validate(expanded,cubeDataDir)
-
-      val dir = new File(cubeDataDir)
+      passDir(expanded,cubeDataDir)
+    }
+    
+  }
   
-  	  if (dir == null || dir.listFiles == null) 
-	 	    throw new IOException("Directory: " + cubeDataDir + " not accessible")
-	    else {
-		   for (file <- dir.listFiles ;
-		       if file.getName startsWith "integrity" ;
-		       if file.getName endsWith ".sparql") {
-		    val name = file.getName.dropRight(7) // remove ".sparql" = 7 chars 
-		    val contents = PREFIXES + scala.io.Source.fromFile(file).mkString ;
-		    val query = QueryFactory.create(contents) 
-		    pass(name,query,expanded)
-		   }
-	   }
-    }
-
-  }
-
- 
-
-  def pass(name : String, query: Query, model: Model) = {
-    it("should pass integrity check: " + name) {
-     val qe = QueryExecutionFactory.create(query,model)
-     try {
-       val reportModel = ModelFactory.createDefaultModel
-       qe.execConstruct(reportModel)
-       if (reportModel.size != 0) { 
-         reportModel.write(System.out,"TURTLE")
-       }
-       reportModel.size should be(0);
-     } finally {
-       qe.close();
-    }
-   }
-  }
-
-  def notPass(name:String, query: Query, model: Model) = {
-    it("should not pass integrity check: " + name) {
-     val qe = QueryExecutionFactory.create(query,model)
-     try {
-       val reportModel = ModelFactory.createDefaultModel
-       qe.execConstruct(reportModel)
-       reportModel.size should be(0);
-     } finally {
-       qe.close();
-     }
-  }
- }
 
 }

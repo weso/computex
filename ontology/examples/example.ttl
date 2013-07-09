@@ -40,6 +40,8 @@ computation:Flow a cex:ComputationFlow ;
 #    [ cex:query "AverageGrowth" ]
 #    [ cex:query "zScores" ]
   ) .
+  
+
 
 #--------------------------------------------
 # General Data structure definitions 
@@ -337,6 +339,7 @@ country:CHL
 # Datasets Raw
 
 dataset:A-Raw
+      a qb:DataSet ;
       cex:md5-checksum "MD5..." ;
 	  cex:computation [ a cex:ImputeDataSet ;
 	                    cex:method cex:MeanBetweenMissing ;
@@ -349,7 +352,6 @@ dataset:A-Raw
       dcterms:publisher wi-org:WebFoundation ;
       dcterms:title "A-Raw"@en ;
       dcterms:subject sdmx-subject:2.5 ;      # Government finance, fiscal and public sector statistics
-      rdf:type qb:DataSet ;
       rdfs:label "A-Raw"@en ;
       rdfs:comment "Description of dataset A-Raw"@en ;
       qb:structure wi-onto:DSD ;  
@@ -358,6 +360,7 @@ dataset:A-Raw
       .
 
 dataset:B-Raw
+      a qb:DataSet ;
       cex:md5-checksum "MD5..." ;
 	  cex:computation [ a cex:ImputeDataSet ;
 	                    cex:method cex:MeanBetweenMissing ;
@@ -370,7 +373,6 @@ dataset:B-Raw
       dcterms:publisher wi-org:WebFoundation ;
       dcterms:title "B-Raw"@en ;
       dcterms:subject sdmx-subject:2.5 ;      # Government finance, fiscal and public sector statistics
-      rdf:type qb:DataSet ;
       rdfs:label "B-Raw"@en ;
       rdfs:comment "Description of dataset A-Raw"@en ;
       qb:structure wi-onto:DSD ;  
@@ -379,6 +381,7 @@ dataset:B-Raw
       .
 
 dataset:C-Raw
+      a qb:DataSet ;
       cex:md5-checksum "MD5..." ;
 	  cex:computation [ a cex:ImputeDataSet ;
 	                    cex:method cex:MeanBetweenMissing ;
@@ -391,7 +394,6 @@ dataset:C-Raw
       dcterms:publisher wi-org:WebFoundation ;
       dcterms:title "C-Raw"@en ;
       dcterms:subject sdmx-subject:2.5 ;      # Government finance, fiscal and public sector statistics
-      rdf:type qb:DataSet ;
       rdfs:label "C-Raw"@en ;
       rdfs:comment "Description of dataset A-Raw"@en ;
       qb:structure wi-onto:DSD ;  
@@ -400,6 +402,7 @@ dataset:C-Raw
       .
 
 dataset:D-Raw
+      a qb:DataSet ;
       cex:md5-checksum "MD5..." ;
 	  cex:computation [ a cex:ImputeDataSet ;
 	                    cex:method cex:MeanBetweenMissing ;
@@ -412,7 +415,6 @@ dataset:D-Raw
       dcterms:publisher wi-org:WebFoundation ;
       dcterms:title "D-Raw"@en ;
       dcterms:subject sdmx-subject:2.5 ;      # Government finance, fiscal and public sector statistics
-      rdf:type qb:DataSet ;
       rdfs:label "D-Raw"@en ;
       rdfs:comment "Description of dataset A-Raw"@en ;
       qb:structure wi-onto:DSD ;  
@@ -421,6 +423,7 @@ dataset:D-Raw
       .
 
 dataset:Q1-Raw
+      a qb:DataSet ;
       cex:md5-checksum "MD5..." ;
 	  cex:computation [ a cex:NormalizeDataSet ;
 						cex:dataSet dataset:Q1-Normalized ;
@@ -430,7 +433,6 @@ dataset:Q1-Raw
       dcterms:publisher wi-org:WebFoundation ;
       dcterms:title "Q1-Raw"@en ;
       dcterms:subject sdmx-subject:2.5 ;      # Government finance, fiscal and public sector statistics
-      rdf:type qb:DataSet ;
       rdfs:label "Q1-Raw"@en ;
       rdfs:comment "Description of dataset A-Raw"@en ;
       qb:structure wi-onto:DSD ;  
@@ -439,6 +441,7 @@ dataset:Q1-Raw
       .
 
 dataset:Q2-Raw
+      a qb:DataSet ;
       cex:md5-checksum "MD5..." ;
 	  cex:computation [ a cex:NormalizeDataSet ;
 						cex:dataSet dataset:Q2-Normalized ;
@@ -448,7 +451,6 @@ dataset:Q2-Raw
       dcterms:publisher wi-org:WebFoundation ;
       dcterms:title "Q2-Raw"@en ;
       dcterms:subject sdmx-subject:2.5 ;      # Government finance, fiscal and public sector statistics
-      rdf:type qb:DataSet ;
       rdfs:label "Q2-Raw"@en ;
       rdfs:comment "Description of dataset A-Raw"@en ;
       qb:structure wi-onto:DSD ;  
@@ -630,6 +632,7 @@ dataset:Q2-Normalized
 
 slice:Slice-A09-Raw
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-A09-Imputed ;
       cex:indicator indicator:A ;
       wi-onto:ref-year 2009 ;
       qb:observation obs:EA09, obs:FA09, obs:CA09 ;
@@ -637,6 +640,7 @@ slice:Slice-A09-Raw
 
 slice:Slice-A10-Raw
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-A10-Imputed ;
       cex:indicator indicator:A ;
       wi-onto:ref-year 2010 ;
       qb:observation obs:EA10, obs:CA10 ;
@@ -644,6 +648,7 @@ slice:Slice-A10-Raw
 
 slice:Slice-A11-Raw
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-A11-Imputed ;
       cex:indicator indicator:A ;
       wi-onto:ref-year 2011 ;
       qb:observation obs:EA11, obs:FA11, obs:CA11 ;
@@ -651,6 +656,7 @@ slice:Slice-A11-Raw
 
 slice:Slice-B09-Raw
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-B09-Imputed ;
       cex:indicator indicator:B ;
       wi-onto:ref-year 2009 ;
       qb:observation obs:EB09, obs:FB09, obs:CB09 ;
@@ -658,6 +664,7 @@ slice:Slice-B09-Raw
 
 slice:Slice-B10-Raw
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-B10-Imputed ;
       cex:indicator indicator:B ;
       wi-onto:ref-year 2010 ;
       qb:observation obs:EB10, obs:FB10, obs:CB10 ;
@@ -665,6 +672,7 @@ slice:Slice-B10-Raw
 
 slice:Slice-B11-Raw
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-B11-Imputed ;
       cex:indicator indicator:B ;
       wi-onto:ref-year 2011 ;
       qb:observation obs:EB11, obs:FB11, obs:CB11 ;
@@ -673,6 +681,7 @@ slice:Slice-B11-Raw
 
 slice:Slice-C09-Raw
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-C09-Imputed ;
       cex:indicator indicator:C ;
       wi-onto:ref-year 2009 ;
       qb:observation obs:EC09, obs:FC09, obs:CC09 ;
@@ -680,6 +689,7 @@ slice:Slice-C09-Raw
 
 slice:Slice-C10-Raw
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-C10-Imputed ;
       cex:indicator indicator:C ;
       wi-onto:ref-year 2010 ;
       qb:observation obs:EC10, obs:CC10 ;
@@ -687,6 +697,7 @@ slice:Slice-C10-Raw
 
 slice:Slice-C11-Raw
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-C11-Imputed ;
       cex:indicator indicator:C ;
       wi-onto:ref-year 2011 ;
       qb:observation obs:EC11, obs:FC11 ;
@@ -695,6 +706,7 @@ slice:Slice-C11-Raw
 
 slice:Slice-D09-Raw
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-D09-Imputed ;
       cex:indicator indicator:D ;
       wi-onto:ref-year 2009 ;
       qb:observation obs:ED09, obs:FD09, obs:CD09 ;
@@ -702,6 +714,7 @@ slice:Slice-D09-Raw
 
 slice:Slice-D10-Raw
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-D10-Imputed ;
       cex:indicator indicator:D ;
       wi-onto:ref-year 2010 ;
       qb:observation obs:ED10, obs:FD10, obs:CD10 ;
@@ -709,6 +722,7 @@ slice:Slice-D10-Raw
 
 slice:Slice-D11-Raw
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-D11-Imputed ;
       cex:indicator indicator:D ;
       wi-onto:ref-year 2011 ;
       qb:observation obs:ED11, obs:FD11, obs:CD11 ;
@@ -1453,6 +1467,224 @@ obs:CQ2 a wi-onto:Observation ;
          wi-onto:sheet-type wi-onto:Raw ;
 		 cex:value 4 .
 
+slice:Slice-A09-Imputed
+      a       qb:Slice ;
+      cex:indicator indicator:A ;
+      wi-onto:ref-year 2009 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-A10-Imputed
+      a       qb:Slice ;
+      cex:indicator indicator:A ;
+      wi-onto:ref-year 2010 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-A11-Imputed
+      a       qb:Slice ;
+	  cex:indicator indicator:A ;
+      wi-onto:ref-year 2011 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+	  
+slice:Slice-B09-Imputed
+      a       qb:Slice ;
+	  cex:indicator indicator:B ;
+      wi-onto:ref-year 2009 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-B10-Imputed
+      a       qb:Slice ;
+      cex:indicator indicator:B ;
+      wi-onto:ref-year 2010 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-B11-Imputed
+      a       qb:Slice ;
+      cex:indicator indicator:B ;
+      wi-onto:ref-year 2011 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+	  
+	  
+slice:Slice-C09-Imputed
+      a       qb:Slice ;
+      cex:indicator indicator:C ;
+      wi-onto:ref-year 2009 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-C10-Imputed
+      a       qb:Slice ;
+      cex:indicator indicator:C ;
+      wi-onto:ref-year 2010 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-C11-Imputed
+      a       qb:Slice ;
+      cex:indicator indicator:C ;
+      wi-onto:ref-year 2011 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+	  
+slice:Slice-D09-Imputed
+      a       qb:Slice ;
+      cex:indicator indicator:D ;
+      wi-onto:ref-year 2009 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-D10-Imputed
+      a       qb:Slice ;
+      cex:indicator indicator:D ;
+      wi-onto:ref-year 2010 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-D11-Imputed
+      a       qb:Slice ;
+      cex:indicator indicator:D ;
+      wi-onto:ref-year 2011 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+	  
+#--------------------------------------------------------------
+# Slices normalized
+
+slice:Slice-A09-N
+      a       qb:Slice ;
+      cex:indicator indicator:A ;
+      wi-onto:ref-year 2009 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-A10-N
+      a       qb:Slice ;
+      cex:indicator indicator:A ;
+      wi-onto:ref-year 2010 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-A11-N
+      a       qb:Slice ;
+      cex:indicator indicator:A ;
+      wi-onto:ref-year 2011 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+
+	  
+slice:Slice-B09-N
+      a       qb:Slice ;
+      cex:indicator indicator:B ;
+      wi-onto:ref-year 2009 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-B10-N
+      a       qb:Slice ;
+      cex:indicator indicator:B ;
+      wi-onto:ref-year 2010 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-B11-N
+      a       qb:Slice ;
+      cex:indicator indicator:B ;
+      wi-onto:ref-year 2011 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+	  
+slice:Slice-C09-N
+      a       qb:Slice ;
+      cex:indicator indicator:C ;
+      wi-onto:ref-year 2009 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-C10-N
+      a       qb:Slice ;
+      cex:indicator indicator:C ;
+      wi-onto:ref-year 2010 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-C11-N
+      a       qb:Slice ;
+      cex:indicator indicator:C ;
+      wi-onto:ref-year 2011 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+	  
+slice:Slice-D09-N
+      a       qb:Slice ;
+      cex:indicator indicator:D ;
+      wi-onto:ref-year 2009 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-D10-N
+      a       qb:Slice ;
+      cex:indicator indicator:D ;
+      wi-onto:ref-year 2010 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-D11-N
+      a       qb:Slice ;
+      cex:indicator indicator:D ;
+      wi-onto:ref-year 2011 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+	  
+slice:Slice-Q1-N
+      a       qb:Slice ;
+      cex:indicator indicator:Q1 ;
+      wi-onto:ref-year 2011 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+	  
+slice:Slice-Q2-N
+      a       qb:Slice ;
+      cex:indicator indicator:Q2 ;
+      wi-onto:ref-year 2011 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+
+slice:AB-Mean
+      a       qb:Slice ;
+      cex:indicator component:AB ;
+      wi-onto:ref-year 2011 ;
+	  qb:sliceStructure wi-onto:sliceByArea 
+	  .
+
+slice:Q2-Mean
+      a       qb:Slice ;
+      cex:indicator component:Q2 ;
+      wi-onto:ref-year 2011 ;
+	  qb:sliceStructure wi-onto:sliceByArea
+	  .
+
+slice:C-Mean
+      a       qb:Slice ;
+      cex:indicator component:C ;
+      wi-onto:ref-year 2011 ;
+	  qb:sliceStructure wi-onto:sliceByArea
+	  .
+
+slice:DQ1-Mean
+      a       qb:Slice ;
+      cex:indicator component:DQ1 ;
+      wi-onto:ref-year 2011 ;
+	  qb:sliceStructure wi-onto:sliceByArea
+	  .
+	  
+slice:ABQ2-Mean
+      a       qb:Slice ;
+      cex:indicator subindex:ABQ2 ;
+      wi-onto:ref-year 2011 ;
+	  qb:sliceStructure wi-onto:sliceByArea
+	  .
+
+slice:CDQ1-Mean
+      a       qb:Slice ;
+      cex:indicator subindex:CDQ1 ;
+      wi-onto:ref-year 2011 ;
+	  qb:sliceStructure wi-onto:sliceByArea
+	  .
+
+slice:Composite
+      a       qb:Slice ;
+      cex:indicator index:index ;
+      wi-onto:ref-year 2011 ;
+	  qb:sliceStructure wi-onto:sliceByArea
+	  .
+
 #---------------------------------------------------------------
 # End of Raw data 
 #---------------------------------------------------------------
@@ -1466,326 +1698,143 @@ obs:CQ2 a wi-onto:Observation ;
 # Slices imputed
 
 slice:Slice-A09-Imputed
-      a       qb:Slice ;
-      cex:indicator indicator:A ;
-	  cex:computation [ a cex:ImputeSlice ;
-	                    cex:method cex:MeanBetweenMissing ;
-					    cex:method cex:AvgGrowth2Missing ;
-					    cex:method cex:CopyRaw; 
-						cex:slice slice:Slice-A09-Raw ;
-					  ] ;
-      wi-onto:ref-year 2009 ;
       qb:observation obs:EA09-I, obs:FA09-I, obs:CA09-I ;
-      qb:sliceStructure wi-onto:sliceByArea .
+      .
 
 slice:Slice-A10-Imputed
-      a       qb:Slice ;
-      cex:indicator indicator:A ;
-	  cex:computation [ a cex:ImputeSlice ;
-	                    cex:method cex:MeanBetweenMissing ;
-					    cex:method cex:AvgGrowth2Missing ;
-					    cex:method cex:CopyRaw; 
-						cex:slice slice:Slice-A10-Raw ;
-					  ] ;
-      wi-onto:ref-year 2010 ;
       qb:observation obs:EA10-I, obs:FA10-I, obs:CA10-I ;
-      qb:sliceStructure wi-onto:sliceByArea .
+      .
 
 slice:Slice-A11-Imputed
-      a       qb:Slice ;
-	  cex:computation [ a cex:ImputeSlice ;
-	                    cex:method cex:MeanBetweenMissing ;
-					    cex:method cex:AvgGrowth2Missing ;
-					    cex:method cex:CopyRaw; 
-						cex:slice slice:Slice-A10-Raw ;
-					  ] ;
-	  cex:indicator indicator:A ;
-      wi-onto:ref-year 2011 ;
       qb:observation obs:EA11-I, obs:FA11-I, obs:CA11-I ;
-      qb:sliceStructure wi-onto:sliceByArea .
+      .
 
 	  
 slice:Slice-B09-Imputed
-      a       qb:Slice ;
-      cex:computation [ a cex:ImputeSlice ;
-	                    cex:method cex:MeanBetweenMissing ;
-					    cex:method cex:AvgGrowth2Missing ;
-					    cex:method cex:CopyRaw; 
-						cex:slice slice:Slice-B09-Raw ;
-					  ] ;
-	  cex:indicator indicator:B ;
-      wi-onto:ref-year 2009 ;
       qb:observation obs:EB09-I, obs:FB09-I, obs:CB09-I ;
-      qb:sliceStructure wi-onto:sliceByArea .
+      .
 
 slice:Slice-B10-Imputed
-      a       qb:Slice ;
-      cex:computation [ a cex:ImputeSlice ;
-	                    cex:method cex:MeanBetweenMissing ;
-					    cex:method cex:AvgGrowth2Missing ;
-					    cex:method cex:CopyRaw; 
-						cex:slice slice:Slice-B10-Raw ;
-					  ] ;
-      cex:indicator indicator:B ;
-      wi-onto:ref-year 2010 ;
       qb:observation obs:EB10-I, obs:FB10-I, obs:CB10-I ;
-      qb:sliceStructure wi-onto:sliceByArea .
+      .
 
 slice:Slice-B11-Imputed
-      a       qb:Slice ;
-      cex:computation [ a cex:ImputeSlice ;
-	                    cex:method cex:MeanBetweenMissing ;
-					    cex:method cex:AvgGrowth2Missing ;
-					    cex:method cex:CopyRaw; 
-						cex:slice slice:Slice-B11-Raw ;
-					  ] ;
-      cex:indicator indicator:B ;
-      wi-onto:ref-year 2011 ;
       qb:observation obs:EB11-I, obs:FB11-I, obs:CB11-I ;
-      qb:sliceStructure wi-onto:sliceByArea .
-	  
+      .
 	  
 slice:Slice-C09-Imputed
-      a       qb:Slice ;
-      cex:computation [ a cex:ImputeSlice ;
-	                    cex:method cex:MeanBetweenMissing ;
-					    cex:method cex:AvgGrowth2Missing ;
-					    cex:method cex:CopyRaw; 
-						cex:slice slice:Slice-C09-Raw ;
-					  ] ;
-      cex:indicator indicator:C ;
-      wi-onto:ref-year 2009 ;
       qb:observation obs:EC09-I, obs:FC09-I, obs:CC09-I ;
-      qb:sliceStructure wi-onto:sliceByArea .
+      .
 
 slice:Slice-C10-Imputed
-      a       qb:Slice ;
-      cex:computation [ a cex:ImputeSlice ;
-	                    cex:method cex:MeanBetweenMissing ;
-					    cex:method cex:AvgGrowth2Missing ;
-					    cex:method cex:CopyRaw; 
-						cex:slice slice:Slice-C10-Raw ;
-					  ] ;
-      cex:indicator indicator:C ;
-      wi-onto:ref-year 2010 ;
       qb:observation obs:EC10-I, obs:FC10-I, obs:CC10-I ;
-      qb:sliceStructure wi-onto:sliceByArea .
+      .
 
 slice:Slice-C11-Imputed
-      a       qb:Slice ;
-      cex:computation [ a cex:ImputeSlice ;
-	                    cex:method cex:MeanBetweenMissing ;
-					    cex:method cex:AvgGrowth2Missing ;
-					    cex:method cex:CopyRaw; 
-						cex:slice slice:Slice-C11-Raw ;
-					  ] ;
-      cex:indicator indicator:C ;
-      wi-onto:ref-year 2011 ;
       qb:observation obs:EC11-I, obs:FC11-I, obs:CC11-I ;
-      qb:sliceStructure wi-onto:sliceByArea .
+      .
 
 	  
 slice:Slice-D09-Imputed
-      a       qb:Slice ;
-      cex:computation [ a cex:ImputeSlice ;
-	                    cex:method cex:MeanBetweenMissing ;
-					    cex:method cex:AvgGrowth2Missing ;
-					    cex:method cex:CopyRaw; 
-						cex:slice slice:Slice-D09-Raw ;
-					  ] ;
-      cex:indicator indicator:D ;
-      wi-onto:ref-year 2009 ;
       qb:observation obs:ED09-I, obs:FD09-I, obs:CD09-I ;
-      qb:sliceStructure wi-onto:sliceByArea .
+      .
 
 slice:Slice-D10-Imputed
-      a       qb:Slice ;
-      cex:computation [ a cex:ImputeSlice ;
-	                    cex:method cex:MeanBetweenMissing ;
-					    cex:method cex:AvgGrowth2Missing ;
-					    cex:method cex:CopyRaw; 
-						cex:slice slice:Slice-D10-Raw ;
-					  ] ;
-      cex:indicator indicator:D ;
-      wi-onto:ref-year 2010 ;
       qb:observation obs:ED10-I, obs:FD10-I, obs:CD10-I ;
-      qb:sliceStructure wi-onto:sliceByArea .
+      .
 
 slice:Slice-D11-Imputed
-      a       qb:Slice ;
-      cex:computation [ a cex:ImputeSlice ;
-	                    cex:method cex:MeanBetweenMissing ;
-					    cex:method cex:AvgGrowth2Missing ;
-					    cex:method cex:CopyRaw; 
-						cex:slice slice:Slice-C09-Raw ;
-					  ] ;
-      cex:indicator indicator:D ;
-      wi-onto:ref-year 2011 ;
       qb:observation obs:ED11-I, obs:FD11-I, obs:CD11-I ;
-      qb:sliceStructure wi-onto:sliceByArea .
+      .
 	  
 #--------------------------------------------------------------
 # Slices normalized
 
 slice:Slice-A09-N
-      a       qb:Slice ;
-      cex:indicator indicator:A ;
-      wi-onto:ref-year 2009 ;
       qb:observation obs:EA09-N, obs:FA09-N, obs:CA09-N ;
-      qb:sliceStructure wi-onto:sliceByArea .
+      .
 
 slice:Slice-A10-N
-      a       qb:Slice ;
-      cex:indicator indicator:A ;
-      wi-onto:ref-year 2010 ;
       qb:observation obs:EA10-N, obs:FA10-N, obs:CA10-N ;
-      qb:sliceStructure wi-onto:sliceByArea .
+      .
 
 slice:Slice-A11-N
-      a       qb:Slice ;
-      cex:indicator indicator:A ;
-      wi-onto:ref-year 2011 ;
       qb:observation obs:EA11-N, obs:FA11-N, obs:CA11-N ;
-      qb:sliceStructure wi-onto:sliceByArea .
-
-
+      .
 	  
 slice:Slice-B09-N
-      a       qb:Slice ;
-      cex:indicator indicator:B ;
-      wi-onto:ref-year 2009 ;
       qb:observation obs:EB09-N, obs:FB09-N, obs:CB09-N ;
-      qb:sliceStructure wi-onto:sliceByArea .
+      .
 
 slice:Slice-B10-N
-      a       qb:Slice ;
-      cex:indicator indicator:B ;
-      wi-onto:ref-year 2010 ;
       qb:observation obs:EB10-N, obs:FB10-N, obs:CB10-N ;
-      qb:sliceStructure wi-onto:sliceByArea .
+      .
 
 slice:Slice-B11-N
-      a       qb:Slice ;
-      cex:indicator indicator:B ;
-      wi-onto:ref-year 2011 ;
       qb:observation obs:EB11-N, obs:FB11-N, obs:CB11-N ;
-      qb:sliceStructure wi-onto:sliceByArea .
-
+      .
 	  
 slice:Slice-C09-N
-      a       qb:Slice ;
-      cex:indicator indicator:C ;
-      wi-onto:ref-year 2009 ;
       qb:observation obs:EC09-N, obs:FC09-N, obs:CC09-N ;
-      qb:sliceStructure wi-onto:sliceByArea .
+      .
 
 slice:Slice-C10-N
-      a       qb:Slice ;
-      cex:indicator indicator:C ;
-      wi-onto:ref-year 2010 ;
       qb:observation obs:EC10-N, obs:FC10-N, obs:CC10-N ;
-      qb:sliceStructure wi-onto:sliceByArea .
+      .
 
 slice:Slice-C11-N
-      a       qb:Slice ;
-      cex:indicator indicator:C ;
-      wi-onto:ref-year 2011 ;
       qb:observation obs:EC11-N, obs:FC11-N, obs:CC11-N ;
-      qb:sliceStructure wi-onto:sliceByArea .
+      .
 
 	  
 slice:Slice-D09-N
-      a       qb:Slice ;
-      cex:indicator indicator:D ;
-      wi-onto:ref-year 2009 ;
       qb:observation obs:ED09-N, obs:FD09-N, obs:CD09-N ;
-      qb:sliceStructure wi-onto:sliceByArea .
+      .
 
 slice:Slice-D10-N
-      a       qb:Slice ;
-      cex:indicator indicator:D ;
-      wi-onto:ref-year 2010 ;
       qb:observation obs:ED10-N, obs:FD10-N, obs:CD10-N ;
-      qb:sliceStructure wi-onto:sliceByArea .
+      .
 
 slice:Slice-D11-N
-      a       qb:Slice ;
-      cex:indicator indicator:D ;
-      wi-onto:ref-year 2011 ;
       qb:observation obs:ED11-N, obs:FD11-N, obs:CD11-N ;
-      qb:sliceStructure wi-onto:sliceByArea .
+      .
 
 	  
 slice:Slice-Q1-N
-      a       qb:Slice ;
-      cex:indicator indicator:Q1 ;
-      wi-onto:ref-year 2011 ;
       qb:observation obs:EQ1-N, obs:FQ1-N, obs:CQ1-N ;
-      qb:sliceStructure wi-onto:sliceByArea .
+      .
 
 	  
 slice:Slice-Q2-N
-      a       qb:Slice ;
-      cex:indicator indicator:Q2 ;
-      wi-onto:ref-year 2011 ;
       qb:observation obs:EQ2-N, obs:FQ2-N, obs:CQ2-N ;
-      qb:sliceStructure wi-onto:sliceByArea .
-
+      .
 
 slice:AB-Mean
-      a       qb:Slice ;
-      cex:indicator component:AB ;
-      wi-onto:ref-year 2011 ;
       qb:observation obs:EAB-Mean, obs:FAB-Mean, obs:CAB-Mean ;
-	  qb:sliceStructure wi-onto:sliceByArea 
-	  .
+      .
 
 slice:Q2-Mean
-      a       qb:Slice ;
-      cex:indicator component:Q2 ;
-      wi-onto:ref-year 2011 ;
       qb:observation obs:EQ2-Mean, obs:FQ2-Mean, obs:CQ2-Mean ;
-	  qb:sliceStructure wi-onto:sliceByArea
-	  .
+      .
 
 slice:C-Mean
-      a       qb:Slice ;
-      cex:indicator component:C ;
-      wi-onto:ref-year 2011 ;
       qb:observation obs:EC-Mean, obs:FC-Mean, obs:CC-Mean ;
-	  qb:sliceStructure wi-onto:sliceByArea
-	  .
+      .
 
 slice:DQ1-Mean
-      a       qb:Slice ;
-      cex:indicator component:DQ1 ;
-      wi-onto:ref-year 2011 ;
       qb:observation obs:EDQ1-Mean, obs:FDQ1-Mean, obs:CDQ1-Mean ;
-	  qb:sliceStructure wi-onto:sliceByArea
-	  .
+      .
 	  
 slice:ABQ2-Mean
-      a       qb:Slice ;
-      cex:indicator subindex:ABQ2 ;
-      wi-onto:ref-year 2011 ;
       qb:observation obs:EABQ2, obs:FABQ2, obs:CABQ2 ;
-	  qb:sliceStructure wi-onto:sliceByArea
 	  .
 
 slice:CDQ1-Mean
-      a       qb:Slice ;
-      cex:indicator subindex:CDQ1 ;
-      wi-onto:ref-year 2011 ;
       qb:observation obs:ECDQ1, obs:FCDQ1, obs:CCDQ1 ;
-	  qb:sliceStructure wi-onto:sliceByArea
 	  .
 
 slice:Composite
-      a       qb:Slice ;
-      cex:indicator index:index ;
-      wi-onto:ref-year 2011 ;
       qb:observation obs:E-Composite, obs:F-Composite, obs:C-Composite ;
-	  qb:sliceStructure wi-onto:sliceByArea
 	  .
 
 #---------------------------------------------------------------
@@ -2091,7 +2140,7 @@ obs:ED10-I cex:md5-checksum "md5 for ED10" ;
 		 cex:value 6 .
 
 # This observation should be computed
-obs:FA10-I a wi-onto:Observation ;
+obs:FA10-I a qb:Observation ;
 		 cex:computation [ a cex:Mean ;
 		                   cex:observation obs:FA09 ;
                            cex:observation obs:FA11 ; 						   
@@ -2103,7 +2152,6 @@ obs:FA10-I a wi-onto:Observation ;
 		 dcterms:issued "2013-12-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
 		 qb:dataSet dataset:A-Imputed ;
-		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "A in FIN during 2010"@en ;
 		 sdmx-concept:obsStatus cex:Imputed ;

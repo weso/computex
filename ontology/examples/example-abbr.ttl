@@ -10,6 +10,7 @@
 @prefix dsd: <http://data.webfoundation.org/webindex/v2013/dsd/> .
 @prefix weightSchema: <http://data.webfoundation.org/webindex/v2013/weightSchema/> .
 @prefix ranking: <http://data.webfoundation.org/webindex/v2013/ranking/> .
+@prefix computation: <http://data.webfoundation.org/webindex/v2013/computation/> .
 
 @prefix cex: <http://purl.org/weso/ontology/computex#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
@@ -28,6 +29,19 @@
 @prefix wi-org: <http://data.webfoundation.org/webindex/organization/> .
 @prefix wi-people:  <http://data.webfoundation.org/webindex/people/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#---------------------------------------------------------------
+# WebIndex Computation flow
+
+computation:Flow a cex:ComputationFlow ;
+  cex:steps ( 
+    [ cex:query "CopyRaw" ]
+    [ cex:query "MeanBetweenMissing" ]
+    [ cex:query "AvgGrowthMissing" ]
+#    [ cex:query "zScores" ]
+  ) .
+  
+
 
 #--------------------------------------------
 # General Data structure definitions 
@@ -325,13 +339,19 @@ country:CHL
 # Datasets Raw
 
 dataset:A-Raw
+      a qb:DataSet ;
       cex:md5-checksum "MD5..." ;
+	  cex:computation [ a cex:ImputeDataSet ;
+	                    cex:method cex:MeanBetweenMissing ;
+					    cex:method cex:AvgGrowth2Missing ;
+					    cex:method cex:CopyRaw; 
+						cex:dataSet dataset:A-Imputed ;
+					  ] ;
       dcterms:contributor wi-org:WESO ;
       dcterms:issued "2013-07-06" ;
       dcterms:publisher wi-org:WebFoundation ;
       dcterms:title "A-Raw"@en ;
       dcterms:subject sdmx-subject:2.5 ;      # Government finance, fiscal and public sector statistics
-      rdf:type qb:DataSet ;
       rdfs:label "A-Raw"@en ;
       rdfs:comment "Description of dataset A-Raw"@en ;
       qb:structure wi-onto:DSD ;  
@@ -340,13 +360,19 @@ dataset:A-Raw
       .
 
 dataset:B-Raw
+      a qb:DataSet ;
       cex:md5-checksum "MD5..." ;
+	  cex:computation [ a cex:ImputeDataSet ;
+	                    cex:method cex:MeanBetweenMissing ;
+					    cex:method cex:AvgGrowth2Missing ;
+					    cex:method cex:CopyRaw; 
+						cex:dataSet dataset:B-Imputed ;
+					  ] ;
       dcterms:contributor wi-org:WESO ;
       dcterms:issued "2013-07-06" ;
       dcterms:publisher wi-org:WebFoundation ;
       dcterms:title "B-Raw"@en ;
       dcterms:subject sdmx-subject:2.5 ;      # Government finance, fiscal and public sector statistics
-      rdf:type qb:DataSet ;
       rdfs:label "B-Raw"@en ;
       rdfs:comment "Description of dataset A-Raw"@en ;
       qb:structure wi-onto:DSD ;  
@@ -355,13 +381,19 @@ dataset:B-Raw
       .
 
 dataset:C-Raw
+      a qb:DataSet ;
       cex:md5-checksum "MD5..." ;
+	  cex:computation [ a cex:ImputeDataSet ;
+	                    cex:method cex:MeanBetweenMissing ;
+					    cex:method cex:AvgGrowth2Missing ;
+					    cex:method cex:CopyRaw; 
+						cex:dataSet dataset:C-Imputed ;
+					  ] ;
       dcterms:contributor wi-org:WESO ;
       dcterms:issued "2013-07-06" ;
       dcterms:publisher wi-org:WebFoundation ;
       dcterms:title "C-Raw"@en ;
       dcterms:subject sdmx-subject:2.5 ;      # Government finance, fiscal and public sector statistics
-      rdf:type qb:DataSet ;
       rdfs:label "C-Raw"@en ;
       rdfs:comment "Description of dataset A-Raw"@en ;
       qb:structure wi-onto:DSD ;  
@@ -370,13 +402,19 @@ dataset:C-Raw
       .
 
 dataset:D-Raw
+      a qb:DataSet ;
       cex:md5-checksum "MD5..." ;
+	  cex:computation [ a cex:ImputeDataSet ;
+	                    cex:method cex:MeanBetweenMissing ;
+					    cex:method cex:AvgGrowth2Missing ;
+					    cex:method cex:CopyRaw; 
+						cex:dataSet dataset:D-Imputed ;
+					  ] ;
       dcterms:contributor wi-org:WESO ;
       dcterms:issued "2013-07-06" ;
       dcterms:publisher wi-org:WebFoundation ;
       dcterms:title "D-Raw"@en ;
       dcterms:subject sdmx-subject:2.5 ;      # Government finance, fiscal and public sector statistics
-      rdf:type qb:DataSet ;
       rdfs:label "D-Raw"@en ;
       rdfs:comment "Description of dataset A-Raw"@en ;
       qb:structure wi-onto:DSD ;  
@@ -385,13 +423,16 @@ dataset:D-Raw
       .
 
 dataset:Q1-Raw
+      a qb:DataSet ;
       cex:md5-checksum "MD5..." ;
+	  cex:computation [ a cex:NormalizeDataSet ;
+						cex:dataSet dataset:Q1-Normalized ;
+					  ] ;
       dcterms:contributor wi-org:WESO ;
       dcterms:issued "2013-07-06" ;
       dcterms:publisher wi-org:WebFoundation ;
       dcterms:title "Q1-Raw"@en ;
       dcterms:subject sdmx-subject:2.5 ;      # Government finance, fiscal and public sector statistics
-      rdf:type qb:DataSet ;
       rdfs:label "Q1-Raw"@en ;
       rdfs:comment "Description of dataset A-Raw"@en ;
       qb:structure wi-onto:DSD ;  
@@ -400,13 +441,16 @@ dataset:Q1-Raw
       .
 
 dataset:Q2-Raw
+      a qb:DataSet ;
       cex:md5-checksum "MD5..." ;
+	  cex:computation [ a cex:NormalizeDataSet ;
+						cex:dataSet dataset:Q2-Normalized ;
+					  ] ;
       dcterms:contributor wi-org:WESO ;
       dcterms:issued "2013-07-06" ;
       dcterms:publisher wi-org:WebFoundation ;
       dcterms:title "Q2-Raw"@en ;
       dcterms:subject sdmx-subject:2.5 ;      # Government finance, fiscal and public sector statistics
-      rdf:type qb:DataSet ;
       rdfs:label "Q2-Raw"@en ;
       rdfs:comment "Description of dataset A-Raw"@en ;
       qb:structure wi-onto:DSD ;  
@@ -419,6 +463,9 @@ dataset:Q2-Raw
 
 dataset:A-Imputed
       cex:md5-checksum "MD5..." ;
+	  cex:computation [ a cex:NormalizeDataSet ;
+						cex:dataSet dataset:A-Normalized ;
+					  ] ;
       dcterms:contributor wi-org:WESO ;
       dcterms:issued "2013-07-06" ;
       dcterms:publisher wi-org:WebFoundation ;
@@ -434,6 +481,9 @@ dataset:A-Imputed
 
 dataset:B-Imputed
       cex:md5-checksum "MD5..." ;
+	  cex:computation [ a cex:NormalizeDataSet ;
+						cex:dataSet dataset:B-Normalized ;
+					  ] ;
       dcterms:contributor wi-org:WESO ;
       dcterms:issued "2013-07-06" ;
       dcterms:publisher wi-org:WebFoundation ;
@@ -449,6 +499,9 @@ dataset:B-Imputed
 
 dataset:C-Imputed
       cex:md5-checksum "MD5..." ;
+	  cex:computation [ a cex:NormalizeDataSet ;
+						cex:dataSet dataset:C-Normalized ;
+					  ] ;
       dcterms:contributor wi-org:WESO ;
       dcterms:issued "2013-07-06" ;
       dcterms:publisher wi-org:WebFoundation ;
@@ -464,6 +517,9 @@ dataset:C-Imputed
 
 dataset:D-Imputed
       cex:md5-checksum "MD5..." ;
+	  cex:computation [ a cex:NormalizeDataSet ;
+						cex:dataSet dataset:D-Normalized ;
+					  ] ;
       dcterms:contributor wi-org:WESO ;
       dcterms:issued "2013-07-06" ;
       dcterms:publisher wi-org:WebFoundation ;
@@ -569,7 +625,6 @@ dataset:Q2-Normalized
       sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
       qb:slice slice:Slice-Q2-N ;
       .
-		 
 
 
 #-----------------------------------------------------------------
@@ -577,6 +632,7 @@ dataset:Q2-Normalized
 
 slice:Slice-A09-Raw
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-A09-Imputed ;
       cex:indicator indicator:A ;
       wi-onto:ref-year 2009 ;
       qb:observation obs:EA09, obs:FA09, obs:CA09 ;
@@ -584,6 +640,7 @@ slice:Slice-A09-Raw
 
 slice:Slice-A10-Raw
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-A10-Imputed ;
       cex:indicator indicator:A ;
       wi-onto:ref-year 2010 ;
       qb:observation obs:EA10, obs:CA10 ;
@@ -591,6 +648,7 @@ slice:Slice-A10-Raw
 
 slice:Slice-A11-Raw
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-A11-Imputed ;
       cex:indicator indicator:A ;
       wi-onto:ref-year 2011 ;
       qb:observation obs:EA11, obs:FA11, obs:CA11 ;
@@ -598,6 +656,7 @@ slice:Slice-A11-Raw
 
 slice:Slice-B09-Raw
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-B09-Imputed ;
       cex:indicator indicator:B ;
       wi-onto:ref-year 2009 ;
       qb:observation obs:EB09, obs:FB09, obs:CB09 ;
@@ -605,6 +664,7 @@ slice:Slice-B09-Raw
 
 slice:Slice-B10-Raw
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-B10-Imputed ;
       cex:indicator indicator:B ;
       wi-onto:ref-year 2010 ;
       qb:observation obs:EB10, obs:FB10, obs:CB10 ;
@@ -612,6 +672,7 @@ slice:Slice-B10-Raw
 
 slice:Slice-B11-Raw
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-B11-Imputed ;
       cex:indicator indicator:B ;
       wi-onto:ref-year 2011 ;
       qb:observation obs:EB11, obs:FB11, obs:CB11 ;
@@ -620,6 +681,7 @@ slice:Slice-B11-Raw
 
 slice:Slice-C09-Raw
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-C09-Imputed ;
       cex:indicator indicator:C ;
       wi-onto:ref-year 2009 ;
       qb:observation obs:EC09, obs:FC09, obs:CC09 ;
@@ -627,6 +689,7 @@ slice:Slice-C09-Raw
 
 slice:Slice-C10-Raw
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-C10-Imputed ;
       cex:indicator indicator:C ;
       wi-onto:ref-year 2010 ;
       qb:observation obs:EC10, obs:CC10 ;
@@ -634,6 +697,7 @@ slice:Slice-C10-Raw
 
 slice:Slice-C11-Raw
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-C11-Imputed ;
       cex:indicator indicator:C ;
       wi-onto:ref-year 2011 ;
       qb:observation obs:EC11, obs:FC11 ;
@@ -642,6 +706,7 @@ slice:Slice-C11-Raw
 
 slice:Slice-D09-Raw
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-D09-Imputed ;
       cex:indicator indicator:D ;
       wi-onto:ref-year 2009 ;
       qb:observation obs:ED09, obs:FD09, obs:CD09 ;
@@ -649,6 +714,7 @@ slice:Slice-D09-Raw
 
 slice:Slice-D10-Raw
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-D10-Imputed ;
       cex:indicator indicator:D ;
       wi-onto:ref-year 2010 ;
       qb:observation obs:ED10, obs:FD10, obs:CD10 ;
@@ -656,6 +722,7 @@ slice:Slice-D10-Raw
 
 slice:Slice-D11-Raw
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-D11-Imputed ;
       cex:indicator indicator:D ;
       wi-onto:ref-year 2011 ;
       qb:observation obs:ED11, obs:FD11, obs:CD11 ;
@@ -675,8 +742,9 @@ slice:Slice-Q2-Raw
       cex:indicator indicator:Q2 ;
       wi-onto:ref-year 2011 ;
       qb:observation obs:EQ2, obs:FQ2, obs:CQ2 ;
-      qb:sliceStructure wi-onto:sliceByArea .
-
+      qb:sliceStructure wi-onto:sliceByArea ;
+      .
+      
 
 #--------------------------------
 # Raw Observations
@@ -1399,11 +1467,224 @@ obs:CQ2 a wi-onto:Observation ;
          wi-onto:sheet-type wi-onto:Raw ;
 		 cex:value 4 .
 
+slice:Slice-A09-Imputed
+      a       qb:Slice ;
+      cex:indicator indicator:A ;
+      wi-onto:ref-year 2009 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-A10-Imputed
+      a       qb:Slice ;
+      cex:indicator indicator:A ;
+      wi-onto:ref-year 2010 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-A11-Imputed
+      a       qb:Slice ;
+	  cex:indicator indicator:A ;
+      wi-onto:ref-year 2011 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+	  
+slice:Slice-B09-Imputed
+      a       qb:Slice ;
+	  cex:indicator indicator:B ;
+      wi-onto:ref-year 2009 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-B10-Imputed
+      a       qb:Slice ;
+      cex:indicator indicator:B ;
+      wi-onto:ref-year 2010 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-B11-Imputed
+      a       qb:Slice ;
+      cex:indicator indicator:B ;
+      wi-onto:ref-year 2011 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+	  
+	  
+slice:Slice-C09-Imputed
+      a       qb:Slice ;
+      cex:indicator indicator:C ;
+      wi-onto:ref-year 2009 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-C10-Imputed
+      a       qb:Slice ;
+      cex:indicator indicator:C ;
+      wi-onto:ref-year 2010 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-C11-Imputed
+      a       qb:Slice ;
+      cex:indicator indicator:C ;
+      wi-onto:ref-year 2011 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+	  
+slice:Slice-D09-Imputed
+      a       qb:Slice ;
+      cex:indicator indicator:D ;
+      wi-onto:ref-year 2009 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-D10-Imputed
+      a       qb:Slice ;
+      cex:indicator indicator:D ;
+      wi-onto:ref-year 2010 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-D11-Imputed
+      a       qb:Slice ;
+      cex:indicator indicator:D ;
+      wi-onto:ref-year 2011 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+	  
+#--------------------------------------------------------------
+# Slices normalized
+
+slice:Slice-A09-N
+      a       qb:Slice ;
+      cex:indicator indicator:A ;
+      wi-onto:ref-year 2009 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-A10-N
+      a       qb:Slice ;
+      cex:indicator indicator:A ;
+      wi-onto:ref-year 2010 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-A11-N
+      a       qb:Slice ;
+      cex:indicator indicator:A ;
+      wi-onto:ref-year 2011 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+
+	  
+slice:Slice-B09-N
+      a       qb:Slice ;
+      cex:indicator indicator:B ;
+      wi-onto:ref-year 2009 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-B10-N
+      a       qb:Slice ;
+      cex:indicator indicator:B ;
+      wi-onto:ref-year 2010 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-B11-N
+      a       qb:Slice ;
+      cex:indicator indicator:B ;
+      wi-onto:ref-year 2011 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+	  
+slice:Slice-C09-N
+      a       qb:Slice ;
+      cex:indicator indicator:C ;
+      wi-onto:ref-year 2009 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-C10-N
+      a       qb:Slice ;
+      cex:indicator indicator:C ;
+      wi-onto:ref-year 2010 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-C11-N
+      a       qb:Slice ;
+      cex:indicator indicator:C ;
+      wi-onto:ref-year 2011 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+	  
+slice:Slice-D09-N
+      a       qb:Slice ;
+      cex:indicator indicator:D ;
+      wi-onto:ref-year 2009 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-D10-N
+      a       qb:Slice ;
+      cex:indicator indicator:D ;
+      wi-onto:ref-year 2010 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-D11-N
+      a       qb:Slice ;
+      cex:indicator indicator:D ;
+      wi-onto:ref-year 2011 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+	  
+slice:Slice-Q1-N
+      a       qb:Slice ;
+      cex:indicator indicator:Q1 ;
+      wi-onto:ref-year 2011 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+	  
+slice:Slice-Q2-N
+      a       qb:Slice ;
+      cex:indicator indicator:Q2 ;
+      wi-onto:ref-year 2011 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+
+slice:AB-Mean
+      a       qb:Slice ;
+      cex:indicator component:AB ;
+      wi-onto:ref-year 2011 ;
+	  qb:sliceStructure wi-onto:sliceByArea 
+	  .
+
+slice:Q2-Mean
+      a       qb:Slice ;
+      cex:indicator component:Q2 ;
+      wi-onto:ref-year 2011 ;
+	  qb:sliceStructure wi-onto:sliceByArea
+	  .
+
+slice:C-Mean
+      a       qb:Slice ;
+      cex:indicator component:C ;
+      wi-onto:ref-year 2011 ;
+	  qb:sliceStructure wi-onto:sliceByArea
+	  .
+
+slice:DQ1-Mean
+      a       qb:Slice ;
+      cex:indicator component:DQ1 ;
+      wi-onto:ref-year 2011 ;
+	  qb:sliceStructure wi-onto:sliceByArea
+	  .
+	  
+slice:ABQ2-Mean
+      a       qb:Slice ;
+      cex:indicator subindex:ABQ2 ;
+      wi-onto:ref-year 2011 ;
+	  qb:sliceStructure wi-onto:sliceByArea
+	  .
+
+slice:CDQ1-Mean
+      a       qb:Slice ;
+      cex:indicator subindex:CDQ1 ;
+      wi-onto:ref-year 2011 ;
+	  qb:sliceStructure wi-onto:sliceByArea
+	  .
+
+slice:Composite
+      a       qb:Slice ;
+      cex:indicator index:index ;
+      wi-onto:ref-year 2011 ;
+	  qb:sliceStructure wi-onto:sliceByArea
+	  .
+
 #---------------------------------------------------------------
 # End of Raw data 
 #---------------------------------------------------------------
-
-#---------------------------------------------------------------
-# Begining of Computed declarations
-# The following declarations could be automatically computed
-#-----------------------------------------------------

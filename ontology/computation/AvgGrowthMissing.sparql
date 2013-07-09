@@ -1,4 +1,4 @@
-# compute copy-Raw
+# Average Growth Missing
 prefix country:      <http://data.webfoundation.org/webindex/v2013/country/> 
 prefix dataset:      <http://data.webfoundation.org/webindex/v2013/dataset/> 
 prefix indicator:    <http://data.webfoundation.org/webindex/v2013/indicator/> 
@@ -19,27 +19,47 @@ prefix xsd:          <http://www.w3.org/2001/XMLSchema#>
 
 INSERT {
  _:obs a qb:Observation ;
-       cex:value ?value ;
-       cex:indicator ?indicator ;
-	   wi-onto:ref-year ?year ;
-	   sdmx-concept:obsStatus cex:Imputed ;
-	   cex:computation [ a cex:Copy ;
-		                   cex:observation ?obsRaw 
+       cex:computation [ a cex:AverageGrowth ;
+		                   cex:observation ?obs1 ;
+                           cex:observation ?obs2 ; 						   
 						 ] ;
+       cex:indicator ?indicator ;
+       cex:value ?value3 ;
+	   wi-onto:ref-year ?year3 ;
+       wi-onto:ref-area ?c ;
+	   sdmx-concept:obsStatus cex:Imputed ;
 	.
  ?sliceToCopy qb:observation _:obs .
 } WHERE {
- ?dataset a qb:DataSet ;
+  ?dataset a qb:DataSet ;
           cex:computation [ a cex:ImputeDataSet ;
-	                        cex:method cex:CopyRaw; 
+	                        cex:method cex:AvgGrowthMissing; 
 						    cex:dataSet ?dataSetToCopy ;
 					      ] ;
-		  qb:slice ?sliceRaw .
+		  qb:slice ?slice1, ?slice2, ?slice3 .
          
- ?sliceRaw cex:computeSlice ?sliceToCopy ;
-           cex:indicator ?indicator ;
-	       wi-onto:ref-year ?year ;
-	       qb:observation ?obsRaw .
+  ?slice3 cex:computeSlice ?sliceToCopy 
+         .
 
- ?obsRaw cex:value ?value ;
+  ?obs1 cex:indicator ?indicator ;
+        qb:dataSet ?dataset ;
+        wi-onto:ref-area ?c ;
+        wi-onto:ref-year ?year1 ;
+        cex:value ?value1 .
+  ?obs2 cex:indicator ?indicator ;
+        wi-onto:ref-area ?c ;
+        qb:dataSet ?dataset ;
+        wi-onto:ref-year ?year2 ;
+        cex:value ?value2 .
+   FILTER (?year2 = ?year1 + 1) 
+   FILTER NOT EXISTS {
+	?slice3 qb:observation ?obs3 .
+    ?obs3 cex:indicator ?indicator ;
+          qb:dataSet ?dataset ;
+          wi-onto:ref-area ?c ;
+          wi-onto:ref-year ?year3 .
+          FILTER (?year3 = ?year2 + 1)
+   }
+  BIND ((?value1 + ?value2) as ?value3)
+  BIND (?year2 + 1 as ?year3)
 }
