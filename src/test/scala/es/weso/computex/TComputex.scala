@@ -34,6 +34,7 @@ class ComputexSuite extends FunSpec with SparqlSuite with ShouldMatchers {
     ?e a cex:Error ; cex:msg ?msg . 
    }"""
 
+    
   describe("No errors in demo data") {
 	  val model = cex.loadData(ontologyURI,demoURI)
       passDir(model,validationDir)
@@ -51,10 +52,17 @@ class ComputexSuite extends FunSpec with SparqlSuite with ShouldMatchers {
 	it("Should contain 6 imputed values using Mean") {
 	  val rdfType = model.createProperty("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
 	  val mean = model.createResource("http://purl.org/weso/ontology/computex#Mean")
-	  val ls = model.listResourcesWithProperty(rdfType,mean)
+      val ls = model.listResourcesWithProperty(rdfType,mean)
 	  ls.toList.size should be(6)
     } 
-  
+
+    it("Should contain 1 imputed values using AvgGrowth") {
+	  val rdfType = model.createProperty("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
+	  val avgGrowth = model.createResource("http://purl.org/weso/ontology/computex#AverageGrowth")
+      val ls = model.listResourcesWithProperty(rdfType,avgGrowth)
+	  ls.toList.size should be(1)
+    } 
+
   }
   
   

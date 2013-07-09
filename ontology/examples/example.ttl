@@ -36,8 +36,8 @@
 computation:Flow a cex:ComputationFlow ;
   cex:steps ( 
     [ cex:query "copyRaw" ]
-#    [ cex:query "MeanBetween" ]
-#    [ cex:query "AverageGrowth" ]
+    [ cex:query "MeanBetweenMissing" ]
+    [ cex:query "AvgGrowth2Missing" ]
 #    [ cex:query "zScores" ]
   ) .
   

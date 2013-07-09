@@ -1,4 +1,4 @@
-# Mean Between Missing
+# compute copy-Raw
 prefix country:      <http://data.webfoundation.org/webindex/v2013/country/> 
 prefix dataset:      <http://data.webfoundation.org/webindex/v2013/dataset/> 
 prefix indicator:    <http://data.webfoundation.org/webindex/v2013/indicator/> 
@@ -19,50 +19,30 @@ prefix xsd:          <http://www.w3.org/2001/XMLSchema#>
 
 INSERT {
  _:obs a qb:Observation ;
-       cex:computation [ a cex:Mean ;
-		                   cex:observation ?obs1 ;
-                           cex:observation ?obs3 ; 						   
-						 ] ;
+       cex:value ?value ;
        cex:indicator ?indicator ;
-       cex:value ?mean ;
-	   wi-onto:ref-year ?year2 ;
-       wi-onto:ref-area ?c ;
+	   wi-onto:ref-year ?year ;
 	   sdmx-concept:obsStatus cex:Imputed ;
+	   cex:computation [ a cex:Copy ;
+		                   cex:observation ?obsRaw 
+						 ] ;
 	.
  ?sliceToCopy qb:observation _:obs .
- } WHERE {
-  ?dataset a qb:DataSet ;
-          cex:computation [ a cex:ImputeDataSet ;
-	                        cex:method cex:MeanBetweenMissing; 
+} WHERE {
+ ?dataset a qb:DataSet ;
+	  	  cex:computation [ a cex:FilterDataSet ;
 						    cex:dataSet ?dataSetToCopy ;
+						    cex:filter [ a cex:Filter ;
+						                 cex:dimension ?dim ;
+						                 cex:value ?value 
+						               ] 
 					      ] ;
-		  qb:slice ?slice1, ?slice2, ?slice3 .
-  
-  ?slice1 qb:observation ?obs1 .
-  ?slice3 qb:observation ?obs3 .
-  
-  ?obs1 cex:indicator ?indicator ;
-        qb:dataSet ?dataset ;
-        wi-onto:ref-area ?c ;
-        wi-onto:ref-year ?year1 ;
-        cex:value ?value1 .
-  ?obs3 cex:indicator ?indicator ;
-        wi-onto:ref-area ?c ;
-        qb:dataSet ?dataset ;
-        wi-onto:ref-year ?year3 ;
-        cex:value ?value3 .
-   FILTER (?year3 = ?year1 + 2) 
-   FILTER NOT EXISTS {
-    ?slice2 qb:observation ?obs2 .
-    ?obs2 cex:indicator ?indicator ;
-          qb:dataSet ?dataset ;
-          wi-onto:ref-area ?c ;
-          wi-onto:ref-year ?year2 .
-          FILTER (?year2 = ?year1 + 1)
-   }
-  BIND ((?value1 + ?value3)/2 as ?mean) 
-  BIND (?year1 + 1 as ?year2) 
-  ?slice2 cex:computeSlice ?sliceToCopy ;
-          wi-onto:ref-year ?year2 
-         .
-} 
+		  qb:slice ?sliceFrom .
+         
+ ?sliceFrom cex:computeSlice ?sliceToCopy ;
+           cex:indicator ?indicator ;
+	       wi-onto:ref-year ?year ;
+	       qb:observation ?obsRaw .
+
+ ?obsRaw cex:value ?value ;
+}

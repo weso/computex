@@ -21,7 +21,7 @@ CONSTRUCT {
          cex:errorParam 
 		   [cex:name "obs" ; cex:value ?obs ] ,
 		   [cex:name "val"; cex:value ?val ] ,
-		   [cex:name "avgGrowth"; cex:value ?avgGrowth ] ,
+		   [cex:name "expected"; cex:value ?expected ] ,
 		   [cex:name "ls"; cex:value ?ls ] 
 		   ;
          cex:msg "Average growth value does not match" .
@@ -36,6 +36,7 @@ CONSTRUCT {
       ?ls rdf:rest* [ rdf:first [ cex:value ?v_n ] ; 
                       rdf:rest  [ rdf:first [ cex:value ?v_n1 ]]] .
    }
- } 
- FILTER (abs(?meanGrowth * ?v1 - ?val) > 0.001)
+ }
+ BIND (?meanGrowth * ?v1 as ?expected) 
+ FILTER (abs(?expected - ?val) > 0.001)
 } 
