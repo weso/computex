@@ -7,8 +7,9 @@ import com.hp.hpl.jena.rdf.model.ModelFactory
 import com.hp.hpl.jena.query._
 import com.hp.hpl.jena.query.Query._
 import com.hp.hpl.jena.rdf.model._
-import com.hp.hpl.jena.util.FileManager;
+import com.hp.hpl.jena.util.FileManager
 import scala.collection.JavaConversions._
+import com.hp.hpl.jena.vocabulary.RDF
 
 class ComputexSuite extends FunSpec with SparqlSuite with ShouldMatchers {
 
@@ -38,13 +39,25 @@ class ComputexSuite extends FunSpec with SparqlSuite with ShouldMatchers {
       passDir(model,validationDir)
   }
 
-  describe("No errors in demo abbr data when expanded") {
-	  val model = cex.loadData(ontologyURI,demoAbbrURI)
-	  val expandedCube = cex.expandCube(model,closureFile,flattenFile)
-	  val expandedCex = cex.expandComputex(expandedCube,computationDir,findStepsQuery)
+  describe("The expanded model using computex") {
+	val model = cex.loadData(ontologyURI,demoAbbrURI)
+	val expandedCube = cex.expandCube(model,closureFile,flattenFile)
+	val expandedCex = cex.expandComputex(expandedCube,computationDir,findStepsQuery)
+    
+    describe("Should pass all validation tests from Computex") {
 	  passDir(model,validationDir)
     } 
 
+	it("Should contain 6 imputed values using Mean") {
+	  val rdfType = model.createProperty("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
+	  val mean = model.createResource("http://purl.org/weso/ontology/computex#Mean")
+	  val ls = model.listResourcesWithProperty(rdfType,mean)
+	  ls.toList.size should be(6)
+    } 
+  
+  }
+  
+  
   describe("The validation process") {
     
   it("Should raise error if obs has no value") {

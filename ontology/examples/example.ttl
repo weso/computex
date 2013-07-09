@@ -533,6 +533,89 @@ dataset:D-Imputed
       qb:slice slice:Slice-D09-Imputed, slice:Slice-D10-Imputed, slice:Slice-D11-Imputed ;
       .
 
+#-----------------------------------------------------------------
+# Datasets Sorted
+
+dataset:A-Sorted
+      cex:md5-checksum "MD5..." ;
+	  cex:computation [ a cex:SorteDataSet ;
+						cex:dataSet dataset:A-Imputed ;
+						cex:exclude [cex:dimension wi-onto:ref-area ;
+						             cex:value country:ARM ]
+					  ] ;
+      dcterms:contributor wi-org:WESO ;
+      dcterms:issued "2013-07-06" ;
+      dcterms:publisher wi-org:WebFoundation ;
+      dcterms:title "A-Sorted"@en ;
+      dcterms:subject sdmx-subject:2.5 ;      # Government finance, fiscal and public sector statistics
+      rdf:type qb:DataSet ;
+      rdfs:label "A-Sorted"@en ;
+      rdfs:comment "Description of dataset A-Imputed"@en ;
+      qb:structure wi-onto:DSD ;  
+      sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
+      qb:slice slice:Slice-A09-Sorted, slice:Slice-A10-Sorted, slice:Slice-A11-Sorted ;
+      .
+
+dataset:B-Sorted
+      cex:md5-checksum "MD5..." ;
+	  cex:computation [ a cex:SorteDataSet ;
+						cex:dataSet dataset:B-Imputed ;
+						cex:exclude [cex:dimension wi-onto:ref-area ;
+						             cex:value country:ARM ]
+					  ] ;
+      dcterms:contributor wi-org:WESO ;
+      dcterms:issued "2013-07-06" ;
+      dcterms:publisher wi-org:WebFoundation ;
+      dcterms:title "B-Sorted"@en ;
+      dcterms:subject sdmx-subject:2.5 ;      # Government finance, fiscal and public sector statistics
+      rdf:type qb:DataSet ;
+      rdfs:label "B-Sorted"@en ;
+      rdfs:comment "Description of dataset C-Sorted"@en ;
+      qb:structure wi-onto:DSD ;  
+      sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
+      qb:slice slice:Slice-B09-Sorted, slice:Slice-B10-Sorted, slice:Slice-B11-Sorted ;
+      .
+
+dataset:C-Sorted
+      cex:md5-checksum "MD5..." ;
+	  cex:computation [ a cex:SorteDataSet ;
+						cex:dataSet dataset:C-Imputed ;
+						cex:exclude [cex:dimension wi-onto:ref-area ;
+						             cex:value country:ARM ]
+					  ] ;
+      dcterms:contributor wi-org:WESO ;
+      dcterms:issued "2013-07-06" ;
+      dcterms:publisher wi-org:WebFoundation ;
+      dcterms:title "C-Sorted"@en ;
+      dcterms:subject sdmx-subject:2.5 ;      # Government finance, fiscal and public sector statistics
+      rdf:type qb:DataSet ;
+      rdfs:label "C-Sorted"@en ;
+      rdfs:comment "Description of dataset C-Sorted"@en ;
+      qb:structure wi-onto:DSD ;  
+      sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
+      qb:slice slice:Slice-C09-Sorted, slice:Slice-C10-Sorted, slice:Slice-C11-Sorted ;
+      .
+
+dataset:D-Sorted
+      cex:md5-checksum "MD5..." ;
+	  cex:computation [ a cex:SorteDataSet ;
+						cex:dataSet dataset:D-Imputed ;
+						cex:exclude [cex:dimension wi-onto:ref-area ;
+						             cex:value country:ARM ]
+					  ] ;
+      dcterms:contributor wi-org:WESO ;
+      dcterms:issued "2013-07-06" ;
+      dcterms:publisher wi-org:WebFoundation ;
+      dcterms:title "D-Sorted"@en ;
+      dcterms:subject sdmx-subject:2.5 ;      # Government finance, fiscal and public sector statistics
+      rdf:type qb:DataSet ;
+      rdfs:label "D-Sorted"@en ;
+      rdfs:comment "Description of dataset A-Sorted"@en ;
+      qb:structure wi-onto:DSD ;  
+      sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
+      qb:slice slice:Slice-D09-Sorted, slice:Slice-D10-Sorted, slice:Slice-D11-Sorted ;
+      .
+
 #--------------------------------
 # Datasets Normalized
 
@@ -635,7 +718,7 @@ slice:Slice-A09-Raw
       cex:computeSlice slice:Slice-A09-Imputed ;
       cex:indicator indicator:A ;
       wi-onto:ref-year 2009 ;
-      qb:observation obs:EA09, obs:FA09, obs:CA09 ;
+      qb:observation obs:EA09, obs:FA09, obs:CA09, obs:AA09  ;
       qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-A10-Raw
@@ -651,7 +734,7 @@ slice:Slice-A11-Raw
       cex:computeSlice slice:Slice-A11-Imputed ;
       cex:indicator indicator:A ;
       wi-onto:ref-year 2011 ;
-      qb:observation obs:EA11, obs:FA11, obs:CA11 ;
+      qb:observation obs:EA11, obs:FA11, obs:CA11, obs:AA11 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-B09-Raw
@@ -659,7 +742,7 @@ slice:Slice-B09-Raw
       cex:computeSlice slice:Slice-B09-Imputed ;
       cex:indicator indicator:B ;
       wi-onto:ref-year 2009 ;
-      qb:observation obs:EB09, obs:FB09, obs:CB09 ;
+      qb:observation obs:EB09, obs:FB09, obs:CB09, obs:AB09 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-B10-Raw
@@ -675,7 +758,7 @@ slice:Slice-B11-Raw
       cex:computeSlice slice:Slice-B11-Imputed ;
       cex:indicator indicator:B ;
       wi-onto:ref-year 2011 ;
-      qb:observation obs:EB11, obs:FB11, obs:CB11 ;
+      qb:observation obs:EB11, obs:FB11, obs:CB11, obs:AB11 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
 
@@ -684,7 +767,7 @@ slice:Slice-C09-Raw
       cex:computeSlice slice:Slice-C09-Imputed ;
       cex:indicator indicator:C ;
       wi-onto:ref-year 2009 ;
-      qb:observation obs:EC09, obs:FC09, obs:CC09 ;
+      qb:observation obs:EC09, obs:FC09, obs:CC09, obs:AC09 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-C10-Raw
@@ -700,7 +783,7 @@ slice:Slice-C11-Raw
       cex:computeSlice slice:Slice-C11-Imputed ;
       cex:indicator indicator:C ;
       wi-onto:ref-year 2011 ;
-      qb:observation obs:EC11, obs:FC11 ;
+      qb:observation obs:EC11, obs:FC11, obs:AC11 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
 
@@ -709,7 +792,7 @@ slice:Slice-D09-Raw
       cex:computeSlice slice:Slice-D09-Imputed ;
       cex:indicator indicator:D ;
       wi-onto:ref-year 2009 ;
-      qb:observation obs:ED09, obs:FD09, obs:CD09 ;
+      qb:observation obs:ED09, obs:FD09, obs:CD09, obs:AD09 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-D10-Raw
@@ -725,7 +808,7 @@ slice:Slice-D11-Raw
       cex:computeSlice slice:Slice-D11-Imputed ;
       cex:indicator indicator:D ;
       wi-onto:ref-year 2011 ;
-      qb:observation obs:ED11, obs:FD11, obs:CD11 ;
+      qb:observation obs:ED11, obs:FD11, obs:CD11, obs:AD11 ;
       qb:sliceStructure  wi-onto:sliceByArea .
 
 
@@ -733,7 +816,7 @@ slice:Slice-Q1-Raw
       a       qb:Slice ;
       cex:indicator indicator:Q1 ;
       wi-onto:ref-year 2011 ;
-      qb:observation obs:EQ1, obs:FQ1, obs:CQ1 ;
+      qb:observation obs:EQ1, obs:FQ1, obs:CQ1, obs:AQ1 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
 
@@ -741,7 +824,7 @@ slice:Slice-Q2-Raw
       a       qb:Slice ;
       cex:indicator indicator:Q2 ;
       wi-onto:ref-year 2011 ;
-      qb:observation obs:EQ2, obs:FQ2, obs:CQ2 ;
+      qb:observation obs:EQ2, obs:FQ2, obs:CQ2, obs:AQ2 ;
       qb:sliceStructure wi-onto:sliceByArea ;
       .
       
@@ -952,6 +1035,70 @@ obs:CD09 cex:md5-checksum "md5 for FD09" ;
 		 wi-onto:ref-year 2009 ;
          wi-onto:sheet-type wi-onto:Raw ;
 		 cex:value 4 .
+
+obs:AA09 cex:md5-checksum "md5 for AA09" ;
+		 cex:computation [a cex:Raw ] ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-06-12" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:A-Raw ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "A in ARM during 2009"@en ;
+		 sdmx-concept:obsStatus cex:Raw;
+		 wi-onto:ref-area country:ARM ;
+		 cex:indicator indicator:A ;
+		 wi-onto:ref-year 2009 ;
+         wi-onto:sheet-type wi-onto:Raw ;
+		 cex:value 1 .
+         
+obs:AB09 cex:md5-checksum "md5 for CB09" ;
+		 cex:computation [a cex:Raw ] ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-06-12" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:B-Raw;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "B in ARM during 2009"@en ;
+		 sdmx-concept:obsStatus cex:Raw;
+		 wi-onto:ref-area country:ARM ;
+		 cex:indicator indicator:B ;
+		 wi-onto:ref-year 2009 ;
+         wi-onto:sheet-type wi-onto:Raw ;
+		 cex:value 2 .
+
+obs:AC09 cex:md5-checksum "md5 for CC09" ;
+		 cex:computation [a cex:Raw ] ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-06-12" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:C-Raw ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "C in ARM during 2009"@en ;
+		 sdmx-concept:obsStatus cex:Raw;
+		 wi-onto:ref-area country:ARM ;
+		 cex:indicator indicator:C ;
+		 wi-onto:ref-year 2009 ;
+         wi-onto:sheet-type wi-onto:Raw ;
+		 cex:value 2 .
+
+obs:AD09 cex:md5-checksum "md5 for FD09" ;
+		 cex:computation [a cex:Raw ] ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-06-12" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:D-Raw ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "D in ARM during 2009"@en ;
+		 sdmx-concept:obsStatus cex:Raw;
+		 wi-onto:ref-area country:ARM ;
+		 cex:indicator indicator:D ;
+		 wi-onto:ref-year 2009 ;
+         wi-onto:sheet-type wi-onto:Raw ;
+		 cex:value 1 .
 		 
 obs:EA10 cex:md5-checksum "md5 for EA10" ;
 		 dcterms:contributor wi-org:WESO ;
@@ -1158,6 +1305,8 @@ obs:CD10 cex:md5-checksum "md5 for CD10" ;
          wi-onto:sheet-type wi-onto:Raw ;
 		 cex:value 6 .
 
+# All values for 2010 for Armenia are missing
+
 obs:EA11 a wi-onto:Observation ;
          cex:md5-checksum "md5 for EA11" ;
 		 dcterms:contributor wi-org:WESO ;
@@ -1363,6 +1512,73 @@ obs:CD11 a wi-onto:Observation ;
          wi-onto:sheet-type wi-onto:Raw ;
 		 cex:value 8 .
 
+obs:AA11 a wi-onto:Observation ;
+         cex:md5-checksum "md5 for AA11" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:A-Raw ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "A in ARM during 2011"@en ;
+		 sdmx-concept:obsStatus cex:Raw;
+		 wi-onto:ref-area country:ARM ;
+		 cex:computation [a cex:Raw ] ;
+		 cex:indicator indicator:A ;
+		 wi-onto:ref-year 2011 ;
+         wi-onto:sheet-type wi-onto:Raw ;
+		 cex:value 1 .
+
+obs:AB11 a wi-onto:Observation ;
+         cex:md5-checksum "md5 for AB11" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:B-Raw ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "B in ARM during 2011"@en ;
+		 sdmx-concept:obsStatus cex:Raw;
+		 wi-onto:ref-area country:ARM ;
+		 cex:computation [a cex:Raw ] ;
+		 cex:indicator indicator:B ;
+		 wi-onto:ref-year 2011 ;
+         wi-onto:sheet-type wi-onto:Raw ;
+		 cex:value 4 .
+
+obs:AC11 a wi-onto:Observation ;
+         cex:md5-checksum "md5 for AC11" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:C-Raw ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "C in ARM during 2011"@en ;
+		 sdmx-concept:obsStatus cex:Raw;
+		 wi-onto:ref-area country:ARM ;
+		 cex:computation [a cex:Raw ] ;
+		 cex:indicator indicator:C ;
+		 wi-onto:ref-year 2011 ;
+         wi-onto:sheet-type wi-onto:Raw ;
+		 cex:value 4 .
+
+obs:AD11 a wi-onto:Observation ;
+         cex:md5-checksum "md5 for CD11" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:D-Raw ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "D in ARM during 2011"@en ;
+		 sdmx-concept:obsStatus cex:Raw;
+		 wi-onto:ref-area country:ARM ;
+		 cex:computation [a cex:Raw ] ;
+		 cex:indicator indicator:D ;
+		 wi-onto:ref-year 2011 ;
+         wi-onto:sheet-type wi-onto:Raw ;
+		 cex:value 3 .
 
 obs:EQ1 a wi-onto:Observation ;
          cex:md5-checksum "md5 for EQ1" ;
@@ -1467,6 +1683,42 @@ obs:CQ2 a wi-onto:Observation ;
          wi-onto:sheet-type wi-onto:Raw ;
 		 cex:value 4 .
 
+obs:AQ1 a wi-onto:Observation ;
+         cex:md5-checksum "md5 for AQ1" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:Q1-Raw ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "Q1 in ARM during 2011"@en ;
+		 sdmx-concept:obsStatus cex:Raw;
+		 wi-onto:ref-area country:ARM ;
+		 cex:computation [a cex:Raw ] ;
+		 cex:indicator indicator:Q1 ;
+		 wi-onto:ref-year 2011 ;
+         wi-onto:sheet-type wi-onto:Raw ;
+		 cex:value 3 .
+
+obs:AQ2 a wi-onto:Observation ;
+         cex:md5-checksum "md5 for AQ2" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:Q2-Raw ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "Q2 in ARM during 2011"@en ;
+		 sdmx-concept:obsStatus cex:Raw;
+		 wi-onto:ref-area country:ARM ;
+		 cex:computation [a cex:Raw ] ;
+		 cex:indicator indicator:Q2 ;
+		 wi-onto:ref-year 2011 ;
+         wi-onto:sheet-type wi-onto:Raw ;
+		 cex:value 2 .
+
+# We don't declare the observations here because they can be computed
+
 slice:Slice-A09-Imputed
       a       qb:Slice ;
       cex:indicator indicator:A ;
@@ -1541,6 +1793,85 @@ slice:Slice-D11-Imputed
       cex:indicator indicator:D ;
       wi-onto:ref-year 2011 ;
       qb:sliceStructure wi-onto:sliceByArea .
+
+#-------------------------------------------------
+# Slices sorted
+
+slice:Slice-A09-Sorted
+      a       qb:Slice ;
+      cex:indicator indicator:A ;
+      wi-onto:ref-year 2009 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-A10-Sorted
+      a       qb:Slice ;
+      cex:indicator indicator:A ;
+      wi-onto:ref-year 2010 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-A11-Sorted
+      a       qb:Slice ;
+	  cex:indicator indicator:A ;
+      wi-onto:ref-year 2011 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+	  
+slice:Slice-B09-Sorted
+      a       qb:Slice ;
+	  cex:indicator indicator:B ;
+      wi-onto:ref-year 2009 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-B10-Sorted
+      a       qb:Slice ;
+      cex:indicator indicator:B ;
+      wi-onto:ref-year 2010 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-B11-Sorted
+      a       qb:Slice ;
+      cex:indicator indicator:B ;
+      wi-onto:ref-year 2011 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+	  
+	  
+slice:Slice-C09-Sorted
+      a       qb:Slice ;
+      cex:indicator indicator:C ;
+      wi-onto:ref-year 2009 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-C10-Sorted
+      a       qb:Slice ;
+      cex:indicator indicator:C ;
+      wi-onto:ref-year 2010 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-C11-Sorted
+      a       qb:Slice ;
+      cex:indicator indicator:C ;
+      wi-onto:ref-year 2011 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+	  
+slice:Slice-D09-Sorted
+      a       qb:Slice ;
+      cex:indicator indicator:D ;
+      wi-onto:ref-year 2009 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-D10-Sorted
+      a       qb:Slice ;
+      cex:indicator indicator:D ;
+      wi-onto:ref-year 2010 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Slice-D11-Sorted
+      a       qb:Slice ;
+      cex:indicator indicator:D ;
+      wi-onto:ref-year 2011 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
 	  
 #--------------------------------------------------------------
 # Slices normalized
@@ -1698,53 +2029,106 @@ slice:Composite
 # Slices imputed
 
 slice:Slice-A09-Imputed
-      qb:observation obs:EA09-I, obs:FA09-I, obs:CA09-I ;
+      qb:observation obs:EA09-I, obs:FA09-I, obs:CA09-I, obs:AA09-I ;
       .
 
 slice:Slice-A10-Imputed
-      qb:observation obs:EA10-I, obs:FA10-I, obs:CA10-I ;
+      qb:observation obs:EA10-I, obs:FA10-I, obs:CA10-I, obs:AA10-I ;
       .
 
 slice:Slice-A11-Imputed
-      qb:observation obs:EA11-I, obs:FA11-I, obs:CA11-I ;
+      qb:observation obs:EA11-I, obs:FA11-I, obs:CA11-I, obs:AA11-I ;
       .
 
 	  
 slice:Slice-B09-Imputed
-      qb:observation obs:EB09-I, obs:FB09-I, obs:CB09-I ;
+      qb:observation obs:EB09-I, obs:FB09-I, obs:CB09-I, obs:AB09-I ;
       .
 
 slice:Slice-B10-Imputed
-      qb:observation obs:EB10-I, obs:FB10-I, obs:CB10-I ;
+      qb:observation obs:EB10-I, obs:FB10-I, obs:CB10-I, obs:AB10-I ;
       .
 
 slice:Slice-B11-Imputed
-      qb:observation obs:EB11-I, obs:FB11-I, obs:CB11-I ;
+      qb:observation obs:EB11-I, obs:FB11-I, obs:CB11-I, obs:AB11-I ;
       .
 	  
 slice:Slice-C09-Imputed
-      qb:observation obs:EC09-I, obs:FC09-I, obs:CC09-I ;
+      qb:observation obs:EC09-I, obs:FC09-I, obs:CC09-I, obs:AC09-I ;
       .
 
 slice:Slice-C10-Imputed
-      qb:observation obs:EC10-I, obs:FC10-I, obs:CC10-I ;
+      qb:observation obs:EC10-I, obs:FC10-I, obs:CC10-I, obs:AC10-I ;
       .
 
 slice:Slice-C11-Imputed
-      qb:observation obs:EC11-I, obs:FC11-I, obs:CC11-I ;
+      qb:observation obs:EC11-I, obs:FC11-I, obs:CC11-I, obs:AC11-I ;
       .
 
 	  
 slice:Slice-D09-Imputed
-      qb:observation obs:ED09-I, obs:FD09-I, obs:CD09-I ;
+      qb:observation obs:ED09-I, obs:FD09-I, obs:CD09-I, obs:AD09-I ;
       .
 
 slice:Slice-D10-Imputed
-      qb:observation obs:ED10-I, obs:FD10-I, obs:CD10-I ;
+      qb:observation obs:ED10-I, obs:FD10-I, obs:CD10-I, obs:AD10-I ;
       .
 
 slice:Slice-D11-Imputed
-      qb:observation obs:ED11-I, obs:FD11-I, obs:CD11-I ;
+      qb:observation obs:ED11-I, obs:FD11-I, obs:CD11-I, obs:AD11-I ;
+      .
+
+#-----------------------------------------------------
+# Slices sorted
+
+slice:Slice-A09-Sorted
+      qb:observation obs:EA09-S, obs:FA09-S, obs:CA09-S ;
+      .
+
+slice:Slice-A10-Sorted
+      qb:observation obs:EA10-S, obs:FA10-S, obs:CA10-S ;
+      .
+
+slice:Slice-A11-Sorted
+      qb:observation obs:EA11-S, obs:FA11-S, obs:CA11-S ;
+      .
+
+	  
+slice:Slice-B09-Sorted
+      qb:observation obs:EB09-S, obs:FB09-S, obs:CB09-S ;
+      .
+
+slice:Slice-B10-Sorted
+      qb:observation obs:EB10-S, obs:FB10-S, obs:CB10-S ;
+      .
+
+slice:Slice-B11-Sorted
+      qb:observation obs:EB11-S, obs:FB11-S, obs:CB11-S ;
+      .
+	  
+slice:Slice-C09-Sorted
+      qb:observation obs:EC09-S, obs:FC09-S, obs:CC09-S ;
+      .
+
+slice:Slice-C10-Sorted
+      qb:observation obs:EC10-S, obs:FC10-S, obs:CC10-S ;
+      .
+
+slice:Slice-C11-Sorted
+      qb:observation obs:EC11-S, obs:FC11-S, obs:CC11-S ;
+      .
+
+	  
+slice:Slice-D09-Sorted
+      qb:observation obs:ED09-S, obs:FD09-S, obs:CD09-S ;
+      .
+
+slice:Slice-D10-Sorted
+      qb:observation obs:ED10-S, obs:FD10-S, obs:CD10-S ;
+      .
+
+slice:Slice-D11-Sorted
+      qb:observation obs:ED11-S, obs:FD11-S, obs:CD11-S ;
       .
 	  
 #--------------------------------------------------------------
@@ -1839,8 +2223,6 @@ slice:Composite
 
 #---------------------------------------------------------------
 # Observations
-	  	  	  
-
 
 #------------------------
 # Imputed
@@ -2063,6 +2445,78 @@ obs:CD09-I cex:md5-checksum "md5 for FD09" ;
 		 wi-onto:ref-year 2009 ;
          wi-onto:sheet-type wi-onto:Imputed ;
 		 cex:value 4 .
+
+obs:AA09-I cex:md5-checksum "md5 for AA09" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-06-12" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:A-Imputed ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "A in ARM during 2009"@en ;
+		 sdmx-concept:obsStatus cex:Imputed ;
+		 wi-onto:ref-area country:ARM ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:AA09 
+						 ] ;
+		 cex:indicator indicator:A ;
+		 wi-onto:ref-year 2009 ;
+         wi-onto:sheet-type wi-onto:Imputed ;
+		 cex:value 1 .
+         
+obs:AB09-I cex:md5-checksum "md5 for AB09" ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:AB09 
+						 ] ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-06-12" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:B-Imputed;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "B in ARM during 2009"@en ;
+		 sdmx-concept:obsStatus cex:Imputed ;
+		 wi-onto:ref-area country:ARM ;
+		 cex:indicator indicator:B ;
+		 wi-onto:ref-year 2009 ;
+         wi-onto:sheet-type wi-onto:Imputed ;
+		 cex:value 2 .
+
+obs:AC09-I cex:md5-checksum "md5 for AC09" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-06-12" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:C-Imputed ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "C in ARM during 2009"@en ;
+		 sdmx-concept:obsStatus cex:Imputed ;
+		 wi-onto:ref-area country:ARM ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:AC09 
+						 ] ;
+		 cex:indicator indicator:C ;
+		 wi-onto:ref-year 2009 ;
+         wi-onto:sheet-type wi-onto:Imputed ;
+		 cex:value 2 .
+
+obs:AD09-I cex:md5-checksum "md5 for AD09" ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:AD09 
+						 ] ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-06-12" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:D-Imputed ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "D in ARM during 2009"@en ;
+		 sdmx-concept:obsStatus cex:Imputed ;
+		 wi-onto:ref-area country:ARM ;
+		 cex:indicator indicator:D ;
+		 wi-onto:ref-year 2009 ;
+         wi-onto:sheet-type wi-onto:Imputed ;
+		 cex:value 1 .
 		 
 obs:EA10-I cex:md5-checksum "md5 for EA10" ;
 		 dcterms:contributor wi-org:WESO ;
@@ -2296,6 +2750,89 @@ obs:CD10-I cex:md5-checksum "md5 for CD10" ;
 		 rdfs:label "D in CHL during 2010"@en ;
 		 sdmx-concept:obsStatus cex:Imputed ;
 		 wi-onto:ref-area country:CHL ;
+		 wi-onto:ref-year 2010 ;
+         wi-onto:sheet-type wi-onto:Imputed ;
+		 .
+
+obs:AA10-I cex:md5-checksum "md5 for AA10" ;
+		 cex:computation [ a cex:Mean ;
+		                   cex:observation obs:AA09 ;
+                           cex:observation obs:AA11 ; 						   
+						 ] ;
+ 		 cex:indicator indicator:A ;
+		 cex:value 1 ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:A-Imputed ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "A in ARM during 2010"@en ;
+		 sdmx-concept:obsStatus cex:Imputed ;
+		 wi-onto:ref-area country:ARM ;
+		 wi-onto:ref-year 2010 ;
+         wi-onto:sheet-type wi-onto:Imputed ;
+		 .
+
+obs:AB10-I a wi-onto:Observation ;
+		 cex:computation [ a cex:Mean ;
+		                   cex:observation obs:AB09 ;
+                           cex:observation obs:AB11 ; 						   
+						 ] ;
+		 cex:indicator indicator:B ;
+		 cex:value 3 ;
+         cex:md5-checksum "md5 for AB10" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:B-Imputed ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "B in ARM during 2010"@en ;
+		 sdmx-concept:obsStatus cex:Imputed ;
+		 wi-onto:ref-area country:ARM ;
+		 wi-onto:ref-year 2010 ;
+         wi-onto:sheet-type wi-onto:Imputed ;
+		 .
+
+	 
+obs:AC10-I a wi-onto:Observation ;
+         cex:md5-checksum "md5 for AC10" ;
+		 cex:computation [ a cex:Mean ;
+		                   cex:observation obs:AC09 ;
+                           cex:observation obs:AC11 ; 						   
+						 ] ;
+		 cex:indicator indicator:C ;
+		 cex:value 3 ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:C-Imputed ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "C in ARM during 2010"@en ;
+		 sdmx-concept:obsStatus cex:Imputed ;
+		 wi-onto:ref-area country:ARM ;
+		 wi-onto:ref-year 2010 ;
+         wi-onto:sheet-type wi-onto:Imputed ;
+		 .
+
+obs:AD10-I cex:md5-checksum "md5 for AD10" ;
+		 cex:computation [ a cex:Mean ;
+		                   cex:observation obs:AD09 ;
+                           cex:observation obs:AD11 ; 						   
+						 ] ;
+		 cex:indicator indicator:D ;
+		 cex:value 2 ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:D-Imputed ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "D in ARM during 2010"@en ;
+		 sdmx-concept:obsStatus cex:Imputed ;
+		 wi-onto:ref-area country:ARM ;
 		 wi-onto:ref-year 2010 ;
          wi-onto:sheet-type wi-onto:Imputed ;
 		 .
@@ -2541,6 +3078,786 @@ obs:CD11-I a wi-onto:Observation ;
          wi-onto:sheet-type wi-onto:Imputed ;
 		 .
 
+obs:AA11-I a wi-onto:Observation ;
+		 cex:md5-checksum "md5 for AA11" ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:AA11 
+						 ] ;
+		 cex:indicator indicator:A ;
+         cex:value 1 ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:A-Imputed ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "A in ARM during 2011"@en ;
+		 sdmx-concept:obsStatus cex:Imputed ;
+		 wi-onto:ref-area country:ARM ;
+		 wi-onto:ref-year 2011 ;
+         wi-onto:sheet-type wi-onto:Imputed ;
+		 .
+
+obs:AB11-I a wi-onto:Observation ;
+         cex:md5-checksum "md5 for AB11" ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:AB11 
+						 ] ;
+		 cex:indicator indicator:B ;
+		 cex:value 4 ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:B-Imputed ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "B in ARM during 2011"@en ;
+		 sdmx-concept:obsStatus cex:Imputed ;
+		 wi-onto:ref-area country:ARM ;
+		 wi-onto:ref-year 2011 ;
+         wi-onto:sheet-type wi-onto:Imputed ;
+		 .
+
+obs:AC11-I a wi-onto:Observation ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:AC11 
+						 ] ;
+		 cex:md5-checksum "md5 for AC11" ;
+         cex:indicator indicator:C ;
+		 cex:value 4 ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:C-Imputed ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "C in ARM during 2011"@en ;
+		 sdmx-concept:obsStatus cex:Imputed ;
+		 wi-onto:ref-area country:ARM ;
+		 wi-onto:ref-year 2011 ;
+         wi-onto:sheet-type wi-onto:Imputed ;
+		 .
+
+obs:AD11-I a wi-onto:Observation ;
+         cex:md5-checksum "md5 for AD11" ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:AD11 
+						 ] ;
+		 cex:indicator indicator:D ;
+		 cex:value 3 ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:D-Imputed ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "D in ARM during 2011"@en ;
+		 sdmx-concept:obsStatus cex:Imputed ;
+		 wi-onto:ref-area country:ARM ;
+		 wi-onto:ref-year 2011 ;
+         wi-onto:sheet-type wi-onto:Imputed ;
+		 .
+
+#-----------------------------------------------------------------------
+# Sorted
+
+obs:EA09-S a wi-onto:Observation ;
+         cex:md5-checksum "md5 for EA09" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:A-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "A in ESP during 2009"@en ;
+		 sdmx-concept:obsStatus cex:Sorted ;
+		 wi-onto:ref-area country:ESP ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:EA09 
+						 ] ;
+		 cex:indicator indicator:A ;
+		 wi-onto:ref-year 2009 ;
+         wi-onto:sheet-type wi-onto:Sorted ;
+		 cex:value 2 .
+
+
+obs:EB09-S cex:md5-checksum "md5 for EB09" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-06-12" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:B-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "B in ESP during 2009"@en ;
+		 sdmx-concept:obsStatus cex:Sorted ;
+		 wi-onto:ref-area country:ESP ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:EB09 
+						 ] ;
+		 cex:indicator indicator:B ;
+		 wi-onto:ref-year 2009 ;
+         wi-onto:sheet-type wi-onto:Sorted ;
+		 cex:value 6 .
+         
+
+obs:EC09-S cex:md5-checksum "md5 for EC09" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-06-12" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:C-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "C in ESP during 2009"@en ;
+		 sdmx-concept:obsStatus cex:Sorted ;
+		 wi-onto:ref-area country:ESP ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:EC09 
+						 ] ;
+		 cex:indicator indicator:C ;
+		 wi-onto:ref-year 2009 ;
+         wi-onto:sheet-type wi-onto:Sorted ;
+		 cex:value 4 .
+
+obs:ED09-S cex:md5-checksum "md5 for ED09" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-06-12" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:D-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "D in ESP during 2009"@en ;
+		 sdmx-concept:obsStatus cex:Sorted ;
+		 wi-onto:ref-area country:ESP ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:ED09 
+						 ] ;
+		 cex:indicator indicator:D ;
+		 wi-onto:ref-year 2009 ;
+         wi-onto:sheet-type wi-onto:Sorted ;
+		 cex:value 4 .
+		 
+obs:FA09-S cex:md5-checksum "md5 for FA09" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-06-12" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:A-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "A in FIN during 2009"@en ;
+		 sdmx-concept:obsStatus cex:Sorted ;
+		 wi-onto:ref-area country:FIN ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:FA09 
+						 ] ;
+		 cex:indicator indicator:A ;
+		 wi-onto:ref-year 2009 ;
+         wi-onto:sheet-type wi-onto:Sorted ;
+		 cex:value 1 .
+         
+obs:FB09-S cex:md5-checksum "md5 for FB09" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-06-12" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:B-Sorted;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "B in FIN during 2009"@en ;
+		 sdmx-concept:obsStatus cex:Sorted ;
+		 wi-onto:ref-area country:FIN ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:FB09 
+						 ] ;
+		 cex:indicator indicator:B ;
+		 wi-onto:ref-year 2009 ;
+         wi-onto:sheet-type wi-onto:Sorted ;
+		 cex:value 5 .
+
+obs:FC09-S cex:md5-checksum "md5 for FC09" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-06-12" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:C-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "C in FIN during 2009"@en ;
+		 sdmx-concept:obsStatus cex:Sorted ;
+		 wi-onto:ref-area country:FIN ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:FC09 
+						 ] ;
+		 cex:indicator indicator:C ;
+		 wi-onto:ref-year 2009 ;
+         wi-onto:sheet-type wi-onto:Sorted ;
+		 cex:value 4 .
+
+obs:FD09-S cex:md5-checksum "md5 for FD09" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-06-12" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:D-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "D in FIN during 2009"@en ;
+		 sdmx-concept:obsStatus cex:Sorted ;
+		 wi-onto:ref-area country:FIN ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:FD09 
+						 ] ;
+		 cex:indicator indicator:D ;
+		 wi-onto:ref-year 2009 ;
+         wi-onto:sheet-type wi-onto:Sorted ;
+		 cex:value 2 .
+
+obs:CA09-S cex:md5-checksum "md5 for CA09" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-06-12" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:A-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "A in CHL during 2009"@en ;
+		 sdmx-concept:obsStatus cex:Sorted ;
+		 wi-onto:ref-area country:CHL ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:CA09 
+						 ] ;
+		 cex:indicator indicator:A ;
+		 wi-onto:ref-year 2009 ;
+         wi-onto:sheet-type wi-onto:Sorted ;
+		 cex:value 3 .
+         
+obs:CB09-S cex:md5-checksum "md5 for CB09" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-06-12" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:B-Sorted;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "B in CHL during 2009"@en ;
+		 sdmx-concept:obsStatus cex:Sorted ;
+		 wi-onto:ref-area country:CHL ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:CB09 
+						 ] ;
+		 cex:indicator indicator:B ;
+		 wi-onto:ref-year 2009 ;
+         wi-onto:sheet-type wi-onto:Sorted ;
+		 cex:value 4 .
+
+obs:CC09-S cex:md5-checksum "md5 for CC09" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-06-12" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:C-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "C in CHL during 2009"@en ;
+		 sdmx-concept:obsStatus cex:Sorted ;
+		 wi-onto:ref-area country:CHL ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:CC09 
+						 ] ;
+		 cex:indicator indicator:C ;
+		 wi-onto:ref-year 2009 ;
+         wi-onto:sheet-type wi-onto:Sorted ;
+		 cex:value 6 .
+
+obs:CD09-S cex:md5-checksum "md5 for FD09" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-06-12" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:D-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "D in CHL during 2009"@en ;
+		 sdmx-concept:obsStatus cex:Sorted ;
+		 wi-onto:ref-area country:CHL ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:CD09 
+						 ] ;
+		 cex:indicator indicator:D ;
+		 wi-onto:ref-year 2009 ;
+         wi-onto:sheet-type wi-onto:Sorted ;
+		 cex:value 4 .
+		 
+obs:EA10-S cex:md5-checksum "md5 for EA10" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:A-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "A in ESP during 2010"@en ;
+		 sdmx-concept:obsStatus cex:Sorted ;
+		 wi-onto:ref-area country:ESP ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:EA10 
+						 ] ;
+		 cex:indicator indicator:A ;
+		 wi-onto:ref-year 2010 ;
+         wi-onto:sheet-type wi-onto:Sorted ;
+		 cex:value 3 .
+
+obs:EB10-S a wi-onto:Observation ;
+         cex:md5-checksum "md5 for EA09" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:B-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "B in ESP during 2010"@en ;
+		 sdmx-concept:obsStatus cex:Sorted ;
+		 wi-onto:ref-area country:ESP ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:EB10 
+						 ] ;
+		 cex:indicator indicator:B ;
+		 wi-onto:ref-year 2010 ;
+         wi-onto:sheet-type wi-onto:Sorted ;
+		 cex:value 8 .
+
+	 
+obs:EC10-S a wi-onto:Observation ;
+         cex:md5-checksum "md5 for EA09" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:C-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "C in ESP during 2010"@en ;
+		 sdmx-concept:obsStatus cex:Sorted ;
+		 wi-onto:ref-area country:ESP ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:EC10 
+						 ] ;
+		 cex:indicator indicator:C ;
+		 wi-onto:ref-year 2010 ;
+         wi-onto:sheet-type wi-onto:Sorted ;
+		 cex:value 5 .
+
+obs:ED10-S cex:md5-checksum "md5 for ED10" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:D-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "D in ESP during 2010"@en ;
+		 sdmx-concept:obsStatus cex:Sorted ;
+		 wi-onto:ref-area country:ESP ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:ED10 
+						 ] ;
+		 cex:indicator indicator:D ;
+		 wi-onto:ref-year 2010 ;
+         wi-onto:sheet-type wi-onto:Sorted ;
+		 cex:value 6 .
+
+# This observation should be computed
+obs:FA10-S a qb:Observation ;
+		 cex:computation [ a cex:Mean ;
+		                   cex:observation obs:FA09 ;
+                           cex:observation obs:FA11 ; 						   
+						 ] ;
+		 cex:value 2 ;
+		 cex:indicator indicator:A ;
+         cex:md5-checksum "md5 for FA10" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:A-Sorted ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "A in FIN during 2010"@en ;
+		 sdmx-concept:obsStatus cex:Sorted ;
+		 wi-onto:ref-area country:FIN ;
+		 wi-onto:ref-year 2010 ;
+         wi-onto:sheet-type wi-onto:Sorted ;
+		 .
+
+obs:FB10-S a wi-onto:Observation ;
+         cex:md5-checksum "md5 for EA09" ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:FB10 
+						 ] ;
+		 cex:indicator indicator:B ;
+		 cex:value 6 ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:B-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "B in FIN during 2010"@en ;
+		 sdmx-concept:obsStatus cex:Sorted ;
+		 wi-onto:ref-area country:FIN ;
+		 wi-onto:ref-year 2010 ;
+         wi-onto:sheet-type wi-onto:Sorted ;
+		 .
+
+obs:FC10-S a wi-onto:Observation ;
+         cex:md5-checksum "md5 for FC10" ;
+		 cex:computation [ a cex:Mean ;
+		                   cex:observation obs:FC09 ;
+                           cex:observation obs:FC11 ; 						   
+						 ] ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:C-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "C in FIN during 2010"@en ;
+		 sdmx-concept:obsStatus cex:Sorted ;
+		 wi-onto:ref-area country:FIN ;
+		 cex:indicator indicator:C ;
+		 wi-onto:ref-year 2010 ;
+         wi-onto:sheet-type wi-onto:Sorted ;
+		 cex:value 5 ;
+         .
+
+obs:FD10-S a wi-onto:Observation ;
+         cex:md5-checksum "md5 for FD10" ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:FD10 
+						 ] ;
+		 cex:indicator indicator:D ;
+		 cex:value 3 ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:D-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "D in FIN during 2010"@en ;
+		 sdmx-concept:obsStatus cex:Sorted ;
+		 wi-onto:ref-area country:FIN ;
+		 wi-onto:ref-year 2010 ;
+         wi-onto:sheet-type wi-onto:Sorted ;
+		 .
+		 
+obs:CA10-S cex:md5-checksum "md5 for CA10" ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:CA10 
+						 ] ;
+		 cex:indicator indicator:A ;
+		 cex:value 4 ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:A-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "A in CHL  during 2010"@en ;
+		 sdmx-concept:obsStatus cex:Sorted ;
+		 wi-onto:ref-area country:CHL ;
+		 wi-onto:ref-year 2010 ;
+         wi-onto:sheet-type wi-onto:Sorted ;
+		 .
+
+obs:CB10-S a wi-onto:Observation ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:CB10 
+						 ] ;
+		 cex:indicator indicator:B ;
+		 cex:value 4 ;
+         cex:md5-checksum "md5 for CB10" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:B-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "B in CHL during 2010"@en ;
+		 sdmx-concept:obsStatus cex:Sorted ;
+		 wi-onto:ref-area country:CHL ;
+		 wi-onto:ref-year 2010 ;
+         wi-onto:sheet-type wi-onto:Sorted ;
+		 .
+
+	 
+obs:CC10-S a wi-onto:Observation ;
+         cex:md5-checksum "md5 for CC10" ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:CC10 
+						 ] ;
+		 cex:indicator indicator:C ;
+		 cex:value 8 ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:C-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "C in CHL during 2010"@en ;
+		 sdmx-concept:obsStatus cex:Sorted ;
+		 wi-onto:ref-area country:CHL ;
+		 wi-onto:ref-year 2010 ;
+         wi-onto:sheet-type wi-onto:Sorted ;
+		 .
+
+obs:CD10-S cex:md5-checksum "md5 for CD10" ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:CD10 
+						 ] ;
+		 cex:indicator indicator:D ;
+		 cex:value 6 ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:D-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "D in CHL during 2010"@en ;
+		 sdmx-concept:obsStatus cex:Sorted ;
+		 wi-onto:ref-area country:CHL ;
+		 wi-onto:ref-year 2010 ;
+         wi-onto:sheet-type wi-onto:Sorted ;
+		 .
+
+obs:EA11-S a wi-onto:Observation ;
+         cex:md5-checksum "md5 for EA11" ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:EA11 
+						 ] ;
+		 cex:indicator indicator:A ;
+		 cex:value 5 ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:A-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "A in ESP during 2011"@en ;
+		 sdmx-concept:obsStatus cex:Sorted ;
+		 wi-onto:ref-area country:ESP ;
+		 wi-onto:ref-year 2011 ;
+         wi-onto:sheet-type wi-onto:Sorted ;
+		 .
+		 
+obs:EB11-S a wi-onto:Observation ;
+         cex:md5-checksum "md5 for EB11" ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:EB11 
+						 ] ;
+		 cex:indicator indicator:B ;
+		 cex:value 10 ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:B-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "B in ESP during 2011"@en ;
+		 sdmx-concept:obsStatus cex:Sorted ;
+		 wi-onto:ref-area country:ESP ;
+		 wi-onto:ref-year 2011 ;
+         wi-onto:sheet-type wi-onto:Sorted ;
+		 .
+
+obs:EC11-S a wi-onto:Observation ;
+         cex:md5-checksum "md5 for EC11" ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:EC11 
+						 ] ;
+		 cex:indicator indicator:C ;
+		 cex:value 3 ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:C-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "C in ESP during 2011"@en ;
+		 sdmx-concept:obsStatus cex:Sorted ;
+		 wi-onto:ref-area country:ESP ;
+		 wi-onto:ref-year 2011 ;
+         wi-onto:sheet-type wi-onto:Sorted ;
+		 .
+
+obs:ED11-S a wi-onto:Observation ;
+         cex:md5-checksum "md5 for ED11" ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:ED11 
+						 ] ;
+		 cex:indicator indicator:D ;
+		 cex:value 8 ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:D-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "D in ESP during 2011"@en ;
+		 sdmx-concept:obsStatus cex:Sorted ;
+		 wi-onto:ref-area country:ESP ;
+		 wi-onto:ref-year 2011 ;
+         wi-onto:sheet-type wi-onto:Sorted ;
+		 .
+		 
+obs:FA11-S a wi-onto:Observation ;
+         cex:md5-checksum "md5 for FA11" ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:FA11 
+						 ] ;
+		 cex:indicator indicator:A ;
+		 cex:value 3 ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:A-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "A in FIN during 2011"@en ;
+		 sdmx-concept:obsStatus cex:Sorted ;
+		 wi-onto:ref-area country:FIN ;
+		 wi-onto:ref-year 2011 ;
+         wi-onto:sheet-type wi-onto:Sorted ;
+		 .
+
+obs:FB11-S a wi-onto:Observation ;
+         cex:md5-checksum "md5 for FB11" ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:FB11 
+						 ] ;
+		 cex:indicator indicator:B ;
+		 cex:value 7 ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:B-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "B in FIN during 2011"@en ;
+		 sdmx-concept:obsStatus cex:Sorted ;
+		 wi-onto:ref-area country:FIN ;
+		 wi-onto:ref-year 2011 ;
+         wi-onto:sheet-type wi-onto:Sorted ;
+		 .
+
+obs:FC11-S a wi-onto:Observation ;
+         cex:md5-checksum "md5 for FC11" ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:FC11 
+						 ] ;
+		 cex:indicator indicator:C ;
+		 cex:value 6 ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:C-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "C in FIN during 2011"@en ;
+		 sdmx-concept:obsStatus cex:Sorted ;
+		 wi-onto:ref-area country:FIN ;
+		 wi-onto:ref-year 2011 ;
+         wi-onto:sheet-type wi-onto:Sorted ;
+		 .
+
+obs:FD11-S a wi-onto:Observation ;
+         cex:md5-checksum "md5 for FC11" ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:FD11 
+						 ] ;
+		 cex:indicator indicator:D ;
+		 cex:value 4 ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:D-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "D in FIN during 2011"@en ;
+		 sdmx-concept:obsStatus cex:Sorted ;
+		 wi-onto:ref-area country:FIN ;
+		 wi-onto:ref-year 2011 ;
+         wi-onto:sheet-type wi-onto:Sorted ;
+		 .
+
+obs:CA11-S a wi-onto:Observation ;
+		 cex:md5-checksum "md5 for CA11" ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:CA11 
+						 ] ;
+		 cex:indicator indicator:A ;
+         cex:value 7 ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:A-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "A in CHL during 2011"@en ;
+		 sdmx-concept:obsStatus cex:Sorted ;
+		 wi-onto:ref-area country:CHL ;
+		 wi-onto:ref-year 2011 ;
+         wi-onto:sheet-type wi-onto:Sorted ;
+		 .
+
+obs:CB11-S a wi-onto:Observation ;
+         cex:md5-checksum "md5 for CB11" ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:CB11 
+						 ] ;
+		 cex:indicator indicator:B ;
+		 cex:value 4 ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:B-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "B in CHL during 2011"@en ;
+		 sdmx-concept:obsStatus cex:Sorted ;
+		 wi-onto:ref-area country:CHL ;
+		 wi-onto:ref-year 2011 ;
+         wi-onto:sheet-type wi-onto:Sorted ;
+		 .
+
+# This observation should be computed from CC09 (=6), CC10 (=8), should infer 10
+obs:CC11-S a wi-onto:Observation ;
+		 cex:md5-checksum "md5 for CC11" ;
+		 cex:computation [ a cex:AverageGrowth ;
+		                   cex:observations ( obs:CC10 obs:CC09) ; 						   
+						 ] ;
+         cex:indicator indicator:C ;
+		 cex:value 10.6666 ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:C-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "C in CHL during 2011"@en ;
+		 sdmx-concept:obsStatus cex:Sorted ;
+		 wi-onto:ref-area country:CHL ;
+		 wi-onto:ref-year 2011 ;
+         wi-onto:sheet-type wi-onto:Sorted ;
+		 .
+
+obs:CD11-S a wi-onto:Observation ;
+         cex:md5-checksum "md5 for CD11" ;
+		 cex:computation [ a cex:Copy ;
+		                   cex:observation obs:CD11 
+						 ] ;
+		 cex:indicator indicator:D ;
+		 cex:value 8 ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:D-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "D in CHL during 2011"@en ;
+		 sdmx-concept:obsStatus cex:Sorted ;
+		 wi-onto:ref-area country:CHL ;
+		 wi-onto:ref-year 2011 ;
+         wi-onto:sheet-type wi-onto:Sorted ;
+		 .
+
+
 #--------------------------
 # Normalized observations
 
@@ -2548,7 +3865,7 @@ obs:EA09-N a wi-onto:Observation ;
          cex:md5-checksum "md5 for EA09" ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:EA09-I 
+			  cex:observation obs:EA09-S 
 			] ;   
 		 cex:value 0 ;
 		 dcterms:contributor wi-org:WESO ;
@@ -2569,7 +3886,7 @@ obs:EA09-N a wi-onto:Observation ;
 obs:EB09-N cex:md5-checksum "md5 for EB09" ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:EB09-I 
+			  cex:observation obs:EB09-S 
 			] ;   
 		 cex:value -1 ;
 		 dcterms:contributor wi-org:WESO ;
@@ -2590,7 +3907,7 @@ obs:EB09-N cex:md5-checksum "md5 for EB09" ;
 obs:EC09-N cex:md5-checksum "md5 for EC09" ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:EC09-I 
+			  cex:observation obs:EC09-S 
 			] ;   
 		 cex:value -0.57735 ;
 		 dcterms:contributor wi-org:WESO ;
@@ -2610,7 +3927,7 @@ obs:EC09-N cex:md5-checksum "md5 for EC09" ;
 obs:ED09-N cex:md5-checksum "md5 for ED09" ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:ED09-I 
+			  cex:observation obs:ED09-S 
 			] ;   
 		 cex:value 0.57735 ;
 		 dcterms:contributor wi-org:WESO ;
@@ -2630,7 +3947,7 @@ obs:ED09-N cex:md5-checksum "md5 for ED09" ;
 obs:FA09-N cex:md5-checksum "md5 for FA09" ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:FA09-I 
+			  cex:observation obs:FA09-S 
 			] ;   
 		 cex:value -1 ;
 		 dcterms:contributor wi-org:WESO ;
@@ -2650,7 +3967,7 @@ obs:FA09-N cex:md5-checksum "md5 for FA09" ;
 obs:FB09-N cex:md5-checksum "md5 for FB09" ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:FB09-I 
+			  cex:observation obs:FB09-S 
 			] ;   
 		 cex:value 0 ;
 		 dcterms:contributor wi-org:WESO ;
@@ -2670,7 +3987,7 @@ obs:FB09-N cex:md5-checksum "md5 for FB09" ;
 obs:FC09-N cex:md5-checksum "md5 for FC09" ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:FC09-I 
+			  cex:observation obs:FC09-S 
 			] ;   
 		 cex:value -0.57735 ;
 		 dcterms:contributor wi-org:WESO ;
@@ -2690,7 +4007,7 @@ obs:FC09-N cex:md5-checksum "md5 for FC09" ;
 obs:FD09-N cex:md5-checksum "md5 for FD09" ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:FD09-I 
+			  cex:observation obs:FD09-S 
 			] ;   
 		 cex:value -1.1547 ;
 		 dcterms:contributor wi-org:WESO ;
@@ -2710,7 +4027,7 @@ obs:FD09-N cex:md5-checksum "md5 for FD09" ;
 obs:CA09-N cex:md5-checksum "md5 for CA09" ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:CA09-I 
+			  cex:observation obs:CA09-S 
 			] ;   
 		 cex:value 1 ;
 		 dcterms:contributor wi-org:WESO ;
@@ -2730,7 +4047,7 @@ obs:CA09-N cex:md5-checksum "md5 for CA09" ;
 obs:CB09-N cex:md5-checksum "md5 for CB09" ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:CB09-I 
+			  cex:observation obs:CB09-S 
 			] ;   
 		 cex:value 1  ;
 		 dcterms:contributor wi-org:WESO ;
@@ -2750,7 +4067,7 @@ obs:CB09-N cex:md5-checksum "md5 for CB09" ;
 obs:CC09-N cex:md5-checksum "md5 for CC09" ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:CC09-I 
+			  cex:observation obs:CC09-S 
 			] ;   
 		 cex:value 1.154701 ;
 		 dcterms:contributor wi-org:WESO ;
@@ -2770,7 +4087,7 @@ obs:CC09-N cex:md5-checksum "md5 for CC09" ;
 obs:CD09-N cex:md5-checksum "md5 for FD09" ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:CD09-I 
+			  cex:observation obs:CD09-S 
 			] ;   
 		 cex:value 0.57735 ;
 		 dcterms:contributor wi-org:WESO ;
@@ -2790,7 +4107,7 @@ obs:CD09-N cex:md5-checksum "md5 for FD09" ;
 obs:EA10-N cex:md5-checksum "md5 for EA10" ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:EA10-I 
+			  cex:observation obs:EA10-S 
 			] ;   
 		 cex:value 0 ;
 		 dcterms:contributor wi-org:WESO ;
@@ -2810,7 +4127,7 @@ obs:EA10-N cex:md5-checksum "md5 for EA10" ;
 obs:EB10-N a wi-onto:Observation ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:EB10-I 
+			  cex:observation obs:EB10-S 
 			] ;   
 		 cex:value -1 ;
          cex:md5-checksum "md5 for EA09" ;
@@ -2832,7 +4149,7 @@ obs:EB10-N a wi-onto:Observation ;
 obs:EC10-N a wi-onto:Observation ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:EC10-I 
+			  cex:observation obs:EC10-S 
 			] ;   
 		 cex:value -0.57735 ;
          cex:md5-checksum "md5 for EA09" ;
@@ -2853,7 +4170,7 @@ obs:EC10-N a wi-onto:Observation ;
 obs:ED10-N cex:md5-checksum "md5 for ED10" ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:ED10-I 
+			  cex:observation obs:ED10-S 
 			] ;   
 		 cex:value 0.57735 ;
 		 dcterms:contributor wi-org:WESO ;
@@ -2873,7 +4190,7 @@ obs:ED10-N cex:md5-checksum "md5 for ED10" ;
 obs:FA10-N a wi-onto:Observation ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:FA10-I 
+			  cex:observation obs:FA10-S 
 			] ;   
 		 cex:value -1 ;
          cex:md5-checksum "md5 for FA10" ;
@@ -2895,7 +4212,7 @@ obs:FA10-N a wi-onto:Observation ;
 obs:FB10-N a wi-onto:Observation ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:FB10-I 
+			  cex:observation obs:FB10-S 
 			] ;   
 		 cex:value 0 ;
          cex:md5-checksum "md5 for EA09" ;
@@ -2916,7 +4233,7 @@ obs:FB10-N a wi-onto:Observation ;
 obs:FC10-N a wi-onto:Observation ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:FC10-I 
+			  cex:observation obs:FC10-S 
 			] ;   
 		 cex:value -0.57735 ;
          cex:md5-checksum "md5 for FC10" ;
@@ -2938,7 +4255,7 @@ obs:FC10-N a wi-onto:Observation ;
 obs:FD10-N a wi-onto:Observation ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:FD10-I 
+			  cex:observation obs:FD10-S 
 			] ;   
 		 cex:value -1.1547 ;
          cex:md5-checksum "md5 for FD10" ;
@@ -2959,7 +4276,7 @@ obs:FD10-N a wi-onto:Observation ;
 obs:CA10-N cex:md5-checksum "md5 for CA10" ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:CA10-I 
+			  cex:observation obs:CA10-S 
 			] ;   
 		 cex:value 1 ;
 		 dcterms:contributor wi-org:WESO ;
@@ -2979,7 +4296,7 @@ obs:CA10-N cex:md5-checksum "md5 for CA10" ;
 obs:CB10-N a wi-onto:Observation ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:CB10-I 
+			  cex:observation obs:CB10-S 
 			] ;   
 		 cex:value 1 ;
          cex:md5-checksum "md5 for CB10" ;
@@ -3001,7 +4318,7 @@ obs:CB10-N a wi-onto:Observation ;
 obs:CC10-N a wi-onto:Observation ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:CC10-I 
+			  cex:observation obs:CC10-S 
 			] ;   
 		 cex:value 1.154701 ;
          cex:md5-checksum "md5 for CC10" ;
@@ -3022,7 +4339,7 @@ obs:CC10-N a wi-onto:Observation ;
 obs:CD10-N cex:md5-checksum "md5 for CD10" ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:CD10-I 
+			  cex:observation obs:CD10-S 
 			] ;   
 		 cex:value 0.57735 ;
 		 dcterms:contributor wi-org:WESO ;
@@ -3042,7 +4359,7 @@ obs:CD10-N cex:md5-checksum "md5 for CD10" ;
 obs:EA11-N a wi-onto:Observation ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:EA11-I 
+			  cex:observation obs:EA11-S 
 			] ;   
 		 cex:value 0 ;
          cex:md5-checksum "md5 for EA11" ;
@@ -3063,7 +4380,7 @@ obs:EA11-N a wi-onto:Observation ;
 obs:EB11-N a wi-onto:Observation ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:EB11-I 
+			  cex:observation obs:EB11-S 
 			] ;   
 		 cex:value -1 ;
          cex:md5-checksum "md5 for EB11" ;
@@ -3084,7 +4401,7 @@ obs:EB11-N a wi-onto:Observation ;
 obs:EC11-N a wi-onto:Observation ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:EC11-I 
+			  cex:observation obs:EC11-S 
 			] ;   
 		 cex:value -0.92032 ;
          cex:md5-checksum "md5 for EC11" ;
@@ -3105,7 +4422,7 @@ obs:EC11-N a wi-onto:Observation ;
 obs:ED11-N a wi-onto:Observation ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:ED11-I 
+			  cex:observation obs:ED11-S 
 			] ;   
 		 cex:value 0.57735 ;
          cex:md5-checksum "md5 for ED11" ;
@@ -3126,7 +4443,7 @@ obs:ED11-N a wi-onto:Observation ;
 obs:FA11-N a wi-onto:Observation ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:FA11-I 
+			  cex:observation obs:FA11-S 
 			] ;   
 		 cex:value -1 ;
          cex:md5-checksum "md5 for FA11" ;
@@ -3147,7 +4464,7 @@ obs:FA11-N a wi-onto:Observation ;
 obs:FB11-N a wi-onto:Observation ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:FB11-I 
+			  cex:observation obs:FB11-S 
 			] ;   
 		 cex:value 0 ;
          cex:md5-checksum "md5 for FB11" ;
@@ -3168,7 +4485,7 @@ obs:FB11-N a wi-onto:Observation ;
 obs:FC11-N a wi-onto:Observation ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:FC11-I 
+			  cex:observation obs:FC11-S 
 			] ;   
 		 cex:value -0.1438 ;
          cex:md5-checksum "md5 for FC11" ;
@@ -3189,7 +4506,7 @@ obs:FC11-N a wi-onto:Observation ;
 obs:FD11-N a wi-onto:Observation ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:FD11-I 
+			  cex:observation obs:FD11-S 
 			] ;   
 		 cex:value -1.1547 ;
          cex:md5-checksum "md5 for FD11" ;
@@ -3210,7 +4527,7 @@ obs:FD11-N a wi-onto:Observation ;
 obs:CA11-N a wi-onto:Observation ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:CA11-I 
+			  cex:observation obs:CA11-S 
 			] ;   
 		 cex:value 1 ;
          cex:md5-checksum "md5 for CA11" ;
@@ -3231,7 +4548,7 @@ obs:CA11-N a wi-onto:Observation ;
 obs:CB11-N a wi-onto:Observation ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:CB11-I 
+			  cex:observation obs:CB11-S 
 			] ;   
 		 cex:value 1 ;
          cex:md5-checksum "md5 for CB11" ;
@@ -3252,7 +4569,7 @@ obs:CB11-N a wi-onto:Observation ;
 obs:CC11-N a wi-onto:Observation ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:CC11-I 
+			  cex:observation obs:CC11-S 
 			] ;   
 		 cex:value 1.064115 ;
          cex:md5-checksum "md5 for CC11" ;
@@ -3273,7 +4590,7 @@ obs:CC11-N a wi-onto:Observation ;
 obs:CD11-N a wi-onto:Observation ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:CD11-I 
+			  cex:observation obs:CD11-S 
 			] ;   
 		 cex:value 0.57735 ;
          cex:md5-checksum "md5 for CD11" ;
