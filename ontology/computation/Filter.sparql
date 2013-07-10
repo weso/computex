@@ -1,4 +1,4 @@
-# compute copy-Raw
+# filter values from some dimension
 prefix country:      <http://data.webfoundation.org/webindex/v2013/country/> 
 prefix dataset:      <http://data.webfoundation.org/webindex/v2013/dataset/> 
 prefix indicator:    <http://data.webfoundation.org/webindex/v2013/indicator/> 
@@ -19,11 +19,12 @@ prefix xsd:          <http://www.w3.org/2001/XMLSchema#>
 
 INSERT {
  _:obs a qb:Observation ;
+	   ?dim ?valueDim ;
        cex:value ?value ;
        cex:indicator ?indicator ;
 	   wi-onto:ref-year ?year ;
 	   sdmx-concept:obsStatus cex:Imputed ;
-	   cex:computation [ a cex:Copy ;
+	   cex:computation [ a cex:Filter ;
 		                   cex:observation ?obsRaw 
 						 ] ;
 	.
@@ -32,9 +33,9 @@ INSERT {
  ?dataset a qb:DataSet ;
 	  	  cex:computation [ a cex:FilterDataSet ;
 						    cex:dataSet ?dataSetToCopy ;
-						    cex:filter [ a cex:Filter ;
+						    cex:filter [ a cex:FilterDefinition ;
 						                 cex:dimension ?dim ;
-						                 cex:value ?value 
+						                 cex:value ?valueDim 
 						               ] 
 					      ] ;
 		  qb:slice ?sliceFrom .
@@ -42,7 +43,10 @@ INSERT {
  ?sliceFrom cex:computeSlice ?sliceToCopy ;
            cex:indicator ?indicator ;
 	       wi-onto:ref-year ?year ;
-	       qb:observation ?obsRaw .
+	       qb:observation ?obsRaw ;
+	       .
 
  ?obsRaw cex:value ?value ;
+         ?dim ?valueDim .
+
 }

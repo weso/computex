@@ -38,10 +38,13 @@ computation:Flow a cex:ComputationFlow ;
     [ cex:query "copyRaw" ]
     [ cex:query "MeanBetweenMissing" ]
     [ cex:query "AvgGrowth2Missing" ]
-#    [ cex:query "zScores" ]
+    [ cex:query "Filter" ]
+    [ cex:query "zScores" ]
   ) .
   
-
+wi-onto:filter a cex:Filter ;
+  cex:dimension wi-onto:ref-area ;
+  cex:value country:ESP, country:FIN, country:CHL .
 
 #--------------------------------------------
 # General Data structure definitions 
@@ -463,8 +466,9 @@ dataset:Q2-Raw
 
 dataset:A-Imputed
       cex:md5-checksum "MD5..." ;
-	  cex:computation [ a cex:NormalizeDataSet ;
-						cex:dataSet dataset:A-Normalized ;
+	  cex:computation [ a cex:FilterDataSet ;
+						cex:dataSet dataset:A-Sorted ;
+						cex:filter wi-onto:filter 
 					  ] ;
       dcterms:contributor wi-org:WESO ;
       dcterms:issued "2013-07-06" ;
@@ -480,10 +484,11 @@ dataset:A-Imputed
       .
 
 dataset:B-Imputed
-      cex:md5-checksum "MD5..." ;
-	  cex:computation [ a cex:NormalizeDataSet ;
-						cex:dataSet dataset:B-Normalized ;
+	  cex:computation [ a cex:FilterDataSet ;
+						cex:dataSet dataset:B-Sorted ;
+						cex:filter wi-onto:filter 
 					  ] ;
+      cex:md5-checksum "MD5..." ;
       dcterms:contributor wi-org:WESO ;
       dcterms:issued "2013-07-06" ;
       dcterms:publisher wi-org:WebFoundation ;
@@ -498,10 +503,11 @@ dataset:B-Imputed
       .
 
 dataset:C-Imputed
-      cex:md5-checksum "MD5..." ;
-	  cex:computation [ a cex:NormalizeDataSet ;
-						cex:dataSet dataset:C-Normalized ;
+	  cex:computation [ a cex:FilterDataSet ;
+						cex:dataSet dataset:C-Sorted ;
+						cex:filter wi-onto:filter 
 					  ] ;
+      cex:md5-checksum "MD5..." ;
       dcterms:contributor wi-org:WESO ;
       dcterms:issued "2013-07-06" ;
       dcterms:publisher wi-org:WebFoundation ;
@@ -516,10 +522,11 @@ dataset:C-Imputed
       .
 
 dataset:D-Imputed
-      cex:md5-checksum "MD5..." ;
-	  cex:computation [ a cex:NormalizeDataSet ;
-						cex:dataSet dataset:D-Normalized ;
+	  cex:computation [ a cex:FilterDataSet ;
+						cex:dataSet dataset:D-Sorted ;
+						cex:filter wi-onto:filter 
 					  ] ;
+      cex:md5-checksum "MD5..." ;
       dcterms:contributor wi-org:WESO ;
       dcterms:issued "2013-07-06" ;
       dcterms:publisher wi-org:WebFoundation ;
@@ -537,12 +544,10 @@ dataset:D-Imputed
 # Datasets Sorted
 
 dataset:A-Sorted
-      cex:md5-checksum "MD5..." ;
-	  cex:computation [ a cex:SorteDataSet ;
-						cex:dataSet dataset:A-Imputed ;
-						cex:exclude [cex:dimension wi-onto:ref-area ;
-						             cex:value country:ARM ]
+	  cex:computation [ a cex:NormalizeDataSet ;
+						cex:dataSet dataset:A-Normalized ;
 					  ] ;
+      cex:md5-checksum "MD5..." ;
       dcterms:contributor wi-org:WESO ;
       dcterms:issued "2013-07-06" ;
       dcterms:publisher wi-org:WebFoundation ;
@@ -557,12 +562,10 @@ dataset:A-Sorted
       .
 
 dataset:B-Sorted
-      cex:md5-checksum "MD5..." ;
-	  cex:computation [ a cex:SorteDataSet ;
-						cex:dataSet dataset:B-Imputed ;
-						cex:exclude [cex:dimension wi-onto:ref-area ;
-						             cex:value country:ARM ]
+	  cex:computation [ a cex:NormalizeDataSet ;
+						cex:dataSet dataset:B-Normalized ;
 					  ] ;
+      cex:md5-checksum "MD5..." ;
       dcterms:contributor wi-org:WESO ;
       dcterms:issued "2013-07-06" ;
       dcterms:publisher wi-org:WebFoundation ;
@@ -577,12 +580,10 @@ dataset:B-Sorted
       .
 
 dataset:C-Sorted
-      cex:md5-checksum "MD5..." ;
-	  cex:computation [ a cex:SorteDataSet ;
-						cex:dataSet dataset:C-Imputed ;
-						cex:exclude [cex:dimension wi-onto:ref-area ;
-						             cex:value country:ARM ]
+	  cex:computation [ a cex:NormalizeDataSet ;
+						cex:dataSet dataset:C-Normalized ;
 					  ] ;
+      cex:md5-checksum "MD5..." ;
       dcterms:contributor wi-org:WESO ;
       dcterms:issued "2013-07-06" ;
       dcterms:publisher wi-org:WebFoundation ;
@@ -597,12 +598,10 @@ dataset:C-Sorted
       .
 
 dataset:D-Sorted
-      cex:md5-checksum "MD5..." ;
-	  cex:computation [ a cex:SorteDataSet ;
-						cex:dataSet dataset:D-Imputed ;
-						cex:exclude [cex:dimension wi-onto:ref-area ;
-						             cex:value country:ARM ]
+	  cex:computation [ a cex:NormalizeDataSet ;
+						cex:dataSet dataset:D-Normalized ;
 					  ] ;
+      cex:md5-checksum "MD5..." ;
       dcterms:contributor wi-org:WESO ;
       dcterms:issued "2013-07-06" ;
       dcterms:publisher wi-org:WebFoundation ;
@@ -1721,18 +1720,21 @@ obs:AQ2 a wi-onto:Observation ;
 
 slice:Slice-A09-Imputed
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-A09-Sorted ;
       cex:indicator indicator:A ;
       wi-onto:ref-year 2009 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-A10-Imputed
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-A10-Sorted ;
       cex:indicator indicator:A ;
       wi-onto:ref-year 2010 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-A11-Imputed
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-A11-Sorted ;
 	  cex:indicator indicator:A ;
       wi-onto:ref-year 2011 ;
       qb:sliceStructure wi-onto:sliceByArea .
@@ -1740,18 +1742,21 @@ slice:Slice-A11-Imputed
 	  
 slice:Slice-B09-Imputed
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-B09-Sorted ;
 	  cex:indicator indicator:B ;
       wi-onto:ref-year 2009 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-B10-Imputed
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-B10-Sorted ;
       cex:indicator indicator:B ;
       wi-onto:ref-year 2010 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-B11-Imputed
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-B11-Sorted ;
       cex:indicator indicator:B ;
       wi-onto:ref-year 2011 ;
       qb:sliceStructure wi-onto:sliceByArea .
@@ -1759,18 +1764,21 @@ slice:Slice-B11-Imputed
 	  
 slice:Slice-C09-Imputed
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-C09-Sorted ;
       cex:indicator indicator:C ;
       wi-onto:ref-year 2009 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-C10-Imputed
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-C10-Sorted ;
       cex:indicator indicator:C ;
       wi-onto:ref-year 2010 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-C11-Imputed
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-C11-Sorted ;
       cex:indicator indicator:C ;
       wi-onto:ref-year 2011 ;
       qb:sliceStructure wi-onto:sliceByArea .
@@ -1778,18 +1786,21 @@ slice:Slice-C11-Imputed
 	  
 slice:Slice-D09-Imputed
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-D09-Sorted ;
       cex:indicator indicator:D ;
       wi-onto:ref-year 2009 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-D10-Imputed
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-D10-Sorted ;
       cex:indicator indicator:D ;
       wi-onto:ref-year 2010 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-D11-Imputed
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-D11-Sorted ;
       cex:indicator indicator:D ;
       wi-onto:ref-year 2011 ;
       qb:sliceStructure wi-onto:sliceByArea .
@@ -1799,18 +1810,21 @@ slice:Slice-D11-Imputed
 
 slice:Slice-A09-Sorted
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-A09-N ;
       cex:indicator indicator:A ;
       wi-onto:ref-year 2009 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-A10-Sorted
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-A10-N ;
       cex:indicator indicator:A ;
       wi-onto:ref-year 2010 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-A11-Sorted
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-A11-N ;
 	  cex:indicator indicator:A ;
       wi-onto:ref-year 2011 ;
       qb:sliceStructure wi-onto:sliceByArea .
@@ -1818,18 +1832,21 @@ slice:Slice-A11-Sorted
 	  
 slice:Slice-B09-Sorted
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-B09-N ;
 	  cex:indicator indicator:B ;
       wi-onto:ref-year 2009 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-B10-Sorted
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-B10-N ;
       cex:indicator indicator:B ;
       wi-onto:ref-year 2010 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-B11-Sorted
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-B11-N ;
       cex:indicator indicator:B ;
       wi-onto:ref-year 2011 ;
       qb:sliceStructure wi-onto:sliceByArea .
@@ -1837,18 +1854,21 @@ slice:Slice-B11-Sorted
 	  
 slice:Slice-C09-Sorted
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-C09-N ;
       cex:indicator indicator:C ;
       wi-onto:ref-year 2009 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-C10-Sorted
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-C10-N ;
       cex:indicator indicator:C ;
       wi-onto:ref-year 2010 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-C11-Sorted
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-C11-N ;
       cex:indicator indicator:C ;
       wi-onto:ref-year 2011 ;
       qb:sliceStructure wi-onto:sliceByArea .
@@ -1856,18 +1876,21 @@ slice:Slice-C11-Sorted
 	  
 slice:Slice-D09-Sorted
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-D09-N ;
       cex:indicator indicator:D ;
       wi-onto:ref-year 2009 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-D10-Sorted
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-D10-N ;
       cex:indicator indicator:D ;
       wi-onto:ref-year 2010 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
 slice:Slice-D11-Sorted
       a       qb:Slice ;
+      cex:computeSlice slice:Slice-D11-N ;
       cex:indicator indicator:D ;
       wi-onto:ref-year 2011 ;
       qb:sliceStructure wi-onto:sliceByArea .

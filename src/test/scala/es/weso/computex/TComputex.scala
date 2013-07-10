@@ -63,6 +63,20 @@ class ComputexSuite extends FunSpec with SparqlSuite with ShouldMatchers {
 	  ls.toList.size should be(1)
     } 
 
+   it("Should contain 36 filtered values") {
+	  val rdfType = model.createProperty("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
+	  val filter  = model.createResource("http://purl.org/weso/ontology/computex#Filter")
+      val ls = model.listResourcesWithProperty(rdfType,filter)
+	  ls.toList.size should be(36)
+    } 
+
+   it("Should contain 36 normalized values") {
+	  val rdfType = model.createProperty("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
+	  val normalize = model.createResource("http://purl.org/weso/ontology/computex#Normalize")
+      val ls = model.listResourcesWithProperty(rdfType,normalize)
+	  ls.toList.size should be(36)
+    } 
+
   }
   
   

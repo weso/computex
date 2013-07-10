@@ -24,7 +24,8 @@ class Computex {
               cubeDataDir: String,
               closureFile: String,
               flattenFile: String,
-              findStepsQuery: String
+              findStepsQuery: String,
+              outFile : String
              ) = {
   try {
 
@@ -38,8 +39,8 @@ class Computex {
      if (validationModel.size == 0) {
        println("No errors");
        val computexModel = expandComputex(model,computationDir,findStepsQuery)
-       println("Computed Model: ")
-       computexModel.write(System.out,"TURTLE")
+       computexModel.write(new FileOutputStream(outFile),"TURTLE")
+       println("Expanded model saved in " + outFile)
      } else {
        println("Validation Model: ")
        validationModel.write(System.out,"TURTLE")

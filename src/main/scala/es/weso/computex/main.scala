@@ -36,9 +36,10 @@ object Main extends App {
   val findStepsQuery = conf.getString("findStepsQuery")
   val demoURI = opts.indexURI.get.getOrElse(conf.getString("demoURI")) 
   val demoAbbrURI = opts.indexURI.get.getOrElse(conf.getString("demoAbbrURI")) 
+  val outFile = conf.getString("outFile")
 
   val cex = new Computex
-  cex.computex(demoAbbrURI,ontologyURI,validationDir,computationDir,cubeDataDir,closureFile,flattenFile,findStepsQuery)
+  cex.computex(demoAbbrURI,ontologyURI,validationDir,computationDir,cubeDataDir,closureFile,flattenFile,findStepsQuery,outFile)
   
 
 }
