@@ -258,7 +258,7 @@ weightSchema:indicatorWeights a cex:WeightSchema ;
 				  ] ;
   .				  
 
-weightSchema:componentWeights a cex:WeightSchema ;
+weightSchema:clusterWeights a cex:WeightSchema ;
        cex:weight [ a cex:Weight ;
 	                cex:element component:AB ;
                     cex:value 1  					
@@ -352,7 +352,7 @@ dataset:A-Raw
       rdfs:comment "Description of dataset A-Raw"@en ;
       qb:structure wi-onto:DSD ;  
       sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
-      qb:slice slice:Slice-A09-Raw, slice:Slice-A10-Raw, slice:Slice-A11-Raw ;
+      qb:slice slice:A09-Raw, slice:A10-Raw, slice:A11-Raw ;
       .
 
 dataset:B-Raw
@@ -367,7 +367,7 @@ dataset:B-Raw
       rdfs:comment "Description of dataset A-Raw"@en ;
       qb:structure wi-onto:DSD ;  
       sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
-      qb:slice slice:Slice-B09-Raw, slice:Slice-B10-Raw, slice:Slice-B11-Raw ;
+      qb:slice slice:B09-Raw, slice:B10-Raw, slice:B11-Raw ;
       .
 
 dataset:C-Raw
@@ -382,7 +382,7 @@ dataset:C-Raw
       rdfs:comment "Description of dataset A-Raw"@en ;
       qb:structure wi-onto:DSD ;  
       sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
-      qb:slice slice:Slice-C09-Raw, slice:Slice-C10-Raw, slice:Slice-C11-Raw ;
+      qb:slice slice:C09-Raw, slice:C10-Raw, slice:C11-Raw ;
       .
 
 dataset:D-Raw
@@ -397,7 +397,7 @@ dataset:D-Raw
       rdfs:comment "Description of dataset A-Raw"@en ;
       qb:structure wi-onto:DSD ;  
       sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
-      qb:slice slice:Slice-D09-Raw, slice:Slice-D10-Raw, slice:Slice-D11-Raw ;
+      qb:slice slice:D09-Raw, slice:D10-Raw, slice:D11-Raw ;
       .
 
 dataset:Q1-Raw
@@ -412,7 +412,7 @@ dataset:Q1-Raw
       rdfs:comment "Description of dataset A-Raw"@en ;
       qb:structure wi-onto:DSD ;  
       sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
-      qb:slice slice:Slice-Q1-Raw ;
+      qb:slice slice:Q1-Raw ;
       .
 
 dataset:Q2-Raw
@@ -427,7 +427,7 @@ dataset:Q2-Raw
       rdfs:comment "Description of dataset A-Raw"@en ;
       qb:structure wi-onto:DSD ;  
       sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
-      qb:slice slice:Slice-Q2-Raw ;
+      qb:slice slice:Q2-Raw ;
       .
 
 #-----------------------------------------------------------------
@@ -451,7 +451,7 @@ dataset:A-Imputed
       rdfs:comment "Description of dataset A-Imputed"@en ;
       qb:structure wi-onto:DSD ;  
       sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
-      qb:slice slice:Slice-A09-Imputed, slice:Slice-A10-Imputed, slice:Slice-A11-Imputed ;
+      qb:slice slice:A09-Imputed, slice:A10-Imputed, slice:A11-Imputed ;
       .
 
 dataset:B-Imputed a qb:DataSet ;
@@ -471,7 +471,7 @@ dataset:B-Imputed a qb:DataSet ;
       rdfs:comment "Description of dataset A-Imputed"@en ;
       qb:structure wi-onto:DSD ;  
       sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
-      qb:slice slice:Slice-B09-Imputed, slice:Slice-B10-Imputed, slice:Slice-B11-Imputed ;
+      qb:slice slice:B09-Imputed, slice:B10-Imputed, slice:B11-Imputed ;
       .
 
 dataset:C-Imputed a qb:DataSet ;
@@ -491,7 +491,7 @@ dataset:C-Imputed a qb:DataSet ;
       rdfs:comment "Description of dataset A-Imputed"@en ;
       qb:structure wi-onto:DSD ;  
       sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
-      qb:slice slice:Slice-C09-Imputed, slice:Slice-C10-Imputed, slice:Slice-C11-Imputed ;
+      qb:slice slice:C09-Imputed, slice:C10-Imputed, slice:C11-Imputed ;
       .
 
 dataset:D-Imputed
@@ -512,7 +512,7 @@ dataset:D-Imputed
       rdfs:comment "Description of dataset A-Imputed"@en ;
       qb:structure wi-onto:DSD ;  
       sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
-      qb:slice slice:Slice-D09-Imputed, slice:Slice-D10-Imputed, slice:Slice-D11-Imputed ;
+      qb:slice slice:D09-Imputed, slice:D10-Imputed, slice:D11-Imputed ;
       .
 
 #-----------------------------------------------------------------
@@ -533,7 +533,7 @@ dataset:A-Sorted a qb:DataSet ;
       rdfs:comment "Description of dataset A-Imputed"@en ;
       qb:structure wi-onto:DSD ;  
       sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
-      qb:slice slice:Slice-A09-Sorted, slice:Slice-A10-Sorted, slice:Slice-A11-Sorted ;
+      qb:slice slice:A09-Sorted, slice:A10-Sorted, slice:A11-Sorted ;
       .
 
 dataset:B-Sorted
@@ -552,7 +552,7 @@ dataset:B-Sorted
       rdfs:comment "Description of dataset C-Sorted"@en ;
       qb:structure wi-onto:DSD ;  
       sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
-      qb:slice slice:Slice-B09-Sorted, slice:Slice-B10-Sorted, slice:Slice-B11-Sorted ;
+      qb:slice slice:B09-Sorted, slice:B10-Sorted, slice:B11-Sorted ;
       .
 
 dataset:C-Sorted
@@ -571,7 +571,7 @@ dataset:C-Sorted
       rdfs:comment "Description of dataset C-Sorted"@en ;
       qb:structure wi-onto:DSD ;  
       sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
-      qb:slice slice:Slice-C09-Sorted, slice:Slice-C10-Sorted, slice:Slice-C11-Sorted ;
+      qb:slice slice:C09-Sorted, slice:C10-Sorted, slice:C11-Sorted ;
       .
 
 dataset:D-Sorted
@@ -590,7 +590,7 @@ dataset:D-Sorted
       rdfs:comment "Description of dataset A-Sorted"@en ;
       qb:structure wi-onto:DSD ;  
       sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
-      qb:slice slice:Slice-D09-Sorted, slice:Slice-D10-Sorted, slice:Slice-D11-Sorted ;
+      qb:slice slice:D09-Sorted, slice:D10-Sorted, slice:D11-Sorted ;
       .
 
 #--------------------------------
@@ -611,7 +611,7 @@ dataset:A-Normalized
       rdfs:comment "Description of dataset A-Normalized"@en ;
       qb:structure wi-onto:DSD ;  
       sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
-      qb:slice slice:Slice-A09-N, slice:Slice-A10-N, slice:Slice-A11-N ;
+      qb:slice slice:A09-N, slice:A10-N, slice:A11-N ;
       .
 
 dataset:B-Normalized
@@ -629,7 +629,7 @@ dataset:B-Normalized
       rdfs:comment "Description of dataset A-Normalized"@en ;
       qb:structure wi-onto:DSD ;  
       sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
-      qb:slice slice:Slice-B09-N, slice:Slice-B10-N, slice:Slice-B11-N ;
+      qb:slice slice:B09-N, slice:B10-N, slice:B11-N ;
       .
 
 dataset:C-Normalized
@@ -647,7 +647,7 @@ dataset:C-Normalized
       rdfs:comment "Description of dataset A-Normalized"@en ;
       qb:structure wi-onto:DSD ;  
       sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
-      qb:slice slice:Slice-C09-N, slice:Slice-C10-N, slice:Slice-C11-N ;
+      qb:slice slice:C09-N, slice:C10-N, slice:C11-N ;
       .
 
 dataset:D-Normalized
@@ -665,7 +665,7 @@ dataset:D-Normalized
       rdfs:comment "Description of dataset D-Normalized"@en ;
       qb:structure wi-onto:DSD ;  
       sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
-      qb:slice slice:Slice-D09-N, slice:Slice-D10-N, slice:Slice-D11-N ;
+      qb:slice slice:D09-N, slice:D10-N, slice:D11-N ;
       .
 
 dataset:Q1-Normalized
@@ -683,7 +683,7 @@ dataset:Q1-Normalized
       rdfs:comment "Description of dataset A-Normalized"@en ;
       qb:structure wi-onto:DSD ;  
       sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
-      qb:slice slice:Slice-Q1-N ;
+      qb:slice slice:Q1-N ;
       .
 
 dataset:Q2-Normalized
@@ -701,13 +701,13 @@ dataset:Q2-Normalized
       rdfs:comment "Description of dataset A-Normalized"@en ;
       qb:structure wi-onto:DSD ;  
       sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
-      qb:slice slice:Slice-Q2-N ;
+      qb:slice slice:Q2-N ;
       .
 
 #--------------------------------
-# Datasets Adjusted
+# Dataset Adjusted
 
-dataset:IndicatorsAdjusted
+dataset:Adjusted
       cex:computation [ a cex:AdjustDataSet ;
 						cex:dataSet dataset:A-Normalized ;
 						cex:increment 8 ;
@@ -728,6 +728,9 @@ dataset:IndicatorsAdjusted
       qb:slice slice:A-D, slice:B-D, slice:C-D, slice:D-D, slice:Q1-D, slice:Q2-D ;
       .
 
+#--------------------------------
+# Indicators weighted
+
 dataset:IndicatorsWeighted
       cex:computation [ a cex:Weighted  ;
 						cex:dataSet dataset:IndicatorsAdjusted ;
@@ -747,46 +750,68 @@ dataset:IndicatorsWeighted
       qb:slice slice:A-W, slice:B-W, slice:C-W, slice:D-W, slice:Q1-W, slice:Q2-W ;
       .
 
+#--------------------------------
+# Clusters weighted
+
+dataset:ClustersWeighted
+      cex:computation [ a cex:Weighted  ;
+						cex:dataSet dataset:IndicatorsWeighted ;
+						cex:weightSchema weightSchema:clusterWeights ;
+					  ] ;
+      cex:md5-checksum "MD5..." ;
+      dcterms:contributor wi-org:WESO ;
+      dcterms:issued "2013-07-11" ;
+      dcterms:publisher wi-org:WebFoundation ;
+      dcterms:title "Indicators weighted"@en ;
+      dcterms:subject sdmx-subject:2.5 ;      # Government finance, fiscal and public sector statistics
+      rdf:type qb:DataSet ;
+      rdfs:label "Clusters weighted"@en ;
+      rdfs:comment "Description of Clusters Weighted"@en ;
+      qb:structure wi-onto:DSD ;  
+      sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
+      qb:slice slice:AB-Mean, slice:Q2-Mean, slice:C-Mean, slice:DQ1-Mean ;
+      .
+
 
 #-----------------------------------------------------------------
 # Slices
 
-slice:Slice-A09-Raw
+slice:A09-Raw
       a       qb:Slice ;
       cex:indicator indicator:A ;
       wi-onto:ref-year 2009 ;
       qb:observation obs:EA09, obs:FA09, obs:CA09, obs:AA09  ;
       qb:sliceStructure wi-onto:sliceByArea .
 
-slice:Slice-A10-Raw
+slice:A10-Raw
       a       qb:Slice ;
       cex:indicator indicator:A ;
       wi-onto:ref-year 2010 ;
       qb:observation obs:EA10, obs:CA10 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
-slice:Slice-A11-Raw
+slice:A11-Raw
       a       qb:Slice ;
       cex:indicator indicator:A ;
       wi-onto:ref-year 2011 ;
       qb:observation obs:EA11, obs:FA11, obs:CA11, obs:AA11 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
-slice:Slice-B09-Raw
+slice:B09-Raw
       a       qb:Slice ;
       cex:indicator indicator:B ;
       wi-onto:ref-year 2009 ;
       qb:observation obs:EB09, obs:FB09, obs:CB09, obs:AB09 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
-slice:Slice-B10-Raw
+slice:B10-Raw
       a       qb:Slice ;
       cex:indicator indicator:B ;
       wi-onto:ref-year 2010 ;
       qb:observation obs:EB10, obs:FB10, obs:CB10 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
-slice:Slice-B11-Raw
+slice:B11-Raw
       a       qb:Slice ;
       cex:indicator indicator:B ;
       wi-onto:ref-year 2011 ;
@@ -794,21 +819,21 @@ slice:Slice-B11-Raw
       qb:sliceStructure wi-onto:sliceByArea .
 
 
-slice:Slice-C09-Raw
+slice:C09-Raw
       a       qb:Slice ;
       cex:indicator indicator:C ;
       wi-onto:ref-year 2009 ;
       qb:observation obs:EC09, obs:FC09, obs:CC09, obs:AC09 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
-slice:Slice-C10-Raw
+slice:C10-Raw
       a       qb:Slice ;
       cex:indicator indicator:C ;
       wi-onto:ref-year 2010 ;
       qb:observation obs:EC10, obs:CC10 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
-slice:Slice-C11-Raw
+slice:C11-Raw
       a       qb:Slice ;
       cex:indicator indicator:C ;
       wi-onto:ref-year 2011 ;
@@ -816,21 +841,21 @@ slice:Slice-C11-Raw
       qb:sliceStructure wi-onto:sliceByArea .
 
 
-slice:Slice-D09-Raw
+slice:D09-Raw
       a       qb:Slice ;
       cex:indicator indicator:D ;
       wi-onto:ref-year 2009 ;
       qb:observation obs:ED09, obs:FD09, obs:CD09, obs:AD09 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
-slice:Slice-D10-Raw
+slice:D10-Raw
       a       qb:Slice ;
       cex:indicator indicator:D ;
       wi-onto:ref-year 2010 ;
       qb:observation obs:ED10, obs:FD10, obs:CD10 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
-slice:Slice-D11-Raw
+slice:D11-Raw
       a       qb:Slice ;
       cex:indicator indicator:D ;
       wi-onto:ref-year 2011 ;
@@ -838,7 +863,7 @@ slice:Slice-D11-Raw
       qb:sliceStructure  wi-onto:sliceByArea .
 
 
-slice:Slice-Q1-Raw
+slice:Q1-Raw
       a       qb:Slice ;
       cex:indicator indicator:Q1 ;
       wi-onto:ref-year 2011 ;
@@ -846,7 +871,7 @@ slice:Slice-Q1-Raw
       qb:sliceStructure wi-onto:sliceByArea .
 
 
-slice:Slice-Q2-Raw
+slice:Q2-Raw
       a       qb:Slice ;
       cex:indicator indicator:Q2 ;
       wi-onto:ref-year 2011 ;
@@ -857,76 +882,76 @@ slice:Slice-Q2-Raw
 
 # We don't declare the observations here because they can be computed
 
-slice:Slice-A09-Imputed
+slice:A09-Imputed
       a       qb:Slice ;
       cex:indicator indicator:A ;
       wi-onto:ref-year 2009 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
-slice:Slice-A10-Imputed
+slice:A10-Imputed
       a       qb:Slice ;
       cex:indicator indicator:A ;
       wi-onto:ref-year 2010 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
-slice:Slice-A11-Imputed
+slice:A11-Imputed
       a       qb:Slice ;
 	  cex:indicator indicator:A ;
       wi-onto:ref-year 2011 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
 	  
-slice:Slice-B09-Imputed
+slice:B09-Imputed
       a       qb:Slice ;
 	  cex:indicator indicator:B ;
       wi-onto:ref-year 2009 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
-slice:Slice-B10-Imputed
+slice:B10-Imputed
       a       qb:Slice ;
       cex:indicator indicator:B ;
       wi-onto:ref-year 2010 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
-slice:Slice-B11-Imputed
+slice:B11-Imputed
       a       qb:Slice ;
       cex:indicator indicator:B ;
       wi-onto:ref-year 2011 ;
       qb:sliceStructure wi-onto:sliceByArea .
 	  
 	  
-slice:Slice-C09-Imputed
+slice:C09-Imputed
       a       qb:Slice ;
       cex:indicator indicator:C ;
       wi-onto:ref-year 2009 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
-slice:Slice-C10-Imputed
+slice:C10-Imputed
       a       qb:Slice ;
       cex:indicator indicator:C ;
       wi-onto:ref-year 2010 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
-slice:Slice-C11-Imputed
+slice:C11-Imputed
       a       qb:Slice ;
       cex:indicator indicator:C ;
       wi-onto:ref-year 2011 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
 	  
-slice:Slice-D09-Imputed
+slice:D09-Imputed
       a       qb:Slice ;
       cex:indicator indicator:D ;
       wi-onto:ref-year 2009 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
-slice:Slice-D10-Imputed
+slice:D10-Imputed
       a       qb:Slice ;
       cex:indicator indicator:D ;
       wi-onto:ref-year 2010 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
-slice:Slice-D11-Imputed
+slice:D11-Imputed
       a       qb:Slice ;
       cex:indicator indicator:D ;
       wi-onto:ref-year 2011 ;
@@ -935,76 +960,76 @@ slice:Slice-D11-Imputed
 #-------------------------------------------------
 # Slices sorted
 
-slice:Slice-A09-Sorted
+slice:A09-Sorted
       a       qb:Slice ;
       cex:indicator indicator:A ;
       wi-onto:ref-year 2009 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
-slice:Slice-A10-Sorted
+slice:A10-Sorted
       a       qb:Slice ;
       cex:indicator indicator:A ;
       wi-onto:ref-year 2010 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
-slice:Slice-A11-Sorted
+slice:A11-Sorted
       a       qb:Slice ;
 	  cex:indicator indicator:A ;
       wi-onto:ref-year 2011 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
 	  
-slice:Slice-B09-Sorted
+slice:B09-Sorted
       a       qb:Slice ;
 	  cex:indicator indicator:B ;
       wi-onto:ref-year 2009 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
-slice:Slice-B10-Sorted
+slice:B10-Sorted
       a       qb:Slice ;
       cex:indicator indicator:B ;
       wi-onto:ref-year 2010 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
-slice:Slice-B11-Sorted
+slice:B11-Sorted
       a       qb:Slice ;
       cex:indicator indicator:B ;
       wi-onto:ref-year 2011 ;
       qb:sliceStructure wi-onto:sliceByArea .
 	  
 	  
-slice:Slice-C09-Sorted
+slice:C09-Sorted
       a       qb:Slice ;
       cex:indicator indicator:C ;
       wi-onto:ref-year 2009 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
-slice:Slice-C10-Sorted
+slice:C10-Sorted
       a       qb:Slice ;
       cex:indicator indicator:C ;
       wi-onto:ref-year 2010 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
-slice:Slice-C11-Sorted
+slice:C11-Sorted
       a       qb:Slice ;
       cex:indicator indicator:C ;
       wi-onto:ref-year 2011 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
 	  
-slice:Slice-D09-Sorted
+slice:D09-Sorted
       a       qb:Slice ;
       cex:indicator indicator:D ;
       wi-onto:ref-year 2009 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
-slice:Slice-D10-Sorted
+slice:D10-Sorted
       a       qb:Slice ;
       cex:indicator indicator:D ;
       wi-onto:ref-year 2010 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
-slice:Slice-D11-Sorted
+slice:D11-Sorted
       a       qb:Slice ;
       cex:indicator indicator:D ;
       wi-onto:ref-year 2011 ;
@@ -1014,89 +1039,89 @@ slice:Slice-D11-Sorted
 #--------------------------------------------------------------
 # Slices normalized
 
-slice:Slice-A09-N
+slice:A09-N
       a       qb:Slice ;
       cex:indicator indicator:A ;
       wi-onto:ref-year 2009 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
-slice:Slice-A10-N
+slice:A10-N
       a       qb:Slice ;
       cex:indicator indicator:A ;
       wi-onto:ref-year 2010 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
-slice:Slice-A11-N
+slice:A11-N
       a       qb:Slice ;
       cex:indicator indicator:A ;
       wi-onto:ref-year 2011 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
-slice:Slice-B09-N
+slice:B09-N
       a       qb:Slice ;
       cex:indicator indicator:B ;
       wi-onto:ref-year 2009 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
-slice:Slice-B10-N
+slice:B10-N
       a       qb:Slice ;
       cex:indicator indicator:B ;
       wi-onto:ref-year 2010 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
-slice:Slice-B11-N
+slice:B11-N
       a       qb:Slice ;
       cex:indicator indicator:B ;
       wi-onto:ref-year 2011 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
 	  
-slice:Slice-C09-N
+slice:C09-N
       a       qb:Slice ;
       cex:indicator indicator:C ;
       wi-onto:ref-year 2009 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
-slice:Slice-C10-N
+slice:C10-N
       a       qb:Slice ;
       cex:indicator indicator:C ;
       wi-onto:ref-year 2010 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
-slice:Slice-C11-N
+slice:C11-N
       a       qb:Slice ;
       cex:indicator indicator:C ;
       wi-onto:ref-year 2011 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
 	  
-slice:Slice-D09-N
+slice:D09-N
       a       qb:Slice ;
       cex:indicator indicator:D ;
       wi-onto:ref-year 2009 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
-slice:Slice-D10-N
+slice:D10-N
       a       qb:Slice ;
       cex:indicator indicator:D ;
       wi-onto:ref-year 2010 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
-slice:Slice-D11-N
+slice:D11-N
       a       qb:Slice ;
       cex:indicator indicator:D ;
       wi-onto:ref-year 2011 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
 	  
-slice:Slice-Q1-N
+slice:Q1-N
       a       qb:Slice ;
       cex:indicator indicator:Q1 ;
       wi-onto:ref-year 2011 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
 	  
-slice:Slice-Q2-N
+slice:Q2-N
       a       qb:Slice ;
       cex:indicator indicator:Q2 ;
       wi-onto:ref-year 2011 ;
