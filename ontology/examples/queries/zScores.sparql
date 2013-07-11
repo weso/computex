@@ -32,11 +32,11 @@ CONSTRUCT {
 			.
  ?sliceToCopy qb:observation _:obs .
 } WHERE { 
- ?dataset a qb:DataSet ;
+  ?datasetNormalized a qb:DataSet ;
 	      cex:computation [ a cex:NormalizeDataSet ;
-						    cex:dataSet ?dataSetNormalized ;
-					      ] ;
-          qb:slice ?slice .
+						    cex:dataSet ?dataSet ;
+					      ] .
+  ?dataSet qb:slice ?slice .
  
   ?slice cex:computeSlice ?sliceToCopy ;
          cex:indicator ?indicator ;
@@ -44,7 +44,10 @@ CONSTRUCT {
 	     qb:observation ?obs .
   
   ?obs cex:value ?value ;
-       wi-onto:ref-area ?area .
+       wi-onto:ref-area ?area ;
+       cex:indicator ?indicator .
+  
+  ?indicator cex:highLow ?highLow .
 
   { SELECT ?slice (AVG(?value) as ?mean) WHERE {
      ?slice a              qb:Slice ;
@@ -70,6 +73,7 @@ CONSTRUCT {
     }
    } 
   }
-  BIND ((?value - ?mean) / ?sd as ?zScore)
+  BIND (if(?highLow = cex:High,?value - ?mean,?mean - ?value) as ?difference)
+  BIND (?difference / ?sd as ?zScore)
 }
 

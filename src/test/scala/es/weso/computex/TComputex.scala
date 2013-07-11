@@ -77,6 +77,13 @@ class ComputexSuite extends FunSpec with SparqlSuite with ShouldMatchers {
 	  ls.toList.size should be(36)
     } 
 
+   it("Should contain 18 adjusted values") {
+	  val rdfType = model.createProperty("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
+	  val adjusted = model.createResource("http://purl.org/weso/ontology/computex#Adjust")
+      val ls = model.listResourcesWithProperty(rdfType,adjusted)
+	  ls.toList.size should be(18)
+    } 
+
   }
   
   
@@ -140,7 +147,7 @@ class ComputexSuite extends FunSpec with SparqlSuite with ShouldMatchers {
    val model = loadExample("badIncremented.ttl") 
    val reportModel = cex.validate(model,validationDir)  
    assert(reportModel.size > 0)
-   assertMsgError(reportModel, "Incremented value does not match")
+   assertMsgError(reportModel, "Adjusted value does not match")
   }
 
   it("Should raise No error with good incremented") {
@@ -153,7 +160,7 @@ class ComputexSuite extends FunSpec with SparqlSuite with ShouldMatchers {
    val model = loadExample("badIncrementedNoValueSource.ttl") 
    val reportModel = cex.validate(model,validationDir)  
    assert(reportModel.size > 0)
-   assertMsgError(reportModel, "Source observation does not have value in incremented computation")
+   assertMsgError(reportModel, "Source observation does not have value in adjusted computation")
   }
 
   it("Should raise Error with bad mean") {

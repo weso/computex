@@ -30,18 +30,21 @@ INSERT {
 	.
  ?sliceToCopy qb:observation _:obs .
 } WHERE {
- ?dataset a qb:DataSet ;
+ ?dataSetToCopy a qb:DataSet ;
           cex:computation [ a cex:ImputeDataSet ;
 	                        cex:method cex:CopyRaw; 
-						    cex:dataSet ?dataSetToCopy ;
+						    cex:dataSet ?dataset ;
 					      ] ;
-		  qb:slice ?sliceRaw .
+		  qb:slice ?sliceToCopy .
+ ?dataset qb:slice ?sliceRaw .
          
- ?sliceRaw cex:computeSlice ?sliceToCopy ;
-           cex:indicator ?indicator ;
+ ?sliceRaw cex:indicator ?indicator ;
 	       wi-onto:ref-year ?year ;
 	       qb:observation ?obsRaw .
 
+ ?sliceToCopy cex:indicator ?indicator ;
+           wi-onto:ref-year ?year .
+           
  ?obsRaw cex:value ?value ;
          wi-onto:ref-area ?area ;
          .

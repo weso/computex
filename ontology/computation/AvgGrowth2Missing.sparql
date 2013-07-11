@@ -30,12 +30,13 @@ INSERT {
 	.
  ?sliceToCopy qb:observation _:obs .
  } WHERE {
-  ?dataset a qb:DataSet ;
+  ?dataSetToCopy a qb:DataSet ;
           cex:computation [ a cex:ImputeDataSet ;
 	                        cex:method cex:AvgGrowth2Missing; 
-						    cex:dataSet ?dataSetToCopy ;
+						    cex:dataSet ?dataset ;
 					      ] ;
-		  qb:slice ?slice1, ?slice2, ?slice3 .
+		  qb:slice ?sliceToCopy .
+  ?dataset qb:slice ?slice1, ?slice2, ?slice3 .
   
   ?slice1 qb:observation ?obs1 .
   ?slice2 qb:observation ?obs2 .
@@ -61,7 +62,6 @@ INSERT {
    }
   BIND ((?value2 * (?value2 / ?value1)) as ?value) 
   BIND (?year1 + 2 as ?year3) 
-  ?slice3 cex:computeSlice ?sliceToCopy ;
-          wi-onto:ref-year ?year3 
-         .
+  ?slice3 wi-onto:ref-year ?year3 .
+  ?sliceToCopy wi-onto:ref-year ?year3 .
 } 

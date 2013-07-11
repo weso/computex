@@ -24,7 +24,7 @@
 
 obs:A-D a qb:Observation ;
 		cex:computation 
-		    [ a cex:Increment ;
+		    [ a cex:Adjust ;
 			  cex:observation obs:A ;
 			  cex:increment 8 ;
 			] ;   

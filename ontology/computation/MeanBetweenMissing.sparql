@@ -31,12 +31,14 @@ INSERT {
 	.
  ?sliceToCopy qb:observation _:obs .
  } WHERE {
-  ?dataset a qb:DataSet ;
+  ?dataSetToCopy a qb:DataSet ;
           cex:computation [ a cex:ImputeDataSet ;
 	                        cex:method cex:MeanBetweenMissing; 
-						    cex:dataSet ?dataSetToCopy ;
+						    cex:dataSet ?dataset ;
 					      ] ;
-		  qb:slice ?slice1, ?slice2, ?slice3 .
+		  qb:slice ?sliceToCopy .
+
+  ?dataset qb:slice ?slice1, ?slice2, ?slice3 .
   
   ?slice1 qb:observation ?obs1 .
   ?slice3 qb:observation ?obs3 .
@@ -62,7 +64,7 @@ INSERT {
    }
   BIND ((?value1 + ?value3)/2 as ?mean) 
   BIND (?year1 + 1 as ?year2) 
-  ?slice2 cex:computeSlice ?sliceToCopy ;
-          wi-onto:ref-year ?year2 
-         .
+  
+  ?slice2 wi-onto:ref-year ?year2 .
+  ?sliceToCopy wi-onto:ref-year ?year2 .
 } 

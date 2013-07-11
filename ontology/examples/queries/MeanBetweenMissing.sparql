@@ -30,13 +30,13 @@ CONSTRUCT {
 	   sdmx-concept:obsStatus cex:Imputed ;
 	.
  ?sliceToCopy qb:observation _:obs .
-} WHERE {
-  ?dataset a qb:DataSet ;
+ } WHERE {
+  ?dataSetToCopy a qb:DataSet ;
           cex:computation [ a cex:ImputeDataSet ;
 	                        cex:method cex:MeanBetweenMissing; 
-						    cex:dataSet ?dataSetToCopy ;
-					      ] ;
-		  qb:slice ?slice1, ?slice2, ?slice3 .
+						    cex:dataSet ?dataset ;
+					      ] .
+  ?dataset qb:slice ?slice1, ?slice2, ?slice3 .
   
   ?slice1 qb:observation ?obs1 .
   ?slice3 qb:observation ?obs3 .

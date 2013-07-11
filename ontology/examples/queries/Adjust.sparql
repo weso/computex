@@ -1,4 +1,4 @@
-# filter values from some dimension
+# adjust values from some dimension
 prefix country:      <http://data.webfoundation.org/webindex/v2013/country/> 
 prefix dataset:      <http://data.webfoundation.org/webindex/v2013/dataset/> 
 prefix indicator:    <http://data.webfoundation.org/webindex/v2013/indicator/> 
@@ -17,38 +17,37 @@ prefix wi-onto:      <http://data.webfoundation.org/webindex/ontology/>
 prefix xml:          <http://www.w3.org/XML/1998/namespace> 
 prefix xsd:          <http://www.w3.org/2001/XMLSchema#> 
 
-INSERT {
+CONSTRUCT {
  _:obs a qb:Observation ;
-	   ?dim ?valueDim ;
-       cex:value ?value ;
+       cex:value ?adjusted ;
        cex:indicator ?indicator ;
-	   wi-onto:ref-year ?year ;
-	   sdmx-concept:obsStatus cex:Imputed ;
-	   cex:computation [ a cex:Filter ;
-		                   cex:observation ?obsRaw 
+	   ?dim ?valueDim ;
+	   sdmx-concept:obsStatus cex:Adjusted ;
+	   cex:computation [ a cex:Adjust ;
+		                   cex:observation ?obsRaw ;
+		                   cex:increment ?increm
 						 ] ;
 	.
  ?sliceToCopy qb:observation _:obs .
 } WHERE {
  ?dataSetToCopy a qb:DataSet ;
-	  	  cex:computation [ a cex:FilterDataSet ;
-						    cex:dataSet ?dataset ;
-						    cex:filter [ a cex:FilterDefinition ;
-						                 cex:dimension ?dim ;
-						                 cex:value ?valueDim 
-						               ] 
-					      ] ;
-          qb:slice ?sliceToCopy .
+      cex:computation [ a cex:AdjustDataSet ;
+						cex:dataSet ?dataset ;
+						cex:increment ?increm ;
+						cex:dimension ?dim ;
+						cex:value ?valueDim 
+					  ] ;
+      qb:slice ?sliceToCopy .
 
  ?dataset qb:slice ?sliceFrom .
          
  ?sliceFrom cex:indicator ?indicator ;
-	        wi-onto:ref-year ?year ;
+	        ?dim ?valueDim ;
 	        qb:observation ?obsRaw ;
 	       .
- ?sliceToCopy wi-onto:ref-year ?year .
+ ?sliceToCopy ?dim ?valueDim .
 
  ?obsRaw cex:value ?value ;
          ?dim ?valueDim .
-
+ BIND(?value + ?increm as ?adjusted)
 }

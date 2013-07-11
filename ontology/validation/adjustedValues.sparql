@@ -19,16 +19,24 @@ CONSTRUCT {
  _:error a cex:Error ;
          cex:errorParam 
 		   [cex:name "obs" ; cex:value ?obs ] ,
-		   [cex:name "iObs"; cex:value ?iObs ] 
+		   [cex:name "existingValue"; cex:value ?existingValue ],
+		   [cex:name "increm"; cex:value ?increm ],
+		   [cex:name "iValue"; cex:value ?iValue ] 
 		   ;
-         cex:msg "Source observation does not have value in incremented computation" .
+         cex:msg "Adjusted value does not match" .
 } WHERE { 
  SELECT * WHERE {
  ?obs a qb:Observation ;
       cex:computation 
-		    [ a cex:Increment ;
+		    [ a cex:Adjust ;
 			  cex:observation ?iObs ;
+			  cex:increment ?increm ;
 			] .   
- FILTER NOT EXISTS {?iObs cex:value ?iValue . }
+ ?iObs cex:value ?iValue .
+ OPTIONAL {
+  ?obs cex:value ?existingValue .
+ }
+ BIND (?increm + ?iValue as ?incrementedValue)
+ FILTER( abs(?incrementedValue - ?existingValue) > 0.01)
  }
 }

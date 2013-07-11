@@ -32,16 +32,18 @@ INSERT {
 			.
  ?sliceToCopy qb:observation _:obs .
 } WHERE { 
- ?dataset a qb:DataSet ;
+  ?datasetNormalized a qb:DataSet ;
 	      cex:computation [ a cex:NormalizeDataSet ;
-						    cex:dataSet ?dataSetNormalized ;
+						    cex:dataSet ?dataSet ;
 					      ] ;
-          qb:slice ?slice .
+		  qb:slice ?sliceToCopy .
+  ?dataSet qb:slice ?slice .
  
-  ?slice cex:computeSlice ?sliceToCopy ;
-         cex:indicator ?indicator ;
+  ?slice cex:indicator ?indicator ;
 	     wi-onto:ref-year ?year ;
 	     qb:observation ?obs .
+	     
+  ?sliceToCopy wi-onto:ref-year ?year .
   
   ?obs cex:value ?value ;
        wi-onto:ref-area ?area ;
