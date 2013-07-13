@@ -19,35 +19,46 @@ prefix xsd:          <http://www.w3.org/2001/XMLSchema#>
 
 INSERT {
  _:obs a qb:Observation ;
-       cex:value ?adjusted ;
+       cex:value ?mean ;
        cex:indicator ?indicator ;
-	   ?dim ?valueDim ;
-	   sdmx-concept:obsStatus cex:Adjusted ;
-	   cex:computation [ a cex:Adjust ;
-		                   cex:observation ?obsRaw ;
-		                   cex:increment ?increm
-						 ] ;
+	   ?dimension ?valueDim ;
+	   sdmx-concept:obsStatus cex:Grouped ;
+	   qb:dataset ?dataSetToCopy ;
+	   cex:computation [ a cex:GroupMean ;
+		                   cex:observation ?obs ;
+						   cex:component ?lsObs ] ;
 	.
  ?sliceToCopy qb:observation _:obs .
 } WHERE {
  ?dataSetToCopy a qb:DataSet ;
-      cex:computation [ a cex:AdjustDataSet ;
-						cex:dataSet ?dataset ;
-						cex:increment ?increm ;
-						cex:dimension ?dim ;
-						cex:value ?valueDim 
-					  ] ;
+      cex:computation ?comp ;
       qb:slice ?sliceToCopy .
+      
+ ?comp a cex:GroupSubindex  ;
+	   cex:dataSet ?dataset ;
+	   cex:component ?component ;
+	   cex:dimension ?dimension
+	   .
+	   
+ ?sliceToCopy cex:indicator ?component .
 
- ?dataset qb:slice ?sliceFrom .
+ { SELECT (AVG(?value) as ?mean) 
+          (GROUP_CONCAT(?obs) as ?lsObs) 
+          ?dataset 
+          ?component 
+          ?dimension 
+          ?valueDim WHERE {
+    
+    ?component cex:element ?element .
+ 
+    ?dataset qb:slice ?sliceFrom .
+ 
+    ?sliceFrom cex:indicator ?element ; 
+               qb:observation ?obs .
+    
+    ?obs cex:value ?value ;
+         ?dimension ?valueDim .
          
- ?sliceFrom cex:indicator ?indicator ;
-	        ?dim ?valueDim ;
-	        qb:observation ?obsRaw ;
-	       .
- ?sliceToCopy ?dim ?valueDim .
-
- ?obsRaw cex:value ?value ;
-         ?dim ?valueDim .
- BIND(?value + ?increm as ?adjusted)
+  } GROUP BY ?dataset ?component ?dimension ?valueDim
+ }
 }

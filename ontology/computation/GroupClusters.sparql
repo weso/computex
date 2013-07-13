@@ -1,4 +1,4 @@
-# Ranking
+# group clusters calculating the average of each value
 prefix country:      <http://data.webfoundation.org/webindex/v2013/country/> 
 prefix dataset:      <http://data.webfoundation.org/webindex/v2013/dataset/> 
 prefix indicator:    <http://data.webfoundation.org/webindex/v2013/indicator/> 
@@ -17,49 +17,48 @@ prefix wi-onto:      <http://data.webfoundation.org/webindex/ontology/>
 prefix xml:          <http://www.w3.org/XML/1998/namespace> 
 prefix xsd:          <http://www.w3.org/2001/XMLSchema#> 
 
-CONSTRUCT {
- _:obs cex:computation 
-   [ a cex:Rank ;
-     cex:slice ?sliceToRank;
-     cex:dimension ?dim 
-   ] ;
-   cex:indicator ?indicator ;
-   cex:value ?ranking ;
-   ?dim ?valueDim 
-   .
-   
+INSERT {
+ _:obs a qb:Observation ;
+       cex:value ?mean ;
+       cex:indicator ?indicator ;
+	   ?dimension ?valueDim ;
+	   sdmx-concept:obsStatus cex:Grouped ;
+	   qb:dataset ?dataSetToCopy ;
+	   cex:computation [ a cex:GroupMean ;
+		                   cex:observation ?obs ;
+						   cex:component ?lsObs ] ;
+	.
  ?sliceToCopy qb:observation _:obs .
-              
 } WHERE {
-
  ?dataSetToCopy a qb:DataSet ;
       cex:computation ?comp ;
       qb:slice ?sliceToCopy .
-
- ?comp a cex:Ranking ;
-       cex:slice ?sliceToRank ;
-       cex:dimension ?dim
-	 .      
+      
+ ?comp a cex:GroupClusters  ;
+	   cex:dataSet ?dataset ;
+	   cex:component ?component ;
+	   cex:dimension ?dimension
+	   .
 	   
  ?sliceToCopy cex:indicator ?component .
- 
- ?sliceToRank qb:observation ?obsToRank ;
-              cex:indicator ?component ;
-              .
- ?obsToRank ?dim ?valueDim ;
-            cex:indicator ?component ;
-            cex:value ?valueToRank .
-      
- { SELECT (COUNT(*) as ?ranking) ?sliceToRank ?obsToRank ?valueToRank WHERE {
-     ?sliceToRank qb:observation ?obs ;
-         qb:observation ?obsToRank .
 
-     ?obs cex:value ?value ;
-          .
-     ?obsToRank cex:value ?valueToRank ;
-          .
-     
-   FILTER( ?valueToRank <= ?value )
-  } GROUP BY ?obsToRank ?valueToRank ?sliceToRank 
- }    
+ { SELECT (AVG(?value) as ?mean) 
+          (GROUP_CONCAT(?obs) as ?lsObs) 
+          ?dataset 
+          ?component 
+          ?dimension 
+          ?valueDim WHERE {
+    
+    ?component cex:element ?element .
+ 
+    ?dataset qb:slice ?sliceFrom .
+ 
+    ?sliceFrom cex:indicator ?element ; 
+               qb:observation ?obs .
+    
+    ?obs cex:value ?value ;
+         ?dimension ?valueDim .
+         
+  } GROUP BY ?dataset ?component ?dimension ?valueDim
+ }
 }

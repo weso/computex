@@ -84,6 +84,20 @@ class ComputexSuite extends FunSpec with SparqlSuite with ShouldMatchers {
 	  ls.toList.size should be(18)
     } 
 
+    it("Should contain 18 weighted values") {
+	  val rdfType = model.createProperty("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
+	  val weighted = model.createResource("http://purl.org/weso/ontology/computex#Weighted")
+      val ls = model.listResourcesWithProperty(rdfType,weighted)
+	  ls.toList.size should be(18)
+    } 
+
+    it("Should contain 18 grouped mean values") {
+	  val rdfType = model.createProperty("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
+	  val grouped = model.createResource("http://purl.org/weso/ontology/computex#GroupMean")
+      val ls = model.listResourcesWithProperty(rdfType,grouped)
+	  ls.toList.size should be(18)
+    } 
+
   }
   
   

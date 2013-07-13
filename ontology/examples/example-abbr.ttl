@@ -41,6 +41,11 @@ computation:Flow a cex:ComputationFlow ;
     [ cex:query "Filter" ]
     [ cex:query "zScores" ]
     [ cex:query "Adjust" ]
+    [ cex:query "WeightedSimple" ]
+    [ cex:query "GroupClusters" ]
+    [ cex:query "GroupSubindex" ]
+    [ cex:query "WeightedMean" ]
+    [ cex:query "Ranking" ]
   ) .
   
 wi-onto:filter a cex:FilterDefinition ;
@@ -76,7 +81,7 @@ wi-onto:sliceByArea a qb:SliceKey;
     .
 
 #--------------------------------
-# Indicators
+## Indicators
 		 
 indicator:A
       cex:md5-checksum "MD5 checksum for indicator A" ;
@@ -90,7 +95,6 @@ indicator:A
       time:intervalStarts 2012 ;
       wi-onto:country-coverage 3 ;
       wi-onto:provider-link organization:WESO ;
-      wi-onto:ref-source organization:WESO ;
 	  .
 		 
 indicator:B
@@ -170,7 +174,7 @@ indicator:Q2 a wi-onto:PrimaryIndicator ;
 	.
 	
 #--------------------------------
-# Components
+## Components
 	  
 component:AB
       cex:md5-checksum "Component AB" ;
@@ -225,34 +229,40 @@ subindex:CDQ1 a cex:SubIndex ;
 
 index:index
 	  a cex:index ;
-	  cex:subindex subindex:ABQ2, subindex:CDQ1 ;
+	  cex:element subindex:ABQ2, subindex:CDQ1 ;
 	  rdfs:label "Index with ABCDQ1Q2" ;
 	  .
-
 #--------------------------------
+## Weight Schemas
 
 weightSchema:indicatorWeights a cex:WeightSchema ;
        cex:weight [ a cex:Weight ;
+	                cex:dimension cex:indicator ;
 	                cex:element indicator:A ;
                     cex:value 1  					
 				  ] ;
 	   cex:weight [ a cex:Weight ;
+	                cex:dimension cex:indicator ;
 	                cex:element indicator:B ;
 				    cex:value 0.5 
 				  ] ;
 	   cex:weight [ a cex:Weight ;
+	                cex:dimension cex:indicator ;
 	                cex:element indicator:Q2 ;
 				    cex:value 1.0 
 				  ] ;
 	   cex:weight [ a cex:Weight ;
+	                cex:dimension cex:indicator ;
 	                cex:element indicator:C ;
 				    cex:value 0.5  
 				  ] ;
 	   cex:weight [ a cex:Weight ;
+	                cex:dimension cex:indicator ;
 	                cex:element indicator:D ;
 				    cex:value 1.0 
 				  ] ;
 	   cex:weight [ a cex:Weight ;
+	                cex:dimension cex:indicator ;
 	                cex:element indicator:Q1 ;
 				    cex:value 0.5 
 				  ] ;
@@ -290,7 +300,7 @@ weightSchema:subindexWeights a cex:WeightSchema ;
   
 	  
 #---------------------------------------
-# Countries
+## Countries
 
 country:ESP 
 	  cex:md5-checksum "MD5 of ESP" ;
@@ -338,7 +348,10 @@ country:CHL
       .
 
 #--------------------------------
-# Datasets Raw
+## Datasets
+
+#------------------
+## Raw Datatsets
 
 dataset:A-Raw
       a qb:DataSet ;
@@ -431,7 +444,7 @@ dataset:Q2-Raw
       .
 
 #-----------------------------------------------------------------
-# Datasets Imputed
+## Imputed Datasets 
 
 dataset:A-Imputed
 	  cex:computation [ a cex:ImputeDataSet ;
@@ -516,7 +529,7 @@ dataset:D-Imputed
       .
 
 #-----------------------------------------------------------------
-# Datasets Sorted
+## Sorted Datasets 
 
 dataset:A-Sorted a qb:DataSet ;
       cex:md5-checksum "MD5..." ;
@@ -594,7 +607,7 @@ dataset:D-Sorted
       .
 
 #--------------------------------
-# Datasets Normalized
+## Normalized Datasets 
 
 dataset:A-Normalized
 	  cex:computation [ a cex:NormalizeDataSet ;
@@ -705,7 +718,7 @@ dataset:Q2-Normalized
       .
 
 #--------------------------------
-# Dataset Adjusted
+## Adjusted Dataset 
 
 dataset:Adjusted
       cex:computation [ a cex:AdjustDataSet ;
@@ -729,11 +742,11 @@ dataset:Adjusted
       .
 
 #--------------------------------
-# Indicators weighted
+# Indicators weighted dataset
 
 dataset:IndicatorsWeighted
-      cex:computation [ a cex:Weighted  ;
-						cex:dataSet dataset:IndicatorsAdjusted ;
+      cex:computation [ a cex:WeightedSimple  ;
+						cex:dataSet dataset:Adjusted ;
 						cex:weightSchema weightSchema:indicatorWeights ;
 					  ] ;
       cex:md5-checksum "MD5..." ;
@@ -751,30 +764,91 @@ dataset:IndicatorsWeighted
       .
 
 #--------------------------------
-# Clusters weighted
+# Clusters grouped dataset
 
-dataset:ClustersWeighted
-      cex:computation [ a cex:Weighted  ;
+dataset:ClustersGrouped
+      cex:computation [ a cex:GroupClusters ;
 						cex:dataSet dataset:IndicatorsWeighted ;
-						cex:weightSchema weightSchema:clusterWeights ;
+						cex:component component:AB, component:Q2, component:C, component:DQ1;
+						cex:dimension wi-onto:ref-area
 					  ] ;
       cex:md5-checksum "MD5..." ;
       dcterms:contributor wi-org:WESO ;
       dcterms:issued "2013-07-11" ;
       dcterms:publisher wi-org:WebFoundation ;
-      dcterms:title "Indicators weighted"@en ;
+      dcterms:title "Clusters grouped"@en ;
       dcterms:subject sdmx-subject:2.5 ;      # Government finance, fiscal and public sector statistics
       rdf:type qb:DataSet ;
-      rdfs:label "Clusters weighted"@en ;
-      rdfs:comment "Description of Clusters Weighted"@en ;
+      rdfs:label "Clusters grouped"@en ;
+      rdfs:comment "Description of Clusters Grouped"@en ;
       qb:structure wi-onto:DSD ;  
       sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
       qb:slice slice:AB-Mean, slice:Q2-Mean, slice:C-Mean, slice:DQ1-Mean ;
       .
 
+dataset:SubindexGrouped
+      cex:computation [ a cex:GroupSubindex ;
+						cex:dataSet dataset:ClustersGrouped ;
+						cex:component subindex:ABQ2, subindex:CDQ1;
+						cex:dimension wi-onto:ref-area
+					  ] ;
+      cex:md5-checksum "MD5..." ;
+      dcterms:contributor wi-org:WESO ;
+      dcterms:issued "2013-07-11" ;
+      dcterms:publisher wi-org:WebFoundation ;
+      dcterms:title "Subindex grouped"@en ;
+      dcterms:subject sdmx-subject:2.5 ;      # Government finance, fiscal and public sector statistics
+      rdf:type qb:DataSet ;
+      rdfs:label "Subindex grouped"@en ;
+      rdfs:comment "Description of Subindex Grouped"@en ;
+      qb:structure wi-onto:DSD ;  
+      sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
+      qb:slice slice:ABQ2-Mean, slice:CDQ1-Mean ;
+      .
+
+dataset:Composite
+      cex:computation [ a cex:WeightedMean ;
+						cex:dataSet dataset:SubindexGrouped ;
+						cex:component index:index ;
+						cex:dimension wi-onto:ref-area ;
+						cex:weightSchema weightSchema:subindexWeights
+					  ] ;
+      cex:md5-checksum "MD5..." ;
+      dcterms:contributor wi-org:WESO ;
+      dcterms:issued "2013-07-11" ;
+      dcterms:publisher wi-org:WebFoundation ;
+      dcterms:title "Composite index"@en ;
+      dcterms:subject sdmx-subject:2.5 ;      # Government finance, fiscal and public sector statistics
+      rdf:type qb:DataSet ;
+      rdfs:label "Composite index"@en ;
+      rdfs:comment "Description of Composite index"@en ;
+      qb:structure wi-onto:DSD ;  
+      sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
+      qb:slice slice:Composite ;
+      .
+
+dataset:Rankings
+      cex:computation [ a cex:Ranking ;
+                        cex:slice slice:AB-Mean, slice:Q2-Mean, slice:C-Mean, slice:DQ1-Mean, slice:ABQ2-Mean, slice:CDQ1-Mean, slice:Composite ;
+                        cex:dimension wi-onto:ref-area 
+					  ] ;
+      cex:md5-checksum "MD5..." ;
+      dcterms:contributor wi-org:WESO ;
+      dcterms:issued "2013-07-11" ;
+      dcterms:publisher wi-org:WebFoundation ;
+      dcterms:title "Index Rankings"@en ;
+      dcterms:subject sdmx-subject:2.5 ;      # Government finance, fiscal and public sector statistics
+      rdf:type qb:DataSet ;
+      rdfs:label "Index Rankings"@en ;
+      rdfs:comment "Description of Index Rankings"@en ;
+      qb:structure wi-onto:DSD ;  
+      sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
+      qb:slice slice:Ranking-AB, slice:Ranking-Q2, slice:Ranking-ABQ2, slice:Ranking-C, slice:Ranking-DQ1, slice:Ranking-CDQ1, slice:Ranking-Composite ;
+      .
+
 
 #-----------------------------------------------------------------
-# Slices
+# Slices Raw
 
 slice:A09-Raw
       a       qb:Slice ;
@@ -1251,6 +1325,55 @@ slice:CDQ1-Mean
 
 slice:Composite
       a       qb:Slice ;
+      cex:indicator index:index ;
+      wi-onto:ref-year 2011 ;
+	  qb:sliceStructure wi-onto:sliceByArea
+	  .
+	  
+slice:Ranking-AB       
+	  a       qb:Slice ;
+      cex:indicator component:AB ;
+      wi-onto:ref-year 2011 ;
+	  qb:sliceStructure wi-onto:sliceByArea
+	  .
+
+slice:Ranking-Q2
+	  a       qb:Slice ;
+      cex:indicator component:Q2 ;
+      wi-onto:ref-year 2011 ;
+	  qb:sliceStructure wi-onto:sliceByArea
+	  .
+
+slice:Ranking-ABQ2
+	  a       qb:Slice ;
+      cex:indicator subindex:ABQ2 ;
+      wi-onto:ref-year 2011 ;
+	  qb:sliceStructure wi-onto:sliceByArea
+	  .
+
+slice:Ranking-C
+	  a       qb:Slice ;
+      cex:indicator component:C ;
+      wi-onto:ref-year 2011 ;
+	  qb:sliceStructure wi-onto:sliceByArea
+	  .
+
+slice:Ranking-DQ1
+	  a       qb:Slice ;
+      cex:indicator component:DQ1 ;
+      wi-onto:ref-year 2011 ;
+	  qb:sliceStructure wi-onto:sliceByArea
+	  .
+
+slice:Ranking-CDQ1
+	  a       qb:Slice ;
+      cex:indicator subindex:CDQ1 ;
+      wi-onto:ref-year 2011 ;
+	  qb:sliceStructure wi-onto:sliceByArea
+	  .
+
+slice:Ranking-Composite 	  
+	  a       qb:Slice ;
       cex:indicator index:index ;
       wi-onto:ref-year 2011 ;
 	  qb:sliceStructure wi-onto:sliceByArea

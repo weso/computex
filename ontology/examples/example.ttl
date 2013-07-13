@@ -41,6 +41,10 @@ computation:Flow a cex:ComputationFlow ;
     [ cex:query "Filter" ]
     [ cex:query "zScores" ]
     [ cex:query "Adjust" ]
+    [ cex:query "WeightedSimple" ]
+    [ cex:query "GroupClusters" ]
+    [ cex:query "GroupSubindex" ]
+    [ cex:query "WeightedMean" ]
   ) .
   
 wi-onto:filter a cex:FilterDefinition ;
@@ -76,7 +80,7 @@ wi-onto:sliceByArea a qb:SliceKey;
     .
 
 #--------------------------------
-# Indicators
+## Indicators
 		 
 indicator:A
       cex:md5-checksum "MD5 checksum for indicator A" ;
@@ -90,7 +94,6 @@ indicator:A
       time:intervalStarts 2012 ;
       wi-onto:country-coverage 3 ;
       wi-onto:provider-link organization:WESO ;
-      wi-onto:ref-source organization:WESO ;
 	  .
 		 
 indicator:B
@@ -170,7 +173,7 @@ indicator:Q2 a wi-onto:PrimaryIndicator ;
 	.
 	
 #--------------------------------
-# Components
+## Components
 	  
 component:AB
       cex:md5-checksum "Component AB" ;
@@ -225,34 +228,40 @@ subindex:CDQ1 a cex:SubIndex ;
 
 index:index
 	  a cex:index ;
-	  cex:subindex subindex:ABQ2, subindex:CDQ1 ;
+	  cex:element subindex:ABQ2, subindex:CDQ1 ;
 	  rdfs:label "Index with ABCDQ1Q2" ;
 	  .
-
 #--------------------------------
+## Weight Schemas
 
 weightSchema:indicatorWeights a cex:WeightSchema ;
        cex:weight [ a cex:Weight ;
+	                cex:dimension cex:indicator ;
 	                cex:element indicator:A ;
                     cex:value 1  					
 				  ] ;
 	   cex:weight [ a cex:Weight ;
+	                cex:dimension cex:indicator ;
 	                cex:element indicator:B ;
 				    cex:value 0.5 
 				  ] ;
 	   cex:weight [ a cex:Weight ;
+	                cex:dimension cex:indicator ;
 	                cex:element indicator:Q2 ;
 				    cex:value 1.0 
 				  ] ;
 	   cex:weight [ a cex:Weight ;
+	                cex:dimension cex:indicator ;
 	                cex:element indicator:C ;
 				    cex:value 0.5  
 				  ] ;
 	   cex:weight [ a cex:Weight ;
+	                cex:dimension cex:indicator ;
 	                cex:element indicator:D ;
 				    cex:value 1.0 
 				  ] ;
 	   cex:weight [ a cex:Weight ;
+	                cex:dimension cex:indicator ;
 	                cex:element indicator:Q1 ;
 				    cex:value 0.5 
 				  ] ;
@@ -290,7 +299,7 @@ weightSchema:subindexWeights a cex:WeightSchema ;
   
 	  
 #---------------------------------------
-# Countries
+## Countries
 
 country:ESP 
 	  cex:md5-checksum "MD5 of ESP" ;
@@ -338,7 +347,10 @@ country:CHL
       .
 
 #--------------------------------
-# Datasets Raw
+## Datasets
+
+#------------------
+## Raw Datatsets
 
 dataset:A-Raw
       a qb:DataSet ;
@@ -431,7 +443,7 @@ dataset:Q2-Raw
       .
 
 #-----------------------------------------------------------------
-# Datasets Imputed
+## Imputed Datasets 
 
 dataset:A-Imputed
 	  cex:computation [ a cex:ImputeDataSet ;
@@ -516,7 +528,7 @@ dataset:D-Imputed
       .
 
 #-----------------------------------------------------------------
-# Datasets Sorted
+## Sorted Datasets 
 
 dataset:A-Sorted a qb:DataSet ;
       cex:md5-checksum "MD5..." ;
@@ -594,7 +606,7 @@ dataset:D-Sorted
       .
 
 #--------------------------------
-# Datasets Normalized
+## Normalized Datasets 
 
 dataset:A-Normalized
 	  cex:computation [ a cex:NormalizeDataSet ;
@@ -705,7 +717,7 @@ dataset:Q2-Normalized
       .
 
 #--------------------------------
-# Dataset Adjusted
+## Adjusted Dataset 
 
 dataset:Adjusted
       cex:computation [ a cex:AdjustDataSet ;
@@ -729,11 +741,11 @@ dataset:Adjusted
       .
 
 #--------------------------------
-# Indicators weighted
+# Indicators weighted dataset
 
 dataset:IndicatorsWeighted
-      cex:computation [ a cex:Weighted  ;
-						cex:dataSet dataset:IndicatorsAdjusted ;
+      cex:computation [ a cex:WeightedSimple  ;
+						cex:dataSet dataset:Adjusted ;
 						cex:weightSchema weightSchema:indicatorWeights ;
 					  ] ;
       cex:md5-checksum "MD5..." ;
@@ -751,30 +763,91 @@ dataset:IndicatorsWeighted
       .
 
 #--------------------------------
-# Clusters weighted
+# Clusters grouped dataset
 
-dataset:ClustersWeighted
-      cex:computation [ a cex:Weighted  ;
+dataset:ClustersGrouped
+      cex:computation [ a cex:GroupClusters ;
 						cex:dataSet dataset:IndicatorsWeighted ;
-						cex:weightSchema weightSchema:clusterWeights ;
+						cex:component component:AB, component:Q2, component:C, component:DQ1;
+						cex:dimension wi-onto:ref-area
 					  ] ;
       cex:md5-checksum "MD5..." ;
       dcterms:contributor wi-org:WESO ;
       dcterms:issued "2013-07-11" ;
       dcterms:publisher wi-org:WebFoundation ;
-      dcterms:title "Indicators weighted"@en ;
+      dcterms:title "Clusters grouped"@en ;
       dcterms:subject sdmx-subject:2.5 ;      # Government finance, fiscal and public sector statistics
       rdf:type qb:DataSet ;
-      rdfs:label "Clusters weighted"@en ;
-      rdfs:comment "Description of Clusters Weighted"@en ;
+      rdfs:label "Clusters grouped"@en ;
+      rdfs:comment "Description of Clusters Grouped"@en ;
       qb:structure wi-onto:DSD ;  
       sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
       qb:slice slice:AB-Mean, slice:Q2-Mean, slice:C-Mean, slice:DQ1-Mean ;
       .
 
+dataset:SubindexGrouped
+      cex:computation [ a cex:GroupSubindex ;
+						cex:dataSet dataset:ClustersGrouped ;
+						cex:component subindex:ABQ2, subindex:CDQ1;
+						cex:dimension wi-onto:ref-area
+					  ] ;
+      cex:md5-checksum "MD5..." ;
+      dcterms:contributor wi-org:WESO ;
+      dcterms:issued "2013-07-11" ;
+      dcterms:publisher wi-org:WebFoundation ;
+      dcterms:title "Subindex grouped"@en ;
+      dcterms:subject sdmx-subject:2.5 ;      # Government finance, fiscal and public sector statistics
+      rdf:type qb:DataSet ;
+      rdfs:label "Subindex grouped"@en ;
+      rdfs:comment "Description of Subindex Grouped"@en ;
+      qb:structure wi-onto:DSD ;  
+      sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
+      qb:slice slice:ABQ2-Mean, slice:CDQ1-Mean ;
+      .
+
+dataset:Composite
+      cex:computation [ a cex:WeightedMean ;
+						cex:dataSet dataset:SubindexGrouped ;
+						cex:component index:index ;
+						cex:dimension wi-onto:ref-area ;
+						cex:weightSchema weightSchema:subindexWeights
+					  ] ;
+      cex:md5-checksum "MD5..." ;
+      dcterms:contributor wi-org:WESO ;
+      dcterms:issued "2013-07-11" ;
+      dcterms:publisher wi-org:WebFoundation ;
+      dcterms:title "Composite index"@en ;
+      dcterms:subject sdmx-subject:2.5 ;      # Government finance, fiscal and public sector statistics
+      rdf:type qb:DataSet ;
+      rdfs:label "Composite index"@en ;
+      rdfs:comment "Description of Composite index"@en ;
+      qb:structure wi-onto:DSD ;  
+      sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
+      qb:slice slice:Composite ;
+      .
+
+dataset:Rankings
+      cex:computation [ a cex:Ranking ;
+                        cex:slice slice:AB-Mean, slice:Q2-Mean, slice:C-Mean, slice:DQ1-Mean, slice:ABQ2-Mean, slice:CDQ1-Mean, slice:Composite ;
+                        cex:dimension wi-onto:ref-area 
+					  ] ;
+      cex:md5-checksum "MD5..." ;
+      dcterms:contributor wi-org:WESO ;
+      dcterms:issued "2013-07-11" ;
+      dcterms:publisher wi-org:WebFoundation ;
+      dcterms:title "Index Rankings"@en ;
+      dcterms:subject sdmx-subject:2.5 ;      # Government finance, fiscal and public sector statistics
+      rdf:type qb:DataSet ;
+      rdfs:label "Index Rankings"@en ;
+      rdfs:comment "Description of Index Rankings"@en ;
+      qb:structure wi-onto:DSD ;  
+      sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
+      qb:slice slice:Ranking-AB, slice:Ranking-Q2, slice:Ranking-ABQ2, slice:Ranking-C, slice:Ranking-DQ1, slice:Ranking-CDQ1, slice:Ranking-Composite ;
+      .
+
 
 #-----------------------------------------------------------------
-# Slices
+# Slices Raw
 
 slice:A09-Raw
       a       qb:Slice ;
@@ -1251,6 +1324,55 @@ slice:CDQ1-Mean
 
 slice:Composite
       a       qb:Slice ;
+      cex:indicator index:index ;
+      wi-onto:ref-year 2011 ;
+	  qb:sliceStructure wi-onto:sliceByArea
+	  .
+	  
+slice:Ranking-AB       
+	  a       qb:Slice ;
+      cex:indicator component:AB ;
+      wi-onto:ref-year 2011 ;
+	  qb:sliceStructure wi-onto:sliceByArea
+	  .
+
+slice:Ranking-Q2
+	  a       qb:Slice ;
+      cex:indicator component:Q2 ;
+      wi-onto:ref-year 2011 ;
+	  qb:sliceStructure wi-onto:sliceByArea
+	  .
+
+slice:Ranking-ABQ2
+	  a       qb:Slice ;
+      cex:indicator subindex:ABQ2 ;
+      wi-onto:ref-year 2011 ;
+	  qb:sliceStructure wi-onto:sliceByArea
+	  .
+
+slice:Ranking-C
+	  a       qb:Slice ;
+      cex:indicator component:C ;
+      wi-onto:ref-year 2011 ;
+	  qb:sliceStructure wi-onto:sliceByArea
+	  .
+
+slice:Ranking-DQ1
+	  a       qb:Slice ;
+      cex:indicator component:DQ1 ;
+      wi-onto:ref-year 2011 ;
+	  qb:sliceStructure wi-onto:sliceByArea
+	  .
+
+slice:Ranking-CDQ1
+	  a       qb:Slice ;
+      cex:indicator subindex:CDQ1 ;
+      wi-onto:ref-year 2011 ;
+	  qb:sliceStructure wi-onto:sliceByArea
+	  .
+
+slice:Ranking-Composite 	  
+	  a       qb:Slice ;
       cex:indicator index:index ;
       wi-onto:ref-year 2011 ;
 	  qb:sliceStructure wi-onto:sliceByArea
@@ -2403,6 +2525,28 @@ slice:CDQ1-Mean
 slice:Composite
       qb:observation obs:E-Composite, obs:F-Composite, obs:C-Composite ;
 	  .
+
+slice:Ranking-AB 
+      qb:observation ranking:EAB, ranking:CAB, ranking:FAB .
+
+slice:Ranking-Q2
+      qb:observation ranking:EQ2, ranking:CQ2, ranking:FQ2 .
+
+slice:Ranking-ABQ2
+      qb:observation ranking:EABQ2, ranking:CABQ2, ranking:FABQ2 .
+
+slice:Ranking-C
+      qb:observation ranking:EC, ranking:CC, ranking:FC .
+
+slice:Ranking-DQ1
+      qb:observation ranking:EDQ1, ranking:CDQ1, ranking:FDQ1 .
+
+slice:Ranking-CDQ1
+      qb:observation ranking:ECDQ1, ranking:CCDQ1, ranking:FCDQ1 .
+
+slice:Ranking-Composite 	  
+      qb:observation ranking:E-Composite, ranking:C-Composite, ranking:F-Composite .
+
 
 #---------------------------------------------------------------
 # Observations
@@ -5723,12 +5867,13 @@ obs:EAB-Mean a qb:Observation ;
 			  cex:weightSchema weightSchema:clusterWeights ;
 			  cex:observation obs:EA-W, obs:EB-W ;
 			] ;		 
+		 cex:indicator component:AB ;
 		 cex:value 5.75 ;
          cex:md5-checksum "md5 for EAB-Mean" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:ClustersWeighted ;
+		 qb:dataSet dataset:ClustersGrouped ;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "AB in ESP during 2011"@en ;
@@ -5743,12 +5888,13 @@ obs:FAB-Mean a qb:Observation ;
 			  cex:weightSchema weightSchema:clusterWeights ;
 			  cex:observation obs:FA-W, obs:FB-W ;
 			] ;		 
+		 cex:indicator component:AB ;
 		 cex:value 5.5 ;
          cex:md5-checksum "md5 for FAB-Mean" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:ClustersWeighted ;
+		 qb:dataSet dataset:ClustersGrouped ;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "AB in FIN during 2011"@en ;
@@ -5763,12 +5909,13 @@ obs:CAB-Mean a qb:Observation ;
 			  cex:weightSchema weightSchema:clusterWeights ;
 			  cex:observation obs:CA-W, obs:CB-W ;
 			] ;		 
+		 cex:indicator component:AB ;
 		 cex:value 6.75 ;
          cex:md5-checksum "md5 for CAB-Mean" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:ClustersWeighted ;
+		 qb:dataSet dataset:ClustersGrouped ;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "AB in CHL during 2011"@en ;
@@ -5784,12 +5931,13 @@ obs:EQ2-Mean a qb:Observation ;
 			  cex:weightSchema weightSchema:clusterWeights ;
 			  cex:observation obs:EQ2-W ;
 			] ;		 
+		 cex:indicator component:Q2 ;
 		 cex:value 9.121 ;
          cex:md5-checksum "md5 for EAB-Mean" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:ClustersWeighted ;
+		 qb:dataSet dataset:ClustersGrouped ;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Q2 in ESP during 2011"@en ;
@@ -5804,12 +5952,13 @@ obs:FQ2-Mean a qb:Observation ;
 			  cex:weightSchema weightSchema:clusterWeights ;
 			  cex:observation obs:FQ2-W ;
 			] ;		 
+		 cex:indicator component:Q2 ;
 		 cex:value 7.199 ;
          cex:md5-checksum "md5 for FAB-Mean" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:ClustersWeighted ;
+		 qb:dataSet dataset:ClustersGrouped ;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Q2 in FIN during 2011"@en ;
@@ -5824,12 +5973,13 @@ obs:CQ2-Mean a qb:Observation ;
 			  cex:weightSchema weightSchema:clusterWeights ;
 			  cex:observation obs:CQ2-W ;
 			] ;		 
+		 cex:indicator component:Q2 ;
 		 cex:value 7.68 ;
          cex:md5-checksum "md5 for CQ2-Mean" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:ClustersWeighted;
+		 qb:dataSet dataset:ClustersGrouped;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Q2 in CHL during 2011"@en ;
@@ -5844,12 +5994,13 @@ obs:EC-Mean a qb:Observation ;
 			  cex:weightSchema weightSchema:clusterWeights ;
 			  cex:observation obs:EC-W ;
 			] ;		 
+		 cex:indicator component:C ;
 		 cex:value 3.540 ;
          cex:md5-checksum "md5 for EC-Mean" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:ClustersWeighted;
+		 qb:dataSet dataset:ClustersGrouped;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Mean of C in ESP during 2011"@en ;
@@ -5864,12 +6015,13 @@ obs:FC-Mean a qb:Observation ;
 			  cex:weightSchema weightSchema:clusterWeights ;
 			  cex:observation obs:FC-W ;
 			] ;		 
+		 cex:indicator component:C ;
 		 cex:value 3.928 ;
          cex:md5-checksum "md5 for FC-Mean" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:ClustersWeighted;
+		 qb:dataSet dataset:ClustersGrouped;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Mean of C in FIN during 2011"@en ;
@@ -5884,12 +6036,13 @@ obs:CC-Mean a qb:Observation ;
 			  cex:weightSchema weightSchema:clusterWeights ;
 			  cex:observation obs:CC-W ;
 			] ;		 
+		 cex:indicator component:C ;
 		 cex:value 4.532 ;
          cex:md5-checksum "md5 for CC-Mean" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:ClustersWeighted;
+		 qb:dataSet dataset:ClustersGrouped;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Mean of C in CHL during 2011"@en ;
@@ -5905,12 +6058,13 @@ obs:EDQ1-Mean a qb:Observation ;
 			  cex:weightSchema weightSchema:clusterWeights ;
 			  cex:observation obs:ED-W, obs:EQ1-W ;
 			] ;		 
+		 cex:indicator component:DQ1 ;
 		 cex:value 6.039 ;
          cex:md5-checksum "md5 for EDQ1-Mean" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:ClustersWeighted;
+		 qb:dataSet dataset:ClustersGrouped;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Mean of D and Q1 in ESP during 2011"@en ;
@@ -5925,12 +6079,13 @@ obs:FDQ1-Mean a qb:Observation ;
 			  cex:weightSchema weightSchema:clusterWeights ;
 			  cex:observation obs:FD-W, obs:FQ1-W ;
 			] ;		 
+		 cex:indicator component:DQ1 ;
 		 cex:value 5.423 ;
          cex:md5-checksum "md5 for FDQ1-Mean" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:ClustersWeighted;
+		 qb:dataSet dataset:ClustersGrouped;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Mean of D and Q1 in FIN during 2011"@en ;
@@ -5945,12 +6100,13 @@ obs:CDQ1-Mean a qb:Observation ;
 			  cex:weightSchema weightSchema:clusterWeights ;
 			  cex:observation obs:CD-W, obs:CQ1-W ;
 			] ;		 
+		 cex:indicator component:DQ1 ;
 		 cex:value 6.539 ;
          cex:md5-checksum "md5 for CDQ1-Mean" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:ClustersWeighted;
+		 qb:dataSet dataset:ClustersGrouped;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Mean of D and Q1 in CHL during 2011"@en ;
@@ -5968,13 +6124,15 @@ obs:EABQ2 a qb:Observation ;
 		    [ a cex:Mean ;
 			  cex:observation obs:EAB-Mean, obs:EQ2-Mean ;
 			] ;		 
+		 cex:indicator subindex:ABQ2 ;
+		 # TODO...remove the following
 		 cex:element subindex:ABQ2 ;
 		 cex:value 7.4354 ;
          cex:md5-checksum "md5 for CDQ1-Mean" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:SubindexWeighted;
+		 qb:dataSet dataset:SubindexGrouped;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Mean of AB and Q2 in ESP during 2011"@en ;
@@ -5988,13 +6146,14 @@ obs:FABQ2 a qb:Observation ;
 		    [ a cex:Mean ;
 			  cex:observation obs:FAB-Mean, obs:FQ2-Mean ;
 			] ;		 
+		 cex:indicator subindex:ABQ2 ;
 		 cex:element subindex:ABQ2 ;
 		 cex:value 6.35 ;
          cex:md5-checksum "md5 for CDQ1-Mean" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:SubindexWeighted;
+		 qb:dataSet dataset:SubindexGrouped;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Mean of AB and Q2 in FIN during 2011"@en ;
@@ -6008,13 +6167,14 @@ obs:CABQ2 a qb:Observation ;
 		    [ a cex:Mean ;
 			  cex:observation obs:CAB-Mean, obs:CQ2-Mean ;
 			] ;		 
+		 cex:indicator subindex:ABQ2 ;
 		 cex:element subindex:ABQ2 ;
 		 cex:value 7.215 ;
          cex:md5-checksum "md5 for CABQ2" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:SubindexWeighted;
+		 qb:dataSet dataset:SubindexGrouped;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Mean of AB and Q2 in CHL during 2011"@en ;
@@ -6029,13 +6189,14 @@ obs:ECDQ1 a qb:Observation ;
 		    [ a cex:Mean ;
 			  cex:observation obs:EC-Mean, obs:EDQ1-Mean ;
 			] ;		 
+		 cex:indicator subindex:CDQ1 ;
 		 cex:element subindex:CDQ1 ;
 		 cex:value 4.789258 ;
          cex:md5-checksum "md5 for ECDQ1-Mean" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:SubindexWeighted;
+		 qb:dataSet dataset:SubindexGrouped;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Mean of C and DQ1 in ESP during 2011"@en ;
@@ -6049,13 +6210,14 @@ obs:FCDQ1 a qb:Observation ;
 		    [ a cex:Mean ;
 			  cex:observation obs:FC-Mean, obs:FDQ1-Mean ;
 			] ;		 
+		 cex:indicator subindex:CDQ1 ;
 		 cex:element subindex:CDQ1 ;
 		 cex:value 4.675 ;
          cex:md5-checksum "md5 for CDQ1-Mean" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:SubindexWeighted;
+		 qb:dataSet dataset:SubindexGrouped;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Mean of C and DQ1 in FIN during 2011"@en ;
@@ -6069,13 +6231,14 @@ obs:CCDQ1 a qb:Observation ;
 		    [ a cex:Mean ;
 			  cex:observation obs:CC-Mean, obs:CDQ1-Mean ;
 			] ;		 
+		 cex:indicator subindex:CDQ1 ;
 		 cex:element subindex:CDQ1 ;
 		 cex:value 5.535 ;
          cex:md5-checksum "md5 for CCDQ1" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:SubindexWeighted;
+		 qb:dataSet dataset:SubindexGrouped;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Mean of C and DQ1 in CHL during 2011"@en ;
@@ -6094,12 +6257,13 @@ obs:E-Composite	a qb:Observation ;
 			  cex:weightSchema weightSchema:subindexWeights ;
 			  cex:observation obs:EABQ2, obs:ECDQ1 ;
 			] ;		 
+		 cex:indicator index:index ;
 		 cex:value 5.847736 ;
          cex:md5-checksum "md5 for E-Composite" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:Computation ;
+		 qb:dataSet dataset:Composite ;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Composite Index in ESP during 2011"@en ;
@@ -6115,12 +6279,13 @@ obs:F-Composite	a qb:Observation ;
 			  cex:weightSchema weightSchema:subindexWeights ;
 			  cex:observation obs:FABQ2, obs:FCDQ1 ;
 			] ;		 
+		 cex:indicator index:index ;
 		 cex:value 5.345 ;
          cex:md5-checksum "md5 for F-Composite" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:Computation ;
+		 qb:dataSet dataset:Composite ;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Composite index in FIN during 2011"@en ;
@@ -6136,12 +6301,13 @@ obs:C-Composite	a qb:Observation ;
 			  cex:weightSchema weightSchema:subindexWeights ;
 			  cex:observation obs:CABQ2, obs:CCDQ1 ;
 			] ;		 
+		 cex:indicator index:index ;
 		 cex:value 6.207 ;
          cex:md5-checksum "md5 for C-Composite" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:Computation ;
+		 qb:dataSet dataset:Composite ;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Composite index in CHL during 2011"@en ;
@@ -6150,9 +6316,6 @@ obs:C-Composite	a qb:Observation ;
 		 wi-onto:ref-year 2011 ;
          wi-onto:sheet-type wi-onto:Computation ;
 		 .
-
-
-dataset:Composite a qb:Dataset .	  
 		 
 #--------------------------------------------------
 # Rankings
@@ -6163,12 +6326,13 @@ ranking:EAB
 			  cex:slice slice:AB-Mean ;
 			  cex:dimension wi-onto:ref-area ;
 			] ;		 
+		 cex:indicator component:AB ;
 		 cex:value 2 ;
          cex:md5-checksum "md5 for E-Rank" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:Ranking ;
+		 qb:dataSet dataset:Rankings ;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Ranking of ESP in AB"@en ;
@@ -6184,12 +6348,13 @@ ranking:FAB
 			  cex:slice slice:AB-Mean ;
 			  cex:dimension wi-onto:ref-area ;
 			] ;		 
+		 cex:indicator component:AB ;
 		 cex:value 3 ;
          cex:md5-checksum "md5 for E-Rank" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:Ranking ;
+		 qb:dataSet dataset:Rankings ;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Ranking of of FIN in AB"@en ;
@@ -6205,12 +6370,13 @@ ranking:CAB
 			  cex:slice slice:AB-Mean ;
 			  cex:dimension wi-onto:ref-area ;
 			] ;		 
+		 cex:indicator component:AB ;
 		 cex:value 1 ;
          cex:md5-checksum "md5 for CAB" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:Ranking ;
+		 qb:dataSet dataset:Rankings ;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Ranking of CHL in AB"@en ;
@@ -6226,12 +6392,13 @@ ranking:EQ2
 			  cex:slice slice:Q2-Mean ;
 			  cex:dimension wi-onto:ref-area ;
 			] ;		 
+		 cex:indicator component:Q2 ;
 		 cex:value 1 ;
          cex:md5-checksum "md5 for Q2-Rank" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:Ranking ;
+		 qb:dataSet dataset:Rankings ;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Ranking of ESP in Q2"@en ;
@@ -6247,12 +6414,13 @@ ranking:FQ2
 			  cex:slice slice:Q2-Mean ;
 			  cex:dimension wi-onto:ref-area ;
 			] ;		 
+		 cex:indicator component:Q2 ;
 		 cex:value 3 ;
          cex:md5-checksum "md5 for E-Rank" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:Ranking ;
+		 qb:dataSet dataset:Rankings ;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Ranking of FIN in Q2"@en ;
@@ -6268,12 +6436,13 @@ ranking:CQ2
 			  cex:slice slice:Q2-Mean ;
 			  cex:dimension wi-onto:ref-area ;
 			] ;		 
+		 cex:indicator component:Q2 ;
 		 cex:value 2 ;
          cex:md5-checksum "md5 for CQ2" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:Ranking ;
+		 qb:dataSet dataset:Rankings ;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Ranking of CHL in Q2"@en ;
@@ -6289,12 +6458,13 @@ ranking:EABQ2
 			  cex:slice slice:ABQ2-Mean ;
 			  cex:dimension wi-onto:ref-area ;
 			] ;		 
+		 cex:indicator subindex:ABQ2 ;
 		 cex:value 1 ;
          cex:md5-checksum "md5 for Q2-Rank" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:Ranking ;
+		 qb:dataSet dataset:Rankings ;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Ranking of ESP in Q2"@en ;
@@ -6310,12 +6480,13 @@ ranking:FABQ2
 			  cex:slice slice:ABQ2-Mean ;
 			  cex:dimension wi-onto:ref-area ;
 			] ;		 
+		 cex:indicator subindex:ABQ2 ;
 		 cex:value 3 ;
          cex:md5-checksum "md5 for E-Rank" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:Ranking ;
+		 qb:dataSet dataset:Rankings ;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Ranking of FIN in Q2"@en ;
@@ -6331,12 +6502,13 @@ ranking:CABQ2
 			  cex:slice slice:ABQ2-Mean ;
 			  cex:dimension wi-onto:ref-area ;
 			] ;		 
+		 cex:indicator subindex:ABQ2 ;
 		 cex:value 2 ;
          cex:md5-checksum "md5 for CQ2" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:Ranking ;
+		 qb:dataSet dataset:Rankings ;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Ranking of CHL in Q2"@en ;
@@ -6352,12 +6524,13 @@ ranking:EC
 			  cex:slice slice:C-Mean ;
 			  cex:dimension wi-onto:ref-area ;
 			] ;		 
+		 cex:indicator component:C ;
 		 cex:value 3 ;
          cex:md5-checksum "md5 for Q2-Rank" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:Ranking ;
+		 qb:dataSet dataset:Rankings ;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Ranking of ESP in C"@en ;
@@ -6373,12 +6546,13 @@ ranking:FC
 			  cex:slice slice:C-Mean ;
 			  cex:dimension wi-onto:ref-area ;
 			] ;		 
+		 cex:indicator component:C ;
 		 cex:value 2 ;
          cex:md5-checksum "md5 for E-Rank" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:Ranking ;
+		 qb:dataSet dataset:Rankings ;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Ranking of FIN in C"@en ;
@@ -6394,12 +6568,13 @@ ranking:CC
 			  cex:slice slice:C-Mean ;
 			  cex:dimension wi-onto:ref-area ;
 			] ;		 
+		 cex:indicator component:C ;
 		 cex:value 1 ;
          cex:md5-checksum "md5 for CQ2" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:Ranking ;
+		 qb:dataSet dataset:Rankings ;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Ranking of CHL in C"@en ;
@@ -6415,12 +6590,13 @@ ranking:EDQ1
 			  cex:slice slice:DQ1-Mean ;
 			  cex:dimension wi-onto:ref-area ;
 			] ;		 
+		 cex:indicator component:DQ1 ;
 		 cex:value 2 ;
          cex:md5-checksum "md5 for DQ1-Rank" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:Ranking ;
+		 qb:dataSet dataset:Rankings ;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Ranking of ESP in DQ1"@en ;
@@ -6436,12 +6612,13 @@ ranking:FDQ1
 			  cex:slice slice:DQ1-Mean ;
 			  cex:dimension wi-onto:ref-area ;
 			] ;		 
+		 cex:indicator component:DQ1 ;
 		 cex:value 3 ;
          cex:md5-checksum "md5 for E-Rank" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:Ranking ;
+		 qb:dataSet dataset:Rankings ;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Ranking of FIN in DQ1"@en ;
@@ -6457,12 +6634,13 @@ ranking:CDQ1
 			  cex:slice slice:DQ1-Mean ;
 			  cex:dimension wi-onto:ref-area ;
 			] ;		 
+		 cex:indicator component:DQ1 ;
 		 cex:value 1 ;
          cex:md5-checksum "md5 for DQ1" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:Ranking ;
+		 qb:dataSet dataset:Rankings ;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Ranking of CHL in DQ1"@en ;
@@ -6478,12 +6656,13 @@ ranking:ECDQ1
 			  cex:slice slice:CDQ1-Mean ;
 			  cex:dimension wi-onto:ref-area ;
 			] ;		 
+		 cex:indicator subindex:CDQ1 ;
 		 cex:value 2 ;
          cex:md5-checksum "md5 for CDQ1-Rank" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:Ranking ;
+		 qb:dataSet dataset:Rankings ;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Ranking of ESP in DQ1"@en ;
@@ -6493,18 +6672,19 @@ ranking:ECDQ1
          wi-onto:sheet-type wi-onto:Computation ;
 		 .
 
-ranking:FDQ1 
+ranking:FCDQ1 
          cex:computation 
 		    [ a cex:Rank ;
 			  cex:slice slice:CDQ1-Mean ;
 			  cex:dimension wi-onto:ref-area ;
 			] ;		 
+		 cex:indicator subindex:CDQ1 ;
 		 cex:value 3 ;
          cex:md5-checksum "md5 for E-Rank" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:Ranking ;
+		 qb:dataSet dataset:Rankings ;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Ranking of FIN in CDQ1"@en ;
@@ -6514,18 +6694,19 @@ ranking:FDQ1
          wi-onto:sheet-type wi-onto:Computation ;
 		 .
 
-ranking:CDQ1 
+ranking:CCDQ1 
          cex:computation 
 		    [ a cex:Rank ;
 			  cex:slice slice:CDQ1-Mean ;
 			  cex:dimension wi-onto:ref-area ;
 			] ;		 
+		 cex:indicator subindex:CDQ1 ;
 		 cex:value 1 ;
          cex:md5-checksum "md5 for CDQ1" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:Ranking ;
+		 qb:dataSet dataset:Rankings ;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Ranking of CHL in CDQ1"@en ;
@@ -6542,12 +6723,13 @@ ranking:E-Composite
 			  cex:slice slice:Composite ;
 			  cex:dimension wi-onto:ref-area ;
 			] ;		 
+		 cex:indicator index:index ;
 		 cex:value 2 ;
          cex:md5-checksum "md5 for E-Rank" ;
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:Ranking ;
+		 qb:dataSet dataset:Rankings ;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Ranking of ESP in Composite index"@en ;
@@ -6568,7 +6750,7 @@ ranking:F-Composite
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:Ranking ;
+		 qb:dataSet dataset:Rankings ;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Ranking of FIN in Composite index"@en ;
@@ -6589,7 +6771,7 @@ ranking:C-Composite
 		 dcterms:contributor wi-org:WESO ;
 		 dcterms:issued "2013-22-06" ;
 		 dcterms:publisher wi-org:WebFoundation ;
-		 qb:dataSet dataset:Ranking ;
+		 qb:dataSet dataset:Rankings ;
 		 rdf:type qb:Observation ;
 		 rdf:type wi-onto:Observation ;
 		 rdfs:label "Ranking of CHL in Composite index"@en ;

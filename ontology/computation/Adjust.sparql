@@ -22,6 +22,7 @@ INSERT {
        cex:value ?adjusted ;
        cex:indicator ?indicator ;
 	   ?dim ?valueDim ;
+	   wi-onto:ref-area ?area ;
 	   sdmx-concept:obsStatus cex:Adjusted ;
 	   cex:computation [ a cex:Adjust ;
 		                   cex:observation ?obsRaw ;
@@ -48,6 +49,7 @@ INSERT {
  ?sliceToCopy ?dim ?valueDim .
 
  ?obsRaw cex:value ?value ;
-         ?dim ?valueDim .
+         ?dim ?valueDim ;
+         wi-onto:ref-area ?area .
  BIND(?value + ?increm as ?adjusted)
 }
