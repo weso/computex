@@ -21,6 +21,7 @@ INSERT {
  _:obs a qb:Observation ;
 	   ?dim ?valueDim ;
        cex:value ?value ;
+       qb:dataSet ?dataSetToCopy ;
        cex:indicator ?indicator ;
 	   wi-onto:ref-year ?year ;
 	   sdmx-concept:obsStatus cex:Imputed ;

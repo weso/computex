@@ -23,6 +23,7 @@ INSERT {
 		                   cex:observation ?obs1 ;
                            cex:observation ?obs3 ; 						   
 						 ] ;
+       qb:dataSet ?dataSetToCopy ;
        cex:indicator ?indicator ;
        cex:value ?mean ;
 	   wi-onto:ref-year ?year2 ;

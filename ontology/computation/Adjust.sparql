@@ -31,25 +31,32 @@ INSERT {
 	.
  ?sliceToCopy qb:observation _:obs .
 } WHERE {
+
  ?dataSetToCopy a qb:DataSet ;
       cex:computation [ a cex:AdjustDataSet ;
-						cex:dataSet ?dataset ;
+						cex:dataSet ?datasetFrom ;
 						cex:increment ?increm ;
 						cex:dimension ?dim ;
 						cex:value ?valueDim 
 					  ] ;
       qb:slice ?sliceToCopy .
 
- ?dataset qb:slice ?sliceFrom .
+ ?datasetFrom qb:slice ?sliceFrom .
          
  ?sliceFrom cex:indicator ?indicator ;
 	        ?dim ?valueDim ;
 	        qb:observation ?obsRaw ;
-	       .
- ?sliceToCopy ?dim ?valueDim .
+	        .
+ ?sliceToCopy ?dim ?valueDim ;
+            cex:indicator ?indicator ;
+            wi-onto:ref-year ?year .
 
  ?obsRaw cex:value ?value ;
+         wi-onto:ref-year ?year ;
+         cex:indicator ?indicator ;
          ?dim ?valueDim ;
-         wi-onto:ref-area ?area .
+         wi-onto:ref-area ?area ;
+         .
+         
  BIND(?value + ?increm as ?adjusted)
 }

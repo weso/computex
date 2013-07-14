@@ -22,7 +22,8 @@ INSERT {
        cex:computation [ a cex:AverageGrowth ;
 		                   cex:observations ( ?obs2 ?obs1) ; 						   
 						 ] ;
-         cex:indicator ?indicator ;
+	   qb:dataSet ?dataSetToCopy ;
+	   cex:indicator ?indicator ;
        cex:value ?value ;
 	   wi-onto:ref-year ?year3 ;
        wi-onto:ref-area ?c ;

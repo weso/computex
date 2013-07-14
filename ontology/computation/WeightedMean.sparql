@@ -20,7 +20,9 @@ prefix xsd:          <http://www.w3.org/2001/XMLSchema#>
 INSERT {
  _:obs a qb:Observation ;
        cex:value ?weightedMean ;
+       qb:dataSet ?dataSetToCopy ;
        cex:indicator ?component ;
+       wi-onto:ref-year ?year ;
 	   ?dim ?valueDim ;
 	   sdmx-concept:obsStatus cex:Grouped ;
 	   qb:dataset ?dataSetToCopy ;
@@ -30,6 +32,7 @@ INSERT {
  ?sliceToCopy qb:observation _:obs .
 
 } WHERE {
+
  ?dataSetToCopy a qb:DataSet ;
       cex:computation ?comp ;
       qb:slice ?sliceToCopy .
@@ -41,7 +44,8 @@ INSERT {
 	  cex:weightSchema ?weightSchema ;
 	 .      
 	   
- ?sliceToCopy cex:indicator ?component .
+ ?sliceToCopy cex:indicator ?component ;
+              wi-onto:ref-year ?year .
 
  { SELECT (SUM(?product) as ?weightedMean) 
           (GROUP_CONCAT(?obs) as ?lsObs) 

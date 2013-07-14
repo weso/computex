@@ -23,6 +23,8 @@ CONSTRUCT {
      cex:slice ?sliceToRank;
      cex:dimension ?dim 
    ] ;
+   qb:dataSet ?dataSetToCopy ;
+   wi-onto:ref-year ?year ;
    cex:indicator ?indicator ;
    cex:value ?ranking ;
    ?dim ?valueDim 
@@ -48,6 +50,7 @@ CONSTRUCT {
               .
  ?obsToRank ?dim ?valueDim ;
             cex:indicator ?component ;
+            wi-onto:ref-year ?year ;
             cex:value ?valueToRank .
       
  { SELECT (COUNT(*) as ?ranking) ?sliceToRank ?obsToRank ?valueToRank WHERE {

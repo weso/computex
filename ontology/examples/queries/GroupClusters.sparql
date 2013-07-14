@@ -1,4 +1,4 @@
-# Subindex mean
+# group clusters calculating the average of each value
 prefix country:      <http://data.webfoundation.org/webindex/v2013/country/> 
 prefix dataset:      <http://data.webfoundation.org/webindex/v2013/dataset/> 
 prefix indicator:    <http://data.webfoundation.org/webindex/v2013/indicator/> 
@@ -17,31 +17,33 @@ prefix wi-onto:      <http://data.webfoundation.org/webindex/ontology/>
 prefix xml:          <http://www.w3.org/XML/1998/namespace> 
 prefix xsd:          <http://www.w3.org/2001/XMLSchema#> 
 
-INSERT {
- _:obs a qb:Observation ;
+CONSTRUCT {
+ ?sliceToCopy qb:observation [
+     a qb:Observation ;
        cex:value ?mean ;
        qb:dataSet ?dataSetToCopy ;
        cex:indicator ?component ;
+       wi-onto:ref-year ?year ;
 	   ?dimension ?valueDim ;
 	   sdmx-concept:obsStatus cex:Grouped ;
-	   qb:dataset ?dataSetToCopy ;
 	   cex:computation [ a cex:GroupMean ;
 		                   cex:observation ?obs ;
-						   cex:component ?lsObs ] ;
-	.
- ?sliceToCopy qb:observation _:obs .
+						   cex:component ?lsObs ] 
+  ]
+  
 } WHERE {
  ?dataSetToCopy a qb:DataSet ;
       cex:computation ?comp ;
       qb:slice ?sliceToCopy .
       
- ?comp a cex:GroupMean  ;
+ ?comp a cex:GroupClusters  ;
 	   cex:dataSet ?dataset ;
 	   cex:component ?component ;
 	   cex:dimension ?dimension
 	   .
 	   
- ?sliceToCopy cex:indicator ?component .
+ ?sliceToCopy cex:indicator ?component ;
+      wi-onto:ref-year ?year .
 
  { SELECT (AVG(?value) as ?mean) 
           (GROUP_CONCAT(?obs) as ?lsObs) 
@@ -51,9 +53,7 @@ INSERT {
           ?valueDim WHERE {
     
     ?component cex:element ?element .
- 
     ?dataset qb:slice ?sliceFrom .
- 
     ?sliceFrom cex:indicator ?element ; 
                qb:observation ?obs .
     

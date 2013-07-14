@@ -18,17 +18,19 @@ prefix xml:          <http://www.w3.org/XML/1998/namespace>
 prefix xsd:          <http://www.w3.org/2001/XMLSchema#> 
 
 INSERT {
- _:obs a qb:Observation ;
+ ?sliceToCopy qb:observation [
+       a qb:Observation ;
        cex:value ?mean ;
-       cex:indicator ?indicator ;
+       wi-onto:ref-year ?year ;
+       qb:dataSet ?dataSetToCopy ;
+       cex:indicator ?component ;
 	   ?dimension ?valueDim ;
 	   sdmx-concept:obsStatus cex:Grouped ;
 	   qb:dataset ?dataSetToCopy ;
 	   cex:computation [ a cex:GroupMean ;
 		                   cex:observation ?obs ;
 						   cex:component ?lsObs ] ;
-	.
- ?sliceToCopy qb:observation _:obs .
+  ]
 } WHERE {
  ?dataSetToCopy a qb:DataSet ;
       cex:computation ?comp ;
@@ -40,7 +42,8 @@ INSERT {
 	   cex:dimension ?dimension
 	   .
 	   
- ?sliceToCopy cex:indicator ?component .
+ ?sliceToCopy cex:indicator ?component ;
+              wi-onto:ref-year ?year .
 
  { SELECT (AVG(?value) as ?mean) 
           (GROUP_CONCAT(?obs) as ?lsObs) 

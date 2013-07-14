@@ -1,4 +1,4 @@
-# weighted values from some weight schema
+# weighted simple
 prefix country:      <http://data.webfoundation.org/webindex/v2013/country/> 
 prefix dataset:      <http://data.webfoundation.org/webindex/v2013/dataset/> 
 prefix indicator:    <http://data.webfoundation.org/webindex/v2013/indicator/> 
@@ -18,25 +18,29 @@ prefix xml:          <http://www.w3.org/XML/1998/namespace>
 prefix xsd:          <http://www.w3.org/2001/XMLSchema#> 
 
 INSERT {
- _:obs a qb:Observation ;
+ ?sliceToCopy qb:observation 
+   [ a qb:Observation ;
        cex:value ?product ;
-       cex:indicator ?indicator ;
-	   ?dim ?valueDim ;
+       qb:dataSet ?dataSetToCopy ;
+	   ?dimension ?element ;
 	   sdmx-concept:obsStatus cex:Weighted ;
-	   qb:dataset ?dataSetToCopy ;
 	   cex:computation [ a cex:Weighted ;
+	                       cex:dimension ?dimension ;
+	                       cex:element ?element ;
 		                   cex:observation ?obsRaw ;
+		                   cex:weight ?weight;
+		                   cex:value ?value ;
 						   cex:weightSchema ?weightSchema ;
 						 ] ;
 	   wi-onto:ref-area ?area ;
-	.
- ?sliceToCopy qb:observation _:obs .
+	   wi-onto:ref-year ?year
+  ]
 } WHERE {
  ?dataSetToCopy a qb:DataSet ;
       cex:computation ?comp ;
       qb:slice ?sliceToCopy .
       
- ?comp a cex:WeightedSimple  ;
+  ?comp a cex:WeightedSimple  ;
 	   cex:dataSet ?dataset ;
 	   cex:weightSchema ?weightSchema ;
 	   .
@@ -48,16 +52,19 @@ INSERT {
 
  ?dataset qb:slice ?sliceFrom .
          
- ?sliceFrom cex:indicator ?indicator ;
+ ?sliceFrom ?dimension ?element ;
             wi-onto:ref-year ?year ;
 	        qb:observation ?obsRaw ;
 	       .
- ?sliceToCopy cex:indicator ?indicator ; 
+	       
+ ?sliceToCopy ?dimension ?element ; 
             wi-onto:ref-year ?year .
 
  ?obsRaw cex:value ?value ;
          ?dimension ?element ;
-         wi-onto:ref-area ?area .
+         wi-onto:ref-area ?area ;
+         wi-onto:ref-year ?year ;
+ .
 
   BIND (?value * ?weight as ?product)
          

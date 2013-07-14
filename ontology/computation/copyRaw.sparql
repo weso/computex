@@ -18,17 +18,18 @@ prefix xml:          <http://www.w3.org/XML/1998/namespace>
 prefix xsd:          <http://www.w3.org/2001/XMLSchema#> 
 
 INSERT {
- _:obs a qb:Observation ;
+ ?sliceToCopy qb:observation [ 
+       a qb:Observation ;
        cex:value ?value ;
+       qb:dataSet ?dataSetToCopy ;
        cex:indicator ?indicator ;
        wi-onto:ref-area ?area ;
 	   wi-onto:ref-year ?year ;
 	   sdmx-concept:obsStatus cex:Imputed ;
 	   cex:computation [ a cex:Copy ;
 		                   cex:observation ?obsRaw 
-						 ] ;
-	.
- ?sliceToCopy qb:observation _:obs .
+						 ] 
+  ]
 } WHERE {
  ?dataSetToCopy a qb:DataSet ;
           cex:computation [ a cex:ImputeDataSet ;

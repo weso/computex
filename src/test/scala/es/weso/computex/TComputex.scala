@@ -10,6 +10,8 @@ import com.hp.hpl.jena.rdf.model._
 import com.hp.hpl.jena.util.FileManager
 import scala.collection.JavaConversions._
 import com.hp.hpl.jena.vocabulary.RDF
+import java.io.FileOutputStream
+import java.io.File
 
 class ComputexSuite extends FunSpec with SparqlSuite with ShouldMatchers {
 
@@ -40,6 +42,38 @@ class ComputexSuite extends FunSpec with SparqlSuite with ShouldMatchers {
       passDir(model,validationDir)
   }
 
+  describe("Comparing the expanded model using Computex with the example") {
+    it("Should have the same values for observations with the same dimensions") {
+    	val model = cex.loadData(ontologyURI,demoAbbrURI)
+    	val expandedCube = cex.expandCube(model,closureFile,flattenFile)
+    	val expandedCex = cex.expandComputex(expandedCube,computationDir,findStepsQuery)
+      
+    	val example = cex.loadData(ontologyURI,demoURI)
+    	
+    	val merge = example.union(expandedCex)
+    	
+    	val file = new File(computationDir + "Compare.sparql")
+    	val contents = scala.io.Source.fromFile(file).mkString ;
+    	val query = QueryFactory.create(contents)
+    	val qexec = QueryExecutionFactory.create(query, merge)
+    	try {
+    		val reportModel = ModelFactory.createDefaultModel
+    		qexec.execConstruct(reportModel)
+
+    		/* This is just to show the error that failed...could be removed or printed to logger */
+       		if (reportModel.size != 0) { 
+       			reportModel.write(System.out,"TURTLE")
+       		} 
+    		reportModel.size should be(0);
+    	} finally {
+    		qexec.close
+    	}
+
+    	// merge.write(new FileOutputStream("ontology/examples/queries/merged.ttl"),"TURTLE")
+    	
+    }
+  }
+   
   describe("The expanded model using computex") {
 	val model = cex.loadData(ontologyURI,demoAbbrURI)
 	val expandedCube = cex.expandCube(model,closureFile,flattenFile)
@@ -63,18 +97,18 @@ class ComputexSuite extends FunSpec with SparqlSuite with ShouldMatchers {
 	  ls.toList.size should be(1)
     } 
 
-   it("Should contain 36 filtered values") {
+   it("Should contain 42 filtered values") {
 	  val rdfType = model.createProperty("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
 	  val filter  = model.createResource("http://purl.org/weso/ontology/computex#Filter")
       val ls = model.listResourcesWithProperty(rdfType,filter)
-	  ls.toList.size should be(36)
+	  ls.toList.size should be(42)
     } 
 
-   it("Should contain 36 normalized values") {
+   it("Should contain 42 normalized values") {
 	  val rdfType = model.createProperty("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
 	  val normalize = model.createResource("http://purl.org/weso/ontology/computex#Normalize")
       val ls = model.listResourcesWithProperty(rdfType,normalize)
-	  ls.toList.size should be(36)
+	  ls.toList.size should be(42)
     } 
 
    it("Should contain 18 adjusted values") {
@@ -96,6 +130,13 @@ class ComputexSuite extends FunSpec with SparqlSuite with ShouldMatchers {
 	  val grouped = model.createResource("http://purl.org/weso/ontology/computex#GroupMean")
       val ls = model.listResourcesWithProperty(rdfType,grouped)
 	  ls.toList.size should be(18)
+    } 
+
+    it("Should contain 21 ranked values") {
+	  val rdfType = model.createProperty("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
+	  val ranked = model.createResource("http://purl.org/weso/ontology/computex#Rank")
+      val ls = model.listResourcesWithProperty(rdfType,ranked)
+	  ls.toList.size should be(21)
     } 
 
   }

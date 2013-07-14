@@ -45,6 +45,7 @@ computation:Flow a cex:ComputationFlow ;
     [ cex:query "GroupClusters" ]
     [ cex:query "GroupSubindex" ]
     [ cex:query "WeightedMean" ]
+    [ cex:query "Ranking" ]
   ) .
   
 wi-onto:filter a cex:FilterDefinition ;
@@ -605,6 +606,44 @@ dataset:D-Sorted
       qb:slice slice:D09-Sorted, slice:D10-Sorted, slice:D11-Sorted ;
       .
 
+dataset:Q1-Sorted
+	  cex:computation [ a cex:FilterDataSet ;
+						cex:dataSet dataset:Q1-Raw ;
+						cex:filter wi-onto:filter 
+					  ] ;
+      cex:md5-checksum "MD5..." ;
+      dcterms:contributor wi-org:WESO ;
+      dcterms:issued "2013-07-06" ;
+      dcterms:publisher wi-org:WebFoundation ;
+      dcterms:title "Q1-Sorted"@en ;
+      dcterms:subject sdmx-subject:2.5 ;      # Government finance, fiscal and public sector statistics
+      rdf:type qb:DataSet ;
+      rdfs:label "Q1-Sorted"@en ;
+      rdfs:comment "Description of dataset Q1-Sorted"@en ;
+      qb:structure wi-onto:DSD ;  
+      sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
+      qb:slice slice:Q1-Sorted ;
+      .
+
+dataset:Q2-Sorted
+	  cex:computation [ a cex:FilterDataSet ;
+						cex:dataSet dataset:Q2-Raw ;
+						cex:filter wi-onto:filter 
+					  ] ;
+      cex:md5-checksum "MD5..." ;
+      dcterms:contributor wi-org:WESO ;
+      dcterms:issued "2013-07-06" ;
+      dcterms:publisher wi-org:WebFoundation ;
+      dcterms:title "Q2-Sorted"@en ;
+      dcterms:subject sdmx-subject:2.5 ;      # Government finance, fiscal and public sector statistics
+      rdf:type qb:DataSet ;
+      rdfs:label "Q2-Sorted"@en ;
+      rdfs:comment "Description of dataset Q2-Sorted"@en ;
+      qb:structure wi-onto:DSD ;  
+      sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
+      qb:slice slice:Q2-Sorted ;
+      .
+
 #--------------------------------
 ## Normalized Datasets 
 
@@ -721,7 +760,7 @@ dataset:Q2-Normalized
 
 dataset:Adjusted
       cex:computation [ a cex:AdjustDataSet ;
-						cex:dataSet dataset:A-Normalized ;
+						cex:dataSet dataset:A-Normalized, dataset:B-Normalized, dataset:C-Normalized, dataset:D-Normalized, dataset:Q1-Normalized, dataset:Q2-Normalized ;
 						cex:increment 8 ;
 						cex:dimension wi-onto:ref-year ;
 						cex:value 2011 
@@ -1108,6 +1147,18 @@ slice:D11-Sorted
       wi-onto:ref-year 2011 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
+
+slice:Q1-Sorted
+      a       qb:Slice ;
+      cex:indicator indicator:Q1 ;
+      wi-onto:ref-year 2011 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Q2-Sorted
+      a       qb:Slice ;
+      cex:indicator indicator:Q2 ;
+      wi-onto:ref-year 2011 ;
+      qb:sliceStructure wi-onto:sliceByArea .
 	  
 #--------------------------------------------------------------
 # Slices normalized
@@ -2381,6 +2432,14 @@ slice:D10-Sorted
 
 slice:D11-Sorted
       qb:observation obs:ED11-S, obs:FD11-S, obs:CD11-S ;
+      .
+
+slice:Q1-Sorted
+      qb:observation obs:EQ1-S, obs:FQ1-S, obs:CQ1-S ;
+      .
+
+slice:Q2-Sorted
+      qb:observation obs:EQ2-S, obs:FQ2-S, obs:CQ2-S ;
       .
 	  
 #--------------------------------------------------------------
@@ -4184,6 +4243,124 @@ obs:CD11-S a wi-onto:Observation ;
          wi-onto:sheet-type wi-onto:Sorted ;
 		 .
 
+obs:EQ1-S a wi-onto:Observation ;
+        cex:computation [ a cex:Copy ;
+		                   cex:observation obs:EQ1-S 
+						 ] ;
+		 cex:md5-checksum "md5 for EQ1" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:Q1-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "Q1 in ESP during 2011"@en ;
+		 sdmx-concept:obsStatus cex:Raw;
+		 wi-onto:ref-area country:ESP ;
+		 cex:computation [a cex:Raw ] ;
+		 cex:indicator indicator:Q1 ;
+		 wi-onto:ref-year 2011 ;
+         wi-onto:sheet-type wi-onto:Raw ;
+		 cex:value 6 .
+
+obs:EQ2-S a wi-onto:Observation ;
+        cex:computation [ a cex:Copy ;
+		                   cex:observation obs:EQ2-S 
+						 ] ;
+         cex:md5-checksum "md5 for EQ2" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:Q2-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "Q2 in ESP during 2011"@en ;
+		 sdmx-concept:obsStatus cex:Raw;
+		 wi-onto:ref-area country:ESP ;
+		 cex:computation [a cex:Raw ] ;
+		 cex:indicator indicator:Q2 ;
+		 wi-onto:ref-year 2011 ;
+         wi-onto:sheet-type wi-onto:Raw ;
+		 cex:value 7 .
+
+obs:FQ1-S a wi-onto:Observation ;
+        cex:computation [ a cex:Copy ;
+		                   cex:observation obs:FQ1-S 
+						 ] ;
+         cex:md5-checksum "md5 for FQ1" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:Q1-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "Q1 in FIN during 2011"@en ;
+		 sdmx-concept:obsStatus cex:Raw;
+		 wi-onto:ref-area country:FIN ;
+		 cex:computation [a cex:Raw ] ;
+		 cex:indicator indicator:Q1 ;
+		 wi-onto:ref-year 2011 ;
+         wi-onto:sheet-type wi-onto:Raw ;
+		 cex:value 7 .
+
+obs:FQ2-S a wi-onto:Observation ;
+        cex:computation [ a cex:Copy ;
+		                   cex:observation obs:FQ2-S 
+						 ] ;
+         cex:md5-checksum "md5 for FQ2" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:Q2-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "Q2 in FIN during 2011"@en ;
+		 sdmx-concept:obsStatus cex:Raw;
+		 wi-onto:ref-area country:FIN ;
+		 cex:indicator indicator:Q2 ;
+		 wi-onto:ref-year 2011 ;
+         wi-onto:sheet-type wi-onto:Raw ;
+		 cex:value 3 .
+
+
+obs:CQ1-S a wi-onto:Observation ;
+        cex:computation [ a cex:Copy ;
+		                   cex:observation obs:CQ1-S 
+						 ] ;
+         cex:md5-checksum "md5 for CQ1" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:Q1-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "Q1 in CHL during 2011"@en ;
+		 sdmx-concept:obsStatus cex:Raw;
+		 wi-onto:ref-area country:CHL ;
+		 cex:indicator indicator:Q1 ;
+		 wi-onto:ref-year 2011 ;
+         wi-onto:sheet-type wi-onto:Raw ;
+		 cex:value 8 .
+
+obs:CQ2-S a wi-onto:Observation ;
+        cex:computation [ a cex:Copy ;
+		                   cex:observation obs:CQ2-S 
+						 ] ;
+         cex:md5-checksum "md5 for CQ2" ;
+		 dcterms:contributor wi-org:WESO ;
+		 dcterms:issued "2013-12-06" ;
+		 dcterms:publisher wi-org:WebFoundation ;
+		 qb:dataSet dataset:Q2-Sorted ;
+		 rdf:type qb:Observation ;
+		 rdf:type wi-onto:Observation ;
+		 rdfs:label "Q2 in CHL during 2011"@en ;
+		 sdmx-concept:obsStatus cex:Raw;
+		 wi-onto:ref-area country:CHL ;
+		 cex:indicator indicator:Q2 ;
+		 wi-onto:ref-year 2011 ;
+         wi-onto:sheet-type wi-onto:Raw ;
+		 cex:value 4 .
+
 
 #--------------------------
 # Normalized observations
@@ -4938,7 +5115,7 @@ obs:CD11-N a wi-onto:Observation ;
 obs:EQ1-N a wi-onto:Observation ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:EQ1-I 
+			  cex:observation obs:EQ1-S 
 			] ;   
 		 cex:value -1 ;
          cex:md5-checksum "md5 for EQ1-N" ;
@@ -4959,7 +5136,7 @@ obs:EQ1-N a wi-onto:Observation ;
 obs:EQ2-N a wi-onto:Observation ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:EQ2-I 
+			  cex:observation obs:EQ2-S 
 			] ;   
 		 cex:value 1.120897 ;
          cex:md5-checksum "md5 for EQ2" ;
@@ -4980,7 +5157,7 @@ obs:EQ2-N a wi-onto:Observation ;
 obs:FQ1-N a wi-onto:Observation ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:FQ1-I 
+			  cex:observation obs:FQ1-S 
 			] ;   
 		 cex:value 0 ;
          cex:md5-checksum "md5 for FQ1" ;
@@ -5001,7 +5178,7 @@ obs:FQ1-N a wi-onto:Observation ;
 obs:FQ2-N a wi-onto:Observation ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:FQ2-I 
+			  cex:observation obs:FQ2-S 
 			] ;   
 		 cex:value -0.80064 ;
          cex:md5-checksum "md5 for FQ2" ;
@@ -5022,7 +5199,7 @@ obs:FQ2-N a wi-onto:Observation ;
 obs:CQ1-N a wi-onto:Observation ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:CQ1-I 
+			  cex:observation obs:CQ1-S 
 			] ;   
 		 cex:value 1 ;
          cex:md5-checksum "md5 for CQ1" ;
@@ -5043,7 +5220,7 @@ obs:CQ1-N a wi-onto:Observation ;
 obs:CQ2-N a wi-onto:Observation ;
 		 cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation obs:CQ2-I 
+			  cex:observation obs:CQ2-S 
 			] ;   
 		 cex:value -0.32026 ;
          cex:md5-checksum "md5 for CQ2" ;
@@ -5060,6 +5237,7 @@ obs:CQ2-N a wi-onto:Observation ;
 		 wi-onto:ref-year 2011 ;
          wi-onto:sheet-type wi-onto:Normalized ;
 		 .
+		 
 #--------------------------
 # Adjusted values
 

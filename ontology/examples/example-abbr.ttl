@@ -606,6 +606,44 @@ dataset:D-Sorted
       qb:slice slice:D09-Sorted, slice:D10-Sorted, slice:D11-Sorted ;
       .
 
+dataset:Q1-Sorted
+	  cex:computation [ a cex:FilterDataSet ;
+						cex:dataSet dataset:Q1-Raw ;
+						cex:filter wi-onto:filter 
+					  ] ;
+      cex:md5-checksum "MD5..." ;
+      dcterms:contributor wi-org:WESO ;
+      dcterms:issued "2013-07-06" ;
+      dcterms:publisher wi-org:WebFoundation ;
+      dcterms:title "Q1-Sorted"@en ;
+      dcterms:subject sdmx-subject:2.5 ;      # Government finance, fiscal and public sector statistics
+      rdf:type qb:DataSet ;
+      rdfs:label "Q1-Sorted"@en ;
+      rdfs:comment "Description of dataset Q1-Sorted"@en ;
+      qb:structure wi-onto:DSD ;  
+      sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
+      qb:slice slice:Q1-Sorted ;
+      .
+
+dataset:Q2-Sorted
+	  cex:computation [ a cex:FilterDataSet ;
+						cex:dataSet dataset:Q2-Raw ;
+						cex:filter wi-onto:filter 
+					  ] ;
+      cex:md5-checksum "MD5..." ;
+      dcterms:contributor wi-org:WESO ;
+      dcterms:issued "2013-07-06" ;
+      dcterms:publisher wi-org:WebFoundation ;
+      dcterms:title "Q2-Sorted"@en ;
+      dcterms:subject sdmx-subject:2.5 ;      # Government finance, fiscal and public sector statistics
+      rdf:type qb:DataSet ;
+      rdfs:label "Q2-Sorted"@en ;
+      rdfs:comment "Description of dataset Q2-Sorted"@en ;
+      qb:structure wi-onto:DSD ;  
+      sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
+      qb:slice slice:Q2-Sorted ;
+      .
+
 #--------------------------------
 ## Normalized Datasets 
 
@@ -722,7 +760,7 @@ dataset:Q2-Normalized
 
 dataset:Adjusted
       cex:computation [ a cex:AdjustDataSet ;
-						cex:dataSet dataset:A-Normalized ;
+						cex:dataSet dataset:A-Normalized, dataset:B-Normalized, dataset:C-Normalized, dataset:D-Normalized, dataset:Q1-Normalized, dataset:Q2-Normalized ;
 						cex:increment 8 ;
 						cex:dimension wi-onto:ref-year ;
 						cex:value 2011 
@@ -1109,6 +1147,18 @@ slice:D11-Sorted
       wi-onto:ref-year 2011 ;
       qb:sliceStructure wi-onto:sliceByArea .
 
+
+slice:Q1-Sorted
+      a       qb:Slice ;
+      cex:indicator indicator:Q1 ;
+      wi-onto:ref-year 2011 ;
+      qb:sliceStructure wi-onto:sliceByArea .
+
+slice:Q2-Sorted
+      a       qb:Slice ;
+      cex:indicator indicator:Q2 ;
+      wi-onto:ref-year 2011 ;
+      qb:sliceStructure wi-onto:sliceByArea .
 	  
 #--------------------------------------------------------------
 # Slices normalized

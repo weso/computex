@@ -1,9 +1,13 @@
-# filter values from some dimension
+# Compare
+prefix component: <http://data.webfoundation.org/webindex/v2013/component/> 
 prefix country:      <http://data.webfoundation.org/webindex/v2013/country/> 
 prefix dataset:      <http://data.webfoundation.org/webindex/v2013/dataset/> 
 prefix indicator:    <http://data.webfoundation.org/webindex/v2013/indicator/> 
 prefix obs:          <http://data.webfoundation.org/webindex/v2013/observation/> 
 prefix organization: <http://data.webfoundation.org/webindex/v2013/organization> 
+prefix subindex: <http://data.webfoundation.org/webindex/v2013/subindex/> 
+prefix index: <http://data.webfoundation.org/webindex/v2013/index/> 
+
 
 prefix afn:			 <http://jena.hpl.hp.com/ARQ/function#>
 prefix cex:          <http://purl.org/weso/ontology/computex#> 
@@ -17,39 +21,10 @@ prefix wi-onto:      <http://data.webfoundation.org/webindex/ontology/>
 prefix xml:          <http://www.w3.org/XML/1998/namespace> 
 prefix xsd:          <http://www.w3.org/2001/XMLSchema#> 
 
-CONSTRUCT {
- ?sliceToCopy qb:observation [
-       a qb:Observation ;
-	   ?dim ?valueDim ;
-       cex:value ?value ;
-       qb:dataSet ?dataSetToCopy ;
-       cex:indicator ?indicator ;
-	   wi-onto:ref-year ?year ;
-	   sdmx-concept:obsStatus cex:Imputed ;
-	   cex:computation [ a cex:Filter ;
-		                   cex:observation ?obsRaw 
-						 ] ;
-  ]
-} WHERE {
- ?dataSetToCopy a qb:DataSet ;
-	  	  cex:computation [ a cex:FilterDataSet ;
-						    cex:dataSet ?dataset ;
-						    cex:filter [ a cex:FilterDefinition ;
-						                 cex:dimension ?dim ;
-						                 cex:value ?valueDim 
-						               ] 
-					      ] ;
-          qb:slice ?sliceToCopy .
-
- ?dataset qb:slice ?sliceFrom .
-         
- ?sliceFrom cex:indicator ?indicator ;
-	        wi-onto:ref-year ?year ;
-	        qb:observation ?obsRaw ;
-	       .
- ?sliceToCopy wi-onto:ref-year ?year .
-
- ?obsRaw cex:value ?value ;
-         ?dim ?valueDim .
-
-}
+SELECT ?dataset ?area ?index WHERE {
+ ?dataset a qb:DataSet .
+ ?dataset qb:slice ?sliceIndex .
+ ?sliceIndex cex:indicator index:index .
+OPTIONAL { ?sliceIndex qb:observation [ wi-onto:ref-area ?area ; 
+                                        cex:value ?index ] . }
+} ORDER BY ?dataset ?area 

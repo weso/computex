@@ -1,4 +1,4 @@
-# filter values from some dimension
+# Compare
 prefix country:      <http://data.webfoundation.org/webindex/v2013/country/> 
 prefix dataset:      <http://data.webfoundation.org/webindex/v2013/dataset/> 
 prefix indicator:    <http://data.webfoundation.org/webindex/v2013/indicator/> 
@@ -18,38 +18,26 @@ prefix xml:          <http://www.w3.org/XML/1998/namespace>
 prefix xsd:          <http://www.w3.org/2001/XMLSchema#> 
 
 CONSTRUCT {
- ?sliceToCopy qb:observation [
-       a qb:Observation ;
-	   ?dim ?valueDim ;
-       cex:value ?value ;
-       qb:dataSet ?dataSetToCopy ;
-       cex:indicator ?indicator ;
-	   wi-onto:ref-year ?year ;
-	   sdmx-concept:obsStatus cex:Imputed ;
-	   cex:computation [ a cex:Filter ;
-		                   cex:observation ?obsRaw 
-						 ] ;
-  ]
+ [ a cex:Error ;
+   cex:message "2 observations in the same dataset have different values for the same dimensions" ;
+   cex:param [ cex:name "obs1"; cex:value ?obs1 ],
+             [ cex:name "obs2"; cex:value ?obs2 ],
+             [ cex:name "value1"; cex:value ?value1 ],
+             [ cex:name "value2"; cex:value ?value2 ] 
+   ;
+ ]
 } WHERE {
- ?dataSetToCopy a qb:DataSet ;
-	  	  cex:computation [ a cex:FilterDataSet ;
-						    cex:dataSet ?dataset ;
-						    cex:filter [ a cex:FilterDefinition ;
-						                 cex:dimension ?dim ;
-						                 cex:value ?valueDim 
-						               ] 
-					      ] ;
-          qb:slice ?sliceToCopy .
-
- ?dataset qb:slice ?sliceFrom .
-         
- ?sliceFrom cex:indicator ?indicator ;
-	        wi-onto:ref-year ?year ;
-	        qb:observation ?obsRaw ;
-	       .
- ?sliceToCopy wi-onto:ref-year ?year .
-
- ?obsRaw cex:value ?value ;
-         ?dim ?valueDim .
-
-}
+ ?obs1 a qb:Observation ;
+       qb:dataSet ?dataset ;
+       cex:indicator ?indicator ;
+       wi-onto:ref-area ?area ;
+       wi-onto:ref-year ?year ;
+       cex:value ?value1 .
+ ?obs2 a qb:Observation ;
+       qb:dataSet ?dataset ;
+       cex:indicator ?indicator ;
+       wi-onto:ref-area ?area ;
+       wi-onto:ref-year ?year ;
+       cex:value ?value2 . 
+ FILTER(?obs1 != ?obs2 && ABS(?value1 - ?value2) > 0.1) 
+} ORDER BY ?dataset ?indicator ?area ?year
