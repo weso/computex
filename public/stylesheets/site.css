@@ -94,3 +94,7 @@ code {
 	display: block;
 	margin: 0!important;
 }
+
+.query pre.hide{
+	display:none !important;
+}
