@@ -18,17 +18,21 @@
 	    	<h3 class="invalid">Validation Output: @message.size RDF Data Cube Validation Service Errors</h3>
 	    	<ol id="error_loop">
 	    	@message.integrityQueries.zipWithIndex.map { iQ =>
-	    		@if(iQ._1._2.size>0){
+	    		@if(message.verbose || iQ._1._2.size>0){
 		    		<li class="msg_err">
 			    		<span class="err_type">
+			    		@if(iQ._1._2.size>0){
 			    		<img src="http://validator.w3.org/images/info_icons/error.png" alt="Error" title="Error"/>
+			    		}else{
+			    		<img src="http://www.w3.org/2011/gld/validator/qb/img/tick-16.png" alt="Valid" title="Valid"/>
+			    		}
 			    		q@{iQ._1._2.query._1}: @{iQ._1._2.size} Errors</span>, 
 			    		<span class="msg"> @iQ._1._2.message</span>
 		    		</li>
 		    		@iQ._1._2.errorMessages.zipWithIndex.map { e =>
 			    		<li class="msg_err">
 			    			<span class="err_type">
-			    			q@{iQ._1._2.query._1} - q@{e._2}
+			    			q@{iQ._1._2.query._1} - @{e._2+1}
 			    			</span>
 			    			<em>Error</em>: 
 			    			<span class="msg">@e._1.message</span>
@@ -42,5 +46,6 @@
 	    	</ol>
 	    <p class="backtop"><a href="#frontforms">↑ Top</a></p>
 	    </div>
+	    @generic.source(message)
 	</div>
 }

@@ -28,8 +28,9 @@ import org.apache.jena.atlas.AtlasException
 import views.html.main
 import org.apache.commons.io.FileUtils
 
-case class UriPath(val uri: Option[String], val format: Option[String])
-case class DirectInput(val content: Option[String], val format: Option[String])
+case class UriPath(val uri: Option[String], val format: Option[String], val ss: Option[Int], val verbose: Option[Int])
+case class DirectInput(val content: Option[String], val format: Option[String], val ss: Option[Int], val verbose: Option[Int])
+case class FileInput(val format: Option[String], val ss: Option[Int], val verbose: Option[Int])
 
 object Application extends Controller {
 
@@ -39,12 +40,22 @@ object Application extends Controller {
   val uriForm: Form[UriPath] = Form(
     mapping(
       "uri" -> optional(text),
-      "doctype" -> optional(text))(UriPath.apply)(UriPath.unapply))
+      "doctype" -> optional(text),
+      "ss" -> optional(number),
+      "verbose" -> optional(number))(UriPath.apply)(UriPath.unapply))
 
   val directInputForm: Form[DirectInput] = Form(
     mapping(
       "fragment" -> optional(text),
-      "doctype" -> optional(text))(DirectInput.apply)(DirectInput.unapply))
+      "doctype" -> optional(text),
+      "ss" -> optional(number),
+      "verbose" -> optional(number))(DirectInput.apply)(DirectInput.unapply))
+
+  val fileInputForm: Form[FileInput] = Form(
+    mapping(
+      "doctype" -> optional(text),
+      "ss" -> optional(number),
+      "verbose" -> optional(number))(FileInput.apply)(FileInput.unapply))
 
   def index = Action {
     implicit request =>
@@ -57,6 +68,7 @@ object Application extends Controller {
       uriForm.bindFromRequest.fold(
         errors => {
           message.message = MSG_BAD_FORMED;
+          println(errors)
           BadRequest(views.html.uri.defaultUriGET(message))
         },
         uriPath => {
@@ -68,6 +80,8 @@ object Application extends Controller {
             try {
               message.contentIS = Computex.loadFile(message.content)
               message.contentFormat = uriPath.format.getOrElse(TURTLE)
+              message.ss = uriPath.ss.getOrElse(0) != 0
+              message.verbose = uriPath.verbose.getOrElse(0) != 0
               message = validateStream(message)
             } catch {
               case e: FileNotFoundException =>
@@ -101,8 +115,9 @@ object Application extends Controller {
           message.content = directInput.content.getOrElse(null)
           if (message.content != null) {
             message.contentFormat = directInput.format.getOrElse(TURTLE)
-            println(message.contentFormat)
             message.contentIS = new ByteArrayInputStream(message.content.getBytes("UTF-8"))
+            message.ss = directInput.ss.getOrElse(0) != 0
+            message.verbose = directInput.verbose.getOrElse(0) != 0
             message = validateStream(message)
             Ok(views.html.generic.format(message))
           } else {
@@ -123,13 +138,24 @@ object Application extends Controller {
     implicit request =>
       var message = CMessage(FILE)
       request.body.file("uploaded_file").map { file =>
-        import java.io.File
-        val filename = file.filename
-        val contentType = file.contentType
-        message.content = file.filename
-        message.contentIS = new ByteArrayInputStream(FileUtils.readFileToByteArray(file.ref.file))
-        message = validateStream(message)
-        Ok(views.html.generic.format(message))
+        fileInputForm.bindFromRequest.fold(
+          errors => {
+            message.message = MSG_BAD_FORMED
+            BadRequest(views.html.file.defaultFileGET(message))
+          },
+          fileInput => {
+            import java.io.File
+            val filename = file.filename
+            val contentType = file.contentType
+            message.content = file.filename
+            message.contentFormat = fileInput.format.getOrElse(TURTLE)
+            message.contentIS = new ByteArrayInputStream(FileUtils.readFileToByteArray(file.ref.file))
+            message.ss = fileInput.ss.getOrElse(0) != 0
+            message.verbose = fileInput.verbose.getOrElse(0) != 0
+            message = validateStream(message)
+            Ok(views.html.generic.format(message))
+          })
+
       }.getOrElse {
         val message = CMessage(FILE)
         message.message = MSG_EMPTY
@@ -153,7 +179,6 @@ object Application extends Controller {
 
     try {
       message.integrityQueries = cex.computex(message)
-
       if (message.size > 0) {
         message.message = MSG_ERROR
       }

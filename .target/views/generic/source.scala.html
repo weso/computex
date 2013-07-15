@@ -1,0 +1,18 @@
+@(message: es.weso.computex.entities.CMessage)(implicit flash:Flash)
+
+@import es.weso.computex.entities._
+@import es.weso.computex.entities.CMessage._
+@import scala.io.Source._
+
+@if(message.ss){
+		<div id="source">
+		<h3>Source Listing</h3>
+		<p>Below is the source input I used for this validation:</p>
+		<ol class="source">
+		@for(line <- fromInputStream(message.contentIS).getLines){
+			<li>@line</li>
+		}
+		</ol>
+		<p class="backtop"><a href="#jumpbar">↑ Top</a></p>
+	</div>
+}

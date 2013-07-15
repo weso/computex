@@ -30,6 +30,14 @@
 					<option value="N3">N3</option>
 				</select>
 	      	</p>
+	      <p class="instructions">
+	      		<input type="checkbox" value="1" id="ss" name="ss" @if(message.ss){checked="checked"}>
+	      		<label title="Show Page Source" for="ss">Show&nbsp;Source</label>
+	      	</p>
+	      	<p class="instructions">
+	      		<input type="checkbox" value="1" id="verbose" name="verbose" @if(message.verbose){checked="checked"}>
+	      		<label title="Show Verbose Output" for="verbose">Verbose&nbsp;Output</label>
+	      	</p>
 			<p class="submit_button">
 				<input type="submit" title="Submit for validation" value="Check"/>
 			</p>

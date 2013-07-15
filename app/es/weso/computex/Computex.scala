@@ -27,11 +27,12 @@ import com.hp.hpl.jena.update.GraphStoreFactory
 import com.hp.hpl.jena.update.UpdateAction
 import es.weso.computex.entities.CMessage
 import es.weso.computex.entities.IntegrityQuery
+import org.apache.commons.io.IOUtils
 
 case class Computex(val ontologyURI: String, val validationDir: String,
   val closureFile: String, val flattenFile: String) {
 
-  def computex(message:CMessage): Map[String, IntegrityQuery] = {
+  def computex(message:CMessage): Array[(String, IntegrityQuery)] = {
     println("Computex: Compute and Validate index data")
 
     val model = loadData(ontologyURI, message)
@@ -59,20 +60,20 @@ case class Computex(val ontologyURI: String, val validationDir: String,
   }
 
   def validate(model: Model,
-    validationDir: String): Map[String, IntegrityQuery] = runQueries(model, validationDir)
+    validationDir: String): Array[(String, IntegrityQuery)] = runQueries(model, validationDir)
 
   def compute(model: Model,
-    computationDir: String): Map[String, IntegrityQuery] = runQueries(model, computationDir)
+    computationDir: String): Array[(String, IntegrityQuery)] = runQueries(model, computationDir)
 
-  def runQueries(model: Model, dir: String): Map[String, IntegrityQuery] = {
-    val iQueries = for {
+  def runQueries(model: Model, dir: String): Array[(String, IntegrityQuery)] = {
+    val iQueries:Array[(String, IntegrityQuery)] = for {
       q <- readQueries(dir)
       currentModel = executeQuery(model, q._2)
     }yield{
       val iQuery = Parser.parse(q, currentModel)
-      iQuery.query._1 -> iQuery
+      (iQuery.query._1, iQuery)
     }
-    iQueries.toMap
+    iQueries
   }
 
   def readQueries(dirName: String): Array[(String, Query)] = {
@@ -93,6 +94,7 @@ case class Computex(val ontologyURI: String, val validationDir: String,
   }
 
   def loadModel(model: Model, inputStream: InputStream, format:String = TURTLE) = {
+    println("LOAD MODEL")
     model.read(inputStream, "", format)
   }
 
