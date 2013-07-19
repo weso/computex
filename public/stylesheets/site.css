@@ -98,3 +98,12 @@ code {
 .query pre.hide{
 	display:none !important;
 }
+
+table {
+	width: 100%;
+	border-radius: 5px;
+}
+
+table th{
+	font-size:0.875em;
+}

@@ -1,0 +1,46 @@
+# weighted mean
+prefix country:      <http://data.webfoundation.org/webindex/v2013/country/> 
+prefix dataset:      <http://data.webfoundation.org/webindex/v2013/dataset/> 
+prefix indicator:    <http://data.webfoundation.org/webindex/v2013/indicator/> 
+prefix obs:          <http://data.webfoundation.org/webindex/v2013/observation/> 
+prefix organization: <http://data.webfoundation.org/webindex/v2013/organization> 
+
+prefix afn:			 <http://jena.hpl.hp.com/ARQ/function#>
+prefix cex:          <http://purl.org/weso/ontology/computex#> 
+prefix owl:          <http://www.w3.org/2002/07/owl#> 
+prefix qb:           <http://purl.org/linked-data/cube#>
+prefix rdf:          <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+prefix rdfs:         <http://www.w3.org/2000/01/rdf-schema#> 
+prefix wi-onto:      <http://data.webfoundation.org/webindex/ontology/> 
+prefix xml:          <http://www.w3.org/XML/1998/namespace> 
+prefix xsd:          <http://www.w3.org/2001/XMLSchema#> 
+
+CONSTRUCT {
+ _:error a cex:Error ;
+         cex:errorParam 
+		   [cex:name "obs" ; cex:value ?obs ] ,
+		   [cex:name "existingValue"; cex:value ?existingValue ],
+		   [cex:name "wMean"; cex:value ?wMean ]
+		   ;
+         cex:msg "Weighted Mean does not match" .
+} WHERE { 
+ SELECT * WHERE {
+  ?obs a qb:Observation ;
+       cex:computation ?comp .
+  ?comp a cex:WeightedMean ;
+        cex:weightSchema ?weightSchema .
+  { SELECT (SUM(?product) as ?wMean) ?comp WHERE {
+     ?comp cex:observation ?obs ;
+	       cex:weightSchema ?weightSchema .
+	 ?obs  cex:value ?value .
+	 ?obs cex:element ?element .
+	 ?weightSchema cex:weight [ cex:element ?element ;
+                                cex:value ?weight  					
+				               ] .
+	 BIND (?value * ?weight as ?product)
+   } GROUP BY ?comp 
+  }
+  ?obs cex:value ?existingValue .
+  FILTER( abs(?wMean - ?existingValue) > 0.0001)
+ }
+}

@@ -1,0 +1,6 @@
+prefix : <http://example.org#> 
+
+SELECT (SAMPLE(?o1) as ?o11) (SAMPLE(?o2) as ?o22) (SAMPLE(?o3) as ?o33) WHERE {
+  :a :obs ?o1, ?o2, ?o3 .
+  FILTER (?o1 != ?o2 && ?o2 != ?o3 && ?o1 != ?o3)
+} 

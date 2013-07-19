@@ -8,6 +8,7 @@
 @prefix sdmx-concept: <http://purl.org/linked-data/sdmx/2009/concept#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix earl:  <http://www.w3.org/ns/earl#> .
 
 @prefix wi-onto: <http://data.webfoundation.org/webindex/ontology/> .
 @prefix wi-org: <http://data.webfoundation.org/webindex/organization/> .
@@ -218,6 +219,46 @@ cex:ImputedSlice a owl:Class, rdfs:Class ;
     rdfs:label "Impute values from a Slice"@en ;
     rdfs:subClassOf cex:Computation ;
 	.
+
+#----------------------------------------------------
+# Validation
+
+cex:Error a owl:Class, rdfs:Class ;
+    rdfs:label "Validation Error"@en ;
+	
+	# We declare cex:Error as failed tests in EARL
+    rdfs:subClassOf earl:TestResult ;
+    owl:equivalentClass  [
+		rdf:type        owl:Restriction ;
+	    owl:onProperty  earl:outcome ;
+        owl:hasValue    earl:failed
+    ] .  
+
+cex:msg a owl:DatatypeProperty ;
+    rdfs:label "Message"@en ;
+	.
+	
+cex:errorParam a owl:ObjectProperty ;
+    rdfs:domain cex:Error ;
+	rdfs:range cex:ErrorParam ;
+	.
+
+cex:ErrorParam a owl:Class ;
+    rdfs:label "Error Parameter" ;
+	rdfs:subClassOf cex:Param ;
+	.
+
+cex:Param a owl:Class ;
+    rdfs:label "Parameter"@en ;
+	.
+
+cex:name a owl:DatatypeProperty ;
+    rdfs:domain cex:Param ;
+	rdfs:range xsd:String ;
+	.
+
+# We omit definition of cex:value by now
+# It could be either ObjectProperty or DatatypeProperty, is it possible?
 
 #----------------------------------------------------
 # Definitions specific to TheWebIndex

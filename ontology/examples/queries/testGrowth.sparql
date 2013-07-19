@@ -1,0 +1,7 @@
+prefix : <http://example.org#> 
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ( SUM(?m / ?n) / COUNT(*) as ?result) {
+ ?list :values [ rdf:rest* [ rdf:first [ :value ?n ] ; 
+                            rdf:rest  [ rdf:first [ :value ?m ]]]] .
+} 

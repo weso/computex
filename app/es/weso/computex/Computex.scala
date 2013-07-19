@@ -13,7 +13,7 @@ import org.slf4j._
 import com.hp.hpl.jena.rdf.model._
 import org.rogach.scallop._
 import com.typesafe.config._
-import es.weso.computex.entities.ErrorMessage
+import es.weso.computex.entities.CErrorMessage
 import es.weso.utils.JenaUtils
 import es.weso.utils.JenaUtils.TURTLE
 import com.hp.hpl.jena.Jena
@@ -77,7 +77,7 @@ case class Computex(val ontologyURI: String, val validationDir: String,
   }
 
   def readQueries(dirName: String): Array[(String, Query)] = {
-    val pattern = """.*-(.+).sparql""".r
+    val pattern = """q(.+)-.*.sparql""".r
     val dir = new File(dirName)
     if (dir == null || dir.listFiles == null)
       throw new IOException(s"Directory: ${dirName} not accessible")

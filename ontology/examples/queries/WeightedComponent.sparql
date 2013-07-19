@@ -1,0 +1,62 @@
+# weighted values from some weight schema
+prefix country:      <http://data.webfoundation.org/webindex/v2013/country/> 
+prefix dataset:      <http://data.webfoundation.org/webindex/v2013/dataset/> 
+prefix indicator:    <http://data.webfoundation.org/webindex/v2013/indicator/> 
+prefix obs:          <http://data.webfoundation.org/webindex/v2013/observation/> 
+prefix organization: <http://data.webfoundation.org/webindex/v2013/organization> 
+
+prefix afn:			 <http://jena.hpl.hp.com/ARQ/function#>
+prefix cex:          <http://purl.org/weso/ontology/computex#> 
+prefix owl:          <http://www.w3.org/2002/07/owl#> 
+prefix qb:           <http://purl.org/linked-data/cube#>
+prefix rdf:          <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+prefix rdfs:         <http://www.w3.org/2000/01/rdf-schema#> 
+prefix sdmx-code:  <http://purl.org/linked-data/sdmx/2009/code#> 
+prefix sdmx-concept: <http://purl.org/linked-data/sdmx/2009/concept#> 
+prefix wi-onto:      <http://data.webfoundation.org/webindex/ontology/> 
+prefix xml:          <http://www.w3.org/XML/1998/namespace> 
+prefix xsd:          <http://www.w3.org/2001/XMLSchema#> 
+
+CONSTRUCT {
+ _:obs a qb:Observation ;
+       cex:value ?weighted ;
+       cex:indicator ?indicator ;
+	   ?dim ?valueDim ;
+	   sdmx-concept:obsStatus cex:Weighted ;
+	   qb:dataset ?dataSetToCopy ;
+	   cex:computation [ a cex:Weighted ;
+		                   cex:observation ?obsRaw ;
+						   cex:weightSchema ?weightSchema ;
+						 ] ;
+	.
+ ?sliceToCopy qb:observation _:obs .
+} WHERE {
+ ?dataSetToCopy a qb:DataSet ;
+      cex:computation ?comp ;
+      qb:slice ?sliceToCopy .
+      
+ ?comp a cex:Weighted  ;
+	   cex:dataSet ?dataset ;
+	   cex:weightSchema ?weightSchema ;
+	   .
+	   
+   ?weightSchema cex:weight [ cex:element ?element ;
+	                            cex:dimension ?dimension ;
+                                cex:value ?weight  					
+				            ] .
+
+ ?dataset qb:slice ?sliceFrom .
+         
+ ?sliceFrom cex:indicator ?indicator ;
+            wi-onto:ref-year ?year ;
+	        qb:observation ?obsRaw ;
+	       .
+ ?sliceToCopy cex:indicator ?indicator ; 
+            wi-onto:ref-year ?year .
+
+ ?obsRaw cex:value ?value ;
+         ?dimension ?element .
+
+  BIND (?value * ?weight as ?product)
+         
+}

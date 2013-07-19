@@ -6,7 +6,7 @@ import com.typesafe.config._
 import es.weso.computex.Parser
 import es.weso.computex.Computex
 import es.weso.utils.JenaUtils.TURTLE
-import es.weso.computex.entities.ErrorMessage
+import es.weso.computex.entities.CErrorMessage
 import es.weso.computex.entities.CMessage
 import es.weso.computex.entities.CMessage._
 import java.io.File

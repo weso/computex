@@ -17,8 +17,8 @@ case class CMessage(val action : String) {
   private var _contentIS : String = null
   private var _integrityQueries: Array[(String, IntegrityQuery)] = Array.empty
   
-  def contentIS_= (is: InputStream):Unit = _contentIS= IOUtils.toString(is, "UTF-8")//fromInputStream(is).mkString("")
-  def contentIS : InputStream = new ByteArrayInputStream(_contentIS.getBytes("UTF-8"));
+  def contentIS_= (is: InputStream):Unit = _contentIS= IOUtils.toString(is, "UTF-8")
+  def contentIS : InputStream = new ByteArrayInputStream(_contentIS.getBytes("UTF-8"))
   
   def integrityQueries_= (iq:Array[(String, IntegrityQuery)]):Unit = _integrityQueries = iq
   def integrityQueries : Array[(String, IntegrityQuery)]= _integrityQueries.sortWith(_._1<_._1)

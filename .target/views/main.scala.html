@@ -49,6 +49,20 @@
 			}else{
 				pre.addClass("hide");
 				$(this).text("↓ Show Integrity Query");
+				var pre = $(this).parent().parent().find("pre");
+			}
+		});
+		
+		$(".msg_err a").click(function(event){
+			event.preventDefault();
+			var pre = $(this).parent().parent().find("pre");
+			if(pre.hasClass("hide")){
+				pre.removeClass("hide");
+				$(this).text("↑ Hide RAW Data (TTL)");
+			}else{
+				pre.addClass("hide");
+				$(this).text("↓ Show RAW Data (TTL)");
+				var pre = $(this).parent().parent().find("pre");
 			}
 		});
 	</script>

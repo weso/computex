@@ -32,7 +32,7 @@
 				    		<pre class="hide">
 				   				<code class="input">@iQ._1._2.query._2</code>
 					    	</pre>
-					    	<p class="backtop"><a href="#">↑ Show Integrity Query</a></p>
+					    	<p class="backtop"><a href="#">↓ Show Integrity Query</a></p>
 		    			</div>
 		    		</li>
 		    		@iQ._1._2.errorMessages.zipWithIndex.map { e =>
@@ -42,9 +42,30 @@
 			    			</span>
 			    			<em>Error</em>: 
 			    			<span class="msg">@e._1.message</span>
-			   				<pre>
+			    			<table>
+			    			<thead>
+				    			<tr>
+				    				<th>Name</th>
+				    				<th>Value</th>
+				    			</tr>
+			    			</thead>
+			    			<tfoot>
+				    			<tr>
+				    				<th>Name</th>
+				    				<th>Value</th>
+				    			</tr>
+			    			</tfoot>
+			    			@e._1.params.map { p =>
+			    				<tr>
+				    				<td>@p.name</td>
+				    				<td>@p.value</td>
+			    				</tr>
+			    			}
+			    			</table>
+			   				<pre class="hide">
 			   					<code class="input">@e._1.model</code>
 				    		</pre>
+				    		<p class="backtop"><a href="#">↓ Show RAW Data (TTL)</a></p>
 			    		</li>
 		    		}
 		    	}

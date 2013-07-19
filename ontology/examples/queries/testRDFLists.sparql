@@ -1,0 +1,8 @@
+PREFIX :     <http://example.org#>
+PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX list: <http://jena.hpl.hp.com/ARQ/list#>
+
+SELECT ?elem ?pos WHERE {
+ ?x :list ?ls .
+ ?ls list:index (?pos ?elem).
+}

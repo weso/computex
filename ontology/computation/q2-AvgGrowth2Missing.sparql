@@ -1,0 +1,68 @@
+# Average Growth Missing
+prefix country:      <http://data.webfoundation.org/webindex/v2013/country/> 
+prefix dataset:      <http://data.webfoundation.org/webindex/v2013/dataset/> 
+prefix indicator:    <http://data.webfoundation.org/webindex/v2013/indicator/> 
+prefix obs:          <http://data.webfoundation.org/webindex/v2013/observation/> 
+prefix organization: <http://data.webfoundation.org/webindex/v2013/organization> 
+
+prefix afn:			 <http://jena.hpl.hp.com/ARQ/function#>
+prefix cex:          <http://purl.org/weso/ontology/computex#> 
+prefix owl:          <http://www.w3.org/2002/07/owl#> 
+prefix qb:           <http://purl.org/linked-data/cube#>
+prefix rdf:          <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+prefix rdfs:         <http://www.w3.org/2000/01/rdf-schema#> 
+prefix sdmx-code:  <http://purl.org/linked-data/sdmx/2009/code#> 
+prefix sdmx-concept: <http://purl.org/linked-data/sdmx/2009/concept#> 
+prefix wi-onto:      <http://data.webfoundation.org/webindex/ontology/> 
+prefix xml:          <http://www.w3.org/XML/1998/namespace> 
+prefix xsd:          <http://www.w3.org/2001/XMLSchema#> 
+
+INSERT {
+ _:obs a qb:Observation ;
+       cex:computation [ a cex:AverageGrowth ;
+		                   cex:observations ( ?obs2 ?obs1) ; 						   
+						 ] ;
+	   qb:dataSet ?dataSetToCopy ;
+	   cex:indicator ?indicator ;
+       cex:value ?value ;
+	   wi-onto:ref-year ?year3 ;
+       wi-onto:ref-area ?c ;
+	   sdmx-concept:obsStatus cex:Imputed ;
+	.
+ ?sliceToCopy qb:observation _:obs .
+ } WHERE {
+  ?dataSetToCopy a qb:DataSet ;
+          cex:computation [ a cex:ImputeDataSet ;
+	                        cex:method cex:AvgGrowth2Missing; 
+						    cex:dataSet ?dataset ;
+					      ] ;
+		  qb:slice ?sliceToCopy .
+  ?dataset qb:slice ?slice1, ?slice2, ?slice3 .
+  
+  ?slice1 qb:observation ?obs1 .
+  ?slice2 qb:observation ?obs2 .
+  
+  ?obs1 cex:indicator ?indicator ;
+        qb:dataSet ?dataset ;
+        wi-onto:ref-area ?c ;
+        wi-onto:ref-year ?year1 ;
+        cex:value ?value1 .
+  ?obs2 cex:indicator ?indicator ;
+        wi-onto:ref-area ?c ;
+        qb:dataSet ?dataset ;
+        wi-onto:ref-year ?year2 ;
+        cex:value ?value2 .
+   FILTER (?year2 = ?year1 + 1) 
+   FILTER NOT EXISTS {
+    ?slice3 qb:observation ?obs3 .
+    ?obs3 cex:indicator ?indicator ;
+          qb:dataSet ?dataset ;
+          wi-onto:ref-area ?c ;
+          wi-onto:ref-year ?year3 .
+          FILTER (?year3 = ?year1 + 2)
+   }
+  BIND ((?value2 * (?value2 / ?value1)) as ?value) 
+  BIND (?year1 + 2 as ?year3) 
+  ?slice3 wi-onto:ref-year ?year3 .
+  ?sliceToCopy wi-onto:ref-year ?year3 .
+} 
