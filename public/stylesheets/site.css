@@ -36,9 +36,16 @@ footer p{
 }
 
 .instructions{
-	padding-left: 4em;
-	padding-right: 4em;
+	padding: 0.5em 4em !important;
 }
+
+.instructions label, .instructions input, .instructions textarea, .instructions select{
+	display: inline;
+	padding: 0;
+	margin: 0;
+	vertical-align: middle;
+}
+
 
 .instructions input#uri{
 	margin: 0 auto;
@@ -48,7 +55,7 @@ footer p{
 	background: #ffffff;
 }
 
- .instructions textarea{
+.instructions textarea{
 	margin: 0 auto;
 	width: 100%;
 	max-width: none;
@@ -81,7 +88,7 @@ div#result{
 	padding-bottom: 1em!important;
 }
 
-.msg_err pre {
+.msg_err re {
 	line-height: 0;
 	margin-bottom:0;
 }
@@ -105,5 +112,5 @@ table {
 }
 
 table th{
-	font-size:0.875em;
+	font-size:0.875em!important;
 }
