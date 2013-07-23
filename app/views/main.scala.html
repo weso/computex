@@ -38,31 +38,34 @@
 			<a href="mailto:labra@@uniovi.es" title="Mail to Jose Emilio Labra Gayo">Jose Emilio Labra Gayo</a> )<p>
 			<p>2013 WESO RG (<a href="http://www.apache.org/licenses/LICENSE-2.0.html" title="Apache License, Version 2.0">Apache License</a>), <a href="http://github.com/weso/computex" title="Computex Github Repository">Github</a></p>
 		</footer>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript">
+		if (typeof jQuery == 'undefined') {
+			document.write(unescape("%3Cscript src='@routes.Assets.at("javascripts/jquery-1.10.2.min.js")' type='text/javascript'%3E%3C/script%3E"));
+		}
+	</script>
 	<script>
-		$(".query a").click(function(event){
+		$(".query .backtop a").click(function(event){
 			event.preventDefault();
-			var pre = $(this).parent().parent().find("pre");
+			var pre = $(this).find("pre");
 			if(pre.hasClass("hide")){
 				pre.removeClass("hide");
 				$(this).text("↑ Hide Integrity Query");
 			} else {
 				pre.addClass("hide");
 				$(this).text("↓ Show Integrity Query");
-				var pre = $(this).parent().parent().find("pre");
 			}
 		});
 		
 		$(".msg_err a").click(function(event){
 			event.preventDefault();
-			var pre = $(this).parent().parent().find("pre");
+			var pre = $(this).parent().prev();
 			if(pre.hasClass("hide")){
 				pre.removeClass("hide");
 				$(this).text("↑ Hide RAW Data (TTL)");
 			} else {
 				pre.addClass("hide");
 				$(this).text("↓ Show RAW Data (TTL)");
-				var pre = $(this).parent().parent().find("pre");
 			}
 		});
 	</script>

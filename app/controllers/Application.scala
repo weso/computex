@@ -28,9 +28,9 @@ import org.apache.jena.atlas.AtlasException
 import views.html.main
 import org.apache.commons.io.FileUtils
 
-case class UriPath(val uri: Option[String], val format: Option[String], val ss: Option[Int], val verbose: Option[Int])
-case class DirectInput(val content: Option[String], val format: Option[String], val ss: Option[Int], val verbose: Option[Int])
-case class FileInput(val format: Option[String], val ss: Option[Int], val verbose: Option[Int])
+case class UriPath(val uri: Option[String], val format: Option[String], val ss: Option[Int], val verbose: Option[Int], val expand: Option[Int])
+case class DirectInput(val content: Option[String], val format: Option[String], val ss: Option[Int], val verbose: Option[Int], val expand: Option[Int])
+case class FileInput(val format: Option[String], val ss: Option[Int], val verbose: Option[Int], val expand: Option[Int])
 
 object Application extends Controller {
 
@@ -42,20 +42,23 @@ object Application extends Controller {
       "uri" -> optional(text),
       "doctype" -> optional(text),
       "ss" -> optional(number),
-      "verbose" -> optional(number))(UriPath.apply)(UriPath.unapply))
+      "verbose" -> optional(number),
+      "expand" -> optional(number))(UriPath.apply)(UriPath.unapply))
 
   val directInputForm: Form[DirectInput] = Form(
     mapping(
       "fragment" -> optional(text),
       "doctype" -> optional(text),
       "ss" -> optional(number),
-      "verbose" -> optional(number))(DirectInput.apply)(DirectInput.unapply))
+      "verbose" -> optional(number),
+      "expand" -> optional(number))(DirectInput.apply)(DirectInput.unapply))
 
   val fileInputForm: Form[FileInput] = Form(
     mapping(
       "doctype" -> optional(text),
       "ss" -> optional(number),
-      "verbose" -> optional(number))(FileInput.apply)(FileInput.unapply))
+      "verbose" -> optional(number),
+      "expand" -> optional(number))(FileInput.apply)(FileInput.unapply))
 
   def index = Action {
     implicit request =>
@@ -82,6 +85,7 @@ object Application extends Controller {
               message.contentFormat = uriPath.format.getOrElse(TURTLE)
               message.ss = uriPath.ss.getOrElse(0) != 0
               message.verbose = uriPath.verbose.getOrElse(0) != 0
+              message.expand = uriPath.expand.getOrElse(0) != 0
               message = validateStream(message)
             } catch {
               case e: FileNotFoundException =>
@@ -118,6 +122,7 @@ object Application extends Controller {
             message.contentIS = new ByteArrayInputStream(message.content.getBytes("UTF-8"))
             message.ss = directInput.ss.getOrElse(0) != 0
             message.verbose = directInput.verbose.getOrElse(0) != 0
+            message.expand = directInput.expand.getOrElse(0) != 0
             message = validateStream(message)
             Ok(views.html.generic.format(message))
           } else {
@@ -152,6 +157,7 @@ object Application extends Controller {
             message.contentIS = new ByteArrayInputStream(FileUtils.readFileToByteArray(file.ref.file))
             message.ss = fileInput.ss.getOrElse(0) != 0
             message.verbose = fileInput.verbose.getOrElse(0) != 0
+            message.expand = fileInput.expand.getOrElse(0) != 0
             message = validateStream(message)
             Ok(views.html.generic.format(message))
           })

@@ -13,6 +13,7 @@ case class CMessage(val action : String) {
   
   var verbose = false
   var ss = false
+  var expand = false
   
   private var _contentIS : String = null
   private var _integrityQueries: Array[(String, IntegrityQuery)] = Array.empty
