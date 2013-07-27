@@ -30,19 +30,23 @@ import es.weso.computex.entities.IntegrityQuery
 import org.apache.commons.io.IOUtils
 
 case class Computex(val ontologyURI: String, val validationDir: String,
-  val closureFile: String, val flattenFile: String) {
-
-  def computex(message:CMessage): Array[(String, IntegrityQuery)] = {
+  val computationDir: String, val closureFile: String, val flattenFile: String,
+  val findStepsQuery: String) {
+  
+  def computex(message: CMessage): Array[(String, IntegrityQuery)] = {
     println("Computex: Compute and Validate index data")
-
     val model = loadData(ontologyURI, message)
-    val expandedModel = expandCube(model)
-    validate(expandedModel, validationDir)
+    val expandedCube = expandCube(model)
+    val expandedComputex = if (message.expand) {
+      expandComputex(model)
+    } else { model }
+    validate(expandedComputex, validationDir)
   }
 
   def loadData(ontologyURI: String,
     message: CMessage): Model = {
     val model = ModelFactory.createDefaultModel
+
     loadModel(model, Computex.loadFile(ontologyURI))
     loadModel(model, message.contentIS, message.contentFormat)
   }
@@ -59,17 +63,46 @@ case class Computex(val ontologyURI: String, val validationDir: String,
     result
   }
 
+  def expandComputex(model: Model): Model = {
+    val ds: Dataset = DatasetFactory.create(model)
+    val graphStore: GraphStore = GraphStoreFactory.create(ds)
+    val steps = getSteps(model)
+    for (step <- steps) {
+      val Pattern = s"(q.*-${step}-.*).sparql".r
+      new java.io.File(computationDir).listFiles match {
+        case Pattern(file)=>
+           val contents = fromFile(file).mkString
+           UpdateAction.parseExecute(contents, graphStore)
+      }
+    }
+    val result: Model = ModelFactory.createModelForGraph(graphStore.getDefaultGraph())
+    result.setNsPrefixes(model)
+    result
+  }
+
+  def getSteps(model: Model): List[String] = {
+    val file = new File(findStepsQuery)
+    val query = readQuery(file)
+    val qexec = QueryExecutionFactory.create(query, model)
+    try {
+      val result = qexec.execSelect()
+      collect("stepQuery", result)
+    } finally {
+      qexec.close
+    }
+  }
+
+  def collect(varName: String, result: ResultSet): List[String] = {
+    val ls = result.toList
+    ls.map(r => r.getLiteral(varName).getString)
+  }
+
   def validate(model: Model,
-    validationDir: String): Array[(String, IntegrityQuery)] = runQueries(model, validationDir)
-
-  def compute(model: Model,
-    computationDir: String): Array[(String, IntegrityQuery)] = runQueries(model, computationDir)
-
-  def runQueries(model: Model, dir: String): Array[(String, IntegrityQuery)] = {
-    val iQueries:Array[(String, IntegrityQuery)] = for {
-      q <- readQueries(dir)
+    validationDir: String): Array[(String, IntegrityQuery)] = {
+    val iQueries: Array[(String, IntegrityQuery)] = for {
+      q <- readQueries(validationDir)
       currentModel = executeQuery(model, q._2)
-    }yield{
+    } yield {
       val iQuery = Parser.parse(q, currentModel)
       (iQuery.query._1, iQuery)
     }
@@ -83,19 +116,18 @@ case class Computex(val ontologyURI: String, val validationDir: String,
       throw new IOException(s"Directory: ${dirName} not accessible")
     else {
       for (file <- dir.listFiles if file.getName endsWith ".sparql") yield {
-        val contents = fromFile(file).mkString
         val queryName = file.getName match {
           case pattern(i) => i
           case _ => "UNKNOWN QUERY NAME"
-        }     
-        (queryName, QueryFactory.create(contents))
+        }
+        (queryName, readQuery(file))
       }
     }
   }
 
-  def loadModel(model: Model, inputStream: InputStream, format:String = TURTLE) = {
-    println("LOAD MODEL")
-    model.read(inputStream, "", format)
+  def readQuery(file: File): Query = {
+    val contents = scala.io.Source.fromFile(file).mkString;
+    QueryFactory.create(contents)
   }
 
   def executeQuery(model: Model, query: Query): Model = {
@@ -104,6 +136,12 @@ case class Computex(val ontologyURI: String, val validationDir: String,
     qexec.execConstruct(resultModel)
     resultModel
   }
+
+  def loadModel(model: Model, inputStream: InputStream, format: String = TURTLE) = {
+    println("LOAD MODEL")
+    model.read(inputStream, "", format)
+  }
+
 }
 
 object Computex {

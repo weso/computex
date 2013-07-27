@@ -3,6 +3,9 @@ package es.weso.utils
 import com.hp.hpl.jena.rdf.model.ModelFactory
 import com.hp.hpl.jena.rdf.model.Model
 import com.hp.hpl.jena.rdf.model.Resource
+import com.hp.hpl.jena.rdf.model.Statement
+import com.hp.hpl.jena.rdf.model.LiteralRequiredException
+import com.hp.hpl.jena.rdf.model.ResourceRequiredException
 
 object JenaUtils {
 
@@ -32,5 +35,20 @@ object JenaUtils {
       nModel
     }
     inner(resource)
+  }
+
+  def statementAsString(statement: Statement): String = {
+    val resource = try {
+      statement.getResource().toString()
+    } catch {
+      case e: ResourceRequiredException => null
+    }
+    if (resource == null) {
+      try {
+        statement.getLiteral().toString()
+      } catch {
+        case e: LiteralRequiredException => resource
+      }
+    } else resource
   }
 }

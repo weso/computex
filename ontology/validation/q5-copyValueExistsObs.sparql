@@ -19,7 +19,7 @@ CONSTRUCT {
  _:error a cex:Error ;
          cex:errorParam 
 		   [cex:name "obs" ; cex:value ?obs ] ,
-		   [cex:name "mObs"; cex:value ?mObs ] 
+		   [cex:name "cObs"; cex:value ?cObs ] 
 		   ;
          cex:msg "Observation does not have value in copy" .
 } WHERE { 

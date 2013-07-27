@@ -61,12 +61,13 @@ object Parser {
     val computexName = model.getProperty("http://purl.org/weso/ontology/computex#name")
     val computexValue = model.getProperty("http://purl.org/weso/ontology/computex#value")
     val seq : Seq[RDFNode] = model.listObjectsOfProperty(computexParam).toList
+    model.write(System.out)
     for {
       next <- seq.toArray
       node = next.asResource()
       foo = model.listStatements(node, computexName, null).nextStatement()
-      name = model.listStatements(node, computexName, null).nextStatement().getLiteral().getString()
-      value = model.listStatements(node, computexValue, null).nextStatement().getResource().toString()
+      name = statementAsString(model.listStatements(node, computexName, null).nextStatement())
+      value = statementAsString(model.listStatements(node, computexValue, null).nextStatement())
     } yield {
       CParam(name, value)
     }

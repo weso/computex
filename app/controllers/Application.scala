@@ -177,11 +177,13 @@ object Application extends Controller {
   private def validateStream(message: CMessage)(implicit request: RequestHeader): CMessage = {
     val conf: Config = ConfigFactory.load()
     val validationDir = conf.getString("validationDir")
+    val computationDir = conf.getString("computationDir")
     val ontologyURI = conf.getString("ontologyURI")
     val closureFile = conf.getString("closureFile")
     val flattenFile = conf.getString("flattenFile")
+    val findStepsQuery = conf.getString("findStepsQuery")
 
-    val cex = Computex(ontologyURI, validationDir, closureFile, flattenFile)
+    val cex = Computex(ontologyURI, validationDir, computationDir, closureFile, flattenFile, findStepsQuery)
 
     try {
       message.integrityQueries = cex.computex(message)
