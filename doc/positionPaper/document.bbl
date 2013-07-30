@@ -1,0 +1,27 @@
+\begin{thebibliography}{1}
+
+\bibitem{EARL}
+{Evaluation and Report Language} {EARL} 1.0 schema.
+\newblock {http://www.w3.org/TR/EARL10-Schema/}, 2011.
+\newblock W3C Working Draft.
+
+\bibitem{Cube}
+The {RDF} {Data} {Cube} {Vocabulary}.
+\newblock {http://www.w3.org/TR/vocab-data-cube/}, 2013.
+\newblock W3c Candidate Recommendation.
+
+\bibitem{Alvarez13}
+J.~M. Alvarez~Rodr\'{i}guez, J.~Clement, J.~E. Labra~Gayo, H.~Farhan, and
+  P.~Ordo\~{n}ez.
+\newblock {\em Cases on Open-Linked Data and Semantic Web Applications},
+  chapter Publishing Statistical Data following the Linked Open Data
+  Principles: The Web Index Project., pages 199--226.
+\newblock IGI Global, 2013.
+\newblock doi:10.4018/978-1-4666-2827-4.ch011.
+
+\bibitem{SPARQL11}
+S.~Harris and A.~Seaborne.
+\newblock {SPARQL 1.1 Query Language}.
+\newblock {http://www.w3.org/TR/sparql11-query/}, 2013.
+
+\end{thebibliography}

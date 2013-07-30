@@ -5,6 +5,18 @@ header#banner{
 	border-radious: 5px;
 }
 
+header a {
+	background: #365D95;
+}
+
+header a:link {
+	color: white ;
+}
+
+header a:visited {
+	color: white ;
+}
+
 h1#title img {
 	margin: 0.4em;
 	height: 70px;

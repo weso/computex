@@ -31,6 +31,49 @@
 @prefix ranking: <http://data.webfoundation.org/webindex/v2013/ranking/> .
 @prefix sdmx-subject: <http://purl.org/linked-data/sdmx/2009/subject#> .
 
+_:b0    a                       qb:Observation ;
+        wi-onto:ref-area        country:FIN ;
+        wi-onto:ref-year        2009 ;
+        qb:dataSet              dataset:D-Imputed ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Copy ;
+                                  cex:observation  obs:FD09
+                                ] ;
+        cex:indicator           indicator:D ;
+        cex:value               2 .
+
+_:b1    a                       qb:Observation ;
+        wi-onto:ref-area        country:ESP ;
+        wi-onto:ref-year        2011 ;
+        sdmx-concept:obsStatus  cex:Adjusted ;
+        cex:computation         [ a                cex:Adjust ;
+                                  cex:increment    8 ;
+                                  cex:observation  _:b2
+                                ] ;
+        cex:indicator           indicator:D ;
+        cex:value               8.577350269189625779018297 .
+
+_:b3    a                       qb:Observation ;
+        wi-onto:ref-area        country:CHL ;
+        wi-onto:ref-year        2009 ;
+        qb:dataSet              dataset:A-Imputed ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Copy ;
+                                  cex:observation  obs:CA09
+                                ] ;
+        cex:indicator           indicator:A ;
+        cex:value               3 .
+
+_:b4    a                       qb:Observation ;
+        wi-onto:ref-area        country:FIN ;
+        wi-onto:ref-year        2011 ;
+        sdmx-concept:obsStatus  cex:Normalized ;
+        cex:computation         [ a                cex:Normalize ;
+                                  cex:observation  _:b5
+                                ] ;
+        cex:indicator           indicator:A ;
+        cex:value               -1.0 .
+
 slice:Composite  a         qb:Slice ;
         wi-onto:ref-year   2011 ;
         qb:observation     [ a                       qb:Observation ;
@@ -66,16 +109,26 @@ slice:Composite  a         qb:Slice ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      index:index .
 
-_:b0    a                       qb:Observation ;
-        wi-onto:ref-area        country:ESP ;
-        wi-onto:ref-year        2010 ;
-        qb:dataSet              dataset:D-Imputed ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Copy ;
-                                  cex:observation  obs:ED10
+_:b6    a                       qb:Observation ;
+        wi-onto:ref-area        country:CHL ;
+        wi-onto:ref-year        2011 ;
+        sdmx-concept:obsStatus  cex:Normalized ;
+        cex:computation         [ a                cex:Normalize ;
+                                  cex:observation  _:b7
                                 ] ;
-        cex:indicator           indicator:D ;
-        cex:value               6 .
+        cex:indicator           indicator:B ;
+        cex:value               1.0 .
+
+_:b8    a                       qb:Observation ;
+        wi-onto:ref-area        country:ESP ;
+        wi-onto:ref-year        2011 ;
+        sdmx-concept:obsStatus  cex:Adjusted ;
+        cex:computation         [ a                cex:Adjust ;
+                                  cex:increment    8 ;
+                                  cex:observation  _:b9
+                                ] ;
+        cex:indicator           indicator:C ;
+        cex:value               7.079684306331118724199863 .
 
 country:FIN  a                       wi-onto:Country ;
         rdfs:label                   "Finland"@en , "Finlandia"@es ;
@@ -117,43 +170,11 @@ indicator:A  a                    wi-onto:SecondaryIndicator ;
         time:intervalFinishes     2009 ;
         time:intervalStarts       2012 .
 
-_:b1    a                       qb:Observation ;
-        wi-onto:ref-area        country:ESP ;
-        wi-onto:ref-year        2009 ;
-        qb:dataSet              dataset:A-Sorted ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Filter ;
-                                  cex:observation  _:b2
-                                ] ;
-        cex:indicator           indicator:A ;
-        cex:value               2 .
-
 slice:A10-Sorted  a        qb:Slice ;
         wi-onto:ref-year   2010 ;
-        qb:observation     _:b3 , _:b4 , _:b5 ;
+        qb:observation     _:b10 , _:b11 , _:b12 ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:A .
-
-_:b6    a                       qb:Observation ;
-        wi-onto:ref-area        country:ESP ;
-        wi-onto:ref-year        2011 ;
-        sdmx-concept:obsStatus  cex:Normalized ;
-        cex:computation         [ a                cex:Normalize ;
-                                  cex:observation  _:b7
-                                ] ;
-        cex:indicator           indicator:Q1 ;
-        cex:value               -1.0 .
-
-_:b8    a                       qb:Observation ;
-        wi-onto:ref-area        country:CHL ;
-        wi-onto:ref-year        2011 ;
-        sdmx-concept:obsStatus  cex:Adjusted ;
-        cex:computation         [ a                cex:Adjust ;
-                                  cex:increment    8 ;
-                                  cex:observation  _:b9
-                                ] ;
-        cex:indicator           indicator:C ;
-        cex:value               9.064115020804643975143907 .
 
 obs:CA10  a                         wi-onto:Observation , qb:Observation ;
         rdfs:label                  "A in CHL  during 2010"@en ;
@@ -170,17 +191,6 @@ obs:CA10  a                         wi-onto:Observation , qb:Observation ;
         cex:indicator               indicator:A ;
         cex:md5-checksum            "md5 for CA10" ;
         cex:value                   4 .
-
-_:b10   a                       qb:Observation ;
-        wi-onto:ref-area        country:CHL ;
-        wi-onto:ref-year        2010 ;
-        qb:dataSet              dataset:B-Imputed ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Copy ;
-                                  cex:observation  obs:CB10
-                                ] ;
-        cex:indicator           indicator:B ;
-        cex:value               4 .
 
 wi-onto:DSD  a        qb:DataStructureDefinition ;
         qb:component  [ qb:attribute            sdmx-attribute:unitMeasure ;
@@ -207,41 +217,9 @@ wi-onto:DSD  a        qb:DataStructureDefinition ;
 
 slice:Q1-Sorted  a         qb:Slice ;
         wi-onto:ref-year   2011 ;
-        qb:observation     _:b7 , _:b11 , _:b12 ;
+        qb:observation     _:b13 , _:b14 , _:b15 ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:Q1 .
-
-_:b13   a                       qb:Observation ;
-        wi-onto:ref-area        country:CHL ;
-        wi-onto:ref-year        2011 ;
-        sdmx-concept:obsStatus  cex:Normalized ;
-        cex:computation         [ a                cex:Normalize ;
-                                  cex:observation  _:b14
-                                ] ;
-        cex:indicator           indicator:A ;
-        cex:value               1.0 .
-
-_:b15   a                       qb:Observation ;
-        wi-onto:ref-area        country:ESP ;
-        wi-onto:ref-year        2010 ;
-        qb:dataSet              dataset:C-Sorted ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Filter ;
-                                  cex:observation  _:b16
-                                ] ;
-        cex:indicator           indicator:C ;
-        cex:value               5 .
-
-_:b17   a                       qb:Observation ;
-        wi-onto:ref-area        country:CHL ;
-        wi-onto:ref-year        2011 ;
-        qb:dataSet              dataset:A-Imputed ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Copy ;
-                                  cex:observation  obs:CA11
-                                ] ;
-        cex:indicator           indicator:A ;
-        cex:value               7 .
 
 obs:EB11  a                         wi-onto:Observation , qb:Observation ;
         rdfs:label                  "B in ESP during 2011"@en ;
@@ -265,20 +243,9 @@ slice:Q1-Raw  a            qb:Slice ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:Q1 .
 
-_:b18   a                       qb:Observation ;
-        wi-onto:ref-area        country:FIN ;
-        wi-onto:ref-year        2011 ;
-        qb:dataSet              dataset:Q2-Sorted ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Filter ;
-                                  cex:observation  obs:FQ2
-                                ] ;
-        cex:indicator           indicator:Q2 ;
-        cex:value               3 .
-
 slice:C09-Imputed  a       qb:Slice ;
         wi-onto:ref-year   2009 ;
-        qb:observation     _:b19 , _:b20 , _:b21 ;
+        qb:observation     _:b16 , _:b17 , _:b18 ;
         qb:observation     [ a                       qb:Observation ;
                              wi-onto:ref-area        country:ARM ;
                              wi-onto:ref-year        2009 ;
@@ -342,21 +309,32 @@ obs:EA09  a                         qb:Observation , wi-onto:Observation ;
         cex:md5-checksum            "md5 for EA09" ;
         cex:value                   2 .
 
-_:b14   a                       qb:Observation ;
+_:b19   a                       qb:Observation ;
         wi-onto:ref-area        country:CHL ;
         wi-onto:ref-year        2011 ;
-        qb:dataSet              dataset:A-Sorted ;
+        qb:dataSet              dataset:C-Sorted ;
         sdmx-concept:obsStatus  cex:Imputed ;
         cex:computation         [ a                cex:Filter ;
-                                  cex:observation  _:b17
+                                  cex:observation  _:b20
                                 ] ;
-        cex:indicator           indicator:A ;
-        cex:value               7 .
+        cex:indicator           indicator:C ;
+        cex:value               10.666666666666666666666664 .
 
 wi-onto:has-country  a  rdf:Property , owl:ObjectProperty ;
         rdfs:comment  "Creates a link between a region and a country."@en ;
         rdfs:label    "has Country property"@en ;
         rdfs:range    skos:Concept .
+
+_:b16   a                       qb:Observation ;
+        wi-onto:ref-area        country:ESP ;
+        wi-onto:ref-year        2009 ;
+        qb:dataSet              dataset:C-Imputed ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Copy ;
+                                  cex:observation  obs:EC09
+                                ] ;
+        cex:indicator           indicator:C ;
+        cex:value               4 .
 
 slice:DQ1-Mean  a          qb:Slice ;
         wi-onto:ref-year   2011 ;
@@ -441,6 +419,17 @@ dataset:D-Normalized  a             qb:DataSet ;
                                     ] ;
         cex:md5-checksum            "MD5..." .
 
+_:b21   a                       qb:Observation ;
+        wi-onto:ref-area        country:CHL ;
+        wi-onto:ref-year        2011 ;
+        qb:dataSet              dataset:D-Imputed ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Copy ;
+                                  cex:observation  obs:CD11
+                                ] ;
+        cex:indicator           indicator:D ;
+        cex:value               8 .
+
 country:ESP  a                       wi-onto:Country ;
         rdfs:label                   "España"@es , "Spain"@en ;
         wi-onto:has-iso-alpha2-code  "ES" ;
@@ -452,17 +441,6 @@ country:ESP  a                       wi-onto:Country ;
         cex:md5-checksum             "MD5 of ESP" ;
         geo:lat                      40.46366700000001 ;
         geo:long                     -3.74922 .
-
-_:b22   a                       qb:Observation ;
-        wi-onto:ref-area        country:ESP ;
-        wi-onto:ref-year        2011 ;
-        sdmx-concept:obsStatus  cex:Adjusted ;
-        cex:computation         [ a                cex:Adjust ;
-                                  cex:increment    8 ;
-                                  cex:observation  _:b23
-                                ] ;
-        cex:indicator           indicator:Q2 ;
-        cex:value               9.12089707663561000722709 .
 
 dataset:A-Imputed  a                qb:DataSet ;
         rdfs:comment                "Description of dataset A-Imputed"@en ;
@@ -513,10 +491,43 @@ obs:CQ2  a                          wi-onto:Observation , qb:Observation ;
         cex:md5-checksum            "md5 for CQ2" ;
         cex:value                   4 .
 
+_:b22   a                       qb:Observation ;
+        wi-onto:ref-area        country:FIN ;
+        wi-onto:ref-year        2009 ;
+        qb:dataSet              dataset:B-Sorted ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Filter ;
+                                  cex:observation  _:b23
+                                ] ;
+        cex:indicator           indicator:B ;
+        cex:value               5 .
+
 wi-onto:ref-dbpedia  a  rdf:Property , owl:ObjectProperty ;
         rdfs:comment  "A mapping property to link an entity with a DBPedia resource"@en ;
         rdfs:label    "link to DBPedia resource"@en ;
         rdfs:range    skos:Concept .
+
+_:b24   a                       qb:Observation ;
+        wi-onto:ref-area        country:ESP ;
+        wi-onto:ref-year        2011 ;
+        sdmx-concept:obsStatus  cex:Adjusted ;
+        cex:computation         [ a                cex:Adjust ;
+                                  cex:increment    8 ;
+                                  cex:observation  _:b25
+                                ] ;
+        cex:indicator           indicator:A ;
+        cex:value               8.0 .
+
+_:b26   a                       qb:Observation ;
+        wi-onto:ref-area        country:FIN ;
+        wi-onto:ref-year        2010 ;
+        qb:dataSet              dataset:D-Sorted ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Filter ;
+                                  cex:observation  _:b27
+                                ] ;
+        cex:indicator           indicator:D ;
+        cex:value               3 .
 
 obs:AB11  a                         wi-onto:Observation , qb:Observation ;
         rdfs:label                  "B in ARM during 2011"@en ;
@@ -533,6 +544,27 @@ obs:AB11  a                         wi-onto:Observation , qb:Observation ;
         cex:indicator               indicator:B ;
         cex:md5-checksum            "md5 for AB11" ;
         cex:value                   4 .
+
+_:b28   a                       qb:Observation ;
+        wi-onto:ref-area        country:FIN ;
+        wi-onto:ref-year        2011 ;
+        sdmx-concept:obsStatus  cex:Normalized ;
+        cex:computation         [ a                cex:Normalize ;
+                                  cex:observation  _:b29
+                                ] ;
+        cex:indicator           indicator:D ;
+        cex:value               -1.154700538379251558036595 .
+
+_:b30   a                       qb:Observation ;
+        wi-onto:ref-area        country:ESP ;
+        wi-onto:ref-year        2010 ;
+        qb:dataSet              dataset:B-Imputed ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Copy ;
+                                  cex:observation  obs:EB10
+                                ] ;
+        cex:indicator           indicator:B ;
+        cex:value               8 .
 
 subindex:ABQ2  a     cex:SubIndex ;
         rdfs:label   "Subindex ABCQ2"@en ;
@@ -560,6 +592,28 @@ obs:AA09  a                         qb:Observation , wi-onto:Observation ;
         cex:md5-checksum            "md5 for AA09" ;
         cex:value                   1 .
 
+_:b31   a                       qb:Observation ;
+        wi-onto:ref-area        country:ESP ;
+        wi-onto:ref-year        2011 ;
+        qb:dataSet              dataset:A-Imputed ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Copy ;
+                                  cex:observation  obs:EA11
+                                ] ;
+        cex:indicator           indicator:A ;
+        cex:value               5 .
+
+_:b17   a                       qb:Observation ;
+        wi-onto:ref-area        country:FIN ;
+        wi-onto:ref-year        2009 ;
+        qb:dataSet              dataset:C-Imputed ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Copy ;
+                                  cex:observation  obs:FC09
+                                ] ;
+        cex:indicator           indicator:C ;
+        cex:value               4 .
+
 slice:A09-Raw  a           qb:Slice ;
         wi-onto:ref-year   2009 ;
         qb:observation     obs:AA09 , obs:CA09 , obs:FA09 , obs:EA09 ;
@@ -569,6 +623,16 @@ slice:A09-Raw  a           qb:Slice ;
 cex:Increment  a         rdfs:Class , owl:Class ;
         rdfs:label       "Increment a value by a fixed quantity"@en ;
         rdfs:subClassOf  cex:Computation .
+
+_:b32   a                       qb:Observation ;
+        wi-onto:ref-area        country:CHL ;
+        wi-onto:ref-year        2011 ;
+        sdmx-concept:obsStatus  cex:Normalized ;
+        cex:computation         [ a                cex:Normalize ;
+                                  cex:observation  _:b19
+                                ] ;
+        cex:indicator           indicator:C ;
+        cex:value               1.064115020804643975143907 .
 
 obs:FA11  a                         qb:Observation , wi-onto:Observation ;
         rdfs:label                  "A in FIN during 2011"@en ;
@@ -586,49 +650,16 @@ obs:FA11  a                         qb:Observation , wi-onto:Observation ;
         cex:md5-checksum            "md5 for FA11" ;
         cex:value                   3 .
 
-_:b24   a                       qb:Observation ;
-        wi-onto:ref-area        country:CHL ;
-        wi-onto:ref-year        2010 ;
-        qb:dataSet              dataset:C-Imputed ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Copy ;
-                                  cex:observation  obs:CC10
-                                ] ;
-        cex:indicator           indicator:C ;
-        cex:value               8 .
-
-_:b25   a                       qb:Observation ;
+_:b33   a                       qb:Observation ;
         wi-onto:ref-area        country:FIN ;
         wi-onto:ref-year        2011 ;
-        qb:dataSet              dataset:B-Sorted ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Filter ;
-                                  cex:observation  _:b26
+        sdmx-concept:obsStatus  cex:Adjusted ;
+        cex:computation         [ a                cex:Adjust ;
+                                  cex:increment    8 ;
+                                  cex:observation  _:b4
                                 ] ;
-        cex:indicator           indicator:B ;
-        cex:value               7 .
-
-_:b27   a                       qb:Observation ;
-        wi-onto:ref-area        country:ESP ;
-        wi-onto:ref-year        2009 ;
-        qb:dataSet              dataset:B-Imputed ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Copy ;
-                                  cex:observation  obs:EB09
-                                ] ;
-        cex:indicator           indicator:B ;
-        cex:value               6 .
-
-_:b28   a                       qb:Observation ;
-        wi-onto:ref-area        country:FIN ;
-        wi-onto:ref-year        2011 ;
-        qb:dataSet              dataset:D-Sorted ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Filter ;
-                                  cex:observation  _:b29
-                                ] ;
-        cex:indicator           indicator:D ;
-        cex:value               4 .
+        cex:indicator           indicator:A ;
+        cex:value               7.0 .
 
 slice:Q2-Raw  a            qb:Slice ;
         wi-onto:ref-year   2011 ;
@@ -640,16 +671,6 @@ cex:AverageGrowth2  a    rdfs:Class , owl:Class ;
         rdfs:label       "Impute a value as the average growth of 2 values"@en ;
         rdfs:subClassOf  cex:Computation .
 
-_:b30   a                       qb:Observation ;
-        wi-onto:ref-area        country:CHL ;
-        wi-onto:ref-year        2011 ;
-        sdmx-concept:obsStatus  cex:Normalized ;
-        cex:computation         [ a                cex:Normalize ;
-                                  cex:observation  _:b31
-                                ] ;
-        cex:indicator           indicator:D ;
-        cex:value               0.577350269189625779018297 .
-
 slice:A09-N  a             qb:Slice ;
         wi-onto:ref-year   2009 ;
         qb:observation     [ a                       qb:Observation ;
@@ -657,7 +678,7 @@ slice:A09-N  a             qb:Slice ;
                              wi-onto:ref-year        2009 ;
                              sdmx-concept:obsStatus  cex:Normalized ;
                              cex:computation         [ a                cex:Normalize ;
-                                                       cex:observation  _:b32
+                                                       cex:observation  _:b34
                                                      ] ;
                              cex:indicator           indicator:A ;
                              cex:value               1.0
@@ -667,7 +688,7 @@ slice:A09-N  a             qb:Slice ;
                              wi-onto:ref-year        2009 ;
                              sdmx-concept:obsStatus  cex:Normalized ;
                              cex:computation         [ a                cex:Normalize ;
-                                                       cex:observation  _:b33
+                                                       cex:observation  _:b35
                                                      ] ;
                              cex:indicator           indicator:A ;
                              cex:value               -1.0
@@ -677,35 +698,13 @@ slice:A09-N  a             qb:Slice ;
                              wi-onto:ref-year        2009 ;
                              sdmx-concept:obsStatus  cex:Normalized ;
                              cex:computation         [ a                cex:Normalize ;
-                                                       cex:observation  _:b1
+                                                       cex:observation  _:b36
                                                      ] ;
                              cex:indicator           indicator:A ;
                              cex:value               0.0
                            ] ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:A .
-
-_:b34   a                       qb:Observation ;
-        wi-onto:ref-area        country:CHL ;
-        wi-onto:ref-year        2011 ;
-        qb:dataSet              dataset:C-Sorted ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Filter ;
-                                  cex:observation  _:b35
-                                ] ;
-        cex:indicator           indicator:C ;
-        cex:value               10.666666666666666666666664 .
-
-_:b36   a                       qb:Observation ;
-        wi-onto:ref-area        country:CHL ;
-        wi-onto:ref-year        2010 ;
-        qb:dataSet              dataset:A-Imputed ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Copy ;
-                                  cex:observation  obs:CA10
-                                ] ;
-        cex:indicator           indicator:A ;
-        cex:value               4 .
 
 dataset:D-Imputed  a                qb:DataSet ;
         rdfs:comment                "Description of dataset A-Imputed"@en ;
@@ -731,36 +730,25 @@ slice:D09-Raw  a           qb:Slice ;
         cex:indicator      indicator:D .
 
 _:b37   a                       qb:Observation ;
-        wi-onto:ref-area        country:FIN ;
-        wi-onto:ref-year        2009 ;
-        qb:dataSet              dataset:B-Sorted ;
+        wi-onto:ref-area        country:ESP ;
+        wi-onto:ref-year        2011 ;
+        qb:dataSet              dataset:C-Sorted ;
         sdmx-concept:obsStatus  cex:Imputed ;
         cex:computation         [ a                cex:Filter ;
                                   cex:observation  _:b38
                                 ] ;
-        cex:indicator           indicator:B ;
-        cex:value               5 .
+        cex:indicator           indicator:C ;
+        cex:value               3 .
 
 slice:A11-N  a             qb:Slice ;
         wi-onto:ref-year   2011 ;
-        qb:observation     _:b13 , _:b39 , _:b40 ;
+        qb:observation     _:b39 , _:b4 , _:b25 ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:A .
 
-_:b41   a                       qb:Observation ;
-        wi-onto:ref-area        country:ESP ;
-        wi-onto:ref-year        2011 ;
-        sdmx-concept:obsStatus  cex:Adjusted ;
-        cex:computation         [ a                cex:Adjust ;
-                                  cex:increment    8 ;
-                                  cex:observation  _:b42
-                                ] ;
-        cex:indicator           indicator:D ;
-        cex:value               8.577350269189625779018297 .
-
 slice:B10-Imputed  a       qb:Slice ;
         wi-onto:ref-year   2010 ;
-        qb:observation     _:b43 , _:b44 , _:b10 ;
+        qb:observation     _:b30 , _:b40 , _:b41 ;
         qb:observation     [ a                       qb:Observation ;
                              wi-onto:ref-area        country:ARM ;
                              wi-onto:ref-year        2010 ;
@@ -775,9 +763,20 @@ slice:B10-Imputed  a       qb:Slice ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:B .
 
+_:b42   a                       qb:Observation ;
+        wi-onto:ref-area        country:CHL ;
+        wi-onto:ref-year        2009 ;
+        qb:dataSet              dataset:D-Imputed ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Copy ;
+                                  cex:observation  obs:CD09
+                                ] ;
+        cex:indicator           indicator:D ;
+        cex:value               4 .
+
 slice:D09-Sorted  a        qb:Slice ;
         wi-onto:ref-year   2009 ;
-        qb:observation     _:b45 , _:b46 , _:b47 ;
+        qb:observation     _:b43 , _:b44 , _:b45 ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:D .
 
@@ -791,7 +790,7 @@ slice:Q1-W  a              qb:Slice ;
                              cex:computation         [ a                 cex:Weighted ;
                                                        cex:dimension     cex:indicator ;
                                                        cex:element       indicator:Q1 ;
-                                                       cex:observation   _:b48 ;
+                                                       cex:observation   _:b46 ;
                                                        cex:value         9.0 ;
                                                        cex:weight        0.5 ;
                                                        cex:weightSchema  weightSchema:indicatorWeights
@@ -807,7 +806,7 @@ slice:Q1-W  a              qb:Slice ;
                              cex:computation         [ a                 cex:Weighted ;
                                                        cex:dimension     cex:indicator ;
                                                        cex:element       indicator:Q1 ;
-                                                       cex:observation   _:b49 ;
+                                                       cex:observation   _:b47 ;
                                                        cex:value         8.0 ;
                                                        cex:weight        0.5 ;
                                                        cex:weightSchema  weightSchema:indicatorWeights
@@ -823,7 +822,7 @@ slice:Q1-W  a              qb:Slice ;
                              cex:computation         [ a                 cex:Weighted ;
                                                        cex:dimension     cex:indicator ;
                                                        cex:element       indicator:Q1 ;
-                                                       cex:observation   _:b50 ;
+                                                       cex:observation   _:b48 ;
                                                        cex:value         7.0 ;
                                                        cex:weight        0.5 ;
                                                        cex:weightSchema  weightSchema:indicatorWeights
@@ -872,6 +871,17 @@ slice:Ranking-ABQ2  a      qb:Slice ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      subindex:ABQ2 .
 
+_:b49   a                       qb:Observation ;
+        wi-onto:ref-area        country:CHL ;
+        wi-onto:ref-year        2011 ;
+        qb:dataSet              dataset:Q2-Sorted ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Filter ;
+                                  cex:observation  obs:CQ2
+                                ] ;
+        cex:indicator           indicator:Q2 ;
+        cex:value               4 .
+
 cex:Mean  a              rdfs:Class , owl:Class ;
         rdfs:label       "Mean of other observations"@en ;
         rdfs:subClassOf  cex:Computation .
@@ -915,6 +925,27 @@ cex:Copy  a              rdfs:Class , owl:Class ;
         rdfs:label       "Value copied from other observation"@en ;
         rdfs:subClassOf  cex:Computation .
 
+_:b12   a                       qb:Observation ;
+        wi-onto:ref-area        country:CHL ;
+        wi-onto:ref-year        2010 ;
+        qb:dataSet              dataset:A-Sorted ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Filter ;
+                                  cex:observation  _:b50
+                                ] ;
+        cex:indicator           indicator:A ;
+        cex:value               4 .
+
+_:b51   a                       qb:Observation ;
+        wi-onto:ref-area        country:FIN ;
+        wi-onto:ref-year        2011 ;
+        sdmx-concept:obsStatus  cex:Normalized ;
+        cex:computation         [ a                cex:Normalize ;
+                                  cex:observation  _:b52
+                                ] ;
+        cex:indicator           indicator:Q2 ;
+        cex:value               -0.800640769025435719447921 .
+
 dataset:C-Imputed  a                qb:DataSet ;
         rdfs:comment                "Description of dataset A-Imputed"@en ;
         rdfs:label                  "C-Imputed"@en ;
@@ -932,33 +963,75 @@ dataset:C-Imputed  a                qb:DataSet ;
                                     ] ;
         cex:md5-checksum            "MD5..." .
 
+_:b53   a                       qb:Observation ;
+        wi-onto:ref-area        country:FIN ;
+        wi-onto:ref-year        2011 ;
+        sdmx-concept:obsStatus  cex:Adjusted ;
+        cex:computation         [ a                cex:Adjust ;
+                                  cex:increment    8 ;
+                                  cex:observation  _:b28
+                                ] ;
+        cex:indicator           indicator:D ;
+        cex:value               6.845299461620748441963405 .
+
+_:b54   a                       qb:Observation ;
+        wi-onto:ref-area        country:ESP ;
+        wi-onto:ref-year        2009 ;
+        qb:dataSet              dataset:C-Sorted ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Filter ;
+                                  cex:observation  _:b16
+                                ] ;
+        cex:indicator           indicator:C ;
+        cex:value               4 .
+
+_:b38   a                       qb:Observation ;
+        wi-onto:ref-area        country:ESP ;
+        wi-onto:ref-year        2011 ;
+        qb:dataSet              dataset:C-Imputed ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Copy ;
+                                  cex:observation  obs:EC11
+                                ] ;
+        cex:indicator           indicator:C ;
+        cex:value               3 .
+
 cex:component  a      rdf:Property , owl:ObjectProperty ;
         rdfs:comment  "Component that provides the indicator"@en ;
         rdfs:domain   cex:Indicator ;
         rdfs:label    "has-component"@en ;
         rdfs:range    cex:Component .
 
-_:b51   a                       qb:Observation ;
-        wi-onto:ref-area        country:FIN ;
+_:b25   a                       qb:Observation ;
+        wi-onto:ref-area        country:ESP ;
         wi-onto:ref-year        2011 ;
-        qb:dataSet              dataset:A-Sorted ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Filter ;
-                                  cex:observation  _:b52
+        sdmx-concept:obsStatus  cex:Normalized ;
+        cex:computation         [ a                cex:Normalize ;
+                                  cex:observation  _:b55
                                 ] ;
         cex:indicator           indicator:A ;
-        cex:value               3 .
+        cex:value               0.0 .
 
-_:b53   a                       qb:Observation ;
+_:b56   a                       qb:Observation ;
         wi-onto:ref-area        country:FIN ;
-        wi-onto:ref-year        2010 ;
-        qb:dataSet              dataset:D-Imputed ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Copy ;
-                                  cex:observation  obs:FD10
+        wi-onto:ref-year        2011 ;
+        sdmx-concept:obsStatus  cex:Normalized ;
+        cex:computation         [ a                cex:Normalize ;
+                                  cex:observation  _:b57
                                 ] ;
-        cex:indicator           indicator:D ;
-        cex:value               3 .
+        cex:indicator           indicator:B ;
+        cex:value               0.0 .
+
+_:b58   a                       qb:Observation ;
+        wi-onto:ref-area        country:FIN ;
+        wi-onto:ref-year        2011 ;
+        sdmx-concept:obsStatus  cex:Adjusted ;
+        cex:computation         [ a                cex:Adjust ;
+                                  cex:increment    8 ;
+                                  cex:observation  _:b59
+                                ] ;
+        cex:indicator           indicator:C ;
+        cex:value               7.856200672864237300656229 .
 
 weightSchema:clusterWeights
         a           cex:WeightSchema ;
@@ -978,6 +1051,16 @@ weightSchema:clusterWeights
                       cex:element  component:AB ;
                       cex:value    1
                     ] .
+
+_:b60   a                       qb:Observation ;
+        wi-onto:ref-area        country:ESP ;
+        wi-onto:ref-year        2011 ;
+        sdmx-concept:obsStatus  cex:Normalized ;
+        cex:computation         [ a                cex:Normalize ;
+                                  cex:observation  _:b61
+                                ] ;
+        cex:indicator           indicator:Q2 ;
+        cex:value               1.12089707663561000722709 .
 
 obs:AQ2  a                          wi-onto:Observation , qb:Observation ;
         rdfs:label                  "Q2 in ARM during 2011"@en ;
@@ -1008,17 +1091,6 @@ indicator:C  a                    wi-onto:SecondaryIndicator ;
         time:intervalFinishes     2009 ;
         time:intervalStarts       2012 .
 
-_:b35   a                       qb:Observation ;
-        wi-onto:ref-area        country:CHL ;
-        wi-onto:ref-year        2011 ;
-        qb:dataSet              dataset:C-Imputed ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                 cex:AverageGrowth ;
-                                  cex:observations  ( obs:CC10 obs:CC09 )
-                                ] ;
-        cex:indicator           indicator:C ;
-        cex:value               10.666666666666666666666664 .
-
 slice:B09-N  a             qb:Slice ;
         wi-onto:ref-year   2009 ;
         qb:observation     [ a                       qb:Observation ;
@@ -1026,7 +1098,7 @@ slice:B09-N  a             qb:Slice ;
                              wi-onto:ref-year        2009 ;
                              sdmx-concept:obsStatus  cex:Normalized ;
                              cex:computation         [ a                cex:Normalize ;
-                                                       cex:observation  _:b54
+                                                       cex:observation  _:b62
                                                      ] ;
                              cex:indicator           indicator:B ;
                              cex:value               1.0
@@ -1036,7 +1108,7 @@ slice:B09-N  a             qb:Slice ;
                              wi-onto:ref-year        2009 ;
                              sdmx-concept:obsStatus  cex:Normalized ;
                              cex:computation         [ a                cex:Normalize ;
-                                                       cex:observation  _:b37
+                                                       cex:observation  _:b22
                                                      ] ;
                              cex:indicator           indicator:B ;
                              cex:value               0.0
@@ -1046,24 +1118,13 @@ slice:B09-N  a             qb:Slice ;
                              wi-onto:ref-year        2009 ;
                              sdmx-concept:obsStatus  cex:Normalized ;
                              cex:computation         [ a                cex:Normalize ;
-                                                       cex:observation  _:b55
+                                                       cex:observation  _:b63
                                                      ] ;
                              cex:indicator           indicator:B ;
                              cex:value               -1.0
                            ] ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:B .
-
-_:b56   a                       qb:Observation ;
-        wi-onto:ref-area        country:ESP ;
-        wi-onto:ref-year        2011 ;
-        qb:dataSet              dataset:C-Sorted ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Filter ;
-                                  cex:observation  _:b57
-                                ] ;
-        cex:indicator           indicator:C ;
-        cex:value               3 .
 
 dataset:ClustersGrouped
         a                           qb:DataSet ;
@@ -1086,7 +1147,7 @@ dataset:ClustersGrouped
 
 slice:C-D  a               qb:Slice ;
         wi-onto:ref-year   2011 ;
-        qb:observation     _:b58 , _:b59 , _:b8 ;
+        qb:observation     _:b8 , _:b58 , _:b64 ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:C .
 
@@ -1107,124 +1168,61 @@ dataset:A-Sorted  a                 qb:DataSet ;
                                     ] ;
         cex:md5-checksum            "MD5..." .
 
-_:b60   a                       qb:Observation ;
-        wi-onto:ref-area        country:CHL ;
-        wi-onto:ref-year        2011 ;
-        sdmx-concept:obsStatus  cex:Normalized ;
-        cex:computation         [ a                cex:Normalize ;
-                                  cex:observation  _:b61
-                                ] ;
-        cex:indicator           indicator:Q2 ;
-        cex:value               -0.320256307610174287779169 .
-
 wi-onto:filter  a      cex:FilterDefinition ;
         cex:dimension  wi-onto:ref-area ;
         cex:value      country:CHL , country:FIN , country:ESP .
 
 slice:B11-N  a             qb:Slice ;
         wi-onto:ref-year   2011 ;
-        qb:observation     _:b62 , _:b63 , _:b64 ;
+        qb:observation     _:b6 , _:b56 , _:b65 ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:B .
 
-_:b65   a                       qb:Observation ;
-        wi-onto:ref-area        country:ESP ;
-        wi-onto:ref-year        2011 ;
-        qb:dataSet              dataset:B-Imputed ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Copy ;
-                                  cex:observation  obs:EB11
-                                ] ;
-        cex:indicator           indicator:B ;
-        cex:value               10 .
-
-_:b39   a                       qb:Observation ;
+_:b66   a                       qb:Observation ;
         wi-onto:ref-area        country:FIN ;
-        wi-onto:ref-year        2011 ;
-        sdmx-concept:obsStatus  cex:Normalized ;
-        cex:computation         [ a                cex:Normalize ;
-                                  cex:observation  _:b51
-                                ] ;
-        cex:indicator           indicator:A ;
-        cex:value               -1.0 .
-
-_:b62   a                       qb:Observation ;
-        wi-onto:ref-area        country:CHL ;
-        wi-onto:ref-year        2011 ;
-        sdmx-concept:obsStatus  cex:Normalized ;
-        cex:computation         [ a                cex:Normalize ;
-                                  cex:observation  _:b66
-                                ] ;
-        cex:indicator           indicator:B ;
-        cex:value               1.0 .
-
-_:b61   a                       qb:Observation ;
-        wi-onto:ref-area        country:CHL ;
-        wi-onto:ref-year        2011 ;
-        qb:dataSet              dataset:Q2-Sorted ;
+        wi-onto:ref-year        2010 ;
+        qb:dataSet              dataset:C-Imputed ;
         sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Filter ;
-                                  cex:observation  obs:CQ2
+        cex:computation         [ a                cex:Mean ;
+                                  cex:observation  obs:FC11 , obs:FC09
                                 ] ;
-        cex:indicator           indicator:Q2 ;
-        cex:value               4 .
+        cex:indicator           indicator:C ;
+        cex:value               5.0 .
 
 _:b67   a                       qb:Observation ;
         wi-onto:ref-area        country:CHL ;
-        wi-onto:ref-year        2010 ;
-        qb:dataSet              dataset:D-Imputed ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Copy ;
-                                  cex:observation  obs:CD10
-                                ] ;
-        cex:indicator           indicator:D ;
-        cex:value               6 .
-
-_:b5    a                       qb:Observation ;
-        wi-onto:ref-area        country:CHL ;
-        wi-onto:ref-year        2010 ;
-        qb:dataSet              dataset:A-Sorted ;
+        wi-onto:ref-year        2009 ;
+        qb:dataSet              dataset:C-Sorted ;
         sdmx-concept:obsStatus  cex:Imputed ;
         cex:computation         [ a                cex:Filter ;
-                                  cex:observation  _:b36
+                                  cex:observation  _:b18
                                 ] ;
-        cex:indicator           indicator:A ;
-        cex:value               4 .
+        cex:indicator           indicator:C ;
+        cex:value               6 .
 
 cex:indicator  a     qb:DimensionProperty , owl:FunctionalProperty ;
         rdfs:domain  cex:Observation ;
         rdfs:range   cex:Indicator .
-
-_:b68   a                       qb:Observation ;
-        wi-onto:ref-area        country:ESP ;
-        wi-onto:ref-year        2011 ;
-        sdmx-concept:obsStatus  cex:Adjusted ;
-        cex:computation         [ a                cex:Adjust ;
-                                  cex:increment    8 ;
-                                  cex:observation  _:b40
-                                ] ;
-        cex:indicator           indicator:A ;
-        cex:value               8.0 .
 
 wi-onto:sliceByArea  a        qb:SliceKey ;
         rdfs:comment          "Slice by grouping areas together fixing year"@en ;
         rdfs:label            "slice by area"@en ;
         qb:componentProperty  wi-onto:ref-year , cex:indicator .
 
-_:b69   a                       qb:Observation ;
-        wi-onto:ref-area        country:FIN ;
-        wi-onto:ref-year        2011 ;
-        sdmx-concept:obsStatus  cex:Adjusted ;
-        cex:computation         [ a                cex:Adjust ;
-                                  cex:increment    8 ;
-                                  cex:observation  _:b70
+_:b68   a                       qb:Observation ;
+        wi-onto:ref-area        country:CHL ;
+        wi-onto:ref-year        2010 ;
+        qb:dataSet              dataset:B-Sorted ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Filter ;
+                                  cex:observation  _:b41
                                 ] ;
-        cex:indicator           indicator:Q2 ;
-        cex:value               7.199359230974564280552079 .
+        cex:indicator           indicator:B ;
+        cex:value               4 .
 
 slice:D10-Imputed  a       qb:Slice ;
         wi-onto:ref-year   2010 ;
-        qb:observation     _:b0 , _:b53 , _:b67 ;
+        qb:observation     _:b69 , _:b27 , _:b70 ;
         qb:observation     [ a                       qb:Observation ;
                              wi-onto:ref-area        country:ARM ;
                              wi-onto:ref-year        2010 ;
@@ -1239,16 +1237,80 @@ slice:D10-Imputed  a       qb:Slice ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:D .
 
-_:b19   a                       qb:Observation ;
+_:b44   a                       qb:Observation ;
+        wi-onto:ref-area        country:FIN ;
+        wi-onto:ref-year        2009 ;
+        qb:dataSet              dataset:D-Sorted ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Filter ;
+                                  cex:observation  _:b0
+                                ] ;
+        cex:indicator           indicator:D ;
+        cex:value               2 .
+
+_:b2    a                       qb:Observation ;
         wi-onto:ref-area        country:ESP ;
+        wi-onto:ref-year        2011 ;
+        sdmx-concept:obsStatus  cex:Normalized ;
+        cex:computation         [ a                cex:Normalize ;
+                                  cex:observation  _:b71
+                                ] ;
+        cex:indicator           indicator:D ;
+        cex:value               0.577350269189625779018297 .
+
+_:b40   a                       qb:Observation ;
+        wi-onto:ref-area        country:FIN ;
+        wi-onto:ref-year        2010 ;
+        qb:dataSet              dataset:B-Imputed ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Copy ;
+                                  cex:observation  obs:FB10
+                                ] ;
+        cex:indicator           indicator:B ;
+        cex:value               6 .
+
+_:b59   a                       qb:Observation ;
+        wi-onto:ref-area        country:FIN ;
+        wi-onto:ref-year        2011 ;
+        sdmx-concept:obsStatus  cex:Normalized ;
+        cex:computation         [ a                cex:Normalize ;
+                                  cex:observation  _:b72
+                                ] ;
+        cex:indicator           indicator:C ;
+        cex:value               -0.143799327135762699343771 .
+
+_:b73   a                       qb:Observation ;
+        wi-onto:ref-area        country:FIN ;
+        wi-onto:ref-year        2011 ;
+        qb:dataSet              dataset:A-Imputed ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Copy ;
+                                  cex:observation  obs:FA11
+                                ] ;
+        cex:indicator           indicator:A ;
+        cex:value               3 .
+
+_:b18   a                       qb:Observation ;
+        wi-onto:ref-area        country:CHL ;
         wi-onto:ref-year        2009 ;
         qb:dataSet              dataset:C-Imputed ;
         sdmx-concept:obsStatus  cex:Imputed ;
         cex:computation         [ a                cex:Copy ;
-                                  cex:observation  obs:EC09
+                                  cex:observation  obs:CC09
                                 ] ;
         cex:indicator           indicator:C ;
-        cex:value               4 .
+        cex:value               6 .
+
+_:b69   a                       qb:Observation ;
+        wi-onto:ref-area        country:ESP ;
+        wi-onto:ref-year        2010 ;
+        qb:dataSet              dataset:D-Imputed ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Copy ;
+                                  cex:observation  obs:ED10
+                                ] ;
+        cex:indicator           indicator:D ;
+        cex:value               6 .
 
 slice:C09-N  a             qb:Slice ;
         wi-onto:ref-year   2009 ;
@@ -1257,7 +1319,7 @@ slice:C09-N  a             qb:Slice ;
                              wi-onto:ref-year        2009 ;
                              sdmx-concept:obsStatus  cex:Normalized ;
                              cex:computation         [ a                cex:Normalize ;
-                                                       cex:observation  _:b71
+                                                       cex:observation  _:b67
                                                      ] ;
                              cex:indicator           indicator:C ;
                              cex:value               1.154700538379251558036595
@@ -1267,7 +1329,7 @@ slice:C09-N  a             qb:Slice ;
                              wi-onto:ref-year        2009 ;
                              sdmx-concept:obsStatus  cex:Normalized ;
                              cex:computation         [ a                cex:Normalize ;
-                                                       cex:observation  _:b72
+                                                       cex:observation  _:b74
                                                      ] ;
                              cex:indicator           indicator:C ;
                              cex:value               -0.577350269189625779018297
@@ -1277,7 +1339,7 @@ slice:C09-N  a             qb:Slice ;
                              wi-onto:ref-year        2009 ;
                              sdmx-concept:obsStatus  cex:Normalized ;
                              cex:computation         [ a                cex:Normalize ;
-                                                       cex:observation  _:b73
+                                                       cex:observation  _:b54
                                                      ] ;
                              cex:indicator           indicator:C ;
                              cex:value               -0.577350269189625779018297
@@ -1291,19 +1353,19 @@ cex:ImputedSlice  a      rdfs:Class , owl:Class ;
 
 slice:C11-N  a             qb:Slice ;
         wi-onto:ref-year   2011 ;
-        qb:observation     _:b9 , _:b74 , _:b75 ;
+        qb:observation     _:b32 , _:b59 , _:b9 ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:C .
 
 slice:Q2-N  a              qb:Slice ;
         wi-onto:ref-year   2011 ;
-        qb:observation     _:b60 , _:b70 , _:b23 ;
+        qb:observation     _:b75 , _:b51 , _:b60 ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:Q2 .
 
 slice:B09-Imputed  a       qb:Slice ;
         wi-onto:ref-year   2009 ;
-        qb:observation     _:b27 , _:b38 , _:b76 ;
+        qb:observation     _:b76 , _:b23 , _:b77 ;
         qb:observation     [ a                       qb:Observation ;
                              wi-onto:ref-area        country:ARM ;
                              wi-onto:ref-year        2009 ;
@@ -1318,16 +1380,16 @@ slice:B09-Imputed  a       qb:Slice ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:B .
 
-_:b38   a                       qb:Observation ;
-        wi-onto:ref-area        country:FIN ;
-        wi-onto:ref-year        2009 ;
-        qb:dataSet              dataset:B-Imputed ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Copy ;
-                                  cex:observation  obs:FB09
+_:b78   a                       qb:Observation ;
+        wi-onto:ref-area        country:CHL ;
+        wi-onto:ref-year        2011 ;
+        sdmx-concept:obsStatus  cex:Adjusted ;
+        cex:computation         [ a                cex:Adjust ;
+                                  cex:increment    8 ;
+                                  cex:observation  _:b39
                                 ] ;
-        cex:indicator           indicator:B ;
-        cex:value               5 .
+        cex:indicator           indicator:A ;
+        cex:value               9.0 .
 
 dataset:SubindexGrouped
         a                           qb:DataSet ;
@@ -1348,102 +1410,16 @@ dataset:SubindexGrouped
                                     ] ;
         cex:md5-checksum            "MD5..." .
 
-_:b77   a                       qb:Observation ;
-        wi-onto:ref-area        country:FIN ;
-        wi-onto:ref-year        2010 ;
-        qb:dataSet              dataset:D-Sorted ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Filter ;
-                                  cex:observation  _:b53
-                                ] ;
-        cex:indicator           indicator:D ;
-        cex:value               3 .
-
-_:b78   a                       qb:Observation ;
-        wi-onto:ref-area        country:FIN ;
-        wi-onto:ref-year        2010 ;
-        qb:dataSet              dataset:C-Imputed ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Mean ;
-                                  cex:observation  obs:FC11 , obs:FC09
-                                ] ;
-        cex:indicator           indicator:C ;
-        cex:value               5.0 .
-
 cex:AverageGrowth4  a    rdfs:Class , owl:Class ;
         rdfs:label       "Impute a value as the average growth of 4 values"@en ;
         rdfs:subClassOf  cex:Computation .
 
-_:b79   a                       qb:Observation ;
-        wi-onto:ref-area        country:FIN ;
-        wi-onto:ref-year        2011 ;
-        sdmx-concept:obsStatus  cex:Normalized ;
-        cex:computation         [ a                cex:Normalize ;
-                                  cex:observation  _:b28
-                                ] ;
-        cex:indicator           indicator:D ;
-        cex:value               -1.154700538379251558036595 .
-
-_:b9    a                       qb:Observation ;
-        wi-onto:ref-area        country:CHL ;
-        wi-onto:ref-year        2011 ;
-        sdmx-concept:obsStatus  cex:Normalized ;
-        cex:computation         [ a                cex:Normalize ;
-                                  cex:observation  _:b34
-                                ] ;
-        cex:indicator           indicator:C ;
-        cex:value               1.064115020804643975143907 .
-
 cex:Computation  a  rdfs:Class , owl:Class ;
         rdfs:label  "Computation"@en .
-
-_:b71   a                       qb:Observation ;
-        wi-onto:ref-area        country:CHL ;
-        wi-onto:ref-year        2009 ;
-        qb:dataSet              dataset:C-Sorted ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Filter ;
-                                  cex:observation  _:b21
-                                ] ;
-        cex:indicator           indicator:C ;
-        cex:value               6 .
-
-_:b80   a                       qb:Observation ;
-        wi-onto:ref-area        country:ESP ;
-        wi-onto:ref-year        2011 ;
-        qb:dataSet              dataset:D-Imputed ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Copy ;
-                                  cex:observation  obs:ED11
-                                ] ;
-        cex:indicator           indicator:D ;
-        cex:value               8 .
-
-_:b81   a                       qb:Observation ;
-        wi-onto:ref-area        country:CHL ;
-        wi-onto:ref-year        2010 ;
-        qb:dataSet              dataset:B-Sorted ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Filter ;
-                                  cex:observation  _:b10
-                                ] ;
-        cex:indicator           indicator:B ;
-        cex:value               4 .
 
 cex:errorParam  a    owl:ObjectProperty ;
         rdfs:domain  cex:Error ;
         rdfs:range   cex:ErrorParam .
-
-_:b46   a                       qb:Observation ;
-        wi-onto:ref-area        country:FIN ;
-        wi-onto:ref-year        2009 ;
-        qb:dataSet              dataset:D-Sorted ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Filter ;
-                                  cex:observation  _:b82
-                                ] ;
-        cex:indicator           indicator:D ;
-        cex:value               2 .
 
 obs:ED10  a                         qb:Observation , wi-onto:Observation ;
         rdfs:label                  "D in ESP during 2010"@en ;
@@ -1461,28 +1437,39 @@ obs:ED10  a                         qb:Observation , wi-onto:Observation ;
         cex:md5-checksum            "md5 for ED10" ;
         cex:value                   6 .
 
-_:b83   a                       qb:Observation ;
-        wi-onto:ref-area        country:FIN ;
-        wi-onto:ref-year        2011 ;
-        sdmx-concept:obsStatus  cex:Adjusted ;
-        cex:computation         [ a                cex:Adjust ;
-                                  cex:increment    8 ;
-                                  cex:observation  _:b79
+_:b79   a                       qb:Observation ;
+        wi-onto:ref-area        country:ESP ;
+        wi-onto:ref-year        2010 ;
+        qb:dataSet              dataset:B-Sorted ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Filter ;
+                                  cex:observation  _:b30
                                 ] ;
-        cex:indicator           indicator:D ;
-        cex:value               6.845299461620748441963405 .
+        cex:indicator           indicator:B ;
+        cex:value               8 .
 
 slice:B11-Sorted  a        qb:Slice ;
         wi-onto:ref-year   2011 ;
-        qb:observation     _:b84 , _:b25 , _:b66 ;
+        qb:observation     _:b80 , _:b57 , _:b7 ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:B .
 
 slice:A-D  a               qb:Slice ;
         wi-onto:ref-year   2011 ;
-        qb:observation     _:b68 , _:b85 , _:b86 ;
+        qb:observation     _:b24 , _:b33 , _:b78 ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:A .
+
+_:b34   a                       qb:Observation ;
+        wi-onto:ref-area        country:CHL ;
+        wi-onto:ref-year        2009 ;
+        qb:dataSet              dataset:A-Sorted ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Filter ;
+                                  cex:observation  _:b3
+                                ] ;
+        cex:indicator           indicator:A ;
+        cex:value               3 .
 
 obs:CD10  a                         wi-onto:Observation , qb:Observation ;
         rdfs:label                  "D in CHL during 2010"@en ;
@@ -1508,6 +1495,28 @@ subindex:CDQ1  a     cex:SubIndex ;
         rdfs:label   "Subindex DQ1"@en ;
         cex:element  component:DQ1 , component:C .
 
+_:b81   a                       qb:Observation ;
+        wi-onto:ref-area        country:CHL ;
+        wi-onto:ref-year        2011 ;
+        sdmx-concept:obsStatus  cex:Adjusted ;
+        cex:computation         [ a                cex:Adjust ;
+                                  cex:increment    8 ;
+                                  cex:observation  _:b82
+                                ] ;
+        cex:indicator           indicator:D ;
+        cex:value               8.577350269189625779018297 .
+
+_:b83   a                       qb:Observation ;
+        wi-onto:ref-area        country:FIN ;
+        wi-onto:ref-year        2010 ;
+        qb:dataSet              dataset:C-Sorted ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Filter ;
+                                  cex:observation  _:b66
+                                ] ;
+        cex:indicator           indicator:C ;
+        cex:value               5.0 .
+
 obs:EQ1  a                          qb:Observation , wi-onto:Observation ;
         rdfs:label                  "Q1 in ESP during 2011"@en ;
         wi-onto:ref-area            country:ESP ;
@@ -1524,6 +1533,17 @@ obs:EQ1  a                          qb:Observation , wi-onto:Observation ;
         cex:md5-checksum            "md5 for EQ1" ;
         cex:value                   6 .
 
+_:b84   a                       qb:Observation ;
+        wi-onto:ref-area        country:FIN ;
+        wi-onto:ref-year        2011 ;
+        qb:dataSet              dataset:C-Imputed ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Copy ;
+                                  cex:observation  obs:FC11
+                                ] ;
+        cex:indicator           indicator:C ;
+        cex:value               6 .
+
 obs:ED09  a                         qb:Observation , wi-onto:Observation ;
         rdfs:label                  "D in ESP during 2009"@en ;
         wi-onto:ref-area            country:ESP ;
@@ -1539,6 +1559,17 @@ obs:ED09  a                         qb:Observation , wi-onto:Observation ;
         cex:indicator               indicator:D ;
         cex:md5-checksum            "md5 for ED09" ;
         cex:value                   4 .
+
+_:b85   a                       qb:Observation ;
+        wi-onto:ref-area        country:ESP ;
+        wi-onto:ref-year        2010 ;
+        qb:dataSet              dataset:A-Imputed ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Copy ;
+                                  cex:observation  obs:EA10
+                                ] ;
+        cex:indicator           indicator:A ;
+        cex:value               3 .
 
 cex:Index  a        rdfs:Class , owl:Class ;
         rdfs:label  "Índice"@es , "Index"@en .
@@ -1564,22 +1595,32 @@ dataset:Q2-Normalized
                                     ] ;
         cex:md5-checksum            "MD5..." .
 
+_:b65   a                       qb:Observation ;
+        wi-onto:ref-area        country:ESP ;
+        wi-onto:ref-year        2011 ;
+        sdmx-concept:obsStatus  cex:Normalized ;
+        cex:computation         [ a                cex:Normalize ;
+                                  cex:observation  _:b80
+                                ] ;
+        cex:indicator           indicator:B ;
+        cex:value               -1.0 .
+
 slice:A09-Sorted  a        qb:Slice ;
         wi-onto:ref-year   2009 ;
-        qb:observation     _:b1 , _:b33 , _:b32 ;
+        qb:observation     _:b36 , _:b35 , _:b34 ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:A .
 
-_:b4    a                       qb:Observation ;
-        wi-onto:ref-area        country:FIN ;
-        wi-onto:ref-year        2010 ;
-        qb:dataSet              dataset:A-Sorted ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Filter ;
-                                  cex:observation  _:b87
+_:b64   a                       qb:Observation ;
+        wi-onto:ref-area        country:CHL ;
+        wi-onto:ref-year        2011 ;
+        sdmx-concept:obsStatus  cex:Adjusted ;
+        cex:computation         [ a                cex:Adjust ;
+                                  cex:increment    8 ;
+                                  cex:observation  _:b32
                                 ] ;
-        cex:indicator           indicator:A ;
-        cex:value               2.0 .
+        cex:indicator           indicator:C ;
+        cex:value               9.064115020804643975143907 .
 
 index:index  a       cex:index ;
         rdfs:label   "Index with ABCDQ1Q2" ;
@@ -1601,16 +1642,6 @@ obs:CD09  a                         wi-onto:Observation , qb:Observation ;
         cex:md5-checksum            "md5 for FD09" ;
         cex:value                   4 .
 
-_:b70   a                       qb:Observation ;
-        wi-onto:ref-area        country:FIN ;
-        wi-onto:ref-year        2011 ;
-        sdmx-concept:obsStatus  cex:Normalized ;
-        cex:computation         [ a                cex:Normalize ;
-                                  cex:observation  _:b18
-                                ] ;
-        cex:indicator           indicator:Q2 ;
-        cex:value               -0.800640769025435719447921 .
-
 obs:FQ2  a                          wi-onto:Observation , qb:Observation ;
         rdfs:label                  "Q2 in FIN during 2011"@en ;
         wi-onto:ref-area            country:FIN ;
@@ -1627,42 +1658,9 @@ obs:FQ2  a                          wi-onto:Observation , qb:Observation ;
         cex:md5-checksum            "md5 for FQ2" ;
         cex:value                   3 .
 
-_:b26   a                       qb:Observation ;
-        wi-onto:ref-area        country:FIN ;
-        wi-onto:ref-year        2011 ;
-        qb:dataSet              dataset:B-Imputed ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Copy ;
-                                  cex:observation  obs:FB11
-                                ] ;
-        cex:indicator           indicator:B ;
-        cex:value               7 .
-
-_:b73   a                       qb:Observation ;
-        wi-onto:ref-area        country:ESP ;
-        wi-onto:ref-year        2009 ;
-        qb:dataSet              dataset:C-Sorted ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Filter ;
-                                  cex:observation  _:b19
-                                ] ;
-        cex:indicator           indicator:C ;
-        cex:value               4 .
-
-_:b57   a                       qb:Observation ;
-        wi-onto:ref-area        country:ESP ;
-        wi-onto:ref-year        2011 ;
-        qb:dataSet              dataset:C-Imputed ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Copy ;
-                                  cex:observation  obs:EC11
-                                ] ;
-        cex:indicator           indicator:C ;
-        cex:value               3 .
-
 slice:A10-Imputed  a       qb:Slice ;
         wi-onto:ref-year   2010 ;
-        qb:observation     _:b87 , _:b88 , _:b36 ;
+        qb:observation     _:b86 , _:b85 , _:b50 ;
         qb:observation     [ a                       qb:Observation ;
                              wi-onto:ref-area        country:ARM ;
                              wi-onto:ref-year        2010 ;
@@ -1695,7 +1693,7 @@ obs:AD09  a                         wi-onto:Observation , qb:Observation ;
 
 slice:Q2-D  a              qb:Slice ;
         wi-onto:ref-year   2011 ;
-        qb:observation     _:b22 , _:b69 , _:b89 ;
+        qb:observation     _:b87 , _:b88 , _:b89 ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:Q2 .
 
@@ -1713,42 +1711,11 @@ indicator:Q1  a                wi-onto:PrimaryIndicator ;
         time:intervalFinishes  "2011"^^xsd:int ;
         time:intervalStarts    "2011"^^xsd:int .
 
-_:b40   a                       qb:Observation ;
-        wi-onto:ref-area        country:ESP ;
-        wi-onto:ref-year        2011 ;
-        sdmx-concept:obsStatus  cex:Normalized ;
-        cex:computation         [ a                cex:Normalize ;
-                                  cex:observation  _:b90
-                                ] ;
-        cex:indicator           indicator:A ;
-        cex:value               0.0 .
-
 slice:C11-Sorted  a        qb:Slice ;
         wi-onto:ref-year   2011 ;
-        qb:observation     _:b56 , _:b91 , _:b34 ;
+        qb:observation     _:b37 , _:b72 , _:b19 ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:C .
-
-_:b2    a                       qb:Observation ;
-        wi-onto:ref-area        country:ESP ;
-        wi-onto:ref-year        2009 ;
-        qb:dataSet              dataset:A-Imputed ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Copy ;
-                                  cex:observation  obs:EA09
-                                ] ;
-        cex:indicator           indicator:A ;
-        cex:value               2 .
-
-_:b63   a                       qb:Observation ;
-        wi-onto:ref-area        country:FIN ;
-        wi-onto:ref-year        2011 ;
-        sdmx-concept:obsStatus  cex:Normalized ;
-        cex:computation         [ a                cex:Normalize ;
-                                  cex:observation  _:b25
-                                ] ;
-        cex:indicator           indicator:B ;
-        cex:value               0.0 .
 
 slice:AB-Mean  a           qb:Slice ;
         wi-onto:ref-year   2011 ;
@@ -1785,17 +1752,6 @@ slice:AB-Mean  a           qb:Slice ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      component:AB .
 
-_:b85   a                       qb:Observation ;
-        wi-onto:ref-area        country:FIN ;
-        wi-onto:ref-year        2011 ;
-        sdmx-concept:obsStatus  cex:Adjusted ;
-        cex:computation         [ a                cex:Adjust ;
-                                  cex:increment    8 ;
-                                  cex:observation  _:b39
-                                ] ;
-        cex:indicator           indicator:A ;
-        cex:value               7.0 .
-
 obs:FD11  a                         wi-onto:Observation , qb:Observation ;
         rdfs:label                  "D in FIN during 2011"@en ;
         wi-onto:ref-area            country:FIN ;
@@ -1811,17 +1767,6 @@ obs:FD11  a                         wi-onto:Observation , qb:Observation ;
         cex:indicator               indicator:D ;
         cex:md5-checksum            "md5 for FC11" ;
         cex:value                   4 .
-
-_:b92   a                       qb:Observation ;
-        wi-onto:ref-area        country:ESP ;
-        wi-onto:ref-year        2010 ;
-        qb:dataSet              dataset:B-Sorted ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Filter ;
-                                  cex:observation  _:b43
-                                ] ;
-        cex:indicator           indicator:B ;
-        cex:value               8 .
 
 slice:Ranking-C  a         qb:Slice ;
         wi-onto:ref-year   2011 ;
@@ -1865,7 +1810,7 @@ slice:C-W  a               qb:Slice ;
                              cex:computation         [ a                 cex:Weighted ;
                                                        cex:dimension     cex:indicator ;
                                                        cex:element       indicator:C ;
-                                                       cex:observation   _:b8 ;
+                                                       cex:observation   _:b64 ;
                                                        cex:value         9.064115020804643975143907 ;
                                                        cex:weight        0.5 ;
                                                        cex:weightSchema  weightSchema:indicatorWeights
@@ -1881,7 +1826,7 @@ slice:C-W  a               qb:Slice ;
                              cex:computation         [ a                 cex:Weighted ;
                                                        cex:dimension     cex:indicator ;
                                                        cex:element       indicator:C ;
-                                                       cex:observation   _:b59 ;
+                                                       cex:observation   _:b58 ;
                                                        cex:value         7.856200672864237300656229 ;
                                                        cex:weight        0.5 ;
                                                        cex:weightSchema  weightSchema:indicatorWeights
@@ -1897,7 +1842,7 @@ slice:C-W  a               qb:Slice ;
                              cex:computation         [ a                 cex:Weighted ;
                                                        cex:dimension     cex:indicator ;
                                                        cex:element       indicator:C ;
-                                                       cex:observation   _:b58 ;
+                                                       cex:observation   _:b8 ;
                                                        cex:value         7.079684306331118724199863 ;
                                                        cex:weight        0.5 ;
                                                        cex:weightSchema  weightSchema:indicatorWeights
@@ -1908,27 +1853,16 @@ slice:C-W  a               qb:Slice ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:C .
 
-_:b93   a                       qb:Observation ;
+_:b13   a                       qb:Observation ;
         wi-onto:ref-area        country:ESP ;
-        wi-onto:ref-year        2009 ;
-        qb:dataSet              dataset:D-Imputed ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Copy ;
-                                  cex:observation  obs:ED09
-                                ] ;
-        cex:indicator           indicator:D ;
-        cex:value               4 .
-
-_:b32   a                       qb:Observation ;
-        wi-onto:ref-area        country:CHL ;
-        wi-onto:ref-year        2009 ;
-        qb:dataSet              dataset:A-Sorted ;
+        wi-onto:ref-year        2011 ;
+        qb:dataSet              dataset:Q1-Sorted ;
         sdmx-concept:obsStatus  cex:Imputed ;
         cex:computation         [ a                cex:Filter ;
-                                  cex:observation  _:b94
+                                  cex:observation  obs:EQ1
                                 ] ;
-        cex:indicator           indicator:A ;
-        cex:value               3 .
+        cex:indicator           indicator:Q1 ;
+        cex:value               6 .
 
 obs:FC09  a                         wi-onto:Observation , qb:Observation ;
         rdfs:label                  "C in FIN during 2009"@en ;
@@ -1986,16 +1920,27 @@ slice:Ranking-CDQ1  a      qb:Slice ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      subindex:CDQ1 .
 
-_:b89   a                       qb:Observation ;
+_:b41   a                       qb:Observation ;
+        wi-onto:ref-area        country:CHL ;
+        wi-onto:ref-year        2010 ;
+        qb:dataSet              dataset:B-Imputed ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Copy ;
+                                  cex:observation  obs:CB10
+                                ] ;
+        cex:indicator           indicator:B ;
+        cex:value               4 .
+
+_:b7    a                       qb:Observation ;
         wi-onto:ref-area        country:CHL ;
         wi-onto:ref-year        2011 ;
-        sdmx-concept:obsStatus  cex:Adjusted ;
-        cex:computation         [ a                cex:Adjust ;
-                                  cex:increment    8 ;
-                                  cex:observation  _:b60
+        qb:dataSet              dataset:B-Sorted ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Filter ;
+                                  cex:observation  _:b90
                                 ] ;
-        cex:indicator           indicator:Q2 ;
-        cex:value               7.679743692389825712220831 .
+        cex:indicator           indicator:B ;
+        cex:value               4 .
 
 cex:name  a          owl:DatatypeProperty ;
         rdfs:domain  cex:Param ;
@@ -2007,9 +1952,20 @@ slice:C10-Raw  a           qb:Slice ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:C .
 
+_:b91   a                       qb:Observation ;
+        wi-onto:ref-area        country:CHL ;
+        wi-onto:ref-year        2011 ;
+        qb:dataSet              dataset:D-Sorted ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Filter ;
+                                  cex:observation  _:b21
+                                ] ;
+        cex:indicator           indicator:D ;
+        cex:value               8 .
+
 slice:B09-Sorted  a        qb:Slice ;
         wi-onto:ref-year   2009 ;
-        qb:observation     _:b55 , _:b37 , _:b54 ;
+        qb:observation     _:b63 , _:b22 , _:b62 ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:B .
 
@@ -2025,22 +1981,54 @@ wi-onto:has-iso-alpha3-code
         rdfs:label          "ISO-code-alpha 3 property"@en ;
         rdfs:subPropertyOf  dcterms:identifier .
 
-_:b20   a                       qb:Observation ;
-        wi-onto:ref-area        country:FIN ;
-        wi-onto:ref-year        2009 ;
-        qb:dataSet              dataset:C-Imputed ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Copy ;
-                                  cex:observation  obs:FC09
+_:b9    a                       qb:Observation ;
+        wi-onto:ref-area        country:ESP ;
+        wi-onto:ref-year        2011 ;
+        sdmx-concept:obsStatus  cex:Normalized ;
+        cex:computation         [ a                cex:Normalize ;
+                                  cex:observation  _:b37
                                 ] ;
         cex:indicator           indicator:C ;
-        cex:value               4 .
+        cex:value               -0.920315693668881275800137 .
+
+_:b14   a                       qb:Observation ;
+        wi-onto:ref-area        country:FIN ;
+        wi-onto:ref-year        2011 ;
+        qb:dataSet              dataset:Q1-Sorted ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Filter ;
+                                  cex:observation  obs:FQ1
+                                ] ;
+        cex:indicator           indicator:Q1 ;
+        cex:value               7 .
+
+_:b92   a                       qb:Observation ;
+        wi-onto:ref-area        country:CHL ;
+        wi-onto:ref-year        2011 ;
+        qb:dataSet              dataset:A-Imputed ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Copy ;
+                                  cex:observation  obs:CA11
+                                ] ;
+        cex:indicator           indicator:A ;
+        cex:value               7 .
 
 wi-onto:SecondaryIndicator
         a                rdfs:Class , owl:Class ;
         rdfs:comment     "This indicator is established by third parties such as ITU, UN, etc. Its observations are part of a component."@en ;
         rdfs:label       "Secondary Indicator"@en ;
         rdfs:subClassOf  cex:Indicator .
+
+_:b27   a                       qb:Observation ;
+        wi-onto:ref-area        country:FIN ;
+        wi-onto:ref-year        2010 ;
+        qb:dataSet              dataset:D-Imputed ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Copy ;
+                                  cex:observation  obs:FD10
+                                ] ;
+        cex:indicator           indicator:D ;
+        cex:value               3 .
 
 sdmx-attribute:unitMeasure
         a       qb:AttributeProperty .
@@ -2061,6 +2049,17 @@ obs:EB10  a                         wi-onto:Observation , qb:Observation ;
         cex:md5-checksum            "md5 for EA09" ;
         cex:value                   8 .
 
+_:b55   a                       qb:Observation ;
+        wi-onto:ref-area        country:ESP ;
+        wi-onto:ref-year        2011 ;
+        qb:dataSet              dataset:A-Sorted ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Filter ;
+                                  cex:observation  _:b31
+                                ] ;
+        cex:indicator           indicator:A ;
+        cex:value               5 .
+
 dataset:IndicatorsWeighted
         a                           qb:DataSet ;
         rdfs:comment                "Description of Indicators Weighted"@en ;
@@ -2079,9 +2078,19 @@ dataset:IndicatorsWeighted
                                     ] ;
         cex:md5-checksum            "MD5..." .
 
+_:b93   a                       qb:Observation ;
+        wi-onto:ref-area        country:CHL ;
+        wi-onto:ref-year        2011 ;
+        sdmx-concept:obsStatus  cex:Normalized ;
+        cex:computation         [ a                cex:Normalize ;
+                                  cex:observation  _:b15
+                                ] ;
+        cex:indicator           indicator:Q1 ;
+        cex:value               1.0 .
+
 slice:C11-Imputed  a       qb:Slice ;
         wi-onto:ref-year   2011 ;
-        qb:observation     _:b35 , _:b57 , _:b95 ;
+        qb:observation     _:b20 , _:b38 , _:b84 ;
         qb:observation     [ a                       qb:Observation ;
                              wi-onto:ref-area        country:ARM ;
                              wi-onto:ref-year        2011 ;
@@ -2096,20 +2105,20 @@ slice:C11-Imputed  a       qb:Slice ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:C .
 
-_:b76   a                       qb:Observation ;
-        wi-onto:ref-area        country:CHL ;
-        wi-onto:ref-year        2009 ;
-        qb:dataSet              dataset:B-Imputed ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Copy ;
-                                  cex:observation  obs:CB09
+_:b87   a                       qb:Observation ;
+        wi-onto:ref-area        country:ESP ;
+        wi-onto:ref-year        2011 ;
+        sdmx-concept:obsStatus  cex:Adjusted ;
+        cex:computation         [ a                cex:Adjust ;
+                                  cex:increment    8 ;
+                                  cex:observation  _:b60
                                 ] ;
-        cex:indicator           indicator:B ;
-        cex:value               4 .
+        cex:indicator           indicator:Q2 ;
+        cex:value               9.12089707663561000722709 .
 
 slice:D11-Sorted  a        qb:Slice ;
         wi-onto:ref-year   2011 ;
-        qb:observation     _:b96 , _:b28 , _:b31 ;
+        qb:observation     _:b71 , _:b29 , _:b91 ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:D .
 
@@ -2144,17 +2153,6 @@ dataset:A-Normalized  a             qb:DataSet ;
                                       cex:dataSet  dataset:A-Sorted
                                     ] ;
         cex:md5-checksum            "MD5..." .
-
-_:b7    a                       qb:Observation ;
-        wi-onto:ref-area        country:ESP ;
-        wi-onto:ref-year        2011 ;
-        qb:dataSet              dataset:Q1-Sorted ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Filter ;
-                                  cex:observation  obs:EQ1
-                                ] ;
-        cex:indicator           indicator:Q1 ;
-        cex:value               6 .
 
 obs:EC11  a                         wi-onto:Observation , qb:Observation ;
         rdfs:label                  "C in ESP during 2011"@en ;
@@ -2204,26 +2202,6 @@ obs:CQ1  a                          qb:Observation , wi-onto:Observation ;
         cex:md5-checksum            "md5 for CQ1" ;
         cex:value                   8 .
 
-_:b42   a                       qb:Observation ;
-        wi-onto:ref-area        country:ESP ;
-        wi-onto:ref-year        2011 ;
-        sdmx-concept:obsStatus  cex:Normalized ;
-        cex:computation         [ a                cex:Normalize ;
-                                  cex:observation  _:b96
-                                ] ;
-        cex:indicator           indicator:D ;
-        cex:value               0.577350269189625779018297 .
-
-_:b74   a                       qb:Observation ;
-        wi-onto:ref-area        country:FIN ;
-        wi-onto:ref-year        2011 ;
-        sdmx-concept:obsStatus  cex:Normalized ;
-        cex:computation         [ a                cex:Normalize ;
-                                  cex:observation  _:b91
-                                ] ;
-        cex:indicator           indicator:C ;
-        cex:value               -0.143799327135762699343771 .
-
 obs:EB09  a                         qb:Observation , wi-onto:Observation ;
         rdfs:label                  "B in ESP during 2009"@en ;
         wi-onto:ref-area            country:ESP ;
@@ -2240,24 +2218,13 @@ obs:EB09  a                         qb:Observation , wi-onto:Observation ;
         cex:md5-checksum            "md5 for EB09" ;
         cex:value                   6 .
 
-_:b29   a                       qb:Observation ;
-        wi-onto:ref-area        country:FIN ;
-        wi-onto:ref-year        2011 ;
-        qb:dataSet              dataset:D-Imputed ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Copy ;
-                                  cex:observation  obs:FD11
-                                ] ;
-        cex:indicator           indicator:D ;
-        cex:value               4 .
-
 wi-onto:ref-area  a  qb:DimensionProperty , owl:FunctionalProperty ;
         rdfs:domain  wi-onto:Observation ;
         rdfs:range   wi-onto:Area .
 
 slice:C10-Imputed  a       qb:Slice ;
         wi-onto:ref-year   2010 ;
-        qb:observation     _:b78 , _:b16 , _:b24 ;
+        qb:observation     _:b66 , _:b94 , _:b95 ;
         qb:observation     [ a                       qb:Observation ;
                              wi-onto:ref-area        country:ARM ;
                              wi-onto:ref-year        2010 ;
@@ -2271,17 +2238,6 @@ slice:C10-Imputed  a       qb:Slice ;
                            ] ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:C .
-
-_:b66   a                       qb:Observation ;
-        wi-onto:ref-area        country:CHL ;
-        wi-onto:ref-year        2011 ;
-        qb:dataSet              dataset:B-Sorted ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Filter ;
-                                  cex:observation  _:b97
-                                ] ;
-        cex:indicator           indicator:B ;
-        cex:value               4 .
 
 slice:Ranking-Q2  a        qb:Slice ;
         wi-onto:ref-year   2011 ;
@@ -2314,41 +2270,6 @@ slice:Ranking-Q2  a        qb:Slice ;
                            ] ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      component:Q2 .
-
-slice:D10-N  a             qb:Slice ;
-        wi-onto:ref-year   2010 ;
-        qb:observation     [ a                       qb:Observation ;
-                             wi-onto:ref-area        country:CHL ;
-                             wi-onto:ref-year        2010 ;
-                             sdmx-concept:obsStatus  cex:Normalized ;
-                             cex:computation         [ a                cex:Normalize ;
-                                                       cex:observation  _:b98
-                                                     ] ;
-                             cex:indicator           indicator:D ;
-                             cex:value               0.577350269189625795684964
-                           ] ;
-        qb:observation     [ a                       qb:Observation ;
-                             wi-onto:ref-area        country:FIN ;
-                             wi-onto:ref-year        2010 ;
-                             sdmx-concept:obsStatus  cex:Normalized ;
-                             cex:computation         [ a                cex:Normalize ;
-                                                       cex:observation  _:b77
-                                                     ] ;
-                             cex:indicator           indicator:D ;
-                             cex:value               -1.154700538379251591369929
-                           ] ;
-        qb:observation     [ a                       qb:Observation ;
-                             wi-onto:ref-area        country:ESP ;
-                             wi-onto:ref-year        2010 ;
-                             sdmx-concept:obsStatus  cex:Normalized ;
-                             cex:computation         [ a                cex:Normalize ;
-                                                       cex:observation  _:b99
-                                                     ] ;
-                             cex:indicator           indicator:D ;
-                             cex:value               0.577350269189625795684964
-                           ] ;
-        qb:sliceStructure  wi-onto:sliceByArea ;
-        cex:indicator      indicator:D .
 
 slice:Q2-Mean  a           qb:Slice ;
         wi-onto:ref-year   2011 ;
@@ -2385,16 +2306,51 @@ slice:Q2-Mean  a           qb:Slice ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      component:Q2 .
 
-_:b31   a                       qb:Observation ;
-        wi-onto:ref-area        country:CHL ;
+slice:D10-N  a             qb:Slice ;
+        wi-onto:ref-year   2010 ;
+        qb:observation     [ a                       qb:Observation ;
+                             wi-onto:ref-area        country:CHL ;
+                             wi-onto:ref-year        2010 ;
+                             sdmx-concept:obsStatus  cex:Normalized ;
+                             cex:computation         [ a                cex:Normalize ;
+                                                       cex:observation  _:b96
+                                                     ] ;
+                             cex:indicator           indicator:D ;
+                             cex:value               0.577350269189625795684964
+                           ] ;
+        qb:observation     [ a                       qb:Observation ;
+                             wi-onto:ref-area        country:FIN ;
+                             wi-onto:ref-year        2010 ;
+                             sdmx-concept:obsStatus  cex:Normalized ;
+                             cex:computation         [ a                cex:Normalize ;
+                                                       cex:observation  _:b26
+                                                     ] ;
+                             cex:indicator           indicator:D ;
+                             cex:value               -1.154700538379251591369929
+                           ] ;
+        qb:observation     [ a                       qb:Observation ;
+                             wi-onto:ref-area        country:ESP ;
+                             wi-onto:ref-year        2010 ;
+                             sdmx-concept:obsStatus  cex:Normalized ;
+                             cex:computation         [ a                cex:Normalize ;
+                                                       cex:observation  _:b97
+                                                     ] ;
+                             cex:indicator           indicator:D ;
+                             cex:value               0.577350269189625795684964
+                           ] ;
+        qb:sliceStructure  wi-onto:sliceByArea ;
+        cex:indicator      indicator:D .
+
+_:b80   a                       qb:Observation ;
+        wi-onto:ref-area        country:ESP ;
         wi-onto:ref-year        2011 ;
-        qb:dataSet              dataset:D-Sorted ;
+        qb:dataSet              dataset:B-Sorted ;
         sdmx-concept:obsStatus  cex:Imputed ;
         cex:computation         [ a                cex:Filter ;
-                                  cex:observation  _:b100
+                                  cex:observation  _:b98
                                 ] ;
-        cex:indicator           indicator:D ;
-        cex:value               8 .
+        cex:indicator           indicator:B ;
+        cex:value               10 .
 
 slice:Ranking-DQ1  a       qb:Slice ;
         wi-onto:ref-year   2011 ;
@@ -2452,20 +2408,31 @@ slice:C11-Raw  a           qb:Slice ;
 
 slice:C09-Sorted  a        qb:Slice ;
         wi-onto:ref-year   2009 ;
-        qb:observation     _:b73 , _:b72 , _:b71 ;
+        qb:observation     _:b54 , _:b74 , _:b67 ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:C .
 
-_:b101  a                       qb:Observation ;
-        wi-onto:ref-area        country:CHL ;
+_:b71   a                       qb:Observation ;
+        wi-onto:ref-area        country:ESP ;
         wi-onto:ref-year        2011 ;
-        sdmx-concept:obsStatus  cex:Adjusted ;
-        cex:computation         [ a                cex:Adjust ;
-                                  cex:increment    8 ;
-                                  cex:observation  _:b30
+        qb:dataSet              dataset:D-Sorted ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Filter ;
+                                  cex:observation  _:b99
                                 ] ;
         cex:indicator           indicator:D ;
-        cex:value               8.577350269189625779018297 .
+        cex:value               8 .
+
+_:b76   a                       qb:Observation ;
+        wi-onto:ref-area        country:ESP ;
+        wi-onto:ref-year        2009 ;
+        qb:dataSet              dataset:B-Imputed ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Copy ;
+                                  cex:observation  obs:EB09
+                                ] ;
+        cex:indicator           indicator:B ;
+        cex:value               6 .
 
 obs:AC11  a                         qb:Observation , wi-onto:Observation ;
         rdfs:label                  "C in ARM during 2011"@en ;
@@ -2524,6 +2491,28 @@ obs:AB09  a                         wi-onto:Observation , qb:Observation ;
         cex:md5-checksum            "md5 for CB09" ;
         cex:value                   2 .
 
+_:b86   a                       qb:Observation ;
+        wi-onto:ref-area        country:FIN ;
+        wi-onto:ref-year        2010 ;
+        qb:dataSet              dataset:A-Imputed ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Mean ;
+                                  cex:observation  obs:FA11 , obs:FA09
+                                ] ;
+        cex:indicator           indicator:A ;
+        cex:value               2.0 .
+
+_:b72   a                       qb:Observation ;
+        wi-onto:ref-area        country:FIN ;
+        wi-onto:ref-year        2011 ;
+        qb:dataSet              dataset:C-Sorted ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Filter ;
+                                  cex:observation  _:b84
+                                ] ;
+        cex:indicator           indicator:C ;
+        cex:value               6 .
+
 dataset:D-Raw  a                    qb:DataSet ;
         rdfs:comment                "Description of dataset A-Raw"@en ;
         rdfs:label                  "D-Raw"@en ;
@@ -2563,7 +2552,7 @@ slice:A-W  a               qb:Slice ;
                              cex:computation         [ a                 cex:Weighted ;
                                                        cex:dimension     cex:indicator ;
                                                        cex:element       indicator:A ;
-                                                       cex:observation   _:b86 ;
+                                                       cex:observation   _:b78 ;
                                                        cex:value         9.0 ;
                                                        cex:weight        1 ;
                                                        cex:weightSchema  weightSchema:indicatorWeights
@@ -2579,7 +2568,7 @@ slice:A-W  a               qb:Slice ;
                              cex:computation         [ a                 cex:Weighted ;
                                                        cex:dimension     cex:indicator ;
                                                        cex:element       indicator:A ;
-                                                       cex:observation   _:b85 ;
+                                                       cex:observation   _:b33 ;
                                                        cex:value         7.0 ;
                                                        cex:weight        1 ;
                                                        cex:weightSchema  weightSchema:indicatorWeights
@@ -2595,7 +2584,7 @@ slice:A-W  a               qb:Slice ;
                              cex:computation         [ a                 cex:Weighted ;
                                                        cex:dimension     cex:indicator ;
                                                        cex:element       indicator:A ;
-                                                       cex:observation   _:b68 ;
+                                                       cex:observation   _:b24 ;
                                                        cex:value         8.0 ;
                                                        cex:weight        1 ;
                                                        cex:weightSchema  weightSchema:indicatorWeights
@@ -2605,6 +2594,17 @@ slice:A-W  a               qb:Slice ;
                            ] ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:A .
+
+_:b50   a                       qb:Observation ;
+        wi-onto:ref-area        country:CHL ;
+        wi-onto:ref-year        2010 ;
+        qb:dataSet              dataset:A-Imputed ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Copy ;
+                                  cex:observation  obs:CA10
+                                ] ;
+        cex:indicator           indicator:A ;
+        cex:value               4 .
 
 cex:High  a              skos:Concept ;
         rdfs:comment     "A high value is preferred than a lower one"@en ;
@@ -2632,28 +2632,29 @@ wi-onto:Area  a           skos:Concept ;
         rdfs:label        "Area"@en ;
         skos:narrower     wi-onto:Country , wi-onto:Region .
 
-_:b33   a                       qb:Observation ;
+_:b23   a                       qb:Observation ;
         wi-onto:ref-area        country:FIN ;
         wi-onto:ref-year        2009 ;
-        qb:dataSet              dataset:A-Sorted ;
+        qb:dataSet              dataset:B-Imputed ;
         sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Filter ;
-                                  cex:observation  _:b102
+        cex:computation         [ a                cex:Copy ;
+                                  cex:observation  obs:FB09
                                 ] ;
-        cex:indicator           indicator:A ;
-        cex:value               1 .
+        cex:indicator           indicator:B ;
+        cex:value               5 .
 
 cex:value  a    qb:MeasureProperty .
 
-_:b23   a                       qb:Observation ;
+_:b48   a                       qb:Observation ;
         wi-onto:ref-area        country:ESP ;
         wi-onto:ref-year        2011 ;
-        sdmx-concept:obsStatus  cex:Normalized ;
-        cex:computation         [ a                cex:Normalize ;
-                                  cex:observation  _:b103
+        sdmx-concept:obsStatus  cex:Adjusted ;
+        cex:computation         [ a                cex:Adjust ;
+                                  cex:increment    8 ;
+                                  cex:observation  _:b100
                                 ] ;
-        cex:indicator           indicator:Q2 ;
-        cex:value               1.12089707663561000722709 .
+        cex:indicator           indicator:Q1 ;
+        cex:value               7.0 .
 
 dataset:Adjusted  a                 qb:DataSet ;
         rdfs:comment                "Description of dataset Adjusted"@en ;
@@ -2667,61 +2668,17 @@ dataset:Adjusted  a                 qb:DataSet ;
         qb:structure                wi-onto:DSD ;
         sdmx-attribute:unitMeasure  <http://dbpedia.org/resource/Year> ;
         cex:computation             [ a              cex:AdjustDataSet ;
-                                      cex:dataSet    dataset:B-Normalized , dataset:Q2-Normalized , dataset:C-Normalized , dataset:D-Normalized , dataset:Q1-Normalized , dataset:A-Normalized ;
+                                      cex:dataSet    dataset:D-Normalized , dataset:Q2-Normalized , dataset:A-Normalized , dataset:Q1-Normalized , dataset:C-Normalized , dataset:B-Normalized ;
                                       cex:dimension  wi-onto:ref-year ;
                                       cex:increment  8 ;
                                       cex:value      2011
                                     ] ;
         cex:md5-checksum            "MD5..." .
 
-_:b97   a                       qb:Observation ;
-        wi-onto:ref-area        country:CHL ;
-        wi-onto:ref-year        2011 ;
-        qb:dataSet              dataset:B-Imputed ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Copy ;
-                                  cex:observation  obs:CB11
-                                ] ;
-        cex:indicator           indicator:B ;
-        cex:value               4 .
-
 cex:Component  a      rdfs:Class , owl:Class ;
         rdfs:comment  "A component is an aggregation of several indicators" ;
         rdfs:label    "Componente"@es , "Component"@en , "Component" ;
         skos:broader  cex:SubIndex .
-
-_:b104  a                       qb:Observation ;
-        wi-onto:ref-area        country:FIN ;
-        wi-onto:ref-year        2010 ;
-        qb:dataSet              dataset:C-Sorted ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Filter ;
-                                  cex:observation  _:b78
-                                ] ;
-        cex:indicator           indicator:C ;
-        cex:value               5.0 .
-
-_:b95   a                       qb:Observation ;
-        wi-onto:ref-area        country:FIN ;
-        wi-onto:ref-year        2011 ;
-        qb:dataSet              dataset:C-Imputed ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Copy ;
-                                  cex:observation  obs:FC11
-                                ] ;
-        cex:indicator           indicator:C ;
-        cex:value               6 .
-
-_:b102  a                       qb:Observation ;
-        wi-onto:ref-area        country:FIN ;
-        wi-onto:ref-year        2009 ;
-        qb:dataSet              dataset:A-Imputed ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Copy ;
-                                  cex:observation  obs:FA09
-                                ] ;
-        cex:indicator           indicator:A ;
-        cex:value               1 .
 
 dataset:Q2-Sorted  a                qb:DataSet ;
         rdfs:comment                "Description of dataset Q2-Sorted"@en ;
@@ -2772,81 +2729,16 @@ slice:Ranking-AB  a        qb:Slice ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      component:AB .
 
-_:b64   a                       qb:Observation ;
-        wi-onto:ref-area        country:ESP ;
-        wi-onto:ref-year        2011 ;
-        sdmx-concept:obsStatus  cex:Normalized ;
-        cex:computation         [ a                cex:Normalize ;
-                                  cex:observation  _:b84
-                                ] ;
-        cex:indicator           indicator:B ;
-        cex:value               -1.0 .
-
-_:b86   a                       qb:Observation ;
-        wi-onto:ref-area        country:CHL ;
-        wi-onto:ref-year        2011 ;
-        sdmx-concept:obsStatus  cex:Adjusted ;
-        cex:computation         [ a                cex:Adjust ;
-                                  cex:increment    8 ;
-                                  cex:observation  _:b13
-                                ] ;
-        cex:indicator           indicator:A ;
-        cex:value               9.0 .
-
 wi-onto:PrimaryIndicator
         a                rdfs:Class , owl:Class ;
         rdfs:comment     "Primary indicator is an indicator defined by the Webfoundation."@en ;
         rdfs:label       "Primary Indicator"@en ;
         rdfs:subClassOf  cex:Indicator .
 
-_:b84   a                       qb:Observation ;
-        wi-onto:ref-area        country:ESP ;
-        wi-onto:ref-year        2011 ;
-        qb:dataSet              dataset:B-Sorted ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Filter ;
-                                  cex:observation  _:b65
-                                ] ;
-        cex:indicator           indicator:B ;
-        cex:value               10 .
-
-_:b82   a                       qb:Observation ;
-        wi-onto:ref-area        country:FIN ;
-        wi-onto:ref-year        2009 ;
-        qb:dataSet              dataset:D-Imputed ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Copy ;
-                                  cex:observation  obs:FD09
-                                ] ;
-        cex:indicator           indicator:D ;
-        cex:value               2 .
-
 wi-onto:Region  a      lg:Place , skos:Concept ;
         rdfs:comment   "A region represents a set of countries."@en ;
         rdfs:label     "Region concept"@en ;
         skos:narrower  wi-onto:Country .
-
-_:b96   a                       qb:Observation ;
-        wi-onto:ref-area        country:ESP ;
-        wi-onto:ref-year        2011 ;
-        qb:dataSet              dataset:D-Sorted ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Filter ;
-                                  cex:observation  _:b80
-                                ] ;
-        cex:indicator           indicator:D ;
-        cex:value               8 .
-
-_:b87   a                       qb:Observation ;
-        wi-onto:ref-area        country:FIN ;
-        wi-onto:ref-year        2010 ;
-        qb:dataSet              dataset:A-Imputed ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Mean ;
-                                  cex:observation  obs:FA11 , obs:FA09
-                                ] ;
-        cex:indicator           indicator:A ;
-        cex:value               2.0 .
 
 slice:Q2-W  a              qb:Slice ;
         wi-onto:ref-year   2011 ;
@@ -2874,7 +2766,7 @@ slice:Q2-W  a              qb:Slice ;
                              cex:computation         [ a                 cex:Weighted ;
                                                        cex:dimension     cex:indicator ;
                                                        cex:element       indicator:Q2 ;
-                                                       cex:observation   _:b69 ;
+                                                       cex:observation   _:b88 ;
                                                        cex:value         7.199359230974564280552079 ;
                                                        cex:weight        1.0 ;
                                                        cex:weightSchema  weightSchema:indicatorWeights
@@ -2890,7 +2782,7 @@ slice:Q2-W  a              qb:Slice ;
                              cex:computation         [ a                 cex:Weighted ;
                                                        cex:dimension     cex:indicator ;
                                                        cex:element       indicator:Q2 ;
-                                                       cex:observation   _:b22 ;
+                                                       cex:observation   _:b87 ;
                                                        cex:value         9.12089707663561000722709 ;
                                                        cex:weight        1.0 ;
                                                        cex:weightSchema  weightSchema:indicatorWeights
@@ -2918,16 +2810,16 @@ dataset:D-Sorted  a                 qb:DataSet ;
                                     ] ;
         cex:md5-checksum            "MD5..." .
 
-_:b91   a                       qb:Observation ;
-        wi-onto:ref-area        country:FIN ;
-        wi-onto:ref-year        2011 ;
-        qb:dataSet              dataset:C-Sorted ;
+_:b62   a                       qb:Observation ;
+        wi-onto:ref-area        country:CHL ;
+        wi-onto:ref-year        2009 ;
+        qb:dataSet              dataset:B-Sorted ;
         sdmx-concept:obsStatus  cex:Imputed ;
         cex:computation         [ a                cex:Filter ;
-                                  cex:observation  _:b95
+                                  cex:observation  _:b77
                                 ] ;
-        cex:indicator           indicator:C ;
-        cex:value               6 .
+        cex:indicator           indicator:B ;
+        cex:value               4 .
 
 computation:Flow  a  cex:ComputationFlow ;
         cex:steps  ( [ cex:query  "copyRaw" ] [ cex:query
@@ -2940,16 +2832,16 @@ computation:Flow  a  cex:ComputationFlow ;
                           "WeightedMean" ] [ cex:query
                           "Ranking" ] ) .
 
-_:b105  a                       qb:Observation ;
+_:b98   a                       qb:Observation ;
         wi-onto:ref-area        country:ESP ;
         wi-onto:ref-year        2011 ;
-        sdmx-concept:obsStatus  cex:Adjusted ;
-        cex:computation         [ a                cex:Adjust ;
-                                  cex:increment    8 ;
-                                  cex:observation  _:b64
+        qb:dataSet              dataset:B-Imputed ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Copy ;
+                                  cex:observation  obs:EB11
                                 ] ;
         cex:indicator           indicator:B ;
-        cex:value               7.0 .
+        cex:value               10 .
 
 obs:EA11  a                         qb:Observation , wi-onto:Observation ;
         rdfs:label                  "A in ESP during 2011"@en ;
@@ -2999,6 +2891,17 @@ indicator:B  a                    cex:Indicator , wi-onto:SecondaryIndicator ;
 cex:HighLow  a      rdfs:Class , skos:Concept ;
         rdfs:label  "High/Low"@en .
 
+_:b96   a                       qb:Observation ;
+        wi-onto:ref-area        country:CHL ;
+        wi-onto:ref-year        2010 ;
+        qb:dataSet              dataset:D-Sorted ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Filter ;
+                                  cex:observation  _:b70
+                                ] ;
+        cex:indicator           indicator:D ;
+        cex:value               6 .
+
 cex:Indicator  a      rdfs:Class , owl:Class ;
         rdfs:comment  "A given indicator. Several indicators make a Component" ;
         rdfs:label    "Indicator" ;
@@ -3026,20 +2929,31 @@ dataset:B-Imputed  a                qb:DataSet ;
                                     ] ;
         cex:md5-checksum            "MD5..." .
 
+_:b15   a                       qb:Observation ;
+        wi-onto:ref-area        country:CHL ;
+        wi-onto:ref-year        2011 ;
+        qb:dataSet              dataset:Q1-Sorted ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Filter ;
+                                  cex:observation  obs:CQ1
+                                ] ;
+        cex:indicator           indicator:Q1 ;
+        cex:value               8 .
+
 cex:Imputed  a        cex:ObsStatus ;
         rdfs:comment  "Data values that have been imputed from their raw version"@en ;
         rdfs:label    "Imputed data"@en .
 
-_:b21   a                       qb:Observation ;
-        wi-onto:ref-area        country:CHL ;
-        wi-onto:ref-year        2009 ;
-        qb:dataSet              dataset:C-Imputed ;
+_:b10   a                       qb:Observation ;
+        wi-onto:ref-area        country:ESP ;
+        wi-onto:ref-year        2010 ;
+        qb:dataSet              dataset:A-Sorted ;
         sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Copy ;
-                                  cex:observation  obs:CC09
+        cex:computation         [ a                cex:Filter ;
+                                  cex:observation  _:b85
                                 ] ;
-        cex:indicator           indicator:C ;
-        cex:value               6 .
+        cex:indicator           indicator:A ;
+        cex:value               3 .
 
 obs:CA11  a                         qb:Observation , wi-onto:Observation ;
         rdfs:label                  "A in CHL during 2011"@en ;
@@ -3057,9 +2971,52 @@ obs:CA11  a                         qb:Observation , wi-onto:Observation ;
         cex:md5-checksum            "md5 for CA11" ;
         cex:value                   7 .
 
+_:b101  a                       qb:Observation ;
+        wi-onto:ref-area        country:ESP ;
+        wi-onto:ref-year        2011 ;
+        sdmx-concept:obsStatus  cex:Adjusted ;
+        cex:computation         [ a                cex:Adjust ;
+                                  cex:increment    8 ;
+                                  cex:observation  _:b65
+                                ] ;
+        cex:indicator           indicator:B ;
+        cex:value               7.0 .
+
+_:b11   a                       qb:Observation ;
+        wi-onto:ref-area        country:FIN ;
+        wi-onto:ref-year        2010 ;
+        qb:dataSet              dataset:A-Sorted ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Filter ;
+                                  cex:observation  _:b86
+                                ] ;
+        cex:indicator           indicator:A ;
+        cex:value               2.0 .
+
 cex:Ranking  a           rdfs:Class , owl:Class ;
         rdfs:label       "Ranking of a slice"@en ;
         rdfs:subClassOf  cex:Computation .
+
+_:b70   a                       qb:Observation ;
+        wi-onto:ref-area        country:CHL ;
+        wi-onto:ref-year        2010 ;
+        qb:dataSet              dataset:D-Imputed ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Copy ;
+                                  cex:observation  obs:CD10
+                                ] ;
+        cex:indicator           indicator:D ;
+        cex:value               6 .
+
+_:b102  a                       qb:Observation ;
+        wi-onto:ref-area        country:FIN ;
+        wi-onto:ref-year        2011 ;
+        sdmx-concept:obsStatus  cex:Normalized ;
+        cex:computation         [ a                cex:Normalize ;
+                                  cex:observation  _:b14
+                                ] ;
+        cex:indicator           indicator:Q1 ;
+        cex:value               0.0 .
 
 obs:AA11  a                         qb:Observation , wi-onto:Observation ;
         rdfs:label                  "A in ARM during 2011"@en ;
@@ -3079,81 +3036,38 @@ obs:AA11  a                         qb:Observation , wi-onto:Observation ;
 
 slice:D-D  a               qb:Slice ;
         wi-onto:ref-year   2011 ;
-        qb:observation     _:b41 , _:b83 , _:b101 ;
+        qb:observation     _:b1 , _:b53 , _:b81 ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:D .
+
+_:b88   a                       qb:Observation ;
+        wi-onto:ref-area        country:FIN ;
+        wi-onto:ref-year        2011 ;
+        sdmx-concept:obsStatus  cex:Adjusted ;
+        cex:computation         [ a                cex:Adjust ;
+                                  cex:increment    8 ;
+                                  cex:observation  _:b51
+                                ] ;
+        cex:indicator           indicator:Q2 ;
+        cex:value               7.199359230974564280552079 .
 
 cex:Raw  a               rdfs:Class , owl:Class , cex:ObsStatus ;
         rdfs:comment     "Raw data values that have been collected from a datasource without any normalisation process."@en ;
         rdfs:label       "Raw value, not computed"@en , "Raw data"@en ;
         rdfs:subClassOf  cex:Computation .
 
-_:b11   a                       qb:Observation ;
-        wi-onto:ref-area        country:FIN ;
-        wi-onto:ref-year        2011 ;
-        qb:dataSet              dataset:Q1-Sorted ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Filter ;
-                                  cex:observation  obs:FQ1
-                                ] ;
-        cex:indicator           indicator:Q1 ;
-        cex:value               7 .
+slice:B10-Sorted  a        qb:Slice ;
+        wi-onto:ref-year   2010 ;
+        qb:observation     _:b79 , _:b103 , _:b68 ;
+        qb:sliceStructure  wi-onto:sliceByArea ;
+        cex:indicator      indicator:B .
 
-_:b75   a                       qb:Observation ;
+cex:Observation  a    rdfs:Class , owl:Class ;
+        rdfs:comment  "An observation" ;
+        rdfs:label    "Observation" .
+
+_:b63   a                       qb:Observation ;
         wi-onto:ref-area        country:ESP ;
-        wi-onto:ref-year        2011 ;
-        sdmx-concept:obsStatus  cex:Normalized ;
-        cex:computation         [ a                cex:Normalize ;
-                                  cex:observation  _:b56
-                                ] ;
-        cex:indicator           indicator:C ;
-        cex:value               -0.920315693668881275800137 .
-
-_:b90   a                       qb:Observation ;
-        wi-onto:ref-area        country:ESP ;
-        wi-onto:ref-year        2011 ;
-        qb:dataSet              dataset:A-Sorted ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Filter ;
-                                  cex:observation  _:b106
-                                ] ;
-        cex:indicator           indicator:A ;
-        cex:value               5 .
-
-_:b100  a                       qb:Observation ;
-        wi-onto:ref-area        country:CHL ;
-        wi-onto:ref-year        2011 ;
-        qb:dataSet              dataset:D-Imputed ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Copy ;
-                                  cex:observation  obs:CD11
-                                ] ;
-        cex:indicator           indicator:D ;
-        cex:value               8 .
-
-_:b107  a                       qb:Observation ;
-        wi-onto:ref-area        country:CHL ;
-        wi-onto:ref-year        2011 ;
-        sdmx-concept:obsStatus  cex:Normalized ;
-        cex:computation         [ a                cex:Normalize ;
-                                  cex:observation  _:b12
-                                ] ;
-        cex:indicator           indicator:Q1 ;
-        cex:value               1.0 .
-
-_:b58   a                       qb:Observation ;
-        wi-onto:ref-area        country:ESP ;
-        wi-onto:ref-year        2011 ;
-        sdmx-concept:obsStatus  cex:Adjusted ;
-        cex:computation         [ a                cex:Adjust ;
-                                  cex:increment    8 ;
-                                  cex:observation  _:b75
-                                ] ;
-        cex:indicator           indicator:C ;
-        cex:value               7.079684306331118724199863 .
-
-_:b54   a                       qb:Observation ;
-        wi-onto:ref-area        country:CHL ;
         wi-onto:ref-year        2009 ;
         qb:dataSet              dataset:B-Sorted ;
         sdmx-concept:obsStatus  cex:Imputed ;
@@ -3161,66 +3075,45 @@ _:b54   a                       qb:Observation ;
                                   cex:observation  _:b76
                                 ] ;
         cex:indicator           indicator:B ;
-        cex:value               4 .
-
-slice:B10-Sorted  a        qb:Slice ;
-        wi-onto:ref-year   2010 ;
-        qb:observation     _:b92 , _:b108 , _:b81 ;
-        qb:sliceStructure  wi-onto:sliceByArea ;
-        cex:indicator      indicator:B .
-
-_:b43   a                       qb:Observation ;
-        wi-onto:ref-area        country:ESP ;
-        wi-onto:ref-year        2010 ;
-        qb:dataSet              dataset:B-Imputed ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Copy ;
-                                  cex:observation  obs:EB10
-                                ] ;
-        cex:indicator           indicator:B ;
-        cex:value               8 .
-
-cex:Observation  a    rdfs:Class , owl:Class ;
-        rdfs:comment  "An observation" ;
-        rdfs:label    "Observation" .
-
-_:b98   a                       qb:Observation ;
-        wi-onto:ref-area        country:CHL ;
-        wi-onto:ref-year        2010 ;
-        qb:dataSet              dataset:D-Sorted ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Filter ;
-                                  cex:observation  _:b67
-                                ] ;
-        cex:indicator           indicator:D ;
         cex:value               6 .
 
 slice:A11-Sorted  a        qb:Slice ;
         wi-onto:ref-year   2011 ;
-        qb:observation     _:b90 , _:b51 , _:b14 ;
+        qb:observation     _:b55 , _:b5 , _:b104 ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:A .
 
-_:b106  a                       qb:Observation ;
+_:b97   a                       qb:Observation ;
         wi-onto:ref-area        country:ESP ;
-        wi-onto:ref-year        2011 ;
-        qb:dataSet              dataset:A-Imputed ;
+        wi-onto:ref-year        2010 ;
+        qb:dataSet              dataset:D-Sorted ;
         sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Copy ;
-                                  cex:observation  obs:EA11
+        cex:computation         [ a                cex:Filter ;
+                                  cex:observation  _:b69
                                 ] ;
-        cex:indicator           indicator:A ;
-        cex:value               5 .
+        cex:indicator           indicator:D ;
+        cex:value               6 .
 
 slice:Q2-Sorted  a         qb:Slice ;
         wi-onto:ref-year   2011 ;
-        qb:observation     _:b103 , _:b18 , _:b61 ;
+        qb:observation     _:b61 , _:b52 , _:b49 ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:Q2 .
 
+_:b94   a                       qb:Observation ;
+        wi-onto:ref-area        country:ESP ;
+        wi-onto:ref-year        2010 ;
+        qb:dataSet              dataset:C-Imputed ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Copy ;
+                                  cex:observation  obs:EC10
+                                ] ;
+        cex:indicator           indicator:C ;
+        cex:value               5 .
+
 slice:B11-Imputed  a       qb:Slice ;
         wi-onto:ref-year   2011 ;
-        qb:observation     _:b65 , _:b26 , _:b97 ;
+        qb:observation     _:b98 , _:b105 , _:b90 ;
         qb:observation     [ a                       qb:Observation ;
                              wi-onto:ref-area        country:ARM ;
                              wi-onto:ref-year        2011 ;
@@ -3247,7 +3140,7 @@ slice:A10-N  a             qb:Slice ;
                              wi-onto:ref-year        2010 ;
                              sdmx-concept:obsStatus  cex:Normalized ;
                              cex:computation         [ a                cex:Normalize ;
-                                                       cex:observation  _:b5
+                                                       cex:observation  _:b12
                                                      ] ;
                              cex:indicator           indicator:A ;
                              cex:value               1.0
@@ -3257,7 +3150,7 @@ slice:A10-N  a             qb:Slice ;
                              wi-onto:ref-year        2010 ;
                              sdmx-concept:obsStatus  cex:Normalized ;
                              cex:computation         [ a                cex:Normalize ;
-                                                       cex:observation  _:b4
+                                                       cex:observation  _:b11
                                                      ] ;
                              cex:indicator           indicator:A ;
                              cex:value               -1.0
@@ -3267,13 +3160,24 @@ slice:A10-N  a             qb:Slice ;
                              wi-onto:ref-year        2010 ;
                              sdmx-concept:obsStatus  cex:Normalized ;
                              cex:computation         [ a                cex:Normalize ;
-                                                       cex:observation  _:b3
+                                                       cex:observation  _:b10
                                                      ] ;
                              cex:indicator           indicator:A ;
                              cex:value               0.0
                            ] ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:A .
+
+_:b74   a                       qb:Observation ;
+        wi-onto:ref-area        country:FIN ;
+        wi-onto:ref-year        2009 ;
+        qb:dataSet              dataset:C-Sorted ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Filter ;
+                                  cex:observation  _:b17
+                                ] ;
+        cex:indicator           indicator:C ;
+        cex:value               4 .
 
 component:C  a               cex:Component ;
         rdfs:label           "Component C"@en ;
@@ -3321,6 +3225,50 @@ slice:C-Mean  a            qb:Slice ;
 cex:AverageGrowth3  a    rdfs:Class , owl:Class ;
         rdfs:label       "Impute a value as the average growth of 3 values"@en ;
         rdfs:subClassOf  cex:Computation .
+
+_:b103  a                       qb:Observation ;
+        wi-onto:ref-area        country:FIN ;
+        wi-onto:ref-year        2010 ;
+        qb:dataSet              dataset:B-Sorted ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Filter ;
+                                  cex:observation  _:b40
+                                ] ;
+        cex:indicator           indicator:B ;
+        cex:value               6 .
+
+_:b99   a                       qb:Observation ;
+        wi-onto:ref-area        country:ESP ;
+        wi-onto:ref-year        2011 ;
+        qb:dataSet              dataset:D-Imputed ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Copy ;
+                                  cex:observation  obs:ED11
+                                ] ;
+        cex:indicator           indicator:D ;
+        cex:value               8 .
+
+_:b47   a                       qb:Observation ;
+        wi-onto:ref-area        country:FIN ;
+        wi-onto:ref-year        2011 ;
+        sdmx-concept:obsStatus  cex:Adjusted ;
+        cex:computation         [ a                cex:Adjust ;
+                                  cex:increment    8 ;
+                                  cex:observation  _:b102
+                                ] ;
+        cex:indicator           indicator:Q1 ;
+        cex:value               8.0 .
+
+_:b77   a                       qb:Observation ;
+        wi-onto:ref-area        country:CHL ;
+        wi-onto:ref-year        2009 ;
+        qb:dataSet              dataset:B-Imputed ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Copy ;
+                                  cex:observation  obs:CB09
+                                ] ;
+        cex:indicator           indicator:B ;
+        cex:value               4 .
 
 dataset:Q1-Raw  a                   qb:DataSet ;
         rdfs:comment                "Description of dataset A-Raw"@en ;
@@ -3386,83 +3334,17 @@ dataset:A-Raw  a                    qb:DataSet ;
         sdmx-attribute:unitMeasure  <http://dbpedia.org/resource/Year> ;
         cex:md5-checksum            "MD5..." .
 
-_:b94   a                       qb:Observation ;
-        wi-onto:ref-area        country:CHL ;
-        wi-onto:ref-year        2009 ;
-        qb:dataSet              dataset:A-Imputed ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Copy ;
-                                  cex:observation  obs:CA09
-                                ] ;
-        cex:indicator           indicator:A ;
-        cex:value               3 .
-
 slice:C10-Sorted  a        qb:Slice ;
         wi-onto:ref-year   2010 ;
-        qb:observation     _:b15 , _:b104 , _:b109 ;
+        qb:observation     _:b106 , _:b83 , _:b107 ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:C .
 
-_:b55   a                       qb:Observation ;
-        wi-onto:ref-area        country:ESP ;
-        wi-onto:ref-year        2009 ;
-        qb:dataSet              dataset:B-Sorted ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Filter ;
-                                  cex:observation  _:b27
-                                ] ;
-        cex:indicator           indicator:B ;
-        cex:value               6 .
-
-_:b50   a                       qb:Observation ;
-        wi-onto:ref-area        country:ESP ;
-        wi-onto:ref-year        2011 ;
-        sdmx-concept:obsStatus  cex:Adjusted ;
-        cex:computation         [ a                cex:Adjust ;
-                                  cex:increment    8 ;
-                                  cex:observation  _:b6
-                                ] ;
-        cex:indicator           indicator:Q1 ;
-        cex:value               7.0 .
-
-_:b110  a                       qb:Observation ;
-        wi-onto:ref-area        country:CHL ;
-        wi-onto:ref-year        2009 ;
-        qb:dataSet              dataset:D-Imputed ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Copy ;
-                                  cex:observation  obs:CD09
-                                ] ;
-        cex:indicator           indicator:D ;
-        cex:value               4 .
-
-_:b99   a                       qb:Observation ;
-        wi-onto:ref-area        country:ESP ;
-        wi-onto:ref-year        2010 ;
-        qb:dataSet              dataset:D-Sorted ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Filter ;
-                                  cex:observation  _:b0
-                                ] ;
-        cex:indicator           indicator:D ;
-        cex:value               6 .
-
 slice:B-D  a               qb:Slice ;
         wi-onto:ref-year   2011 ;
-        qb:observation     _:b105 , _:b111 , _:b112 ;
+        qb:observation     _:b101 , _:b108 , _:b109 ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:B .
-
-_:b72   a                       qb:Observation ;
-        wi-onto:ref-area        country:FIN ;
-        wi-onto:ref-year        2009 ;
-        qb:dataSet              dataset:C-Sorted ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Filter ;
-                                  cex:observation  _:b20
-                                ] ;
-        cex:indicator           indicator:C ;
-        cex:value               4 .
 
 slice:B10-N  a             qb:Slice ;
         wi-onto:ref-year   2010 ;
@@ -3471,7 +3353,7 @@ slice:B10-N  a             qb:Slice ;
                              wi-onto:ref-year        2010 ;
                              sdmx-concept:obsStatus  cex:Normalized ;
                              cex:computation         [ a                cex:Normalize ;
-                                                       cex:observation  _:b81
+                                                       cex:observation  _:b68
                                                      ] ;
                              cex:indicator           indicator:B ;
                              cex:value               1.0
@@ -3481,7 +3363,7 @@ slice:B10-N  a             qb:Slice ;
                              wi-onto:ref-year        2010 ;
                              sdmx-concept:obsStatus  cex:Normalized ;
                              cex:computation         [ a                cex:Normalize ;
-                                                       cex:observation  _:b108
+                                                       cex:observation  _:b103
                                                      ] ;
                              cex:indicator           indicator:B ;
                              cex:value               0.0
@@ -3491,7 +3373,7 @@ slice:B10-N  a             qb:Slice ;
                              wi-onto:ref-year        2010 ;
                              sdmx-concept:obsStatus  cex:Normalized ;
                              cex:computation         [ a                cex:Normalize ;
-                                                       cex:observation  _:b92
+                                                       cex:observation  _:b79
                                                      ] ;
                              cex:indicator           indicator:B ;
                              cex:value               -1.0
@@ -3499,16 +3381,16 @@ slice:B10-N  a             qb:Slice ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:B .
 
-_:b111  a                       qb:Observation ;
-        wi-onto:ref-area        country:FIN ;
-        wi-onto:ref-year        2011 ;
-        sdmx-concept:obsStatus  cex:Adjusted ;
-        cex:computation         [ a                cex:Adjust ;
-                                  cex:increment    8 ;
-                                  cex:observation  _:b63
+_:b45   a                       qb:Observation ;
+        wi-onto:ref-area        country:CHL ;
+        wi-onto:ref-year        2009 ;
+        qb:dataSet              dataset:D-Sorted ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Filter ;
+                                  cex:observation  _:b42
                                 ] ;
-        cex:indicator           indicator:B ;
-        cex:value               8.0 .
+        cex:indicator           indicator:D ;
+        cex:value               4 .
 
 dataset:Q1-Normalized
         a                           qb:DataSet ;
@@ -3533,6 +3415,17 @@ slice:D10-Raw  a           qb:Slice ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:D .
 
+_:b105  a                       qb:Observation ;
+        wi-onto:ref-area        country:FIN ;
+        wi-onto:ref-year        2011 ;
+        qb:dataSet              dataset:B-Imputed ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Copy ;
+                                  cex:observation  obs:FB11
+                                ] ;
+        cex:indicator           indicator:B ;
+        cex:value               7 .
+
 obs:FQ1  a                          wi-onto:Observation , qb:Observation ;
         rdfs:label                  "Q1 in FIN during 2011"@en ;
         wi-onto:ref-area            country:FIN ;
@@ -3555,6 +3448,17 @@ slice:C09-Raw  a           qb:Slice ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:C .
 
+_:b110  a                       qb:Observation ;
+        wi-onto:ref-area        country:ESP ;
+        wi-onto:ref-year        2009 ;
+        qb:dataSet              dataset:A-Imputed ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Copy ;
+                                  cex:observation  obs:EA09
+                                ] ;
+        cex:indicator           indicator:A ;
+        cex:value               2 .
+
 indicator:D  a                    wi-onto:SecondaryIndicator ;
         rdfs:comment              "This is a sample indicator called D"@en ;
         rdfs:label                "Indicator D"@en ;
@@ -3567,17 +3471,6 @@ indicator:D  a                    wi-onto:SecondaryIndicator ;
         cex:md5-checksum          "MD5 checksum for indicator D" ;
         time:intervalFinishes     2009 ;
         time:intervalStarts       2012 .
-
-_:b49   a                       qb:Observation ;
-        wi-onto:ref-area        country:FIN ;
-        wi-onto:ref-year        2011 ;
-        sdmx-concept:obsStatus  cex:Adjusted ;
-        cex:computation         [ a                cex:Adjust ;
-                                  cex:increment    8 ;
-                                  cex:observation  _:b113
-                                ] ;
-        cex:indicator           indicator:Q1 ;
-        cex:value               8.0 .
 
 dataset:Q2-Raw  a                   qb:DataSet ;
         rdfs:comment                "Description of dataset A-Raw"@en ;
@@ -3592,9 +3485,53 @@ dataset:Q2-Raw  a                   qb:DataSet ;
         sdmx-attribute:unitMeasure  <http://dbpedia.org/resource/Year> ;
         cex:md5-checksum            "MD5..." .
 
+_:b61   a                       qb:Observation ;
+        wi-onto:ref-area        country:ESP ;
+        wi-onto:ref-year        2011 ;
+        qb:dataSet              dataset:Q2-Sorted ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Filter ;
+                                  cex:observation  obs:EQ2
+                                ] ;
+        cex:indicator           indicator:Q2 ;
+        cex:value               7 .
+
+_:b36   a                       qb:Observation ;
+        wi-onto:ref-area        country:ESP ;
+        wi-onto:ref-year        2009 ;
+        qb:dataSet              dataset:A-Sorted ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Filter ;
+                                  cex:observation  _:b110
+                                ] ;
+        cex:indicator           indicator:A ;
+        cex:value               2 .
+
+_:b108  a                       qb:Observation ;
+        wi-onto:ref-area        country:FIN ;
+        wi-onto:ref-year        2011 ;
+        sdmx-concept:obsStatus  cex:Adjusted ;
+        cex:computation         [ a                cex:Adjust ;
+                                  cex:increment    8 ;
+                                  cex:observation  _:b56
+                                ] ;
+        cex:indicator           indicator:B ;
+        cex:value               8.0 .
+
+_:b35   a                       qb:Observation ;
+        wi-onto:ref-area        country:FIN ;
+        wi-onto:ref-year        2009 ;
+        qb:dataSet              dataset:A-Sorted ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Filter ;
+                                  cex:observation  _:b111
+                                ] ;
+        cex:indicator           indicator:A ;
+        cex:value               1 .
+
 slice:D11-Imputed  a       qb:Slice ;
         wi-onto:ref-year   2011 ;
-        qb:observation     _:b80 , _:b29 , _:b100 ;
+        qb:observation     _:b99 , _:b112 , _:b21 ;
         qb:observation     [ a                       qb:Observation ;
                              wi-onto:ref-area        country:ARM ;
                              wi-onto:ref-year        2011 ;
@@ -3613,11 +3550,32 @@ cex:Computed  a       cex:ObsStatus ;
         rdfs:comment  "Data values that have been computed by some algorithm."@en ;
         rdfs:label    "Computed data"@en .
 
+_:b100  a                       qb:Observation ;
+        wi-onto:ref-area        country:ESP ;
+        wi-onto:ref-year        2011 ;
+        sdmx-concept:obsStatus  cex:Normalized ;
+        cex:computation         [ a                cex:Normalize ;
+                                  cex:observation  _:b13
+                                ] ;
+        cex:indicator           indicator:Q1 ;
+        cex:value               -1.0 .
+
 slice:A11-Raw  a           qb:Slice ;
         wi-onto:ref-year   2011 ;
         qb:observation     obs:AA11 , obs:CA11 , obs:FA11 , obs:EA11 ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:A .
+
+_:b113  a                       qb:Observation ;
+        wi-onto:ref-area        country:ESP ;
+        wi-onto:ref-year        2009 ;
+        qb:dataSet              dataset:D-Imputed ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Copy ;
+                                  cex:observation  obs:ED09
+                                ] ;
+        cex:indicator           indicator:D ;
+        cex:value               4 .
 
 dataset:B-Raw  a                    qb:DataSet ;
         rdfs:comment                "Description of dataset A-Raw"@en ;
@@ -3642,7 +3600,7 @@ component:AB  a              cex:Component ;
 
 slice:D09-Imputed  a       qb:Slice ;
         wi-onto:ref-year   2009 ;
-        qb:observation     _:b93 , _:b82 , _:b110 ;
+        qb:observation     _:b113 , _:b0 , _:b42 ;
         qb:observation     [ a                       qb:Observation ;
                              wi-onto:ref-area        country:ARM ;
                              wi-onto:ref-year        2009 ;
@@ -3659,7 +3617,7 @@ slice:D09-Imputed  a       qb:Slice ;
 
 slice:D10-Sorted  a        qb:Slice ;
         wi-onto:ref-year   2010 ;
-        qb:observation     _:b99 , _:b77 , _:b98 ;
+        qb:observation     _:b97 , _:b26 , _:b96 ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:D .
 
@@ -3712,16 +3670,48 @@ obs:FD10  a                         wi-onto:Observation , qb:Observation ;
         cex:md5-checksum            "md5 for FD10" ;
         cex:value                   3 .
 
-_:b12   a                       qb:Observation ;
+_:b90   a                       qb:Observation ;
         wi-onto:ref-area        country:CHL ;
         wi-onto:ref-year        2011 ;
-        qb:dataSet              dataset:Q1-Sorted ;
+        qb:dataSet              dataset:B-Imputed ;
         sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Filter ;
-                                  cex:observation  obs:CQ1
+        cex:computation         [ a                cex:Copy ;
+                                  cex:observation  obs:CB11
                                 ] ;
-        cex:indicator           indicator:Q1 ;
-        cex:value               8 .
+        cex:indicator           indicator:B ;
+        cex:value               4 .
+
+_:b89   a                       qb:Observation ;
+        wi-onto:ref-area        country:CHL ;
+        wi-onto:ref-year        2011 ;
+        sdmx-concept:obsStatus  cex:Adjusted ;
+        cex:computation         [ a                cex:Adjust ;
+                                  cex:increment    8 ;
+                                  cex:observation  _:b75
+                                ] ;
+        cex:indicator           indicator:Q2 ;
+        cex:value               7.679743692389825712220831 .
+
+_:b39   a                       qb:Observation ;
+        wi-onto:ref-area        country:CHL ;
+        wi-onto:ref-year        2011 ;
+        sdmx-concept:obsStatus  cex:Normalized ;
+        cex:computation         [ a                cex:Normalize ;
+                                  cex:observation  _:b104
+                                ] ;
+        cex:indicator           indicator:A ;
+        cex:value               1.0 .
+
+_:b109  a                       qb:Observation ;
+        wi-onto:ref-area        country:CHL ;
+        wi-onto:ref-year        2011 ;
+        sdmx-concept:obsStatus  cex:Adjusted ;
+        cex:computation         [ a                cex:Adjust ;
+                                  cex:increment    8 ;
+                                  cex:observation  _:b6
+                                ] ;
+        cex:indicator           indicator:B ;
+        cex:value               9.0 .
 
 wi-onto:ExternalIndicator
         a                rdfs:Class , owl:Class ;
@@ -3751,7 +3741,7 @@ slice:D-W  a               qb:Slice ;
                              cex:computation         [ a                 cex:Weighted ;
                                                        cex:dimension     cex:indicator ;
                                                        cex:element       indicator:D ;
-                                                       cex:observation   _:b101 ;
+                                                       cex:observation   _:b81 ;
                                                        cex:value         8.577350269189625779018297 ;
                                                        cex:weight        1.0 ;
                                                        cex:weightSchema  weightSchema:indicatorWeights
@@ -3767,7 +3757,7 @@ slice:D-W  a               qb:Slice ;
                              cex:computation         [ a                 cex:Weighted ;
                                                        cex:dimension     cex:indicator ;
                                                        cex:element       indicator:D ;
-                                                       cex:observation   _:b83 ;
+                                                       cex:observation   _:b53 ;
                                                        cex:value         6.845299461620748441963405 ;
                                                        cex:weight        1.0 ;
                                                        cex:weightSchema  weightSchema:indicatorWeights
@@ -3783,7 +3773,7 @@ slice:D-W  a               qb:Slice ;
                              cex:computation         [ a                 cex:Weighted ;
                                                        cex:dimension     cex:indicator ;
                                                        cex:element       indicator:D ;
-                                                       cex:observation   _:b41 ;
+                                                       cex:observation   _:b1 ;
                                                        cex:value         8.577350269189625779018297 ;
                                                        cex:weight        1.0 ;
                                                        cex:weightSchema  weightSchema:indicatorWeights
@@ -3797,17 +3787,6 @@ slice:D-W  a               qb:Slice ;
 cex:Weight  a            rdfs:Class , owl:Class ;
         rdfs:label       "Obtain from an observation and a weightSchema"@en ;
         rdfs:subClassOf  cex:Computation .
-
-_:b3    a                       qb:Observation ;
-        wi-onto:ref-area        country:ESP ;
-        wi-onto:ref-year        2010 ;
-        qb:dataSet              dataset:A-Sorted ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Filter ;
-                                  cex:observation  _:b88
-                                ] ;
-        cex:indicator           indicator:A ;
-        cex:value               3 .
 
 cex:Low  a               skos:Concept ;
         rdfs:comment     "A low value is preferred than a higher one"@en ;
@@ -3837,7 +3816,7 @@ slice:C10-N  a             qb:Slice ;
                              wi-onto:ref-year        2010 ;
                              sdmx-concept:obsStatus  cex:Normalized ;
                              cex:computation         [ a                cex:Normalize ;
-                                                       cex:observation  _:b109
+                                                       cex:observation  _:b107
                                                      ] ;
                              cex:indicator           indicator:C ;
                              cex:value               1.154700538379251591369928
@@ -3847,7 +3826,7 @@ slice:C10-N  a             qb:Slice ;
                              wi-onto:ref-year        2010 ;
                              sdmx-concept:obsStatus  cex:Normalized ;
                              cex:computation         [ a                cex:Normalize ;
-                                                       cex:observation  _:b104
+                                                       cex:observation  _:b83
                                                      ] ;
                              cex:indicator           indicator:C ;
                              cex:value               -0.577350269189625795684965
@@ -3857,7 +3836,7 @@ slice:C10-N  a             qb:Slice ;
                              wi-onto:ref-year        2010 ;
                              sdmx-concept:obsStatus  cex:Normalized ;
                              cex:computation         [ a                cex:Normalize ;
-                                                       cex:observation  _:b15
+                                                       cex:observation  _:b106
                                                      ] ;
                              cex:indicator           indicator:C ;
                              cex:value               -0.577350269189625795684965
@@ -3865,19 +3844,9 @@ slice:C10-N  a             qb:Slice ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:C .
 
-_:b113  a                       qb:Observation ;
-        wi-onto:ref-area        country:FIN ;
-        wi-onto:ref-year        2011 ;
-        sdmx-concept:obsStatus  cex:Normalized ;
-        cex:computation         [ a                cex:Normalize ;
-                                  cex:observation  _:b11
-                                ] ;
-        cex:indicator           indicator:Q1 ;
-        cex:value               0.0 .
-
 slice:Q1-N  a              qb:Slice ;
         wi-onto:ref-year   2011 ;
-        qb:observation     _:b107 , _:b113 , _:b6 ;
+        qb:observation     _:b93 , _:b102 , _:b100 ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:Q1 .
 
@@ -3898,44 +3867,11 @@ dataset:Rankings  a                 qb:DataSet ;
                                     ] ;
         cex:md5-checksum            "MD5..." .
 
-_:b59   a                       qb:Observation ;
-        wi-onto:ref-area        country:FIN ;
-        wi-onto:ref-year        2011 ;
-        sdmx-concept:obsStatus  cex:Adjusted ;
-        cex:computation         [ a                cex:Adjust ;
-                                  cex:increment    8 ;
-                                  cex:observation  _:b74
-                                ] ;
-        cex:indicator           indicator:C ;
-        cex:value               7.856200672864237300656229 .
-
 slice:D11-Raw  a           qb:Slice ;
         wi-onto:ref-year   2011 ;
         qb:observation     obs:AD11 , obs:CD11 , obs:FD11 , obs:ED11 ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:D .
-
-_:b44   a                       qb:Observation ;
-        wi-onto:ref-area        country:FIN ;
-        wi-onto:ref-year        2010 ;
-        qb:dataSet              dataset:B-Imputed ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Copy ;
-                                  cex:observation  obs:FB10
-                                ] ;
-        cex:indicator           indicator:B ;
-        cex:value               6 .
-
-_:b47   a                       qb:Observation ;
-        wi-onto:ref-area        country:CHL ;
-        wi-onto:ref-year        2009 ;
-        qb:dataSet              dataset:D-Sorted ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Filter ;
-                                  cex:observation  _:b110
-                                ] ;
-        cex:indicator           indicator:D ;
-        cex:value               4 .
 
 dataset:B-Sorted  a                 qb:DataSet ;
         rdfs:comment                "Description of dataset C-Sorted"@en ;
@@ -3954,30 +3890,41 @@ dataset:B-Sorted  a                 qb:DataSet ;
                                     ] ;
         cex:md5-checksum            "MD5..." .
 
-_:b52   a                       qb:Observation ;
-        wi-onto:ref-area        country:FIN ;
-        wi-onto:ref-year        2011 ;
-        qb:dataSet              dataset:A-Imputed ;
+_:b43   a                       qb:Observation ;
+        wi-onto:ref-area        country:ESP ;
+        wi-onto:ref-year        2009 ;
+        qb:dataSet              dataset:D-Sorted ;
         sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Copy ;
-                                  cex:observation  obs:FA11
+        cex:computation         [ a                cex:Filter ;
+                                  cex:observation  _:b113
                                 ] ;
-        cex:indicator           indicator:A ;
-        cex:value               3 .
+        cex:indicator           indicator:D ;
+        cex:value               4 .
 
 cex:msg  a          owl:DatatypeProperty ;
         rdfs:label  "Message"@en .
 
-_:b103  a                       qb:Observation ;
-        wi-onto:ref-area        country:ESP ;
-        wi-onto:ref-year        2011 ;
-        qb:dataSet              dataset:Q2-Sorted ;
+_:b95   a                       qb:Observation ;
+        wi-onto:ref-area        country:CHL ;
+        wi-onto:ref-year        2010 ;
+        qb:dataSet              dataset:C-Imputed ;
         sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Filter ;
-                                  cex:observation  obs:EQ2
+        cex:computation         [ a                cex:Copy ;
+                                  cex:observation  obs:CC10
                                 ] ;
-        cex:indicator           indicator:Q2 ;
-        cex:value               7 .
+        cex:indicator           indicator:C ;
+        cex:value               8 .
+
+_:b112  a                       qb:Observation ;
+        wi-onto:ref-area        country:FIN ;
+        wi-onto:ref-year        2011 ;
+        qb:dataSet              dataset:D-Imputed ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Copy ;
+                                  cex:observation  obs:FD11
+                                ] ;
+        cex:indicator           indicator:D ;
+        cex:value               4 .
 
 dataset:C-Raw  a                    qb:DataSet ;
         rdfs:comment                "Description of dataset A-Raw"@en ;
@@ -3991,6 +3938,17 @@ dataset:C-Raw  a                    qb:DataSet ;
         qb:structure                wi-onto:DSD ;
         sdmx-attribute:unitMeasure  <http://dbpedia.org/resource/Year> ;
         cex:md5-checksum            "MD5..." .
+
+_:b107  a                       qb:Observation ;
+        wi-onto:ref-area        country:CHL ;
+        wi-onto:ref-year        2010 ;
+        qb:dataSet              dataset:C-Sorted ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Filter ;
+                                  cex:observation  _:b95
+                                ] ;
+        cex:indicator           indicator:C ;
+        cex:value               8 .
 
 obs:EC10  a                         wi-onto:Observation , qb:Observation ;
         rdfs:label                  "C in ESP during 2010"@en ;
@@ -4032,6 +3990,39 @@ dataset:Composite  a                qb:DataSet ;
                                     ] ;
         cex:md5-checksum            "MD5..." .
 
+_:b57   a                       qb:Observation ;
+        wi-onto:ref-area        country:FIN ;
+        wi-onto:ref-year        2011 ;
+        qb:dataSet              dataset:B-Sorted ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Filter ;
+                                  cex:observation  _:b105
+                                ] ;
+        cex:indicator           indicator:B ;
+        cex:value               7 .
+
+_:b46   a                       qb:Observation ;
+        wi-onto:ref-area        country:CHL ;
+        wi-onto:ref-year        2011 ;
+        sdmx-concept:obsStatus  cex:Adjusted ;
+        cex:computation         [ a                cex:Adjust ;
+                                  cex:increment    8 ;
+                                  cex:observation  _:b93
+                                ] ;
+        cex:indicator           indicator:Q1 ;
+        cex:value               9.0 .
+
+_:b29   a                       qb:Observation ;
+        wi-onto:ref-area        country:FIN ;
+        wi-onto:ref-year        2011 ;
+        qb:dataSet              dataset:D-Sorted ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Filter ;
+                                  cex:observation  _:b112
+                                ] ;
+        cex:indicator           indicator:D ;
+        cex:value               4 .
+
 obs:CC10  a                         wi-onto:Observation , qb:Observation ;
         rdfs:label                  "C in CHL during 2010"@en ;
         wi-onto:ref-area            country:CHL ;
@@ -4051,6 +4042,16 @@ obs:CC10  a                         wi-onto:Observation , qb:Observation ;
 cex:ErrorParam  a        owl:Class ;
         rdfs:label       "Error Parameter" ;
         rdfs:subClassOf  cex:Param .
+
+_:b82   a                       qb:Observation ;
+        wi-onto:ref-area        country:CHL ;
+        wi-onto:ref-year        2011 ;
+        sdmx-concept:obsStatus  cex:Normalized ;
+        cex:computation         [ a                cex:Normalize ;
+                                  cex:observation  _:b91
+                                ] ;
+        cex:indicator           indicator:D ;
+        cex:value               0.577350269189625779018297 .
 
 obs:ED11  a                         qb:Observation , wi-onto:Observation ;
         rdfs:label                  "D in ESP during 2011"@en ;
@@ -4105,17 +4106,6 @@ obs:EC09  a                         wi-onto:Observation , qb:Observation ;
         cex:md5-checksum            "md5 for EC09" ;
         cex:value                   4 .
 
-_:b16   a                       qb:Observation ;
-        wi-onto:ref-area        country:ESP ;
-        wi-onto:ref-year        2010 ;
-        qb:dataSet              dataset:C-Imputed ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Copy ;
-                                  cex:observation  obs:EC10
-                                ] ;
-        cex:indicator           indicator:C ;
-        cex:value               5 .
-
 slice:D09-N  a             qb:Slice ;
         wi-onto:ref-year   2009 ;
         qb:observation     [ a                       qb:Observation ;
@@ -4123,7 +4113,7 @@ slice:D09-N  a             qb:Slice ;
                              wi-onto:ref-year        2009 ;
                              sdmx-concept:obsStatus  cex:Normalized ;
                              cex:computation         [ a                cex:Normalize ;
-                                                       cex:observation  _:b47
+                                                       cex:observation  _:b45
                                                      ] ;
                              cex:indicator           indicator:D ;
                              cex:value               0.577350269189625779018297
@@ -4133,7 +4123,7 @@ slice:D09-N  a             qb:Slice ;
                              wi-onto:ref-year        2009 ;
                              sdmx-concept:obsStatus  cex:Normalized ;
                              cex:computation         [ a                cex:Normalize ;
-                                                       cex:observation  _:b46
+                                                       cex:observation  _:b44
                                                      ] ;
                              cex:indicator           indicator:D ;
                              cex:value               -1.154700538379251558036595
@@ -4143,24 +4133,13 @@ slice:D09-N  a             qb:Slice ;
                              wi-onto:ref-year        2009 ;
                              sdmx-concept:obsStatus  cex:Normalized ;
                              cex:computation         [ a                cex:Normalize ;
-                                                       cex:observation  _:b45
+                                                       cex:observation  _:b43
                                                      ] ;
                              cex:indicator           indicator:D ;
                              cex:value               0.577350269189625779018297
                            ] ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:D .
-
-_:b108  a                       qb:Observation ;
-        wi-onto:ref-area        country:FIN ;
-        wi-onto:ref-year        2010 ;
-        qb:dataSet              dataset:B-Sorted ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Filter ;
-                                  cex:observation  _:b44
-                                ] ;
-        cex:indicator           indicator:B ;
-        cex:value               6 .
 
 obs:CD11  a                         wi-onto:Observation , qb:Observation ;
         rdfs:label                  "D in CHL during 2011"@en ;
@@ -4178,23 +4157,12 @@ obs:CD11  a                         wi-onto:Observation , qb:Observation ;
         cex:md5-checksum            "md5 for CD11" ;
         cex:value                   8 .
 
-_:b45   a                       qb:Observation ;
-        wi-onto:ref-area        country:ESP ;
-        wi-onto:ref-year        2009 ;
-        qb:dataSet              dataset:D-Sorted ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Filter ;
-                                  cex:observation  _:b93
-                                ] ;
-        cex:indicator           indicator:D ;
-        cex:value               4 .
-
 cex:SubIndex  a     rdfs:Class , owl:Class ;
         rdfs:label  "Subíndice"@es , "Subindex"@en , "Subindex" .
 
 slice:D11-N  a             qb:Slice ;
         wi-onto:ref-year   2011 ;
-        qb:observation     _:b30 , _:b79 , _:b42 ;
+        qb:observation     _:b82 , _:b28 , _:b2 ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:D .
 
@@ -4216,7 +4184,7 @@ obs:CC09  a                         wi-onto:Observation , qb:Observation ;
 
 slice:A11-Imputed  a       qb:Slice ;
         wi-onto:ref-year   2011 ;
-        qb:observation     _:b106 , _:b52 , _:b17 ;
+        qb:observation     _:b31 , _:b73 , _:b92 ;
         qb:observation     [ a                       qb:Observation ;
                              wi-onto:ref-area        country:ARM ;
                              wi-onto:ref-year        2011 ;
@@ -4247,6 +4215,23 @@ obs:EQ2  a                          qb:Observation , wi-onto:Observation ;
         cex:md5-checksum            "md5 for EQ2" ;
         cex:value                   7 .
 
+slice:A09-Imputed  a       qb:Slice ;
+        wi-onto:ref-year   2009 ;
+        qb:observation     _:b110 , _:b111 , _:b3 ;
+        qb:observation     [ a                       qb:Observation ;
+                             wi-onto:ref-area        country:ARM ;
+                             wi-onto:ref-year        2009 ;
+                             qb:dataSet              dataset:A-Imputed ;
+                             sdmx-concept:obsStatus  cex:Imputed ;
+                             cex:computation         [ a                cex:Copy ;
+                                                       cex:observation  obs:AA09
+                                                     ] ;
+                             cex:indicator           indicator:A ;
+                             cex:value               1
+                           ] ;
+        qb:sliceStructure  wi-onto:sliceByArea ;
+        cex:indicator      indicator:A .
+
 obs:FB10  a                         qb:Observation , wi-onto:Observation ;
         rdfs:label                  "B in FIN during 2010"@en ;
         wi-onto:ref-area            country:FIN ;
@@ -4262,34 +4247,6 @@ obs:FB10  a                         qb:Observation , wi-onto:Observation ;
         cex:indicator               indicator:B ;
         cex:md5-checksum            "md5 for EA09" ;
         cex:value                   6 .
-
-slice:A09-Imputed  a       qb:Slice ;
-        wi-onto:ref-year   2009 ;
-        qb:observation     _:b2 , _:b102 , _:b94 ;
-        qb:observation     [ a                       qb:Observation ;
-                             wi-onto:ref-area        country:ARM ;
-                             wi-onto:ref-year        2009 ;
-                             qb:dataSet              dataset:A-Imputed ;
-                             sdmx-concept:obsStatus  cex:Imputed ;
-                             cex:computation         [ a                cex:Copy ;
-                                                       cex:observation  obs:AA09
-                                                     ] ;
-                             cex:indicator           indicator:A ;
-                             cex:value               1
-                           ] ;
-        qb:sliceStructure  wi-onto:sliceByArea ;
-        cex:indicator      indicator:A .
-
-_:b112  a                       qb:Observation ;
-        wi-onto:ref-area        country:CHL ;
-        wi-onto:ref-year        2011 ;
-        sdmx-concept:obsStatus  cex:Adjusted ;
-        cex:computation         [ a                cex:Adjust ;
-                                  cex:increment    8 ;
-                                  cex:observation  _:b62
-                                ] ;
-        cex:indicator           indicator:B ;
-        cex:value               9.0 .
 
 obs:AD11  a                         wi-onto:Observation , qb:Observation ;
         rdfs:label                  "D in ARM during 2011"@en ;
@@ -4342,17 +4299,6 @@ slice:CDQ1-Mean  a         qb:Slice ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      subindex:CDQ1 .
 
-_:b109  a                       qb:Observation ;
-        wi-onto:ref-area        country:CHL ;
-        wi-onto:ref-year        2010 ;
-        qb:dataSet              dataset:C-Sorted ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Filter ;
-                                  cex:observation  _:b24
-                                ] ;
-        cex:indicator           indicator:C ;
-        cex:value               8 .
-
 obs:AC09  a                         wi-onto:Observation , qb:Observation ;
         rdfs:label                  "C in ARM during 2009"@en ;
         wi-onto:ref-area            country:ARM ;
@@ -4369,22 +4315,22 @@ obs:AC09  a                         wi-onto:Observation , qb:Observation ;
         cex:md5-checksum            "md5 for CC09" ;
         cex:value                   2 .
 
-_:b88   a                       qb:Observation ;
-        wi-onto:ref-area        country:ESP ;
-        wi-onto:ref-year        2010 ;
-        qb:dataSet              dataset:A-Imputed ;
-        sdmx-concept:obsStatus  cex:Imputed ;
-        cex:computation         [ a                cex:Copy ;
-                                  cex:observation  obs:EA10
-                                ] ;
-        cex:indicator           indicator:A ;
-        cex:value               3 .
-
 slice:Q1-D  a              qb:Slice ;
         wi-onto:ref-year   2011 ;
-        qb:observation     _:b50 , _:b49 , _:b48 ;
+        qb:observation     _:b48 , _:b47 , _:b46 ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:Q1 .
+
+_:b106  a                       qb:Observation ;
+        wi-onto:ref-area        country:ESP ;
+        wi-onto:ref-year        2010 ;
+        qb:dataSet              dataset:C-Sorted ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Filter ;
+                                  cex:observation  _:b94
+                                ] ;
+        cex:indicator           indicator:C ;
+        cex:value               5 .
 
 weightSchema:subindexWeights
         a           cex:WeightSchema ;
@@ -4396,6 +4342,17 @@ weightSchema:subindexWeights
                       cex:element  subindex:ABQ2 ;
                       cex:value    0.4
                     ] .
+
+_:b111  a                       qb:Observation ;
+        wi-onto:ref-area        country:FIN ;
+        wi-onto:ref-year        2009 ;
+        qb:dataSet              dataset:A-Imputed ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Copy ;
+                                  cex:observation  obs:FA09
+                                ] ;
+        cex:indicator           indicator:A ;
+        cex:value               1 .
 
 obs:FC11  a                         qb:Observation , wi-onto:Observation ;
         rdfs:label                  "C in FIN during 2011"@en ;
@@ -4423,7 +4380,7 @@ slice:B-W  a               qb:Slice ;
                              cex:computation         [ a                 cex:Weighted ;
                                                        cex:dimension     cex:indicator ;
                                                        cex:element       indicator:B ;
-                                                       cex:observation   _:b112 ;
+                                                       cex:observation   _:b109 ;
                                                        cex:value         9.0 ;
                                                        cex:weight        0.5 ;
                                                        cex:weightSchema  weightSchema:indicatorWeights
@@ -4439,7 +4396,7 @@ slice:B-W  a               qb:Slice ;
                              cex:computation         [ a                 cex:Weighted ;
                                                        cex:dimension     cex:indicator ;
                                                        cex:element       indicator:B ;
-                                                       cex:observation   _:b111 ;
+                                                       cex:observation   _:b108 ;
                                                        cex:value         8.0 ;
                                                        cex:weight        0.5 ;
                                                        cex:weightSchema  weightSchema:indicatorWeights
@@ -4455,7 +4412,7 @@ slice:B-W  a               qb:Slice ;
                              cex:computation         [ a                 cex:Weighted ;
                                                        cex:dimension     cex:indicator ;
                                                        cex:element       indicator:B ;
-                                                       cex:observation   _:b105 ;
+                                                       cex:observation   _:b101 ;
                                                        cex:value         7.0 ;
                                                        cex:weight        0.5 ;
                                                        cex:weightSchema  weightSchema:indicatorWeights
@@ -4465,17 +4422,6 @@ slice:B-W  a               qb:Slice ;
                            ] ;
         qb:sliceStructure  wi-onto:sliceByArea ;
         cex:indicator      indicator:B .
-
-_:b48   a                       qb:Observation ;
-        wi-onto:ref-area        country:CHL ;
-        wi-onto:ref-year        2011 ;
-        sdmx-concept:obsStatus  cex:Adjusted ;
-        cex:computation         [ a                cex:Adjust ;
-                                  cex:increment    8 ;
-                                  cex:observation  _:b107
-                                ] ;
-        cex:indicator           indicator:Q1 ;
-        cex:value               9.0 .
 
 obs:FB09  a                         qb:Observation , wi-onto:Observation ;
         rdfs:label                  "B in FIN during 2009"@en ;
@@ -4493,9 +4439,42 @@ obs:FB09  a                         qb:Observation , wi-onto:Observation ;
         cex:md5-checksum            "md5 for FB09" ;
         cex:value                   5 .
 
+_:b52   a                       qb:Observation ;
+        wi-onto:ref-area        country:FIN ;
+        wi-onto:ref-year        2011 ;
+        qb:dataSet              dataset:Q2-Sorted ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Filter ;
+                                  cex:observation  obs:FQ2
+                                ] ;
+        cex:indicator           indicator:Q2 ;
+        cex:value               3 .
+
 wi-onto:ref-year  a  qb:DimensionProperty , owl:FunctionalProperty , owl:DatatypeProperty ;
         rdfs:domain  wi-onto:Observation ;
         rdfs:range   xsd:integer .
+
+_:b5    a                       qb:Observation ;
+        wi-onto:ref-area        country:FIN ;
+        wi-onto:ref-year        2011 ;
+        qb:dataSet              dataset:A-Sorted ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Filter ;
+                                  cex:observation  _:b73
+                                ] ;
+        cex:indicator           indicator:A ;
+        cex:value               3 .
+
+_:b104  a                       qb:Observation ;
+        wi-onto:ref-area        country:CHL ;
+        wi-onto:ref-year        2011 ;
+        qb:dataSet              dataset:A-Sorted ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                cex:Filter ;
+                                  cex:observation  _:b92
+                                ] ;
+        cex:indicator           indicator:A ;
+        cex:value               7 .
 
 indicator:Q2  a                wi-onto:PrimaryIndicator ;
         rdfs:comment           "Question 2"@en ;
@@ -4516,3 +4495,24 @@ wi-onto:has-iso-alpha2-code
         rdfs:comment        "This property creates a link between a country and its ISO code (2 digit)"@en ;
         rdfs:label          "ISO-code-alpha 2 digit"@en ;
         rdfs:subPropertyOf  dcterms:identifier .
+
+_:b75   a                       qb:Observation ;
+        wi-onto:ref-area        country:CHL ;
+        wi-onto:ref-year        2011 ;
+        sdmx-concept:obsStatus  cex:Normalized ;
+        cex:computation         [ a                cex:Normalize ;
+                                  cex:observation  _:b49
+                                ] ;
+        cex:indicator           indicator:Q2 ;
+        cex:value               -0.320256307610174287779169 .
+
+_:b20   a                       qb:Observation ;
+        wi-onto:ref-area        country:CHL ;
+        wi-onto:ref-year        2011 ;
+        qb:dataSet              dataset:C-Imputed ;
+        sdmx-concept:obsStatus  cex:Imputed ;
+        cex:computation         [ a                 cex:AverageGrowth ;
+                                  cex:observations  ( obs:CC10 obs:CC09 )
+                                ] ;
+        cex:indicator           indicator:C ;
+        cex:value               10.666666666666666666666664 .
