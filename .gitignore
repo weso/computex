@@ -23,6 +23,14 @@ dist
 /RUNNING_PID
 /.settings
 
+# Latex
+*.bbl
+*.blg
+*.aux
+*.log
+*.out
+
+
 # sbt specific
 dist/*
 target/
