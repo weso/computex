@@ -11,13 +11,13 @@
 		<title>Computex - Validator</title>
 
 		<link rel="stylesheet" href="@routes.Assets.at("stylesheets/foundation.css")" />
-		<link href='http://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet' type='text/css'>
 		<style type="text/css" media="all">
 			@@import "http://validator.w3.org/style/base";
             @@import "http://validator.w3.org/style/results";
          </style>
          <link rel="stylesheet" href="@routes.Assets.at("stylesheets/site.css")" />
-         <link rel="icon" href="@routes.Assets.at(message.status match{
+         <link rel="icon" type="image/png" href="@routes.Assets.at(message.status match{
          	case VALID => "images/favicon_ok.png"
          	case INVALID => "images/favicon_fail.png"
          	case _ => "images/weso.png"
@@ -29,7 +29,7 @@
       			<a href="/"><img alt="W3C" width="110" height="61" id="logo" src="@routes.Assets.at("images/weso.png")"></a>
 				<a href="/"><span>COMPUTEX Validation Service</span></a>
       		</h1>
-      		<p id="tagline">Validates COMPUTEX Ontology, and therefore, RDF Data Cube</p>
+      		<p id="tagline">Validates <a href="http://www.w3.org/TR/vocab-data-cube/">RDF Data Cube</a> and Statistical Indexes with computations</p>
       	</header>
       	@content
 		<footer id="footer">
@@ -47,7 +47,8 @@
 	<script>
 		$(".query .backtop a").click(function(event){
 			event.preventDefault();
-			var pre = $(this).find("pre");
+			//var pre = $(this).find("pre");
+			var pre = $(this).parent().prev();
 			if(pre.hasClass("hide")){
 				pre.removeClass("hide");
 				$(this).text("↑ Hide Integrity Query");
@@ -58,14 +59,16 @@
 		});
 		
 		$(".msg_err a").click(function(event){
-			event.preventDefault();
-			var pre = $(this).parent().prev();
-			if(pre.hasClass("hide")){
-				pre.removeClass("hide");
-				$(this).text("↑ Hide RAW Data (TTL)");
-			} else {
-				pre.addClass("hide");
-				$(this).text("↓ Show RAW Data (TTL)");
+			if($(this).parent().parent().find('table').length > 0) {
+				event.preventDefault();
+				var pre = $(this).parent().prev();
+				if(pre.hasClass("hide")){
+					pre.removeClass("hide");
+					$(this).text("↑ Hide SPARQL query");
+				} else {
+					pre.addClass("hide");
+					$(this).text("↓ Show SPARQL query");
+				}
 			}
 		});
 	</script>

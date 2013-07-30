@@ -47,7 +47,8 @@
 	<script>
 		$(".query .backtop a").click(function(event){
 			event.preventDefault();
-			var pre = $(this).find("pre");
+			//var pre = $(this).find("pre");
+			var pre = $(this).parent().prev();
 			if(pre.hasClass("hide")){
 				pre.removeClass("hide");
 				$(this).text("↑ Hide Integrity Query");
@@ -58,14 +59,16 @@
 		});
 		
 		$(".msg_err a").click(function(event){
-			event.preventDefault();
-			var pre = $(this).parent().prev();
-			if(pre.hasClass("hide")){
-				pre.removeClass("hide");
-				$(this).text("↑ Hide RAW Data (TTL)");
-			} else {
-				pre.addClass("hide");
-				$(this).text("↓ Show RAW Data (TTL)");
+			if($(this).parent().parent().find('table').length > 0) {
+				event.preventDefault();
+				var pre = $(this).parent().prev();
+				if(pre.hasClass("hide")){
+					pre.removeClass("hide");
+					$(this).text("↑ Hide SPARQL query");
+				} else {
+					pre.addClass("hide");
+					$(this).text("↓ Show SPARQL query");
+				}
 			}
 		});
 	</script>
