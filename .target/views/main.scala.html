@@ -22,8 +22,11 @@
          	case INVALID => "images/favicon_fail.png"
          	case _ => "images/weso.png"
          })"/>
+         <link rel="stylesheet" href="@routes.Assets.at("stylesheets/prettify.css")" />
+         <script type="text/javascript" src="@routes.Assets.at("javascripts/highlighter/prettify.js")"></script>
+         <script type="text/javascript" src="@routes.Assets.at("javascripts/highlighter/lang-sparql.js")"></script>
 	</head>
-    <body>
+    <body onload="prettyPrint()">
     	<header id="banner">
 			<h1 id="title">
       			<a href="/"><img alt="W3C" width="110" height="61" id="logo" src="@routes.Assets.at("images/weso.png")"></a>
