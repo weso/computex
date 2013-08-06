@@ -1,0 +1,185 @@
+@prefix dc:    <http://purl.org/dc/terms/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix earl:  <http://www.w3.org/ns/earl#> .
+@prefix cnt:   <http://www.w3.org/2011/content#> .
+@prefix foaf:  <http://xmlns.com/foaf/0.1/#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix doap:  <http://usefulinc.com/ns/doap#> .
+@prefix cex-earl: <http://purl.org/weso/ontology/computex/earl-report#> .
+@prefix ptr:   <http://www.w3.org/2009/pointers#> .
+
+cex-earl:ass11  a        earl:Assertion ;
+        rdf:ID           "ass11" ;
+        dc:description   "Observation does not have value in mean"^^xsd:string ;
+        earl:assertedBy  cex-earl:WESO ;
+        earl:result      cex-earl:passed ;
+        earl:subject     cex-earl:fileContent ;
+        earl:test        <http://www.w3.org/TR/2013/CR-vocab-data-cube-20130625/#wf> .
+
+cex-earl:ass5  a         earl:Assertion ;
+        rdf:ID           "ass5" ;
+        dc:description   "Weighted Mean does not match"^^xsd:string ;
+        earl:assertedBy  cex-earl:WESO ;
+        earl:result      cex-earl:passed ;
+        earl:subject     cex-earl:fileContent ;
+        earl:test        <http://www.w3.org/TR/2013/CR-vocab-data-cube-20130625/#wf> .
+
+cex-earl:passed  a      earl:TestResult ;
+        rdf:ID          "passed" ;
+        dc:description  "Passed test"@en ;
+        earl:outcome    earl:passed .
+
+cex-earl:ass10  a        earl:Assertion ;
+        rdf:ID           "ass10" ;
+        dc:description   "Observation does not have value in copy"^^xsd:string ;
+        earl:assertedBy  cex-earl:WESO ;
+        earl:result      cex-earl:passed ;
+        earl:subject     cex-earl:fileContent ;
+        earl:test        <http://www.w3.org/TR/2013/CR-vocab-data-cube-20130625/#wf> .
+
+cex-earl:ass4  a         earl:Assertion ;
+        rdf:ID           "ass4" ;
+        dc:description   "Ranking value does not match"^^xsd:string ;
+        earl:assertedBy  cex-earl:WESO ;
+        earl:result      cex-earl:passed ;
+        earl:subject     cex-earl:fileContent ;
+        earl:test        <http://www.w3.org/TR/2013/CR-vocab-data-cube-20130625/#wf> .
+
+cex-earl:error1  a      earl:TestResult ;
+        rdf:ID          "error1" ;
+        dc:description  "Adjusted value does not match"@en ;
+        earl:outcome    earl:failed .
+
+<http://www.w3.org/TR/2013/CR-vocab-data-cube-20130625/#wf>
+        a               earl:TestRequirement ;
+        dc:description  "A set of integrity constraints that an instance of an RDF Data Cube should be conformed"@en ;
+        dc:title        "RDF Data Cube Integrity constraints definition"@en .
+
+<http://computex.herokuapp.com>
+        a               earl:Software ;
+        dc:description  "RDF Data Cube Validator Service, a free service that validates index data files and performs computations on them"@en ;
+        dc:hasVersion   "0.0.1"^^xsd:string ;
+        dc:title        "RDF Data Cube Validator"@en .
+
+cex-earl:ass15  a        earl:Assertion ;
+        rdf:ID           "ass15" ;
+        dc:description   "Observation does not have sheet-type"^^xsd:string ;
+        earl:assertedBy  cex-earl:WESO ;
+        earl:result      cex-earl:passed ;
+        earl:subject     cex-earl:fileContent ;
+        earl:test        <http://www.w3.org/TR/2013/CR-vocab-data-cube-20130625/#wf> .
+
+cex-earl:ass3  a         earl:Assertion ;
+        rdf:ID           "ass3" ;
+        dc:description   "Observation does not have value"^^xsd:string ;
+        earl:assertedBy  cex-earl:WESO ;
+        earl:result      cex-earl:passed ;
+        earl:subject     cex-earl:fileContent ;
+        earl:test        <http://www.w3.org/TR/2013/CR-vocab-data-cube-20130625/#wf> .
+
+cex-earl:ass9  a         earl:Assertion ;
+        rdf:ID           "ass9" ;
+        dc:description   "Copy value does not match"^^xsd:string ;
+        earl:assertedBy  cex-earl:WESO ;
+        earl:result      cex-earl:passed ;
+        earl:subject     cex-earl:fileContent ;
+        earl:test        <http://www.w3.org/TR/2013/CR-vocab-data-cube-20130625/#wf> .
+
+cex-earl:ass14  a        earl:Assertion ;
+        rdf:ID           "ass14" ;
+        dc:description   "Normalized value does not match computed z-score"^^xsd:string ;
+        earl:assertedBy  cex-earl:WESO ;
+        earl:result      cex-earl:passed ;
+        earl:subject     cex-earl:fileContent ;
+        earl:test        <http://www.w3.org/TR/2013/CR-vocab-data-cube-20130625/#wf> .
+
+cex-earl:ass2  a         earl:Assertion ;
+        rdf:ID           "ass2" ;
+        dc:description   "Observation has two different values"^^xsd:string ;
+        earl:assertedBy  cex-earl:WESO ;
+        earl:result      cex-earl:passed ;
+        earl:subject     cex-earl:fileContent ;
+        earl:test        <http://www.w3.org/TR/2013/CR-vocab-data-cube-20130625/#wf> .
+
+cex-earl:ass8  a         earl:Assertion ;
+        rdf:ID           "ass8" ;
+        dc:description   "Average growth value does not match"^^xsd:string ;
+        earl:assertedBy  cex-earl:WESO ;
+        earl:result      cex-earl:passed ;
+        earl:subject     cex-earl:fileContent ;
+        earl:test        <http://www.w3.org/TR/2013/CR-vocab-data-cube-20130625/#wf> .
+
+cex-earl:ass13  a        earl:Assertion ;
+        rdf:ID           "ass13" ;
+        dc:description   "Observation with Status obsStatus-M (Missing) should not have value"^^xsd:string ;
+        earl:assertedBy  cex-earl:WESO ;
+        earl:result      cex-earl:passed ;
+        earl:subject     cex-earl:fileContent ;
+        earl:test        <http://www.w3.org/TR/2013/CR-vocab-data-cube-20130625/#wf> .
+
+cex-earl:ass1  a         earl:Assertion ;
+        rdf:ID           "ass1" ;
+        dc:description   "Source observation does not have value in adjusted computation"^^xsd:string ;
+        earl:assertedBy  cex-earl:WESO ;
+        earl:result      cex-earl:passed ;
+        earl:subject     cex-earl:fileContent ;
+        earl:test        <http://www.w3.org/TR/2013/CR-vocab-data-cube-20130625/#wf> .
+
+cex-earl:ass7  a         earl:Assertion ;
+        rdf:ID           "ass7" ;
+        dc:description   "Adjusted value does not match"^^xsd:string ;
+        earl:assertedBy  cex-earl:WESO ;
+        earl:result      cex-earl:error1 ;
+        earl:subject     cex-earl:fileContent ;
+        earl:test        <http://www.w3.org/TR/2013/CR-vocab-data-cube-20130625/#wf> .
+
+cex-earl:fileContent  a        cnt:ContentAsText ;
+        dc:date                "2013-08-06"^^xsd:string ;
+        dc:title               "The file with RDF Data Cube and Statistical indexes with computations that have to be tested"@en ;
+        cnt:characterEncoding  "UTF-8"^^xsd:string ;
+        cnt:chars              "@prefix component: <http://data.webfoundation.org/webindex/v2013/component/> .\r\n@prefix country: <http://data.webfoundation.org/webindex/v2013/country/> .\r\n@prefix dataset: <http://data.webfoundation.org/webindex/v2013/dataset/> .\r\n@prefix indicator: <http://data.webfoundation.org/webindex/v2013/indicator/> .\r\n@prefix obs: <http://data.webfoundation.org/webindex/v2013/observation/> .\r\n@prefix organization: <http://data.webfoundation.org/webindex/v2013/organization/> .\r\n@prefix slice: <http://data.webfoundation.org/webindex/v2013/slice/> .\r\n\r\n@prefix cex: <http://purl.org/weso/ontology/computex#> .\r\n@prefix dcterms: <http://purl.org/dc/terms/> .\r\n@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .\r\n@prefix qb: <http://purl.org/linked-data/cube#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix sdmx-code:  <http://purl.org/linked-data/sdmx/2009/code#> .\r\n@prefix sdmx-concept: <http://purl.org/linked-data/sdmx/2009/concept#> .\r\n@prefix skos: <http://www.w3.org/2004/02/skos/core#> .\r\n@prefix time:  <http://www.w3.org/2006/time#> .\r\n@prefix wi-onto: <http://data.webfoundation.org/webindex/ontology/> .\r\n@prefix wi-org: <http://data.webfoundation.org/webindex/organization/> .\r\n@prefix wi-people:  <http://data.webfoundation.org/webindex/people/> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n\r\nobs:A a qb:Observation ;\r\n\t  cex:value 2 ;\r\n\t  cex:indicator indicator:I .\r\n\r\nobs:A-D a qb:Observation ;\r\n\t\tcex:computation \r\n\t\t    [ a cex:Adjust ;\r\n\t\t\t  cex:observation obs:A ;\r\n\t\t\t  cex:increment 8 ;\r\n\t\t\t] ;   \r\n\t  cex:value 11 ;\r\n\t  .\r\n\r\n"^^xsd:string .
+
+cex-earl:ass12  a        earl:Assertion ;
+        rdf:ID           "ass12" ;
+        dc:description   "Mean value does not match"^^xsd:string ;
+        earl:assertedBy  cex-earl:WESO ;
+        earl:result      cex-earl:passed ;
+        earl:subject     cex-earl:fileContent ;
+        earl:test        <http://www.w3.org/TR/2013/CR-vocab-data-cube-20130625/#wf> .
+
+cex-earl:ass6  a         earl:Assertion ;
+        rdf:ID           "ass6" ;
+        dc:description   "Weighted value does not match"^^xsd:string ;
+        earl:assertedBy  cex-earl:WESO ;
+        earl:result      cex-earl:passed ;
+        earl:subject     cex-earl:fileContent ;
+        earl:test        <http://www.w3.org/TR/2013/CR-vocab-data-cube-20130625/#wf> .
+
+cex-earl:WESO  a           foaf:Group ;
+        dc:title           "WESO & RDF Data Cube Validator"^^xsd:string ;
+        earl:mainAssertor  <http://computex.herokuapp.com> ;
+        foaf:member        [ a          foaf:Person ;
+                             foaf:mbox  <mailto:castrofernandez@gmail.com> ;
+                             foaf:name  "Juan Castro Fernandez"^^xsd:string
+                           ] ;
+        foaf:member        [ a          foaf:Person ;
+                             foaf:mbox  <mailto:alejandro.montes@gmail.com> ;
+                             foaf:name  "Alejandro Montes Garcia"^^xsd:string
+                           ] ;
+        foaf:member        [ a          foaf:Person ;
+                             foaf:mbox  <mailto:cesar.luis@weso.es> ;
+                             foaf:name  "Cesar Luis Alvargonzalez"^^xsd:string
+                           ] ;
+        foaf:member        [ a          foaf:Person ;
+                             foaf:mbox  <mailto:ignacio.fuertes@weso.es> ;
+                             foaf:name  "Ignacio Fuertes Bernardo"^^xsd:string
+                           ] ;
+        foaf:member        [ a          foaf:Person ;
+                             foaf:mbox  <mailto:chema.ar@gmail.com> ;
+                             foaf:name  "Jose Maria Alvarez Rodriguez"^^xsd:string
+                           ] ;
+        foaf:member        [ a          foaf:Person ;
+                             foaf:mbox  <mailto:jelabra@gmail.com> ;
+                             foaf:name  "Jose Emilio Labra Gayo"^^xsd:string
+                           ] .

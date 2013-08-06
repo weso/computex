@@ -2,6 +2,8 @@
 
 @import es.weso.computex.entities._
 @import es.weso.computex.entities.CMessage._
+@import scala.io.Source._
+@import scala.io.Codec._
 
 @main(message) {
 	
@@ -74,5 +76,6 @@
 	    <p class="backtop"><a href="#frontforms">↑ Top</a></p>
 	    </div>
 	    @generic.source(message)
-	</div>
+	    @CEARLReport(message).saveModel
+	</div>	
 }
