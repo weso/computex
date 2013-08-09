@@ -126,3 +126,8 @@ table {
 table th{
 	font-size:0.875em!important;
 }
+
+h3.valid {
+	color:	#55B05A !important;
+  	background-color:	white !important;
+}
