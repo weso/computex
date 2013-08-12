@@ -18,7 +18,7 @@
 		@helper.form(action = routes.Application.byUriGET(None)) {
 	      	<p class="instructions">
 				<label title="Address of page to Validate" for="uri">URI:</label>
-				<input type="text" name="uri" id="uri" size="45" value="@message.content"/>
+				<input type="text" name="uri" id="uri" size="45" value="@message.content" placeholder="http://computex.herokuapp.com@routes.Assets.at("example.ttl")"/>
 			</p>
 			<p class="instructions">
 				<label for="direct-doctype">Use Doctype:</label>
