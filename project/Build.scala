@@ -4,7 +4,7 @@ import play.Project._
 
 object ApplicationBuild extends Build {
 
-  val appName         = "RDF-Data-Cube-Validator"
+  val appName         = "Computex"
   val appVersion      = "0.0.1-SNAPSHOT"
   val scalaVersion = "2.10.1"
 
