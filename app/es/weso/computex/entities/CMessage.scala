@@ -27,7 +27,8 @@ case class CMessage(val action : String) {
   def size = _integrityQueries.map(_._2.size).foldLeft(0)(_+_)
   
   def status = message match {
-    case CMessage.MSG_OK | CMessage.MSG_EMPTY => CMessage.VALID
+    case CMessage.MSG_OK => CMessage.VALID
+    case CMessage.MSG_EMPTY => CMessage.IDLE
     case _ => CMessage.INVALID
   }
 }
@@ -39,6 +40,7 @@ object CMessage {
     
   val VALID = "valid"
   val INVALID = "invalid"
+  val IDLE = "idle"
   
   val MSG_EMPTY = "EMPTY"
   val MSG_OK = "This document was successfully checked"

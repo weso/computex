@@ -62,7 +62,9 @@ object Application extends Controller {
 
   def index = Action {
     implicit request =>
-      Ok(views.html.index(CMessage(URI)))
+      val message = CMessage(URI)
+      message.message = MSG_EMPTY
+      Ok(views.html.index(message))
   }
 
   def byUriGET(uriOpt: Option[String]) = Action {
@@ -95,6 +97,7 @@ object Application extends Controller {
             }
             Ok(views.html.generic.format(message))
           } else {
+            message.message = MSG_EMPTY
             Ok(views.html.uri.defaultUriGET(message))
           }
         })
