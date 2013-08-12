@@ -80,7 +80,9 @@ object Application extends Controller {
           val uri = uriPath.uri.getOrElse(null)
           if (uri != null) {
             message.content = if (!uri.startsWith("http://")) {
-              "http://" + uri
+              if (!uri.startsWith("https://")) {
+                "http://" + uri
+              } else { uri }
             } else { uri }
             try {
               message.contentIS = Computex.loadFile(message.content)
