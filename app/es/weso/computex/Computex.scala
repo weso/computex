@@ -103,6 +103,7 @@ case class Computex(val ontologyURI: String, val validationDir: String,
       q <- readQueries(validationDir)
       currentModel = executeQuery(model, q._2)
     } yield {
+      currentModel.setNsPrefixes(model)
       val iQuery = Parser.parse(q, currentModel)
       (iQuery.query._1, iQuery)
     }
