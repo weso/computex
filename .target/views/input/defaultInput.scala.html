@@ -2,6 +2,7 @@
 
 @import es.weso.computex.entities.CMessage
 @import es.weso.computex.entities.CMessage._
+@import es.weso.utils.JenaUtils._
 @import helper._
 
 <div id="frontforms">
@@ -14,7 +15,7 @@
 		</ul>
 	</nav>
 	<div>
-		@helper.form(action = routes.Application.byDirectInputPOST) {
+		@helper.form(action = routes.DirectInputController.byDirectInputPOST) {
 	      	<p class="instructions">
 	      		<label title="Paste a complete (TTL) Document here" for="fragment">Enter the .ttl to validate:</label><br>
 	      		<textarea id="fragment" name="fragment" rows="90" cols="120">@message.content</textarea>
@@ -22,12 +23,12 @@
 	      	<p class="instructions">
 				<label for="direct-doctype">Use Doctype:</label>
 				<select id="direct-doctype" name="doctype">
-					<option value="RDF/XML">RDF/XML</option>
-					<option value="RDF/XML-ABBREV">RDF/XML-ABBREV</option>
-					<option value="TTL" selected="selected">TTL</option>
-					<option value="N-TRIPLE">N-TRIPLE</option>
-					<option value="TURTLE">TURTLE</option>
-					<option value="N3">N3</option>
+					<option value="RDF/XML" @if(message.contentFormat equals RdfXML){selected="selected"}>RDF/XML</option>
+					<option value="RDF/XML-ABBREV" @if(message.contentFormat equals RdfXMLAbbr){selected="selected"}>RDF/XML-ABBREV</option>
+					<option value="TTL" @if(message.contentFormat equals TTL){selected="selected"}>TTL (Default)</option>
+					<option value="N-TRIPLE" @if(message.contentFormat equals NTriple){selected="selected"}>N-TRIPLE</option>
+					<option value="TURTLE" @if(message.contentFormat equals Turtle){selected="selected"}>TURTLE</option>
+					<option value="N3" @if(message.contentFormat equals N3){selected="selected"}>N3</option>
 				</select>
 	      	</p>
 	      	<p class="instructions">
@@ -41,10 +42,6 @@
 	      	<p class="instructions">
 	      		<input type="checkbox" value="1" id="expand" name="expand" @if(message.expand){checked="checked"}>
 	      		<label title="Expand Computex" for="verbose">Expand&nbsp;Computex</label>
-	      	</p>
-	      	<p class="instructions">
-	      		<input type="checkbox" value="1" id="prefix" name="prefix" @if(message.prefix){checked="checked"}>
-	      		<label title="Prefix Output" for="prefix">Prefix&nbsp;Output</label>
 	      	</p>
 			<p class="submit_button">
 				<input type="submit" title="Submit for validation" value="Check"/>

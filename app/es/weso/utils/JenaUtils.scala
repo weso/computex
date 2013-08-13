@@ -1,18 +1,18 @@
 package es.weso.utils
 
-import com.hp.hpl.jena.rdf.model.ModelFactory
-import com.hp.hpl.jena.rdf.model.Model
-import com.hp.hpl.jena.rdf.model.Resource
-import com.hp.hpl.jena.rdf.model.Statement
 import com.hp.hpl.jena.rdf.model.LiteralRequiredException
+import com.hp.hpl.jena.rdf.model.Model
+import com.hp.hpl.jena.rdf.model.ModelFactory
+import com.hp.hpl.jena.rdf.model.Resource
 import com.hp.hpl.jena.rdf.model.ResourceRequiredException
+import com.hp.hpl.jena.rdf.model.Statement
 
 object JenaUtils {
 
-  val RDF_XML = "RDF/XML"
-  val RDF_XML_ABBR = "RDF/XML-ABBREV"
-  val N_TRIPLE = "N-TRIPLE"
-  val TURTLE = "TURTLE"
+  val RdfXML = "RDF/XML"
+  val RdfXMLAbbr = "RDF/XML-ABBREV"
+  val NTriple = "N-TRIPLE"
+  val Turtle = "TURTLE"
   val TTL = "TTL"
   val N3 = "N3"
 

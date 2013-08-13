@@ -1,13 +1,16 @@
 package es.weso.computex.entities
 
-import java.io.InputStream
-import es.weso.utils.JenaUtils
 import java.io.ByteArrayInputStream
-import scala.io.Source._
+import java.io.InputStream
+
+import scala.Array.canBuildFrom
+
 import org.apache.commons.io.IOUtils
 
+import es.weso.utils.JenaUtils
+
 case class CMessage(val action : String) {
-  var message: String = CMessage.MSG_OK
+  var message: String = CMessage.MsgOK
   var content: String = null
   var contentFormat : String = JenaUtils.TTL
   
@@ -27,24 +30,24 @@ case class CMessage(val action : String) {
   def size = _integrityQueries.map(_._2.size).foldLeft(0)(_+_)
   
   def status = message match {
-    case CMessage.MSG_OK => CMessage.VALID
-    case CMessage.MSG_EMPTY => CMessage.IDLE
-    case _ => CMessage.INVALID
+    case CMessage.MsgOK => CMessage.Valid
+    case CMessage.MsgEmpty => CMessage.Idle
+    case _ => CMessage.Invalid
   }
 }
 
 object CMessage {
-  val URI = "URI"
-  val DIRECT_INPUT = "DIRECT_IMPUT"
-  val FILE = "FILE"
+  val Uri = "URI"
+  val DirectInput = "DIRECT_IMPUT"
+  val File = "FILE"
     
-  val VALID = "valid"
-  val INVALID = "invalid"
-  val IDLE = "idle"
+  val Valid = "valid"
+  val Invalid = "invalid"
+  val Idle = "idle"
   
-  val MSG_EMPTY = "EMPTY"
-  val MSG_OK = "This document was successfully checked"
-  val MSG_404 = "File Not Found"
-  val MSG_BAD_FORMED = "Bad Formed File"
-  val MSG_ERROR = "Errors found while checking this document"
+  val MsgEmpty = "EMPTY"
+  val MsgOK = "This document was successfully checked"
+  val Msg404 = "File Not Found"
+  val MsgBadFormed = "Bad Formed File"
+  val MsgError = "Errors found while checking this document"
 }

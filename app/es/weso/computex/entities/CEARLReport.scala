@@ -1,14 +1,17 @@
 package es.weso.computex.entities
 
+import java.io.File
+import java.io.FileOutputStream
+
+import scala.io.Source
+
+import com.hp.hpl.jena.datatypes.xsd.XSDDatatype
 import com.hp.hpl.jena.rdf.model.Model
 import com.hp.hpl.jena.rdf.model.ModelFactory
 import com.hp.hpl.jena.rdf.model.Resource
 import com.hp.hpl.jena.rdf.model.ResourceFactory
-import com.hp.hpl.jena.datatypes.xsd.XSDDatatype
+
 import es.weso.utils.DateUtils
-import scala.io.Source
-import java.io.FileOutputStream
-import java.io.File
 
 case class CEARLReport(message : CMessage) {
   
@@ -49,14 +52,14 @@ case class CEARLReport(message : CMessage) {
   
   private def generateErrorResource(id : String, result : String, 
       message : String) : Resource = {
-    val error : Resource = model.createResource(CEARLReport.PREFIX_CEXREPORT + 
+    val error : Resource = model.createResource(CEARLReport.PrefixCEXREPORT + 
         id)
-    error.addProperty(CEARLReport.PROPERTY_RDF_ID, id)
-    error.addProperty(CEARLReport.PROPERTY_RDF_TYPE, 
-        ResourceFactory.createResource(CEARLReport.PREFIX_EARL + "TestResult"))
-     error.addProperty(CEARLReport.PROPERTY_EARL_OUTCOME, 
-    	ResourceFactory.createResource(CEARLReport.PREFIX_EARL + result))
-	error.addProperty(CEARLReport.PROPERTY_DC_DESCRIPTION, 
+    error.addProperty(CEARLReport.PropertyRDFId, id)
+    error.addProperty(CEARLReport.PropertyRDFType, 
+        ResourceFactory.createResource(CEARLReport.PrefixEARL + "TestResult"))
+     error.addProperty(CEARLReport.PropertyEARLOutcome, 
+    	ResourceFactory.createResource(CEARLReport.PrefixEARL + result))
+	error.addProperty(CEARLReport.PropertyDCDescription, 
 	    ResourceFactory.createLangLiteral(message, "en"))
     error
   }
@@ -64,17 +67,17 @@ case class CEARLReport(message : CMessage) {
   private def generateAssertionResource(errorResource : Resource, id : Int, 
       message : String)	: Resource = {
     val assertion : Resource = model.createResource(
-	    CEARLReport.PREFIX_CEXREPORT + "ass" + id)
-	assertion.addProperty(CEARLReport.PROPERTY_RDF_ID, "ass" + id)
-    assertion.addProperty(CEARLReport.PROPERTY_RDF_TYPE, 
-        ResourceFactory.createResource(CEARLReport.PREFIX_EARL + "Assertion"))
-    assertion.addProperty(CEARLReport.PROPERTY_EARL_RESULT, errorResource)
-    assertion.addProperty(CEARLReport.PROPERTY_EARL_SUBJECT, 
+	    CEARLReport.PrefixCEXREPORT + "ass" + id)
+	assertion.addProperty(CEARLReport.PropertyRDFId, "ass" + id)
+    assertion.addProperty(CEARLReport.PropertyRDFType, 
+        ResourceFactory.createResource(CEARLReport.PrefixEARL + "Assertion"))
+    assertion.addProperty(CEARLReport.PropertyEARLResult, errorResource)
+    assertion.addProperty(CEARLReport.PropertyEARLSubject, 
         ResourceFactory.createResource("http://purl.org/weso/ontology/computex/earl-report#fileContent"))
-    assertion.addProperty(CEARLReport.PROPERTY_EARL_ASSERTEDBY, 
-        ResourceFactory.createResource(CEARLReport.PREFIX_CEXREPORT + "WESO"))
-    assertion.addProperty(CEARLReport.PROPERTY_EARL_TEST, addCriterion)
-    assertion.addProperty(CEARLReport.PROPERTY_DC_DESCRIPTION, 
+    assertion.addProperty(CEARLReport.PropertyEARLAssertebdy, 
+        ResourceFactory.createResource(CEARLReport.PrefixCEXREPORT + "WESO"))
+    assertion.addProperty(CEARLReport.PropertyEARLTest, addCriterion)
+    assertion.addProperty(CEARLReport.PropertyDCDescription, 
 	    ResourceFactory.createTypedLiteral(message, XSDDatatype.XSDstring))
     assertion
   }
@@ -87,13 +90,13 @@ case class CEARLReport(message : CMessage) {
   
   private def addCriterion() : Resource = {
     val criterion : Resource = model.createResource("http://www.w3.org/TR/2013/CR-vocab-data-cube-20130625/#wf")
-    criterion.addProperty(CEARLReport.PROPERTY_RDF_TYPE, 
-        ResourceFactory.createResource(CEARLReport.PREFIX_EARL + 
+    criterion.addProperty(CEARLReport.PropertyRDFType, 
+        ResourceFactory.createResource(CEARLReport.PrefixEARL + 
             "TestRequirement"))
-    criterion.addProperty(CEARLReport.PROPERTY_DC_TITLE, 
+    criterion.addProperty(CEARLReport.PropertyDCTitle, 
         ResourceFactory.createLangLiteral(
             "RDF Data Cube Integrity constraints definition", "en"))
-    criterion.addProperty(CEARLReport.PROPERTY_DC_DESCRIPTION, 
+    criterion.addProperty(CEARLReport.PropertyDCDescription, 
         ResourceFactory.createLangLiteral(
             "A set of integrity constraints that an instance of an RDF Data " +
             "Cube should be conformed", "en"))
@@ -102,20 +105,20 @@ case class CEARLReport(message : CMessage) {
   
   private def addTested() = {
     //We have to give an URI to identify the data that we tested
-    val tested : Resource = model.createResource(CEARLReport.PREFIX_CEXREPORT + 
+    val tested : Resource = model.createResource(CEARLReport.PrefixCEXREPORT + 
         "fileContent")
-    tested.addProperty(CEARLReport.PROPERTY_RDF_TYPE,
-        ResourceFactory.createResource(CEARLReport.PREFIX_CNT + 
+    tested.addProperty(CEARLReport.PropertyRDFType,
+        ResourceFactory.createResource(CEARLReport.PrefixCNT + 
             "ContentAsText"))
-    tested.addProperty(CEARLReport.PROPERTY_DC_TITLE, 
+    tested.addProperty(CEARLReport.PropertyDCTitle, 
         ResourceFactory.createLangLiteral("The file with RDF Data Cube and " +
     		"Statistical indexes with computations that have to be tested", "en"))
-	tested.addProperty(CEARLReport.PROPERTY_DC_DATE, 
+	tested.addProperty(CEARLReport.PropertyDCDate, 
 	    ResourceFactory.createTypedLiteral(DateUtils.getCurrentTimeAsString, 
 	        XSDDatatype.XSDstring))
-    tested.addProperty(CEARLReport.PROPERTY_CNT_CHARACTERENCODING, 
+    tested.addProperty(CEARLReport.PropertyCNTCharacterEncoding, 
         ResourceFactory.createTypedLiteral("UTF-8", XSDDatatype.XSDstring))
-    tested.addProperty(CEARLReport.PROPERTY_CNT_CHARS, 
+    tested.addProperty(CEARLReport.PropertyCNTChars, 
         ResourceFactory.createTypedLiteral(
             Source.fromInputStream(message.contentIS).mkString , 
             XSDDatatype.XSDstring))
@@ -125,39 +128,39 @@ case class CEARLReport(message : CMessage) {
   private def addAssertor() : Resource = {
     val assertor : Resource = 
       model.createResource("http://computex.herokuapp.com")
-    assertor.addProperty(CEARLReport.PROPERTY_DC_TITLE, 
+    assertor.addProperty(CEARLReport.PropertyDCTitle, 
         ResourceFactory.createLangLiteral("RDF Data Cube Validator", "en"))
-    assertor.addProperty(CEARLReport.PROPERTY_DC_DESCRIPTION, 
+    assertor.addProperty(CEARLReport.PropertyDCDescription, 
         ResourceFactory.createLangLiteral("RDF Data Cube Validator Service," +
         		" a free service that validates index data files and " +
         		"performs computations on them", "en"))
-	assertor.addProperty(CEARLReport.PROPERTY_RDF_TYPE, 
-	    ResourceFactory.createResource(CEARLReport.PREFIX_EARL + "Software"))
-    assertor.addProperty(CEARLReport.PROPERTY_DC_HASVERSION, 
+	assertor.addProperty(CEARLReport.PropertyRDFType, 
+	    ResourceFactory.createResource(CEARLReport.PrefixEARL + "Software"))
+    assertor.addProperty(CEARLReport.PropertyDCHasversion, 
         ResourceFactory.createTypedLiteral("0.0.1", XSDDatatype.XSDstring))
     
-    val group : Resource = model.createResource(CEARLReport.PREFIX_CEXREPORT 
+    val group : Resource = model.createResource(CEARLReport.PrefixCEXREPORT 
         + "WESO")
-    group.addProperty(CEARLReport.PROPERTY_RDF_TYPE, 
-        ResourceFactory.createResource(CEARLReport.PREFIX_FOAF + "Group"))
-    group.addProperty(CEARLReport.PROPERTY_EARL_MAINASSERTOR, assertor)
-    group.addProperty(CEARLReport.PROPERTY_DC_TITLE, 
+    group.addProperty(CEARLReport.PropertyRDFType, 
+        ResourceFactory.createResource(CEARLReport.PrefixFOAF + "Group"))
+    group.addProperty(CEARLReport.PropertyEARLMAinassertor, assertor)
+    group.addProperty(CEARLReport.PropertyDCTitle, 
         ResourceFactory.createTypedLiteral("WESO & RDF Data Cube Validator", 
             XSDDatatype.XSDstring))
-    group.addProperty(CEARLReport.PROPERTY_FOAF_MEMBER, 
+    group.addProperty(CEARLReport.PropertyFOAFMember, 
         createMember("mailto:jelabra@gmail.com", "Jose Emilio Labra Gayo"))
-    group.addProperty(CEARLReport.PROPERTY_FOAF_MEMBER, 
+    group.addProperty(CEARLReport.PropertyFOAFMember, 
         createMember("mailto:chema.ar@gmail.com", "Jose Maria Alvarez " +
         		"Rodriguez"))
-	group.addProperty(CEARLReport.PROPERTY_FOAF_MEMBER, 
+	group.addProperty(CEARLReport.PropertyFOAFMember, 
         createMember("mailto:ignacio.fuertes@weso.es", 
             "Ignacio Fuertes Bernardo"))
-    group.addProperty(CEARLReport.PROPERTY_FOAF_MEMBER, 
+    group.addProperty(CEARLReport.PropertyFOAFMember, 
         createMember("mailto:cesar.luis@weso.es", "Cesar Luis Alvargonzalez"))
-    group.addProperty(CEARLReport.PROPERTY_FOAF_MEMBER, 
+    group.addProperty(CEARLReport.PropertyFOAFMember, 
         createMember("mailto:alejandro.montes@gmail.com", 
             "Alejandro Montes Garcia"))
-    group.addProperty(CEARLReport.PROPERTY_FOAF_MEMBER, 
+    group.addProperty(CEARLReport.PropertyFOAFMember, 
         createMember("mailto:castrofernandez@gmail.com", 
             "Juan Castro Fernandez"))
     group
@@ -165,69 +168,69 @@ case class CEARLReport(message : CMessage) {
   
   private def createMember(email : String, name : String) : Resource = {
     val member : Resource = model.createResource
-    member.addProperty(CEARLReport.PROPERTY_RDF_TYPE, 
-        ResourceFactory.createResource(CEARLReport.PREFIX_FOAF + "Person"))
-    member.addProperty(CEARLReport.PROPERTY_FOAF_MBOX, 
+    member.addProperty(CEARLReport.PropertyRDFType, 
+        ResourceFactory.createResource(CEARLReport.PrefixFOAF + "Person"))
+    member.addProperty(CEARLReport.PropertyFOAFMbox, 
 		ResourceFactory.createResource(email))
-	member.addProperty(CEARLReport.PROPERTY_FOAF_NAME, 
+	member.addProperty(CEARLReport.PropertyFOAFName, 
 	    ResourceFactory.createTypedLiteral(name, XSDDatatype.XSDstring))
     member
   }
   
   private def initializeModel() = {
-    model.setNsPrefix("rdf", CEARLReport.PREFIX_RDF)
-    model.setNsPrefix("earl", CEARLReport.PREFIX_EARL)
-    model.setNsPrefix("rdfs", CEARLReport.PREFIX_RDFS)
-    model.setNsPrefix("cnt", CEARLReport.PREFIX_CNT)
-    model.setNsPrefix("dc", CEARLReport.PREFIX_DC)
-    model.setNsPrefix("doap", CEARLReport.PREFIX_DOAP)
-    model.setNsPrefix("foaf", CEARLReport.PREFIX_FOAF)
-    model.setNsPrefix("ptr", CEARLReport.PREFIX_PTR)
-    model.setNsPrefix("xsd", CEARLReport.PREFIX_XSD)
-    model.setNsPrefix("cex-earl", CEARLReport.PREFIX_CEXREPORT)
+    model.setNsPrefix("rdf", CEARLReport.PrefixRDF)
+    model.setNsPrefix("earl", CEARLReport.PrefixEARL)
+    model.setNsPrefix("rdfs", CEARLReport.PrefixRDFS)
+    model.setNsPrefix("cnt", CEARLReport.PrefixCNT)
+    model.setNsPrefix("dc", CEARLReport.PrefixDC)
+    model.setNsPrefix("doap", CEARLReport.PrefixDOAP)
+    model.setNsPrefix("foaf", CEARLReport.PrefixFOAF)
+    model.setNsPrefix("ptr", CEARLReport.PrefixPTR)
+    model.setNsPrefix("xsd", CEARLReport.PrefixXSD)
+    model.setNsPrefix("cex-earl", CEARLReport.PrefixCEXREPORT)
   }
 
 }
 
 object CEARLReport {
-  val PREFIX_RDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-  val PREFIX_EARL = "http://www.w3.org/ns/earl#"
-  val PREFIX_RDFS = "http://www.w3.org/2000/01/rdf-schema#"
-  val PREFIX_CNT = "http://www.w3.org/2011/content#"
-  val PREFIX_DC = "http://purl.org/dc/terms/"
-  val PREFIX_DOAP = "http://usefulinc.com/ns/doap#"
-  val PREFIX_FOAF = "http://xmlns.com/foaf/0.1/#"
-  val PREFIX_PTR = "http://www.w3.org/2009/pointers#"
-  val PREFIX_XSD = "http://www.w3.org/2001/XMLSchema#"
-  val PREFIX_CEXREPORT = "http://purl.org/weso/ontology/computex/earl-report#"  
+  val PrefixRDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  val PrefixEARL = "http://www.w3.org/ns/earl#"
+  val PrefixRDFS = "http://www.w3.org/2000/01/rdf-schema#"
+  val PrefixCNT = "http://www.w3.org/2011/content#"
+  val PrefixDC = "http://purl.org/dc/terms/"
+  val PrefixDOAP = "http://usefulinc.com/ns/doap#"
+  val PrefixFOAF = "http://xmlns.com/foaf/0.1/#"
+  val PrefixPTR = "http://www.w3.org/2009/pointers#"
+  val PrefixXSD = "http://www.w3.org/2001/XMLSchema#"
+  val PrefixCEXREPORT = "http://purl.org/weso/ontology/computex/earl-report#"  
     
     
-  val PROPERTY_DC_TITLE = ResourceFactory.createProperty(PREFIX_DC + "title")
-  val PROPERTY_DC_DESCRIPTION = ResourceFactory.createProperty(PREFIX_DC + 
+  val PropertyDCTitle = ResourceFactory.createProperty(PrefixDC + "title")
+  val PropertyDCDescription = ResourceFactory.createProperty(PrefixDC + 
       "description")
-  val PROPERTY_RDF_TYPE = ResourceFactory.createProperty(PREFIX_RDF + "type")
-  val PROPERTY_DC_HASVERSION = ResourceFactory.createProperty(PREFIX_DC + 
+  val PropertyRDFType = ResourceFactory.createProperty(PrefixRDF + "type")
+  val PropertyDCHasversion = ResourceFactory.createProperty(PrefixDC + 
       "hasVersion")
-  val PROPERTY_EARL_MAINASSERTOR = ResourceFactory.createProperty(PREFIX_EARL +
+  val PropertyEARLMAinassertor = ResourceFactory.createProperty(PrefixEARL +
       "mainAssertor")
-  val PROPERTY_FOAF_MEMBER = ResourceFactory.createProperty(PREFIX_FOAF + 
+  val PropertyFOAFMember = ResourceFactory.createProperty(PrefixFOAF + 
       "member")
-  val PROPERTY_FOAF_MBOX = ResourceFactory.createProperty(PREFIX_FOAF + "mbox")
-  val PROPERTY_FOAF_NAME = ResourceFactory.createProperty(PREFIX_FOAF + "name")
-  val PROPERTY_DC_DATE = ResourceFactory.createProperty(PREFIX_DC + "date")
-  val PROPERTY_CNT_CHARACTERENCODING = ResourceFactory.createProperty(PREFIX_CNT
+  val PropertyFOAFMbox = ResourceFactory.createProperty(PrefixFOAF + "mbox")
+  val PropertyFOAFName = ResourceFactory.createProperty(PrefixFOAF + "name")
+  val PropertyDCDate = ResourceFactory.createProperty(PrefixDC + "date")
+  val PropertyCNTCharacterEncoding = ResourceFactory.createProperty(PrefixCNT
       + "characterEncoding")
-  val PROPERTY_CNT_CHARS = ResourceFactory.createProperty(PREFIX_CNT + "chars")
-  val PROPERTY_RDF_ID = ResourceFactory.createProperty(PREFIX_RDF + "ID")
-  val PROPERTY_EARL_OUTCOME = ResourceFactory.createProperty(PREFIX_EARL + 
+  val PropertyCNTChars = ResourceFactory.createProperty(PrefixCNT + "chars")
+  val PropertyRDFId = ResourceFactory.createProperty(PrefixRDF + "ID")
+  val PropertyEARLOutcome = ResourceFactory.createProperty(PrefixEARL + 
       "outcome")
-  val PROPERTY_EARL_RESULT = ResourceFactory.createProperty(PREFIX_EARL + 
+  val PropertyEARLResult = ResourceFactory.createProperty(PrefixEARL + 
       "result")
-  val PROPERTY_EARL_SUBJECT = ResourceFactory.createProperty(PREFIX_EARL + 
+  val PropertyEARLSubject = ResourceFactory.createProperty(PrefixEARL + 
       "subject")
-  val PROPERTY_EARL_ASSERTEDBY = ResourceFactory.createProperty(PREFIX_EARL + 
+  val PropertyEARLAssertebdy = ResourceFactory.createProperty(PrefixEARL + 
       "assertedBy")
-  val PROPERTY_EARL_TEST = ResourceFactory.createProperty(PREFIX_EARL + "test")
+  val PropertyEARLTest = ResourceFactory.createProperty(PrefixEARL + "test")
   
   
   def main(args: Array[String]): Unit = {

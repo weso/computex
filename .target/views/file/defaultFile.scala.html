@@ -15,7 +15,7 @@
 		</ul>
 	</nav>
 	<div>
-		@helper.form(action = routes.Application.byFileUploadPOST, 'enctype -> "multipart/form-data") {
+		@helper.form(action = routes.FileUploadController.byFileUploadPOST, 'enctype -> "multipart/form-data") {
 	      	<p class="instructions">
 	      		<label title="Choose a Local File to Upload and Validate" for="uploaded_file">File:</label>
 	      		<input type="file" id="uploaded_file" name="uploaded_file"/>
@@ -23,11 +23,11 @@
 	      	<p class="instructions">
 				<label for="direct-doctype">Use Doctype:</label>
 				<select id="direct-doctype" name="doctype">
-					<option value="RDF/XML" @if(message.contentFormat equals RDF_XML){selected="selected"}>RDF/XML</option>
-					<option value="RDF/XML-ABBREV" @if(message.contentFormat equals RDF_XML_ABBR){selected="selected"}>RDF/XML-ABBREV</option>
+					<option value="RDF/XML" @if(message.contentFormat equals RdfXML){selected="selected"}>RDF/XML</option>
+					<option value="RDF/XML-ABBREV" @if(message.contentFormat equals RdfXMLAbbr){selected="selected"}>RDF/XML-ABBREV</option>
 					<option value="TTL" @if(message.contentFormat equals TTL){selected="selected"}>TTL (Default)</option>
-					<option value="N-TRIPLE" @if(message.contentFormat equals N_TRIPLE){selected="selected"}>N-TRIPLE</option>
-					<option value="TURTLE" @if(message.contentFormat equals TURTLE){selected="selected"}>TURTLE</option>
+					<option value="N-TRIPLE" @if(message.contentFormat equals NTriple){selected="selected"}>N-TRIPLE</option>
+					<option value="TURTLE" @if(message.contentFormat equals Turtle){selected="selected"}>TURTLE</option>
 					<option value="N3" @if(message.contentFormat equals N3){selected="selected"}>N3</option>
 				</select>
 	      	</p>
@@ -42,10 +42,6 @@
 	      	<p class="instructions">
 	      		<input type="checkbox" value="1" id="expand" name="expand" @if(message.expand){checked="checked"}>
 	      		<label title="Expand Computex" for="verbose">Expand&nbsp;Computex</label>
-	      	</p>
-	      	<p class="instructions">
-	      		<input type="checkbox" value="1" id="prefix" name="prefix" @if(message.prefix){checked="checked"}>
-	      		<label title="Prefix Output" for="prefix">Prefix&nbsp;Output</label>
 	      	</p>
 			<p class="submit_button">
 				<input type="submit" title="Submit for validation" value="Check"/>

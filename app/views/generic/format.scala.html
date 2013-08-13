@@ -8,13 +8,13 @@
 @main(message) {
 	
 	@{message.action match {
-		case URI => uri.defaultUri(message)
-		case DIRECT_INPUT => input.defaultInput(message)
-		case FILE => file.defaultFile(message)
+		case Uri => uri.defaultUri(message)
+		case DirectInput => input.defaultInput(message)
+		case File => file.defaultFile(message)
 	
 	}}
 	<div id="results_container">    
-	    <h2 class="@if(message.message equals MSG_OK){valid}else{invalid}">@message.message</h2>
+	    <h2 class="@if(message.message equals MsgOK){valid}else{invalid}">@message.message</h2>
 	    <p class="backtop"><a href="#frontforms">↑ Top</a></p>
 	    <div id="result">
 	    	<h3 class="@if(message.size > 0){invalid}else{valid}">Validation Output: @message.size RDF Data Cube Validation Service Errors</h3>

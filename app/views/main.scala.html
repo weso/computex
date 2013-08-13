@@ -18,8 +18,8 @@
          </style>
          <link rel="stylesheet" href="@routes.Assets.at("stylesheets/site.css")" />
          <link rel="icon" type="image/png" href="@routes.Assets.at(message.status match{
-         	case VALID => "images/favicon_ok.png"
-         	case INVALID => "images/favicon_fail.png"
+         	case Valid => "images/favicon_ok.png"
+         	case Invalid => "images/favicon_fail.png"
          	case _ => "images/"
          })"/>
          <link rel="stylesheet" href="@routes.Assets.at("stylesheets/prettify.css")" />
