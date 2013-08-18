@@ -2,16 +2,15 @@ package es.weso.computex.entities
 
 import java.io.File
 import java.io.FileOutputStream
-
 import scala.io.Source
-
 import com.hp.hpl.jena.datatypes.xsd.XSDDatatype
 import com.hp.hpl.jena.rdf.model.Model
 import com.hp.hpl.jena.rdf.model.ModelFactory
 import com.hp.hpl.jena.rdf.model.Resource
 import com.hp.hpl.jena.rdf.model.ResourceFactory
-
 import es.weso.utils.DateUtils
+import java.util.Date
+import java.util.UUID
 
 case class CEARLReport(message : CMessage) {
   
@@ -22,8 +21,12 @@ case class CEARLReport(message : CMessage) {
   addTested
   addResults
   
-  def saveModel() : Unit = {
-    model.write(new FileOutputStream(new File("earlreport.ttl")), "TURTLE")
+  def saveModel() : String = {
+    val hash = UUID.randomUUID().toString()
+    val timestamp = new Date().getTime()
+    val fileName = s"earls/earlreport-${hash}-${timestamp}.ttl"
+    model.write(new FileOutputStream(new File(s"public/${fileName}")), "TURTLE")
+    fileName
   }
   
   private def addResults() = {
