@@ -9,6 +9,7 @@ GET 	/direct               		controllers.DirectInputController.byDirectInputGET
 POST    /direct               		controllers.DirectInputController.byDirectInputPOST
 GET 	/file              			controllers.FileUploadController.byFileUploadGET
 POST    /file	               		controllers.FileUploadController.byFileUploadPOST
+GET		/earl/:name					controllers.EARLController.getEARL(name)
 GET     /about	               		controllers.Application.about
 
 # Map static resources from the /public folder to the /assets URL path

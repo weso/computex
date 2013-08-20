@@ -50,4 +50,4 @@ project/plugins/project/
 *.orig
 
 #EARL FILES
-public/earls
+public/earls/*.ttl

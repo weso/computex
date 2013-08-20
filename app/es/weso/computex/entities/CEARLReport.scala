@@ -24,9 +24,9 @@ case class CEARLReport(message : CMessage) {
   def saveModel() : String = {
     val hash = UUID.randomUUID().toString()
     val timestamp = new Date().getTime()
-    val fileName = s"earls/earlreport-${hash}-${timestamp}.ttl"
-    model.write(new FileOutputStream(new File(s"public/${fileName}")), "TURTLE")
-    fileName
+    val fileName = s"earlreport-${hash}-${timestamp}.ttl"
+    model.write(new FileOutputStream(new File(s"public/earls/${fileName}")), "TURTLE")
+    s"earl/${fileName}"
   }
   
   private def addResults() = {

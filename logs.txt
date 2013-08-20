@@ -1,0 +1,101 @@
+2013-08-13T11:16:05.174080+00:00 app[web.1]: 	at es.weso.computex.Computex$$anonfun$expandComputex$1.apply(Computex.scala:72) ~[computex_2.10-0.0.1-SNAPSHOT.jar:0.0.1-SNAPSHOT]
+2013-08-13T11:16:05.304889+00:00 app[web.1]: 	at es.weso.computex.Computex$$anonfun$expandComputex$1.apply(Computex.scala:70) ~[computex_2.10-0.0.1-SNAPSHOT.jar:0.0.1-SNAPSHOT]
+2013-08-13T11:16:05.404535+00:00 app[web.1]: 	at scala.collection.immutable.List.foreach(List.scala:309) ~[scala-library.jar:na]
+2013-08-13T11:16:05.503488+00:00 app[web.1]: 	at es.weso.computex.Computex.expandComputex(Computex.scala:70) ~[computex_2.10-0.0.1-SNAPSHOT.jar:0.0.1-SNAPSHOT]
+2013-08-13T11:16:05.611127+00:00 app[web.1]: 	at es.weso.computex.Computex.computex(Computex.scala:41) ~[computex_2.10-0.0.1-SNAPSHOT.jar:0.0.1-SNAPSHOT]
+2013-08-13T11:16:05.710698+00:00 app[web.1]: 	at controllers.Application$.controllers$Application$$validateStream(Application.scala:194) ~[computex_2.10-0.0.1-SNAPSHOT.jar:0.0.1-SNAPSHOT]
+2013-08-13T12:21:37.092285+00:00 heroku[web.1]: Idling
+2013-08-13T12:21:39.926898+00:00 heroku[web.1]: Stopping all processes with SIGTERM
+2013-08-13T12:21:41.843967+00:00 heroku[web.1]: Process exited with status 143
+2013-08-13T12:21:41.860674+00:00 heroku[web.1]: State changed from up to down
+2013-08-13T13:52:01+00:00 heroku[slug-compiler]: Slug compilation started
+2013-08-13T13:55:12.382434+00:00 heroku[api]: Deploy e1e39df by dev@weso.es
+2013-08-13T13:55:12.421844+00:00 heroku[api]: Release v24 created by dev@weso.es
+2013-08-13T13:55:12.477504+00:00 heroku[api]: Deploy e1e39df by dev@weso.es
+2013-08-13T13:55:12+00:00 heroku[slug-compiler]: Slug compilation finished
+2013-08-13T13:55:13.018022+00:00 heroku[web.1]: State changed from down to starting
+2013-08-13T13:56:04.817366+00:00 heroku[web.1]: Starting process with command `target/start -Dhttp.port=27046 -Xmx384m -Xss512k -XX:+UseCompressedOops`
+2013-08-13T13:56:05.282842+00:00 app[web.1]: Picked up JAVA_TOOL_OPTIONS:  -Djava.rmi.server.useCodebaseOnly=true
+2013-08-13T13:56:05.742145+00:00 app[web.1]: Play server process ID is 2
+2013-08-13T13:56:05.855865+00:00 app[web.1]: SLF4J: Class path contains multiple SLF4J bindings.
+2013-08-13T13:56:05.962328+00:00 app[web.1]: SLF4J: Found binding in [jar:file:/app/target/staged/slf4j-log4j12-1.6.4.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+2013-08-13T13:56:06.067390+00:00 app[web.1]: SLF4J: Found binding in [jar:file:/app/target/staged/logback-classic-1.0.7.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+2013-08-13T13:56:06.174169+00:00 app[web.1]: SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+2013-08-13T13:56:06.279430+00:00 app[web.1]: SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+2013-08-13T13:56:06.384306+00:00 app[web.1]: log4j:WARN No appenders could be found for logger (play).
+2013-08-13T13:56:06.488687+00:00 app[web.1]: log4j:WARN Please initialize the log4j system properly.
+2013-08-13T13:56:06.600704+00:00 app[web.1]: log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+2013-08-13T13:56:06.628813+00:00 heroku[web.1]: State changed from starting to up
+2013-08-13T15:02:25.697289+00:00 heroku[web.1]: Stopping all processes with SIGTERM
+2013-08-13T15:02:27.176217+00:00 heroku[web.1]: Process exited with status 143
+2013-08-13T15:02:27.201047+00:00 heroku[web.1]: State changed from up to down
+2013-08-13T15:02:24.060733+00:00 heroku[web.1]: Idling
+2013-08-18T21:47:28+00:00 heroku[slug-compiler]: Slug compilation started
+2013-08-18T21:49:14.874369+00:00 heroku[api]: Deploy 32b17b8 by dev@weso.es
+2013-08-18T21:49:14.899625+00:00 heroku[api]: Release v25 created by dev@weso.es
+2013-08-18T21:49:15+00:00 heroku[slug-compiler]: Slug compilation finished
+2013-08-18T21:49:15.497062+00:00 heroku[web.1]: State changed from down to starting
+2013-08-18T21:49:31.384870+00:00 heroku[web.1]: Starting process with command `target/start -Dhttp.port=22794 -Xmx384m -Xss512k -XX:+UseCompressedOops`
+2013-08-18T21:49:31.977248+00:00 app[web.1]: Picked up JAVA_TOOL_OPTIONS:  -Djava.rmi.server.useCodebaseOnly=true
+2013-08-18T21:49:32.412274+00:00 app[web.1]: Play server process ID is 2
+2013-08-18T21:49:32.510568+00:00 app[web.1]: SLF4J: Class path contains multiple SLF4J bindings.
+2013-08-18T21:49:32.608826+00:00 app[web.1]: SLF4J: Found binding in [jar:file:/app/target/staged/logback-classic-1.0.7.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+2013-08-18T21:49:32.711993+00:00 app[web.1]: SLF4J: Found binding in [jar:file:/app/target/staged/slf4j-log4j12-1.6.4.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+2013-08-18T21:49:32.818035+00:00 app[web.1]: SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+2013-08-18T21:49:32.922967+00:00 app[web.1]: SLF4J: Actual binding is of type [ch.qos.logback.classic.util.ContextSelectorStaticBinder]
+2013-08-18T21:49:33.036881+00:00 app[web.1]: [[37minfo[0m] play - Application started (Prod)
+2013-08-18T21:49:33.137513+00:00 app[web.1]: [[37minfo[0m] play - Listening for HTTP on /0:0:0:0:0:0:0:0:22794
+2013-08-18T21:49:33.216574+00:00 heroku[web.1]: State changed from starting to up
+2013-08-18T22:52:39.137879+00:00 heroku[web.1]: Idling
+2013-08-18T22:52:41.312441+00:00 heroku[web.1]: Stopping all processes with SIGTERM
+2013-08-18T22:52:42.946848+00:00 heroku[web.1]: State changed from up to down
+2013-08-18T22:52:42.922243+00:00 heroku[web.1]: Process exited with status 143
+2013-08-19T10:44:04.657376+00:00 heroku[web.1]: State changed from down to starting
+2013-08-19T10:44:04.656614+00:00 heroku[web.1]: Unidling
+2013-08-19T10:44:30.258533+00:00 heroku[web.1]: Starting process with command `target/start -Dhttp.port=13382 -Xmx384m -Xss512k -XX:+UseCompressedOops`
+2013-08-19T10:44:30.958300+00:00 app[web.1]: Picked up JAVA_TOOL_OPTIONS:  -Djava.rmi.server.useCodebaseOnly=true
+2013-08-19T10:44:31.504388+00:00 app[web.1]: Play server process ID is 2
+2013-08-19T10:44:31.602670+00:00 app[web.1]: SLF4J: Class path contains multiple SLF4J bindings.
+2013-08-19T10:44:31.701763+00:00 app[web.1]: SLF4J: Found binding in [jar:file:/app/target/staged/logback-classic-1.0.7.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+2013-08-19T10:44:31.807530+00:00 app[web.1]: SLF4J: Found binding in [jar:file:/app/target/staged/slf4j-log4j12-1.6.4.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+2013-08-19T10:44:31.905380+00:00 app[web.1]: SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+2013-08-19T10:44:32.004177+00:00 app[web.1]: SLF4J: Actual binding is of type [ch.qos.logback.classic.util.ContextSelectorStaticBinder]
+2013-08-19T10:44:32.653190+00:00 app[web.1]: [[37minfo[0m] play - Application started (Prod)
+2013-08-19T10:44:32.871806+00:00 app[web.1]: [[37minfo[0m] play - Listening for HTTP on /0:0:0:0:0:0:0:0:13382
+2013-08-19T10:44:33.190664+00:00 heroku[web.1]: State changed from starting to up
+2013-08-19T10:44:35.775674+00:00 heroku[router]: at=info method=GET path=/ host=computex.herokuapp.com fwd="83.44.124.95" dyno=web.1 connect=0ms service=637ms status=200 bytes=5651
+2013-08-19T10:44:36.132927+00:00 heroku[router]: at=info method=GET path=/assets/stylesheets/foundation.css host=computex.herokuapp.com fwd="83.44.124.95" dyno=web.1 connect=0ms service=197ms status=200 bytes=93692
+2013-08-19T10:44:36.153958+00:00 heroku[router]: at=info method=GET path=/assets/stylesheets/site.css host=computex.herokuapp.com fwd="83.44.124.95" dyno=web.1 connect=0ms service=9ms status=200 bytes=1823
+2013-08-19T10:44:36.181201+00:00 heroku[router]: at=info method=GET path=/assets/stylesheets/prettify.css host=computex.herokuapp.com fwd="83.44.124.95" dyno=web.1 connect=0ms service=9ms status=200 bytes=1570
+2013-08-19T10:44:36.571250+00:00 heroku[router]: at=info method=GET path=/assets/javascripts/highlighter/prettify.js host=computex.herokuapp.com fwd="83.44.124.95" dyno=web.1 connect=0ms service=18ms status=200 bytes=63698
+2013-08-19T10:44:36.595960+00:00 heroku[router]: at=info method=GET path=/assets/javascripts/highlighter/lang-sparql.js host=computex.herokuapp.com fwd="83.44.124.95" dyno=web.1 connect=0ms service=9ms status=200 bytes=2672
+2013-08-19T10:44:37.518767+00:00 heroku[router]: at=info method=GET path=/assets/images/weso.png host=computex.herokuapp.com fwd="83.44.124.95" dyno=web.1 connect=1ms service=8ms status=200 bytes=7003
+2013-08-19T10:44:37.770308+00:00 heroku[router]: at=info method=GET path=/assets/images/ host=computex.herokuapp.com fwd="83.44.124.95" dyno=web.1 connect=0ms service=7ms status=200 bytes=0
+2013-08-19T10:44:39.163801+00:00 heroku[router]: at=info method=GET path=/file host=computex.herokuapp.com fwd="83.44.124.95" dyno=web.1 connect=0ms service=46ms status=200 bytes=5653
+2013-08-19T11:05:48.083817+00:00 app[web.1]: Computex: Compute and Validate index data
+2013-08-19T11:05:48.479387+00:00 app[web.1]: LOAD MODEL
+2013-08-19T11:05:48.764332+00:00 app[web.1]: LOAD MODEL
+2013-08-19T11:05:48.869792+00:00 app[web.1]: [[31merror[0m] o.a.jena.riot - [line: 553, col: 37] Undefined prefix: sdmx-subject
+2013-08-19T11:05:49.177098+00:00 app[web.1]: [[31merror[0m] play - Cannot invoke the action, eventually got an error: java.nio.charset.MalformedInputException: Input length = 1
+2013-08-19T11:05:49.277900+00:00 app[web.1]: [[31merror[0m] application - 
+2013-08-19T11:05:49.375935+00:00 app[web.1]: 
+2013-08-19T11:05:49.476108+00:00 app[web.1]: ! @6fb6348p1 - Internal server error, for (POST) [/file] ->
+2013-08-19T11:05:49.189983+00:00 heroku[router]: at=info method=POST path=/file host=computex.herokuapp.com fwd="83.44.124.95" dyno=web.1 connect=0ms service=1255179ms status=500 bytes=1941
+2013-08-19T11:05:49.575888+00:00 app[web.1]: 
+2013-08-19T11:05:49.675403+00:00 app[web.1]: play.api.Application$$anon$1: Execution exception[[MalformedInputException: Input length = 1]]
+2013-08-19T11:05:49.776659+00:00 app[web.1]: 	at play.api.Application$class.handleError(Application.scala:289) ~[play_2.10-2.1.1.jar:2.1.1]
+2013-08-19T11:05:49.876009+00:00 app[web.1]: 	at play.api.DefaultApplication.handleError(Application.scala:383) [play_2.10-2.1.1.jar:2.1.1]
+2013-08-19T11:05:49.974231+00:00 app[web.1]: 	at play.core.server.netty.PlayDefaultUpstreamHandler$$anonfun$handleAction$1$4$$anonfun$apply$28.apply(PlayDefaultUpstreamHandler.scala:403) [play_2.10-2.1.1.jar:2.1.1]
+2013-08-19T11:05:50.180152+00:00 app[web.1]: 	at scala.Option.map(Option.scala:145) [scala-library.jar:na]
+2013-08-19T11:05:50.074227+00:00 app[web.1]: 	at play.core.server.netty.PlayDefaultUpstreamHandler$$anonfun$handleAction$1$4$$anonfun$apply$28.apply(PlayDefaultUpstreamHandler.scala:403) [play_2.10-2.1.1.jar:2.1.1]
+2013-08-19T11:05:50.279253+00:00 app[web.1]: 	at play.core.server.netty.PlayDefaultUpstreamHandler$$anonfun$handleAction$1$4.apply(PlayDefaultUpstreamHandler.scala:403) [play_2.10-2.1.1.jar:2.1.1]
+2013-08-19T11:05:50.378532+00:00 app[web.1]: java.nio.charset.MalformedInputException: Input length = 1
+2013-08-19T11:05:50.482890+00:00 app[web.1]: 	at java.nio.charset.CoderResult.throwException(CoderResult.java:277) ~[na:1.6.0_27]
+2013-08-19T11:05:50.583412+00:00 app[web.1]: 	at sun.nio.cs.StreamDecoder.implRead(StreamDecoder.java:337) ~[na:1.6.0_27]
+2013-08-19T11:05:50.682343+00:00 app[web.1]: 	at sun.nio.cs.StreamDecoder.read(StreamDecoder.java:176) ~[na:1.6.0_27]
+2013-08-19T11:05:50.783473+00:00 app[web.1]: 	at java.io.InputStreamReader.read(InputStreamReader.java:184) ~[na:1.6.0_27]
+2013-08-19T11:05:50.882818+00:00 app[web.1]: 	at java.io.BufferedReader.fill(BufferedReader.java:153) ~[na:1.6.0_27]
+2013-08-19T11:05:50.985319+00:00 app[web.1]: 	at java.io.BufferedReader.read(BufferedReader.java:174) ~[na:1.6.0_27]
+2013-08-19T11:07:52.808217+00:00 heroku[router]: at=info method=GET path=/about host=computex.herokuapp.com fwd="83.44.124.95" dyno=web.1 connect=1ms service=14ms status=200 bytes=5036
+2013-08-19T11:07:53.389678+00:00 heroku[router]: at=info method=GET path=/assets/images/favicon_ok.png host=computex.herokuapp.com fwd="83.44.124.95" dyno=web.1 connect=1ms service=8ms status=200 bytes=82
+2013-08-19T11:07:57.643848+00:00 heroku[router]: at=info method=GET path=/file host=computex.herokuapp.com fwd="83.44.124.95" dyno=web.1 connect=1ms service=17ms status=200 bytes=5653
