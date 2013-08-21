@@ -2,6 +2,7 @@
 
 @import es.weso.computex.entities.CMessage
 @import es.weso.computex.entities.CMessage._
+@import es.weso.utils.JenaUtils._
 @import helper._
 @import Option._
 
@@ -15,20 +16,20 @@
 		</ul>
 	</nav>
 	<div>
-		@helper.form(action = routes.Application.byUriGET(None)) {
+		@helper.form(action = routes.URIController.byUriGET(None)) {
 	      	<p class="instructions">
 				<label title="Address of page to Validate" for="uri">URI:</label>
-				<input type="text" name="uri" id="uri" size="45" value="@message.content"/>
+				<input type="text" name="uri" id="uri" size="45" value="@message.content" placeholder="http://computex.herokuapp.com@routes.Assets.at("example.ttl")"/>
 			</p>
 			<p class="instructions">
 				<label for="direct-doctype">Use Doctype:</label>
 				<select id="direct-doctype" name="doctype">
-					<option value="RDF/XML">RDF/XML</option>
-					<option value="RDF/XML-ABBREV">RDF/XML-ABBREV</option>
-					<option value="TTL" selected="selected">TTL</option>
-					<option value="N-TRIPLE">N-TRIPLE</option>
-					<option value="TURTLE">TURTLE</option>
-					<option value="N3">N3</option>
+					<option value="RDF/XML" @if(message.contentFormat equals RdfXML){selected="selected"}>RDF/XML</option>
+					<option value="RDF/XML-ABBREV" @if(message.contentFormat equals RdfXMLAbbr){selected="selected"}>RDF/XML-ABBREV</option>
+					<option value="TTL" @if(message.contentFormat equals TTL){selected="selected"}>TTL (Default)</option>
+					<option value="N-TRIPLE" @if(message.contentFormat equals NTriple){selected="selected"}>N-TRIPLE</option>
+					<option value="TURTLE" @if(message.contentFormat equals Turtle){selected="selected"}>TURTLE</option>
+					<option value="N3" @if(message.contentFormat equals N3){selected="selected"}>N3</option>
 				</select>
 	      	</p>
 	      	<p class="instructions">

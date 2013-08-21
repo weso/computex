@@ -48,3 +48,6 @@ project/plugins/project/
 
 #git files
 *.orig
+
+#EARL FILES
+public/earls/*.ttl

@@ -8,16 +8,16 @@
 @main(message) {
 	
 	@{message.action match {
-		case URI => uri.defaultUri(message)
-		case DIRECT_INPUT => input.defaultInput(message)
-		case FILE => file.defaultFile(message)
+		case Uri => uri.defaultUri(message)
+		case DirectInput => input.defaultInput(message)
+		case File => file.defaultFile(message)
 	
 	}}
 	<div id="results_container">    
-	    <h2 class="@if(message.message equals MSG_OK){valid}else{invalid}">@message.message</h2>
+	    <h2 class="@if(message.message equals MsgOK){valid}else{invalid}">@message.message</h2>
 	    <p class="backtop"><a href="#frontforms">↑ Top</a></p>
 	    <div id="result">
-	    	<h3 class="invalid">Validation Output: @message.size RDF Data Cube Validation Service Errors</h3>
+	    	<h3 class="@if(message.size > 0){invalid}else{valid}">Validation Output: @message.size RDF Data Cube Validation Service Errors</h3>
 	    	<ol id="error_loop">
 	    	@message.integrityQueries.zipWithIndex.map { iQ =>
 	    		@if(message.verbose || iQ._1._2.size>0){
@@ -67,7 +67,7 @@
 			   				<pre class="hide">
 			   					<code class="prettyprint lang-sparql">@e._1.model</code>
 				    		</pre>
-				    		<p class="backtop"><a href="#">↓ Show SPARQL Query</a></p>
+				    		<p class="backtop"><a href="#">↓ SHOW RAW DATA</a></p>
 			    		</li>
 		    		}
 		    	}
@@ -76,6 +76,11 @@
 	    <p class="backtop"><a href="#frontforms">↑ Top</a></p>
 	    </div>
 	    @generic.source(message)
-	    @CEARLReport(message).saveModel
+	    <div id="earl">
+		    <h3>EARL REPORT</h3>
+		    <p><a href="@CEARLReport(message).saveModel" title="Download EARL Report">Download</a> <span class="asterisk">*</span></p>
+		   	<p class="disclaimer"><span class="asterisk">*</span> The generated EARL REPORT will last at least 24h, after that it will be destroy.</p>
+		   	<p class="backtop"><a href="#frontforms">↑ Top</a></p>
+	   	</div>
 	</div>	
 }

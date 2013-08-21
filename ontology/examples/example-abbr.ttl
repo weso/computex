@@ -360,7 +360,7 @@ dataset:A-Raw
       dcterms:issued "2013-07-06" ;
       dcterms:publisher wi-org:WebFoundation ;
       dcterms:title "A-Raw"@en ;
-      dcterms:subject sdmx-subject:2.5 ;      # Government finance, fiscal and public sector statistics
+      #dcterms:subject sdmx-subject:2.5 ;      Government finance, fiscal and public sector statistics
       rdfs:label "A-Raw"@en ;
       rdfs:comment "Description of dataset A-Raw"@en ;
       qb:structure wi-onto:DSD ;  

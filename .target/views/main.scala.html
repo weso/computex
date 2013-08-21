@@ -18,9 +18,9 @@
          </style>
          <link rel="stylesheet" href="@routes.Assets.at("stylesheets/site.css")" />
          <link rel="icon" type="image/png" href="@routes.Assets.at(message.status match{
-         	case VALID => "images/favicon_ok.png"
-         	case INVALID => "images/favicon_fail.png"
-         	case _ => "images/weso.png"
+         	case Valid => "images/favicon_ok.png"
+         	case Invalid => "images/favicon_fail.png"
+         	case _ => "images/"
          })"/>
          <link rel="stylesheet" href="@routes.Assets.at("stylesheets/prettify.css")" />
          <script type="text/javascript" src="@routes.Assets.at("javascripts/highlighter/prettify.js")"></script>
@@ -32,13 +32,12 @@
       			<a href="/"><img alt="W3C" width="110" height="61" id="logo" src="@routes.Assets.at("images/weso.png")"></a>
 				<a href="/"><span>COMPUTEX Validation Service</span></a>
       		</h1>
-      		<p id="tagline">Validates <a href="http://www.w3.org/TR/vocab-data-cube/">RDF Data Cube</a> and Statistical Indexes with computations</p>
+      		<p id="tagline">Validates <a href="http://www.w3.org/TR/vocab-data-cube/">RDF Data Cube</a> and Statistical Indexes with computations A.K.A. Computex</p>
       	</header>
       	@content
 		<footer id="footer">
 			<p>"COMPUTEX Validation Service" is a web service developed by <a href="http://www.weso.es" title="WESO RG">WESO RG</a></p>
-			<p>( <a href="mailto:cesar.luis@@weso.es" title="Mail to César Luis Alvargonzález">César Luis Alvargonzález</a> and 
-			<a href="mailto:labra@@uniovi.es" title="Mail to Jose Emilio Labra Gayo">Jose Emilio Labra Gayo</a> )<p>
+			<p>( <a href="mailto:cesar.luis@@weso.es" title="Mail to César Luis Alvargonzález">César Luis Alvargonzález</a>, <a href="mailto:labra@@uniovi.es" title="Mail to Jose Emilio Labra Gayo">Jose Emilio Labra Gayo</a>, <a href="mailto:ignacio.fuertes@@weso.es" title="Mail to Ignacio Fuertes Bernardo">Ignacio Fuertes Bernardo</a> and <a href="mailto:jmalvarez@@seerc.org" title="Mail to Jose Maria Alvarez Rodriguez">Jose Maria Alvarez Rodriguez</a> )<p>
 			<p>2013 WESO RG (<a href="http://www.apache.org/licenses/LICENSE-2.0.html" title="Apache License, Version 2.0">Apache License</a>), <a href="http://github.com/weso/computex" title="Computex Github Repository">Github</a></p>
 		</footer>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -67,10 +66,10 @@
 				var pre = $(this).parent().prev();
 				if(pre.hasClass("hide")){
 					pre.removeClass("hide");
-					$(this).text("↑ Hide SPARQL query");
+					$(this).text("↑ Hide RAW DATA");
 				} else {
 					pre.addClass("hide");
-					$(this).text("↓ Show SPARQL query");
+					$(this).text("↓ Show RAW DATA");
 				}
 			}
 		});

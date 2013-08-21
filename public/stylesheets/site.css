@@ -112,6 +112,7 @@ code {
 	padding: 1em;
 	display: block;
 	margin: 0!important;
+	font-size: 14px;
 }
 
 .query pre.hide{
@@ -125,4 +126,22 @@ table {
 
 table th{
 	font-size:0.875em!important;
+}
+
+h3.valid {
+	color:	#55B05A !important;
+  	background-color:	white !important;
+}
+
+.asterisk {
+	color: #FF9900;
+	font-weight:bold;
+}
+
+.disclaimer{
+	margin-top: 0.5em;
+}
+
+#earl{
+	padding: 1.5em 2em;
 }

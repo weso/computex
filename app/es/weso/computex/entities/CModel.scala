@@ -1,11 +1,15 @@
 package es.weso.computex.entities
 
-import com.hp.hpl.jena.rdf.model.Model
 import java.io.ByteArrayOutputStream
-import es.weso.utils.JenaUtils._
 
-case class CModel(val model: Model) {
-  var format = TURTLE
+import com.hp.hpl.jena.rdf.model.Model
+
+import es.weso.utils.JenaUtils.Turtle
+
+case class CModel(val model: Model, var format:String) {
+  
+  def this(model:Model) = this(model, Turtle)
+  
   override def toString(): String = {
     val out = new ByteArrayOutputStream()
     model.setNsPrefix("cex", "http://purl.org/weso/ontology/computex#")

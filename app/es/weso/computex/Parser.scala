@@ -1,16 +1,20 @@
 package es.weso.computex
 
+import scala.Array.canBuildFrom
+import scala.collection.JavaConversions.asScalaBuffer
 import scala.collection.mutable.ListBuffer
-import es.weso.computex.entities.CErrorMessage
-import es.weso.utils.JenaUtils
+
+import com.hp.hpl.jena.query.Query
 import com.hp.hpl.jena.rdf.model.Model
 import com.hp.hpl.jena.rdf.model.Property
-import com.hp.hpl.jena.query.Query
-import scala.collection.JavaConversions._
-import es.weso.computex.entities._
-import es.weso.utils.JenaUtils._
-import java.io.ByteArrayOutputStream
 import com.hp.hpl.jena.rdf.model.RDFNode
+
+import es.weso.computex.entities.CErrorMessage
+import es.weso.computex.entities.CModel
+import es.weso.computex.entities.CParam
+import es.weso.computex.entities.IntegrityQuery
+import es.weso.utils.JenaUtils
+import es.weso.utils.JenaUtils.statementAsString
 
 object Parser {
 
@@ -50,7 +54,7 @@ object Parser {
         
       val params = extractParams(subModel)
 
-      errors += CErrorMessage(msg, params, CModel(subModel))
+      errors += CErrorMessage(msg, params, new CModel(subModel))
 
     }
     errors.toList
