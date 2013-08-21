@@ -17,7 +17,9 @@ object Application extends Controller {
 
   def about() = Action {
     implicit request =>
-      Ok(views.html.about.about(CMessage(CMessage.File)))
+      val message = CMessage(Uri)
+      message.message = MsgEmpty
+      Ok(views.html.about.about(message))
   }
   
 }

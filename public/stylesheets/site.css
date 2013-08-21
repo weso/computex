@@ -1,8 +1,18 @@
-header#banner{
+header#banner {
 	border-radius: 5px;
 	margin: 1.5em 2em;
 	background: #365D95;
 	border-radious: 5px;
+}
+
+header h1 {
+	border-radius: 5px;
+}
+
+header h1#title img {
+	margin: 0.4em;
+	height: 70px;
+	width: 80px
 }
 
 header a {
@@ -10,56 +20,85 @@ header a {
 }
 
 header a:link {
-	color: white ;
+	color: white;
 }
 
 header a:visited {
-	color: white ;
+	color: white;
 }
 
-h1#title img {
-	margin: 0.4em;
-	height: 70px;
-	width: 80px
+ul#tabset_tabs li {
+	border-radius: 5px 5px 0 0;
 }
 
-footer p{
+ul#tabset_tabs li a:link,ul#tabset_tabs li a:visited {
+	border-radius: 0 5px 0 0;
+}
+
+ul#tabset_tabs.pills li {
+	border-radius: 5px;
+}
+
+ul#tabset_tabs.pills li a:link,ul#tabset_tabs.pills li a:visited {
+	border-radius: 5px;
+}
+
+.doc {
+	margin: 0 !important;
+}
+
+.doc h2 {
+	font-family: Verdana, Arial, sans-serif;
+	color: #690;
+	background-color: white;
+	font-size: 1.1em;
+	border-bottom: 1px dotted #aaaa77;
+	text-decoration: none;
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+header p#tagline {
+	margin: -3em 0 0 9.8em;
+}
+
+footer p {
 	font-size: small;
 	text-align: center;
 	color: #888;
 	background-color: white;
 }
 
-#frontforms{
+#frontforms {
 	maring: 0 !important;
-	padding:0 !important;
+	padding: 0 !important;
 }
 
-#frontforms{
+#frontforms {
 	margin: 2em;
 }
 
-#frontforms label{
+#frontforms label {
 	background: transparent;
 }
 
-.instructions:first-child{
+.instructions:first-child {
 	border-radius: 0 5px 0 0;
 }
 
-.instructions{
+.instructions {
 	padding: 0.5em 4em !important;
 }
 
-.instructions label, .instructions input, .instructions textarea, .instructions select{
+.instructions label,.instructions input,.instructions textarea,.instructions select
+	{
 	display: inline;
 	padding: 0;
 	margin: 0;
 	vertical-align: middle;
 }
 
-
-.instructions input#uri{
+.instructions input#uri {
 	margin: 0 auto;
 	width: 100%;
 	max-width: none;
@@ -67,7 +106,7 @@ footer p{
 	background: #ffffff;
 }
 
-.instructions textarea{
+.instructions textarea {
 	margin: 0 auto;
 	width: 100%;
 	max-width: none;
@@ -80,29 +119,29 @@ p.submit_button {
 	border-radius: 0 0 5px 5px;
 }
 
-.submit_button input{
+.submit_button input {
 	border-radius: 15px;
-	background: white !imporant;
+	background: white!imporant;
 	border: 2px solid;
 	margin-bottom: 1em;
 	margin-top: 1em;
 }
 
-div#results_container{
-	padding-top:0;
+div#results_container {
+	padding-top: 0;
 }
 
-div#result{
-	padding:0;
+div#result {
+	padding: 0;
 }
 
 .msg_err {
-	padding-bottom: 1em!important;
+	padding-bottom: 1em !important;
 }
 
 .msg_err re {
 	line-height: 0;
-	margin-bottom:0;
+	margin-bottom: 0;
 }
 
 code {
@@ -111,12 +150,12 @@ code {
 	line-height: 1.1em;
 	padding: 1em;
 	display: block;
-	margin: 0!important;
+	margin: 0 !important;
 	font-size: 14px;
 }
 
-.query pre.hide{
-	display:none !important;
+.query pre.hide {
+	display: none !important;
 }
 
 table {
@@ -124,21 +163,21 @@ table {
 	border-radius: 5px;
 }
 
-table th{
-	font-size:0.875em!important;
+table th {
+	font-size: 0.875em !important;
 }
 
 h3.valid {
-	color:	#55B05A !important;
-  	background-color:	white !important;
+	color: #55B05A !important;
+	background-color: white !important;
 }
 
 .asterisk {
 	color: #FF9900;
-	font-weight:bold;
+	font-weight: bold;
 }
 
-.disclaimer{
+.disclaimer {
 	margin-top: 0.5em;
 }
 
@@ -146,8 +185,14 @@ h3.valid {
 	padding: 0;
 }
 
-#earl{
+#earl {
 	padding: 1.5em 2em;
 }
 
+div#frontforms input {
+	background: #ffffff;
+}
 
+div#frontforms input.button {
+	background: #365D95;
+}
