@@ -33,8 +33,8 @@ trait Base extends Controller {
       }
 
     } catch {
-      case e: AtlasException => message.message = MsgBadFormed + " as " + message.contentFormat
-      case e: RiotException => message.message = MsgBadFormed + " as " + message.contentFormat
+      case e: AtlasException => message.message = s"${MsgBadFormed} as ${message.contentFormat}<br/>${e.getMessage}"
+      case e: RiotException => message.message =  s"${MsgBadFormed} as ${message.contentFormat}<br/>${e.getMessage}"
     }
     message
   }
