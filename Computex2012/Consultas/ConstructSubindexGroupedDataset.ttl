@@ -1,0 +1,38 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX qb: <http://purl.org/linked-data/cube#>
+PREFIX sdmx-concept:  <http://purl.org/linked-data/sdmx/2009/concept#>
+PREFIX sdmx-attribute: <http://purl.org/linked-data/sdmx/2009/attribute#>
+PREFIX sdmx-subject: <http://purl.org/linked-data/sdmx/2009/subject#>
+PREFIX wi-onto:  <http://data.webfoundation.org/webindex/ontology/>
+PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX cex: <http://purl.org/weso/ontology/computex#>
+PREFIX dcterms:  <http://purl.org/dc/terms/>
+PREFIX wi-org: <http://data.webfoundation.org/webindex/v2013/organization/>
+PREFIX wi-slice:  <http://data.webfoundation.org/webindex/v2013/slice/> 
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+PREFIX wi-dataset: <http://data.webfoundation.org/webindex/v2013/dataset/>
+#This query has to be executed over transformed data, not over 2012 Raw data
+CONSTRUCT {
+	?x rdf:type qb:Dataset .
+	?x dcterms:contributor wi-org:WESO .
+	?x dcterms:issued "2013-07-11" .
+	?x dcterms:publisher wi-org:WebFoundation .
+	?x dcterms:title "Subindex grouped" .
+	?x dcterms:subject sdmx-subject:2.5 .
+	?x rdfs:label "Subindex grouped" .
+	?x rdfs:comment "Description of Subindex grouped" .
+	?x qb:structure wi-onto:DSD .
+	?x sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> .
+	?x qb:slice ?z .
+	?x cex:computation _:0 .
+	_:0 rdf:type cex:GroupSubindex .
+	_:0 cex:dataSet wi-dataset:ClustersGrouped .
+	_:0 cex:component ?y .
+	_:0 cex:dimension wi-onto:ref-area .
+} WHERE {
+	?y rdf:type cex:SubIndex .
+	?z rdf:type qb:Slice .
+	?z cex:indicator ?y . 
+	FILTER(CONTAINS(str(?z), "-Mean"))
+	BIND(URI("http://data.webfoundation.org/webindex/v2013/dataset/SubindexGrouped") AS ?x)
+}

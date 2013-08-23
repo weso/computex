@@ -1,0 +1,32 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX qb: <http://purl.org/linked-data/cube#>
+PREFIX sdmx-concept:  <http://purl.org/linked-data/sdmx/2009/concept#>
+PREFIX sdmx-attribute: <http://purl.org/linked-data/sdmx/2009/attribute#>
+PREFIX wi-onto:  <http://data.webfoundation.org/webindex/ontology/>
+PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX cex: <http://purl.org/weso/ontology/computex#>
+PREFIX dcterms:  <http://purl.org/dc/terms/>
+PREFIX wi-org: <http://data.webfoundation.org/webindex/v2013/organization/>
+PREFIX wi-slice:  <http://data.webfoundation.org/webindex/v2013/slice/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+CONSTRUCT {
+	wi-onto:DSD rdf:type qb:DataStructureDefinition .
+	wi-onto:DSD qb:component _:0 .
+	_:0 qb:dimension wi-onto:ref-area .
+	_:0 qb:order 1 .
+	wi-onto:DSD qb:component _:1 .
+	_:1 qb:dimension wi-onto:ref-year .
+	_:1 qb:order 2 .
+	wi-onto:DSD qb:component _:2 .
+	_:2 qb:dimension cex:indicator .
+	_:2 qb:order 3 .
+	wi-onto:DSD qb:component _:3 .
+	_:3 qb:measure cex:value .
+	wi-onto:DSD qb:component _:4 .
+	_:4 qb:attribute sdmx-attribute:unitMeasure .
+	_:4 qb:componentRequired "true"^^xsd:boolean .
+	_:4 qb:componentAttachment qb:Dataset .
+	wi-onto:DSD qb:sliceKey wi-onto:sliceByArea .
+} WHERE {
+}

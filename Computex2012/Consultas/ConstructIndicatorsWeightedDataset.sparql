@@ -1,0 +1,35 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX qb: <http://purl.org/linked-data/cube#>
+PREFIX sdmx-concept:  <http://purl.org/linked-data/sdmx/2009/concept#>
+PREFIX sdmx-attribute: <http://purl.org/linked-data/sdmx/2009/attribute#>
+PREFIX sdmx-subject: <http://purl.org/linked-data/sdmx/2009/subject#>
+PREFIX wi-onto:  <http://data.webfoundation.org/webindex/ontology/>
+PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX cex: <http://purl.org/weso/ontology/computex#>
+PREFIX dcterms:  <http://purl.org/dc/terms/>
+PREFIX wi-org: <http://data.webfoundation.org/webindex/v2013/organization/>
+PREFIX wi-slice:  <http://data.webfoundation.org/webindex/v2013/slice/> 
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+PREFIX wi-dataset: <http://data.webfoundation.org/webindex/v2013/dataset/>
+#It is necessary execute "ConstructIndicatorsWeightedSlices.sparql" before execute this query, in order to link the dataset with slices
+CONSTRUCT {
+	?y rdf:type qb:Dataset .
+	?y dcterms:contributor wi-org:WESO .
+	?y dcterms:issued "2013-07-11" .
+	?y dcterms:publisher wi-org:WebFoundation .
+	?y dcterms:title "Indicators Weighted" .
+	?y dcterms:subject sdmx-subject:2.5 .
+	?y rdfs:label "Indicators weighted" .
+	?y rdfs:comment "Description of Indicators Weighted" .
+	?y qb:structure wi-onto:DSD .
+	?y sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> .
+	?y qb:slice ?x .
+	?y cex:computation _:0 .
+	_:0 rdf:type cex:WeightedSimple .
+	_:0 cex:dataSet wi-dataset:Adjusted .
+	_:0 cex:weightSchema <http://data.webfoundation.org/webindex/v2013/weightSchema/indicatorWeights> .
+} WHERE {
+	?x rdf:type qb:Slice .
+	FILTER(CONTAINS(str(?x), "-Weighted"))
+	BIND(URI("http://data.webfoundation.org/webindex/v2013/dataset/IndicatorsWeighted") AS ?y)
+}
