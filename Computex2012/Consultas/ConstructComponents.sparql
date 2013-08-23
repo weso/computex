@@ -1,0 +1,28 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX qb: <http://purl.org/linked-data/cube#>
+PREFIX sdmx-concept:  <http://purl.org/linked-data/sdmx/2009/concept#>
+PREFIX sdmx-attribute: <http://purl.org/linked-data/sdmx/2009/attribute#>
+PREFIX wi-onto:  <http://data.webfoundation.org/webindex/ontology/>
+PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX cex: <http://purl.org/weso/ontology/computex#>
+PREFIX dcterms:  <http://purl.org/dc/terms/>
+PREFIX wi-org: <http://data.webfoundation.org/webindex/v2013/organization/>
+PREFIX wi-slice:  <http://data.webfoundation.org/webindex/v2013/slice/> 
+prefix skos:    <http://www.w3.org/2004/02/skos/core#>
+
+CONSTRUCT {
+	?x rdf:type cex:Component .
+	?x dcterms:contributor wi-org:WESO .
+	?x dcterms:issued "2013-06-12" .
+	?x dcterms:publisher wi-org:WebFoundation .
+	?x rdfs:label ?label .
+	?x rdfs:comment ?comment .
+	?x cex:element ?y .
+} WHERE {
+	?x rdf:type wi-onto:Component .
+	?x rdfs:label ?label .
+	?x rdfs:comment ?comment .
+	?y rdf:type ?z .
+	?y skos:broader ?x .
+	FILTER(?z = <http://data.webfoundation.org/webindex/ontology/PrimaryIndicator> || ?z = <http://data.webfoundation.org/webindex/ontology/SecondaryIndicator>)
+}

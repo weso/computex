@@ -1,0 +1,22 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX qb: <http://purl.org/linked-data/cube#>
+PREFIX sdmx-concept:  <http://purl.org/linked-data/sdmx/2009/concept#>
+PREFIX sdmx-attribute: <http://purl.org/linked-data/sdmx/2009/attribute#>
+PREFIX wi-onto:  <http://data.webfoundation.org/webindex/ontology/>
+PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX cex: <http://purl.org/weso/ontology/computex#>
+PREFIX dcterms:  <http://purl.org/dc/terms/>
+PREFIX wi-org: <http://data.webfoundation.org/webindex/v2013/organization/>
+PREFIX wi-slice:  <http://data.webfoundation.org/webindex/v2013/slice/> 
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+CONSTRUCT {
+	?z rdf:type qb:Slice .
+	?z cex:indicator ?x .
+	?z wi-onto:ref-year 2011 .
+	?z qb:sliceStructure wi-onto:sliceByArea .
+} WHERE {
+	?x rdf:type <http://data.webfoundation.org/webindex/ontology/PrimaryIndicator> .
+	?x rdfs:label ?label .
+	BIND(URI(CONCAT("http://data.webfoundation.org/webindex/v2013/slice/", CONCAT(?label, CONCAT("-Sorted/", "2011")))) AS ?z)
+}
