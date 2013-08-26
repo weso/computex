@@ -65,7 +65,6 @@ object Parser {
     val computexName = model.getProperty("http://purl.org/weso/ontology/computex#name")
     val computexValue = model.getProperty("http://purl.org/weso/ontology/computex#value")
     val seq : Seq[RDFNode] = model.listObjectsOfProperty(computexParam).toList
-    model.write(System.out)
     for {
       next <- seq.toArray
       node = next.asResource()
