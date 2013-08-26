@@ -4,11 +4,9 @@ import java.io.File
 import java.io.IOException
 import java.io.InputStream
 import java.net.URL
-
 import scala.Array.canBuildFrom
 import scala.collection.JavaConversions.asScalaIterator
 import scala.io.Source.fromFile
-
 import com.hp.hpl.jena.query.Dataset
 import com.hp.hpl.jena.query.DatasetFactory
 import com.hp.hpl.jena.query.Query
@@ -20,17 +18,17 @@ import com.hp.hpl.jena.rdf.model.ModelFactory
 import com.hp.hpl.jena.update.GraphStore
 import com.hp.hpl.jena.update.GraphStoreFactory
 import com.hp.hpl.jena.update.UpdateAction
-
 import es.weso.computex.entities.CMessage
 import es.weso.computex.entities.IntegrityQuery
 import es.weso.utils.JenaUtils.Turtle
+import play.api.Logger
 
 case class Computex(val ontologyURI: String, val validationDir: String,
   val computationDir: String, val closureFile: String, val flattenFile: String,
   val findStepsQuery: String) {
 
   def computex(message: CMessage): Array[(String, IntegrityQuery)] = {
-    println("Computex: Compute and Validate index data")
+    Logger.info("Computex: Compute and Validate index data")
     val model = loadData(ontologyURI, message)
     val expandedCube = expandCube(model)
     val expandedComputex = if (message.expand) {
@@ -142,7 +140,6 @@ case class Computex(val ontologyURI: String, val validationDir: String,
   }
 
   def loadModel(model: Model, inputStream: InputStream, format: String = Turtle) = {
-    println("LOAD MODEL")
     model.read(inputStream, "", format)
   }
 
