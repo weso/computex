@@ -1,14 +1,10 @@
-logs/*.log
+logs
 tmp
-
 *.jar
 *~
-
 *.class
 *.log
-
 bin
-
 project/project
 project/target
 target
@@ -23,15 +19,14 @@ dist
 /RUNNING_PID
 /.settings
 
-# Latex
+# Latex specific
 *.bbl
 *.blg
 *.aux
 *.log
 *.out
 
-
-# sbt specific
+# Sbt specific
 dist/*
 target/
 lib_managed/
@@ -46,8 +41,8 @@ project/plugins/project/
 .cache
 .DS_Store
 
-#git files
+# Git specific
 *.orig
 
-#EARL FILES
+# EARL FILES
 public/earls/*.ttl
