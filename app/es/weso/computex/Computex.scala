@@ -140,7 +140,6 @@ case class Computex(val ontologyURI: String, val validationDir: String,
   }
 
   def loadModel(model: Model, inputStream: InputStream, format: String = Turtle) = {
-    Logger.info("LOAD MODEL")
     model.read(inputStream, "", format)
   }
 

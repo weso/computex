@@ -23,6 +23,7 @@ case class CMessage(val action: String) {
   var expand = false
 
   private var _contentIS: String = null
+  private var _contentCharset: Charset = null
   private var _integrityQueries: Array[(String, IntegrityQuery)] = Array.empty
 
   def integrityQueries_=(iq: Array[(String, IntegrityQuery)]): Unit = _integrityQueries = iq
@@ -37,30 +38,34 @@ case class CMessage(val action: String) {
     case _ => CMessage.Invalid
   }
 
-  def contentIS_=(is: InputStream): Unit = _contentIS = {
-    Logger.info("START: contentIS_")
-    val in = new BufferedInputStream(is);
+  def contentIS_=(is: InputStream): Unit = {
     val charsetDecoder = Charset.forName("UTF-8").newDecoder();
     charsetDecoder.onMalformedInput(CodingErrorAction.REPLACE);
     charsetDecoder.onUnmappableCharacter(CodingErrorAction.REPLACE);
-    val inputReader = new InputStreamReader(in, charsetDecoder);
-    val bufferedReader = new BufferedReader(inputReader);
-    val sb = new StringBuilder();
-    var line = bufferedReader.readLine();
-    while (line != null) {
-      sb.append(line);
-      line = bufferedReader.readLine();
+    _contentIS = {
+      val in = new BufferedInputStream(is);
+      val inputReader = new InputStreamReader(in, charsetDecoder);
+      val bufferedReader = new BufferedReader(inputReader);
+      val sb = new StringBuilder();
+      var line = bufferedReader.readLine();
+      while (line != null) {
+        sb.append(line);
+        line = bufferedReader.readLine();
+      }
+      bufferedReader.close();
+      sb.toString();
     }
-    bufferedReader.close();
-    Logger.info("END: contentIS_")
-    sb.toString();
+    _contentCharset = charsetDecoder.charset()
   }
 
   def contentIS: InputStream = {
     if (_contentIS == null) null
-    else new ByteArrayInputStream(_contentIS.getBytes("UTF-8"))
+    else {
+      new ByteArrayInputStream(_contentIS.getBytes(_contentCharset))
+    }
   }
-
+  
+  def charset: Charset = _contentCharset
 }
 
 object CMessage {
