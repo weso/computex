@@ -11,6 +11,7 @@ import es.weso.utils.JenaUtils
 import java.nio.charset.CodingErrorAction
 import org.apache.commons.io.IOUtils
 import java.io.BufferedReader
+import play.api.Logger
 
 case class CMessage(val action: String) {
   var message: String = CMessage.MsgOK
@@ -37,7 +38,7 @@ case class CMessage(val action: String) {
   }
 
   def contentIS_=(is: InputStream): Unit = _contentIS = {
-    println("START: contentIS_")
+    Logger.info("START: contentIS_")
     val in = new BufferedInputStream(is);
     val charsetDecoder = Charset.forName("UTF-8").newDecoder();
     charsetDecoder.onMalformedInput(CodingErrorAction.REPLACE);
@@ -51,7 +52,7 @@ case class CMessage(val action: String) {
       line = bufferedReader.readLine();
     }
     bufferedReader.close();
-    println("END: contentIS_")
+    Logger.info("END: contentIS_")
     sb.toString();
   }
 
