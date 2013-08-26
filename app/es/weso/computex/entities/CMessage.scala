@@ -14,6 +14,7 @@ import java.io.BufferedReader
 import play.api.Logger
 
 case class CMessage(val action: String) {
+  
   var message: String = CMessage.MsgOK
   var content: String = null
   var contentFormat: String = JenaUtils.TTL
@@ -27,7 +28,6 @@ case class CMessage(val action: String) {
   private var _integrityQueries: Array[(String, IntegrityQuery)] = Array.empty
 
   def integrityQueries_=(iq: Array[(String, IntegrityQuery)]): Unit = _integrityQueries = iq
-
   def integrityQueries: Array[(String, IntegrityQuery)] = _integrityQueries.sortWith(_._1 < _._1)
 
   def size = _integrityQueries.map(_._2.size).foldLeft(0)(_ + _)
