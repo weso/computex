@@ -153,8 +153,8 @@ object Computex {
   def loadFile(fileName: String): InputStream = {
     val url = new URL(fileName)
     val urlCon = url.openConnection()
-    urlCon.setConnectTimeout(2000)
-    urlCon.setReadTimeout(1000)
+    urlCon.setConnectTimeout(4000)
+    urlCon.setReadTimeout(2000)
     urlCon.getInputStream()
   }
 }
