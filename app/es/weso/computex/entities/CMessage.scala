@@ -37,6 +37,7 @@ case class CMessage(val action: String) {
   }
 
   def contentIS_=(is: InputStream): Unit = _contentIS = {
+    println("START: contentIS_")
     val in = new BufferedInputStream(is);
     val charsetDecoder = Charset.forName("UTF-8").newDecoder();
     charsetDecoder.onMalformedInput(CodingErrorAction.REPLACE);
@@ -50,6 +51,7 @@ case class CMessage(val action: String) {
       line = bufferedReader.readLine();
     }
     bufferedReader.close();
+    println("END: contentIS_")
     sb.toString();
   }
 
