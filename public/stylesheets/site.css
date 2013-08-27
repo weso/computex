@@ -189,6 +189,23 @@ h3.valid {
 	padding: 1.5em 2em;
 }
 
+#earl h2 {
+	margin-top: 1em;
+	margin-bottom: 0.5em;
+}
+
+#earl td {
+	min-width: 33%;
+	max-width: 33%;
+	width: 33%;
+	line-brak: break-word;
+	border: 2px solid #365D95;
+}
+
+#earl td a {
+	color: #365D95;
+}
+ 
 div#frontforms input {
 	background: #ffffff;
 }
