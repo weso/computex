@@ -36,6 +36,8 @@ object EARLController extends Controller {
   private def displayEARL(name: String)(implicit request: RequestHeader): SimpleResult[play.api.templates.Html] = {
     val model = ModelFactory.createDefaultModel
     model.read(s"file:public/earls/${name}", "", JenaUtils.TTL)
-    Ok(views.html.earl.defaultEARL(model, CMessage(CMessage.File)))
+    val message = CMessage(CMessage.File)
+    message.content = name
+    Ok(views.html.earl.defaultEARL(model, message))
   }
 }
