@@ -19,15 +19,16 @@ import com.hp.hpl.jena.update.GraphStore
 import com.hp.hpl.jena.update.GraphStoreFactory
 import com.hp.hpl.jena.update.UpdateAction
 import es.weso.computex.entities.CMessage
-import es.weso.computex.entities.IntegrityQuery
+import es.weso.computex.entities.CIntegrityQuery
 import es.weso.utils.JenaUtils.Turtle
 import play.api.Logger
+import es.weso.computex.entities.CQuery
 
 case class Computex(val ontologyURI: String, val validationDir: String,
   val computationDir: String, val closureFile: String, val flattenFile: String,
   val findStepsQuery: String) {
 
-  def computex(message: CMessage): Array[(String, IntegrityQuery)] = {
+  def computex(message: CMessage): Array[CIntegrityQuery] = {
     Logger.info("Computex: Compute and Validate index data")
     val model = loadData(ontologyURI, message)
     val expandedCube = expandCube(model)
@@ -99,19 +100,18 @@ case class Computex(val ontologyURI: String, val validationDir: String,
   }
 
   def validate(model: Model,
-    validationDir: String): Array[(String, IntegrityQuery)] = {
-    val iQueries: Array[(String, IntegrityQuery)] = for {
+    validationDir: String): Array[CIntegrityQuery] = {
+    val iQueries: Array[CIntegrityQuery] = for {
       q <- readQueries(validationDir)
-      currentModel = executeQuery(model, q._2)
+      currentModel = executeQuery(model, q.query)
     } yield {
       currentModel.setNsPrefixes(model)
-      val iQuery = Parser.parse(q, currentModel)
-      (iQuery.query._1, iQuery)
+      Parser.parse(q, currentModel)
     }
     iQueries
   }
 
-  def readQueries(dirName: String): Array[(String, Query)] = {
+  def readQueries(dirName: String): Array[CQuery] = {
     val pattern = """q(.+)-.*.sparql""".r
     val dir = new File(dirName)
     if (dir == null || dir.listFiles == null)
@@ -122,7 +122,7 @@ case class Computex(val ontologyURI: String, val validationDir: String,
           case pattern(i) => i
           case _ => "UNKNOWN QUERY NAME"
         }
-        (queryName, readQuery(file))
+        CQuery(queryName, readQuery(file))
       }
     }
   }

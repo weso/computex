@@ -21,30 +21,30 @@
 	    	@if(!message.integrityQueries.isEmpty){
 		    	<ol id="error_loop">
 		    	@message.integrityQueries.zipWithIndex.map { iQ =>
-		    		@if(message.verbose || iQ._1._2.size>0){
+		    		@if(message.verbose || iQ._1.size>0){
 			    		<li class="msg_err">
 				    		<span class="err_type">
-				    		@if(iQ._1._2.size>0){
+				    		@if(iQ._1.size>0){
 				    		<img src="http://validator.w3.org/images/info_icons/error.png" alt="Error" title="Error"/>
 				    		}else{
 				    		<img src="http://www.w3.org/2011/gld/validator/qb/img/tick-16.png" alt="Valid" title="Valid"/>
 				    		}
-				    		q@{iQ._1._2.query._1}: @{iQ._1._2.size} Errors</span>, 
-				    		<span class="msg"> @iQ._1._2.message</span>
+				    		q@{iQ._1.query.name}: @{iQ._1.size} Errors</span>, 
+				    		<span class="msg"> @iQ._1.message</span>
 				    		<div class="query">
 					    		<pre class="hide">
-					   				<code class="prettyprint lang-sparql">@iQ._1._2.query._2</code>
+					   				<code class="prettyprint lang-sparql">@iQ._1.query.query</code>
 						    	</pre>
 						    	<p class="backtop"><a href="#">↓ Show Integrity Query</a></p>
 			    			</div>
 			    		</li>
-			    		@iQ._1._2.errorMessages.zipWithIndex.map { e =>
+			    		@iQ._1.errorMessages.zipWithIndex.map { e =>
 				    		<li class="msg_err">
 				    			<span class="err_type">
-				    			q@{iQ._1._2.query._1} - @{e._2+1}
+				    			q@{iQ._1.query.name} - @{e._2+1}
 				    			</span>
 				    			<em>Error</em>: 
-				    			<span class="msg">@e._1.message</span>
+				    			<span class="msg">@Q._1.message</span>
 				    			<table>
 				    			<thead>
 					    			<tr>
