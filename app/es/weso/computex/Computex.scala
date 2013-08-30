@@ -99,23 +99,24 @@ case class Computex(val ontologyURI: String, val validationDir: String,
     ls.map(r => r.getLiteral(varName).getString)
   }
 
-  def validate(model: Model,
-    validationDir: String): Array[CIntegrityQuery] = {
-    val iQueries: Array[CIntegrityQuery] = for {
-      q <- readQueries(validationDir)
-      currentModel = executeQuery(model, q.query)
+  def validate(model: Model, validationDir: String): Array[CIntegrityQuery] = {
+    val dir = new File(validationDir)
+    val iQueries: Array[CIntegrityQuery] = 
+    for {
+      vDir <- dir.listFiles.filter(_.isDirectory())
+      cq <- readQueries(vDir)
+      currentModel = executeQuery(model, cq.query)
     } yield {
       currentModel.setNsPrefixes(model)
-      Parser.parse(q, currentModel)
+      Parser.parse(cq, currentModel)
     }
     iQueries
   }
 
-  def readQueries(dirName: String): Array[CQuery] = {
+  def readQueries(dir: File): Array[CQuery] = {
     val pattern = """q(.+)-.*.sparql""".r
-    val dir = new File(dirName)
     if (dir == null || dir.listFiles == null)
-      throw new IOException(s"Directory: ${dirName} not accessible")
+      throw new IOException(s"Directory: ${dir.getName} not accessible")
     else {
       for (file <- dir.listFiles if file.getName endsWith ".sparql") yield {
         val queryName = file.getName match {

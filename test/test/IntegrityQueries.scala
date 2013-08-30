@@ -49,7 +49,7 @@ class IntegrityQueries extends Specification with BeforeExample {
     val message = new CMessage(CMessage.File)
     message.contentIS = Computex.loadFile(s"file:${path}")
     before
-    val iqs:Array[CIntegrityQuery] = computex.computex(message)
+    val iqs: Array[CIntegrityQuery] = computex.computex(message)
     val filteredIqs: Array[CIntegrityQuery] = iqs.filter(_.size > 0)
     filteredIqs.map(a => a.query.name -> a).toMap
   }
@@ -80,41 +80,110 @@ class IntegrityQueries extends Specification with BeforeExample {
 
   }
   
+  "Processing 'badRanking.ttl' file " should {
+    val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/badRanking.ttl")
+
+    "must fail only two integrity query" in {
+      map must size(2)
+    }
+
+    val iq11: CIntegrityQuery = map.getOrElse("11", null)
+
+    "error message should be 'Observation does not have value'" in {
+      println(iq11.message)
+      iq11.message must equalTo("Observation does not have value")
+    }
+
+    "must be comprised by only two error message" in {
+      iq11.errorMessages must size(2)
+    }
+
+    for (em <- iq11.errorMessages) {
+      " must have '1' parameters" in {
+        em.params must size(1)
+      }
+    }
+
+    val iq12: CIntegrityQuery = map.getOrElse("12", null)
+
+    "error message should be 'Ranking value does not match'" in {
+      println(iq12.message)
+      iq12.message must equalTo("Ranking value does not match")
+    }
+
+    "must be comprised by only one error message" in {
+      iq12.errorMessages must size(1)
+    }
+
+    val cm12 = iq12.errorMessages.head
+
+    " must have '5' parameters" in {
+      cm12.params must size(5)
+    }
+
+  }
+
+  "Processing 'badWeightedMean.ttl' file " should {
+    val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/badWeightedMean.ttl")
+
+    "must fail only one integrity query" in {
+      map must size(1)
+    }
+
+    val iq: CIntegrityQuery = map.getOrElse("13", null)
+
+    "error message should be 'Weighted Mean does not match'" in {
+      println(iq.message)
+      iq.message must equalTo("Weighted Mean does not match")
+    }
+
+    "must be comprised by only one error message" in {
+      iq.errorMessages must size(1)
+    }
+
+    val cm = iq.errorMessages.head
+
+    " must have '3' parameters" in {
+      cm.params must size(3)
+    }
+
+  }
+
   "Processing 'goodCopy.ttl' file " should {
     val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/goodCopy.ttl")
     "must pass all integrity queries" in {
       map must size(0)
     }
   }
- 
+
   "Processing 'goodIncremented.ttl' file " should {
     val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/goodIncremented.ttl")
     "must pass all integrity queries" in {
       map must size(0)
     }
   }
-    
+
   "Processing 'goodMean.ttl' file " should {
     val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/goodMean.ttl")
     "must pass all integrity queries" in {
       map must size(0)
     }
   }
-      
+
   "Processing 'goodNormalizedHigh.ttl' file " should {
     val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/goodNormalizedHigh.ttl")
     "must pass all integrity queries" in {
       map must size(0)
     }
   }
-        
+
   "Processing 'goodNormalizedLow.ttl' file " should {
     val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/goodNormalizedLow.ttl")
     "must pass all integrity queries" in {
       map must size(0)
     }
   }
-          
+
   "Processing 'goodRanking.ttl' file " should {
     val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/goodRanking.ttl")
     "must pass all integrity queries" in {
@@ -129,4 +198,49 @@ class IntegrityQueries extends Specification with BeforeExample {
     }
   }
 
+  "Processing 'missingObsNoValues.ttl' file " should {
+    val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/missingObsNoValues.ttl")
+    "must pass all integrity queries" in {
+      map must size(0)
+    }
+  }
+
+  "Processing 'obs_noSheet-type.ttl' file " should {
+    val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/obs_noSheet-type.ttl")
+    "must pass all integrity queries" in {
+      map must size(0)
+    }
+  }
+
+  "Processing 'obs_noValue.ttl' file " should {
+    val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/obs_noValue.ttl")
+    "must pass all integrity queries" in {
+      map must size(0)
+    }
+  }
+
+  "Processing 'obs2values.ttl' file " should {
+    
+    val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/obs2values.ttl")
+    "must fail only one integrity query" in {
+      map must size(1)
+    }
+
+    val iq: CIntegrityQuery = map.getOrElse("10", null)
+
+    "error message should be 'Observation has two different values'" in {
+      println(iq.message)
+      iq.message must equalTo("Observation has two different values")
+    }
+
+    "must be comprised by only two error message" in {
+      iq.errorMessages must size(2)
+    }
+
+    for (em <- iq.errorMessages) {
+      " must have '3' parameters" in {
+        em.params must size(3)
+      }
+    }
+  }
 }
