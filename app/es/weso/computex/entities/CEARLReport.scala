@@ -32,8 +32,7 @@ case class CEARLReport(message: CMessage) {
   private def addResults() = {
     var assertionId: Int = 1
     var errorId: Int = 1
-    message.integrityQueries.foreach(tuple => {
-      val iq: IntegrityQuery = tuple._2
+    message.integrityQueries.foreach(iq => {
       if (iq.errorMessages.size > 0) {
         createFailedTest(assertionId, errorId, iq)
         errorId += 1
@@ -45,10 +44,10 @@ case class CEARLReport(message: CMessage) {
   }
 
   private def createFailedTest(assertionId: Int, errorId: Int,
-    iq: IntegrityQuery) = {
+    iq: CIntegrityQuery) = {
     iq.errorMessages.foreach(err => {
       val error: Resource = generateErrorResource("error" + errorId, "failed",
-        err.message)
+        iq.message)
       generateAssertionResource(error, assertionId, iq.message)
     })
   }
@@ -85,7 +84,7 @@ case class CEARLReport(message: CMessage) {
     assertion
   }
 
-  private def createPassedTest(id: Int, iq: IntegrityQuery) = {
+  private def createPassedTest(id: Int, iq: CIntegrityQuery) = {
     val error: Resource = generateErrorResource("passed", "passed",
       "Passed test")
     generateAssertionResource(error, id, iq.message)

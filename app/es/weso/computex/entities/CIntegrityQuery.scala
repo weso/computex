@@ -1,8 +1,6 @@
 package es.weso.computex.entities
 
-import com.hp.hpl.jena.query.Query
-
-case class IntegrityQuery (val query : (String, Query)) {
+case class CIntegrityQuery (val query : CQuery) {
   
 	var message : String = null
 	var errorMessages : List[CErrorMessage] = null

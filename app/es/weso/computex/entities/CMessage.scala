@@ -25,12 +25,12 @@ case class CMessage(val action: String) {
 
   private var _contentIS: String = null
   private var _contentCharset: Charset = null
-  private var _integrityQueries: Array[(String, IntegrityQuery)] = Array.empty
+  private var _integrityQueries: Array[CIntegrityQuery] = Array.empty
 
-  def integrityQueries_=(iq: Array[(String, IntegrityQuery)]): Unit = _integrityQueries = iq
-  def integrityQueries: Array[(String, IntegrityQuery)] = _integrityQueries.sortWith(_._1 < _._1)
+  def integrityQueries_=(iq: Array[CIntegrityQuery]): Unit = _integrityQueries = iq
+  def integrityQueries: Array[CIntegrityQuery] = _integrityQueries.sortWith(_.query.name < _.query.name)
 
-  def size = _integrityQueries.map(_._2.size).foldLeft(0)(_ + _)
+  def size = _integrityQueries.map(_.size).foldLeft(0)(_ + _)
 
   def status = message match {
     case CMessage.MsgOK => CMessage.Valid

@@ -19,15 +19,16 @@ import com.hp.hpl.jena.update.GraphStore
 import com.hp.hpl.jena.update.GraphStoreFactory
 import com.hp.hpl.jena.update.UpdateAction
 import es.weso.computex.entities.CMessage
-import es.weso.computex.entities.IntegrityQuery
+import es.weso.computex.entities.CIntegrityQuery
 import es.weso.utils.JenaUtils.Turtle
 import play.api.Logger
+import es.weso.computex.entities.CQuery
 
 case class Computex(val ontologyURI: String, val validationDir: String,
   val computationDir: String, val closureFile: String, val flattenFile: String,
   val findStepsQuery: String) {
 
-  def computex(message: CMessage): Array[(String, IntegrityQuery)] = {
+  def computex(message: CMessage): Array[CIntegrityQuery] = {
     Logger.info("Computex: Compute and Validate index data")
     val model = loadData(ontologyURI, message)
     val expandedCube = expandCube(model)
@@ -98,31 +99,31 @@ case class Computex(val ontologyURI: String, val validationDir: String,
     ls.map(r => r.getLiteral(varName).getString)
   }
 
-  def validate(model: Model,
-    validationDir: String): Array[(String, IntegrityQuery)] = {
-    val iQueries: Array[(String, IntegrityQuery)] = for {
-      q <- readQueries(validationDir)
-      currentModel = executeQuery(model, q._2)
+  def validate(model: Model, validationDir: String): Array[CIntegrityQuery] = {
+    val dir = new File(validationDir)
+    val iQueries: Array[CIntegrityQuery] = 
+    for {
+      vDir <- dir.listFiles.filter(_.isDirectory())
+      cq <- readQueries(vDir)
+      currentModel = executeQuery(model, cq.query)
     } yield {
       currentModel.setNsPrefixes(model)
-      val iQuery = Parser.parse(q, currentModel)
-      (iQuery.query._1, iQuery)
+      Parser.parse(cq, currentModel)
     }
     iQueries
   }
 
-  def readQueries(dirName: String): Array[(String, Query)] = {
+  def readQueries(dir: File): Array[CQuery] = {
     val pattern = """q(.+)-.*.sparql""".r
-    val dir = new File(dirName)
     if (dir == null || dir.listFiles == null)
-      throw new IOException(s"Directory: ${dirName} not accessible")
+      throw new IOException(s"Directory: ${dir.getName} not accessible")
     else {
       for (file <- dir.listFiles if file.getName endsWith ".sparql") yield {
         val queryName = file.getName match {
           case pattern(i) => i
           case _ => "UNKNOWN QUERY NAME"
         }
-        (queryName, readQuery(file))
+        CQuery(queryName, readQuery(file))
       }
     }
   }

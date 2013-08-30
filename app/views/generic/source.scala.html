@@ -9,11 +9,13 @@
 		<div id="source">
 		<h3>Source Listing</h3>
 		<p>Below is the source input I used for this validation:</p>
-		<ol class="source">
-		@for(line <- fromInputStream(message.contentIS)(UTF8).getLines){
-			<li>@line</li>
-		}
-		</ol>
+		<pre>
+			<code class="prettyprint lang-sparql">
+			@for(line <- fromInputStream(message.contentIS)(message.charset).getLines){
+				@line.trim
+			}
+			</code>
+		</pre>
 		<p class="backtop"><a href="#jumpbar">↑ Top</a></p>
 	</div>
 }

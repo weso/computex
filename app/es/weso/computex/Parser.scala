@@ -3,24 +3,23 @@ package es.weso.computex
 import scala.Array.canBuildFrom
 import scala.collection.JavaConversions.asScalaBuffer
 import scala.collection.mutable.ListBuffer
-
 import com.hp.hpl.jena.query.Query
 import com.hp.hpl.jena.rdf.model.Model
 import com.hp.hpl.jena.rdf.model.Property
 import com.hp.hpl.jena.rdf.model.RDFNode
-
 import es.weso.computex.entities.CErrorMessage
 import es.weso.computex.entities.CModel
 import es.weso.computex.entities.CParam
-import es.weso.computex.entities.IntegrityQuery
+import es.weso.computex.entities.CIntegrityQuery
 import es.weso.utils.JenaUtils
 import es.weso.utils.JenaUtils.statementAsString
+import es.weso.computex.entities.CQuery
 
 object Parser {
 
-  def parse(query: (String, Query), model: Model): IntegrityQuery = {
-    val iQuery = IntegrityQuery(query)
-    iQuery.message = extractMessage(query._2)
+  def parse(query: CQuery, model: Model): CIntegrityQuery = {
+    val iQuery = CIntegrityQuery(query)
+    iQuery.message = extractMessage(query.query)
     iQuery.errorMessages = parseErrors(model)
     iQuery
   }
@@ -54,7 +53,7 @@ object Parser {
         
       val params = extractParams(subModel)
 
-      errors += CErrorMessage(msg, params, new CModel(subModel))
+      errors += CErrorMessage(params, new CModel(subModel))
 
     }
     errors.toList
