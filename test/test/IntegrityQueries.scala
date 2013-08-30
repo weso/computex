@@ -45,23 +45,23 @@ class IntegrityQueries extends Specification with BeforeExample {
     this.computex = Computex(ontologyURI, validationDir, computationDir, closureFile, flattenFile, findStepsQuery)
   }
 
-  def processFile(path: String): Array[CIntegrityQuery] = {
+  def processFile(path: String): Map[String, CIntegrityQuery] = {
     val message = new CMessage(CMessage.File)
     message.contentIS = Computex.loadFile(s"file:${path}")
     before
-    computex.computex(message)
+    val iqs:Array[CIntegrityQuery] = computex.computex(message)
+    val filteredIqs: Array[CIntegrityQuery] = iqs.filter(_.size > 0)
+    filteredIqs.map(a => a.query.name -> a).toMap
   }
 
   "Processing 'badCopy.ttl' file " should {
-    val foo: Array[CIntegrityQuery] = processFile("src/test/resources/badCopy.ttl")
-    val iqs: Array[CIntegrityQuery] = foo.filter(_.size > 0)
-    val map: Map[String, CIntegrityQuery] = iqs.map(a => a.query.name -> a).toMap
-    
+    val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/badCopy.ttl")
+
     "must fail only one integrity query" in {
       map must size(1)
     }
-    
-    val iq : CIntegrityQuery = map.getOrElse("4", null)
+
+    val iq: CIntegrityQuery = map.getOrElse("4", null)
 
     "error message should be 'Copy value does not match'" in {
       println(iq.message)
@@ -79,4 +79,54 @@ class IntegrityQueries extends Specification with BeforeExample {
     }
 
   }
+  
+  "Processing 'goodCopy.ttl' file " should {
+    val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/goodCopy.ttl")
+    "must pass all integrity queries" in {
+      map must size(0)
+    }
+  }
+ 
+  "Processing 'goodIncremented.ttl' file " should {
+    val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/goodIncremented.ttl")
+    "must pass all integrity queries" in {
+      map must size(0)
+    }
+  }
+    
+  "Processing 'goodMean.ttl' file " should {
+    val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/goodMean.ttl")
+    "must pass all integrity queries" in {
+      map must size(0)
+    }
+  }
+      
+  "Processing 'goodNormalizedHigh.ttl' file " should {
+    val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/goodNormalizedHigh.ttl")
+    "must pass all integrity queries" in {
+      map must size(0)
+    }
+  }
+        
+  "Processing 'goodNormalizedLow.ttl' file " should {
+    val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/goodNormalizedLow.ttl")
+    "must pass all integrity queries" in {
+      map must size(0)
+    }
+  }
+          
+  "Processing 'goodRanking.ttl' file " should {
+    val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/goodRanking.ttl")
+    "must pass all integrity queries" in {
+      map must size(0)
+    }
+  }
+
+  "Processing 'goodWeightedMean.ttl' file " should {
+    val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/goodWeightedMean.ttl")
+    "must pass all integrity queries" in {
+      map must size(0)
+    }
+  }
+
 }
