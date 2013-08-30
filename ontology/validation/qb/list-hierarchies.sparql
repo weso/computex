@@ -1,5 +1,0 @@
-SELECT ?p WHERE {
-    ?hierarchy a qb:HierarchicalCodeList ;
-               qb:parentChildProperty ?p .
-    FILTER ( isIRI(?p) )
-}
