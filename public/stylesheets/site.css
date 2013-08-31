@@ -89,6 +89,12 @@ span.validation {
 	margin: 40px 20px 0px 0px;
 }
 
+#about-weso {
+	width: 800px;
+	margin: 0 auto;
+	padding-bottom: 30px;
+}
+
 ul#tabset_tabs li {
 	width: 100px;
 	height: 100px;
@@ -113,11 +119,9 @@ ul#tabset_tabs.pills li a:link,ul#tabset_tabs.pills li a:visited {
 }
 
 .doc h2 {
-	font-family: Verdana, Arial, sans-serif;
-	color: #690;
-	background-color: white;
-	font-size: 1.1em;
-	border-bottom: 1px dotted #aaaa77;
+	font-family: 'Advent Pro', sans-serif;
+	color: #007bd7;
+	font-size: 2em;
 	text-decoration: none;
 	margin-top: 1em;
 	margin-bottom: 1em;

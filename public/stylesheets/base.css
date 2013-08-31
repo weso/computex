@@ -69,7 +69,6 @@ strong {
 h2 { 
     color: #690;
     font-family:Verdana,Arial,sans-serif;
-    background-color: white;
     font-size: 1.3em;
     margin-bottom: 1em;    
 }
@@ -524,8 +523,8 @@ div.doc p {
 }
 
 div.doc p, div.doc dt, div.doc ul, div.doc ol {
-    margin-left: 1.5em;
-    margin-right: 1.5em;
+/*    margin-left: 1.5em;
+    margin-right: 1.5em;*/
 }
 
 div.doc ul li {
