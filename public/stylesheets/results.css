@@ -309,8 +309,9 @@ code.input strong {
   font-family: "Bitstream Vera Sans Mono", monospace;
   font-size: smaller;
   background: #EAEBEE;
-  border: 1px solid black;
-  margin-top: 1em;
+  border: 1px solid #ccc;
+  margin-top: 2em;
+  padding: 1.5em;
   list-style-position: inside;
   list-style-type: decimal;
 }
@@ -387,7 +388,9 @@ div#result {
   padding-top: 1em;
 }
 
-form { margin:0 !important; padding: 0 !important; }
+form { 
+	padding: 0 !important; 
+}
 
 h2.valid, h2.invalid, h2.tentative_valid {
     text-align: center;

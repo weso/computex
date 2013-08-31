@@ -15,10 +15,8 @@ br, input, button, textarea, h1, h2, h3, h4, h5, strong {
 	font-weight: normal;
 	font-style: normal;
 	font-size: 100%;
-	font-family: Helvetica, Arial, Sans-Serif;
 	vertical-align: baseline;
-	background-color: white;
-	color: #1f2126;
+	color: #000;
 	line-height: 1;
 	text-align: left;
 }
@@ -29,7 +27,7 @@ a img {
 
 a:link, a:visited {
 	text-decoration: underline;
-	color: #365D95;
+	color: #007bd7;
 }
 
 a:hover, a:active {
@@ -57,6 +55,7 @@ acronym:hover, abbr:hover {
 body {
 	padding-bottom: 6em;
 	min-width: 40em; /* for the tabs, mostly */
+	font-family: 'Raleway', sans-serif;
 }
 
 p {
@@ -140,16 +139,15 @@ input#uri, input#file, input#uploaded_file, input#keywords, input#short_desc, te
 
 input#uri, input#file, input#uploaded_file {
 	width: 85%;
-	margin: 0.3em 0 0 1em;
 }
 
 input#file, input#uploaded_file {
-	width: 30em;
+	width: 100%;
 }
 
 input#mailsearch, input#bugsearch {
     background-color: #EAEBEE;
-    color: #365D95;
+    color: #007bd7;
     padding: .3em 1em;
     border: 1px outset #ccc;
   }
@@ -230,18 +228,18 @@ tr.subchoice th, tr.subchoice th label {
 
 h1#title {
 	font-family: "Myriad Web", "Myriad Pro", "Gill Sans", Helvetica, Arial, Sans-Serif;
-	background-color: #365D95;
+	background-color: #007bd7;
 	color: #fdfdfd;
 	font-size: 1.6em;
 	padding-bottom: 0.430em;
+	margin-top: 18px;
 }
 h1#title a, h1#title a img {
-background-color: #365D95;
+background-color: #007bd7;
 }
 
 h1 span {
-	border-bottom: 1px solid #6383b1;
-	border-color: #4e6f9e;
+	border: none;
 }
 
 h1#title a:link, h1#title a:hover, h1#title a:visited, h1#title a:active {
@@ -255,7 +253,7 @@ h1#title img {
 }
 
 div#banner {
-	background: #365D95;
+	background: #007bd7;
 	margin: 1.5em 2em;
 }
 
@@ -302,19 +300,16 @@ ul#tabset_tabs {
 ul#tabset_tabs li {
 	cursor: pointer;
 	float: left;
-	margin-right: 0.245em;
-	background: #DADDE3;
-	border-bottom: 1px solid #CBD0DB;
+	background: #fff;
 }
 
 ul#tabset_tabs li.selected {
-	background: #EAEBEE;
-	border-bottom: 1px solid #EAEBEE;
+	background: #bbb;
 }
 
 ul#tabset_tabs li.selected a:link, ul#tabset_tabs li.selected a:visited {
-	color: #1f2126;
-	background: #EAEBEE;
+	text-align: center;
+	color: #fff;
 }
 
 ul#tabset_tabs li span {
@@ -326,10 +321,9 @@ body ul#tabset_tabs li.selected a span {
 }
 
 ul#tabset_tabs li a:link, ul#tabset_tabs li a:visited {
-	color: #365D95;
+	color: #007bd7;
 	display: block;
 	padding: 0.515em 1.3em 0.215em 0.8em;
-	background: #DADDE3;
 	margin-left: 0.5em;
 	font-size: 0.9em;
 	font-weight: bold;
@@ -351,11 +345,6 @@ ul#tabset_tabs li.selected span {
 /* @end */
 
 /* @group Contents */
-
-div#frontforms {
-	background: #fff;
-	padding: 0 2em;
-}
 
 div#fields {
 	clear: both;
@@ -413,8 +402,7 @@ div.options {
 }
 
 div.options, p.submit_button, p.instructions, p#note {
-	border-top: 1px solid #cbcdd5;
-	background: #EAEBEE;
+
 }
 
 p.submit_button {
@@ -449,7 +437,7 @@ ul#menu span {
 
 ul#menu a:link, ul#menu a:visited {
 	background: #EAEBEE;
-	color: #365D95;
+	color: #007bd7;
 	text-decoration: none;
 }
 
