@@ -1,22 +1,22 @@
 header#banner {
-	border-radius: 5px;
-	margin: 1.5em 2em;
-	background: #365D95;
-	border-radious: 5px;
+	margin: 0em;
+	background: #007bd7;
+	overflow: auto;
+	height: 130px;
 }
 
 header h1 {
-	border-radius: 5px;
+	margin-bottom: 0px;
 }
 
 header h1#title img {
 	margin: 0.4em;
-	height: 70px;
-	width: 80px
+	height: 100px;
+	width: 100px
 }
 
 header a {
-	background: #365D95;
+	background: #007bd7;
 }
 
 header a:link {
@@ -27,8 +27,79 @@ header a:visited {
 	color: white;
 }
 
+span.computex {
+	font-family: 'Advent Pro', sans-serif;
+	font-size: 2em;
+}
+
+span.validation {
+	font-family: 'Bad Script', cursive;
+	color: #333;
+	font-size: 1.2em;
+	font-weight: 100;
+}
+
+#weso-link {
+	float: right;
+	width: 80px;
+	height: 80px;
+	margin: 22px 20px 0px 0px;
+	background-color: #fff;
+	border-radius: 40px;
+	text-align: center;
+	text-decoration: none;
+	padding-top: 30px;
+	color: #3554b6;
+}
+
+.circle-link {
+	font-family: 'Raleway', sans-serif;
+	font-weight: 100;
+	text-align: center;
+}
+
+.circle-link {
+	font-family: 'Raleway', sans-serif;
+	font-weight: 100;
+	text-align: center;
+}
+
+.circle {
+	padding-top: 23px;
+}
+
+#uri {
+	padding-top: 30px;
+}
+
+#central-circle {
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+#frontforms > nav {
+	height: 100px;
+	width: 450px;
+	margin: 0px auto 20px auto;
+}
+
+#validate {
+	font-family: 'Bad Script', cursive;
+	float: left;
+	margin: 40px 20px 0px 0px;
+}
+
+#about-weso {
+	width: 800px;
+	margin: 0 auto;
+	padding-bottom: 30px;
+}
+
 ul#tabset_tabs li {
-	border-radius: 5px 5px 0 0;
+	width: 100px;
+	height: 100px;
+	border-radius: 50px;
+	font-size: 1.2em;
 }
 
 ul#tabset_tabs li a:link,ul#tabset_tabs li a:visited {
@@ -48,18 +119,27 @@ ul#tabset_tabs.pills li a:link,ul#tabset_tabs.pills li a:visited {
 }
 
 .doc h2 {
-	font-family: Verdana, Arial, sans-serif;
-	color: #690;
-	background-color: white;
-	font-size: 1.1em;
-	border-bottom: 1px dotted #aaaa77;
+	font-family: 'Advent Pro', sans-serif;
+	color: #007bd7;
+	font-size: 2em;
 	text-decoration: none;
 	margin-top: 1em;
 	margin-bottom: 1em;
 }
 
+header a#weso-logo {
+	float: left;
+	margin: 13px 30px 0px 20px;
+}
+
 header p#tagline {
-	margin: -3em 0 0 9.8em;
+	margin: 5px 0 0 122px;
+	font-family: 'Bad Script', cursive;
+	width: 600px;
+}
+
+footer {
+	padding-top: 20px;
 }
 
 footer p {
@@ -69,13 +149,15 @@ footer p {
 	background-color: white;
 }
 
-#frontforms {
-	maring: 0 !important;
-	padding: 0 !important;
+form {
+	width: 800px;
+	margin: 0 auto;
 }
 
 #frontforms {
-	margin: 2em;
+	margin: 0em;
+	background-color: #eee;
+	padding-top: 30px;
 }
 
 #frontforms label {
@@ -120,11 +202,17 @@ p.submit_button {
 }
 
 .submit_button input {
-	border-radius: 15px;
+	width: 100px;
+	height: 100px;
+	border-radius: 50px;
 	background: white!imporant;
-	border: 2px solid;
+	border: none;
 	margin-bottom: 1em;
 	margin-top: 1em;
+	font-family: 'Bad Script', cursive;
+	font-weight: 100;
+	text-align: center;
+	padding: 0px;
 }
 
 div#results_container {
@@ -199,17 +287,29 @@ h3.valid {
 	max-width: 33%;
 	width: 33%;
 	line-brak: break-word;
-	border: 2px solid #365D95;
+	border: 2px solid #007bd7;
 }
 
 #earl td a {
-	color: #365D95;
+	color: #007bd7;
+}
+
+div#frontforms form {
+	font-size: 1.5em;
 }
  
 div#frontforms input {
 	background: #ffffff;
 }
 
+div#frontforms input[type=text], div#frontforms input[type=file], div#frontforms textarea {
+	margin-top: 10px;
+}
+
+div#frontforms select {
+	margin-top: 10px;
+}
+
 div#frontforms input.button {
-	background: #365D95;
+	background: #007bd7;
 }
