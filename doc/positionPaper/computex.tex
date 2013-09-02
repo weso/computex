@@ -1,0 +1,240 @@
+\section{Example data and Index computation process}
+
+Our data model consists of a list of observations which can be raw observations
+obtained from an external source or computed observations derived from other
+observations. An example observation can be:
+
+\begin{lstlisting}[style=SPARQL]
+obs:obsM23 a qb:Observation ;
+ cex:computation [ a cex:Z-Score ; 
+      cex:observation obs:obsA23 ; cex:slice slice:sliceA09 ; ] ;
+ cex:value 0.56 ;
+ cex:md5-checksum "2917835203..." ;
+ cex:indicator indicator:A ;
+ cex:concept country:ESP ;
+ qb:dataSet dataset:A-Normalized ;
+ # ... other declarations omitted for brevity
+\end{lstlisting}
+
+Where we declare that \lstinline|obs:obsM23| is an observation
+ whose value is \lstinline|0.56| that has been obtained as the Z-Score
+ of the observation \lstinline|obs:A23| using the slice
+ \lstinline|slice:sliceA09|. The observations refers to indicator
+ \lstinline|indicator:A|, to the concept \lstinline|country:ESP| and to the
+ dataset \lstinline|dataset:A-Normalized|.
+ 
+For each observation, we also add a value for 
+\lstinline|cex:md5-checksum| which is obtained as a combination of the 
+different values of the observation and allows a user to verify the
+values asserted to that observation.
+
+
+\section{Computex vocabulary}
+
+The \emph{Computex} vocabulary is available
+at~\url{http://purl.org/weso/computex}. It defines terms related to the
+computation of statistical index data and is compatible with RDF Data Cube
+vocabulary. Some terms defined in the vocabulary are:
+
+\begin{itemize}
+\item\textbf{\lstinline|cex:Concept|} represents the entities that we are
+indexing.
+In the case of the Web Index project, the concepts are the different countries.
+In other applications it could be Universities, journals, services, etc.
+
+\item\textbf{\lstinline|cex:Indicator|}. A dimension whose values add
+information to the Index.
+Indicators can be simple dimensions, for example: the mobile phone
+suscriptions per 100 population, or can be composed from other
+indicators. 
+
+\item\textbf{\lstinline|qb:Observation|}. This is the same term as in the 
+RDF Data Cube vocabulary. It contains values for the
+properties: \lstinline|cex:value|, \lstinline|cex:indicator| 
+and \lstinline|cex:concept|, etc. 
+The value of a \lstinline|qb:Observation| can be a Raw value
+   obtained from an external source or a computed value obtained from other
+   observations.
+
+\item\textbf{\lstinline|cex:Computation|}. We have declared the main computation
+types that we needed for the WebIndex project, which have been summarized in
+Table~\ref{table:computations}. That list of computation types is non-exhaustive
+and can be further extended in the future. 
+
+\item\textbf{\lstinline|cex:WeightSchema|} a weight schema for a list of
+indicators. It consists of a weight associated for each indicator which can be
+used to compute an aggregated observation.
+
+\end{itemize}
+
+\begin{table*}[t]
+\label{table:computations}
+\begin{center}
+\begin{tabular}{ p{0.2\textwidth} p{0.5\textwidth} p{0.3\textwidth}}
+\toprule
+Computation & Description & Properties \\
+\hline
+Raw			& No computation. Raw value obtained from external source.
+			&  \\
+Mean	    & Mean of a set of observations 
+			& \lstinline|cex:observation| \newline 
+			  \lstinline|cex:slice| \\
+Increment	& Increment an observation by a given amount 
+			& \lstinline|cex:observation| \newline 
+			  \lstinline|cex:amount|  \\
+Copy		& A copy of another observation 
+			& \lstinline|cex:observation| \\
+Z-score		& A normalization of an observation using the values from a Slice. 
+			& \lstinline|cex:observation| \newline 
+			  \lstinline|cex:slice| \\
+Ranking		& Position in the ranking of a slice of observations. 
+			& \lstinline|cex:observation| \newline 
+			  \lstinline|cex:slice| \\
+AverageGrowth & Expected average growth of N observations
+			  & \lstinline|cex:observations| \\
+WeightedMean & Weighted mean of an observation
+			& \lstinline|cex:observation| \newline
+			  \lstinline|cex:slice|       \newline
+			  \lstinline|cex:weightSchema| \\
+\bottomrule\\
+\end{tabular}
+\caption{Some types of statistical computations}
+\end{center}
+\end{table*}
+
+\section{Validation approach}
+
+The validation approach employed in the 2012 WebIndex project was based on
+ resource templates similar to the OSLC resource
+ shapes\footnoteUrl{http://www.w3.org/2012/12/rdf-val/SOTA} and
+ the MD5 checksum field. 
+ Apart from that, we did not verify that the precomputed values imported from
+ the Excel sheets really match the value that could be obtained by 
+ following the declared computation process.
+
+The new validation approach proposed in the paper goes a step forward. 
+The goal is not only to check that a resource contains
+ a given set of fields and values, but also that those values really match
+ the values that can be obtained by following the declared computations.
+ 
+The proposed approach has been inspired by the integrity
+constraint specification proposed by the RDF Data Cube vocabulary 
+which employs a set of SPARQL
+ \lstinline|ASK| queries to check the integrity of RDF Data Cube data. 
+ Although \lstinline|ASK| queries provide a good means to check integrity, in
+ practice their boolean nature does not offer too much help when a 
+ dataset does not accomplish with the data model.
+
+ We decided to use \lstinline|CONSTRUCT| queries which, in case of error, 
+  contain an error message and a list of error parameters that can help to spot
+  the problematic data.
+
+ We transformed the \lstinline|ASK| queries defined in the RDF Data Cube
+ specification to \lstinline|CONSTRUCT| queries. For example, the
+ query to validate the RDF Data Cube integrity constraint 4 (IC-4) is:
+ 
+\begin{lstlisting}[style=SPARQL]
+CONSTRUCT {
+ [ a cex:Error ; cex:errorParam [cex:name "dim"; cex:value ?dim ] ;
+   cex:msg "Every Dimension must have a declared range" . ]
+} WHERE { ?dim a qb:DimensionProperty .
+  FILTER NOT EXISTS { ?dim rdfs:range [] }
+}
+\end{lstlisting}
+ 
+In order to make our error messages compatible with EARL~\cite{EARL}, we have
+ defined \lstinline|cex:Error| as a subclass of \lstinline|earl:TestResult| and 
+ declared it to have the value \lstinline|earl:failed| for the property
+ \lstinline|earl:outcome|.
+ 
+We have also created our own set of SPARQL \lstinline|CONSTRUCT| queries to
+validate the \emph{Computex} vocabulary terms, specially the computation of index data.
+For example, the following query validates that every observation 
+  has at most one value.
+ 
+\begin{lstlisting}[style=SPARQL]
+CONSTRUCT {
+ [ a cex:Error ; cex:errorParam  # ... omitted 
+    cex:msg "Observation has two different values" . ]
+} WHERE { ?obs a qb:Observation . 
+ ?obs cex:value ?value1 . ?obs cex:value ?value2 .
+ FILTER ( ?value1 != ?value2  )
+}
+\end{lstlisting}
+
+Using this approach, it is possible to define more expressive validations.
+For example, we are able to validate that an observation has been obtained as
+the mean of other observations. 
+
+\begin{lstlisting}[style=SPARQL]
+CONSTRUCT {
+ [ a cex:Error ; cex:errorParam # ...omitted 
+   cex:msg "Mean value does not match" ] . 
+} WHERE { 
+    ?obs a qb:Observation ;
+         cex:computation ?comp ;
+         cex:value ?val .
+  ?comp a cex:Mean .
+  { SELECT (AVG(?value) as ?mean) ?comp WHERE {
+     ?comp cex:observation ?obs1 .
+	 ?obs1 cex:value ?value ;
+  } GROUP BY ?comp } 
+ FILTER( abs(?mean - ?val) > 0.0001)
+}
+\end{lstlisting}
+
+\section{Expressivity limits of SPARQL queries}
+
+Validating statistical computations using SPARQL queries offered 
+ a good exercise to check SPARQL expressivity. Although we were able 
+ to express most of the computation types, some of them had to employ functions
+ that are not part of SPARQL 1.1 or had to be defined in a limited way. 
+ In this section we review some of the challenges that we found.
+
+\begin{itemize} 
+
+\item The Z-score of a value $x_i$ is defined as $\frac{x - \bar{x}}{\sigma}$
+where $\bar{x}$ is the mean and $\sigma=\sqrt{\frac{\sum_{i=1}^{N}(\bar{x}-x_i)^2}{N -
+1}}$ is the standard deviation. To validate that computation using SPARQL
+queries, it is necessary to employ the \lstinline|sqrt| function. 
+This function is not available in SPARQL 1.1 although some implementations 
+ like Jena
+ ARQ\footnoteUrl{http://jena.apache.org/documentation/query/library-function.html} 
+ provide it.
+
+\item In order to validate the ranking of an observation (in which position it
+appears in a list of observations), we have found two approaches. One is to
+check all the observations that are below the value of that observation. 
+This approach requires checking the value of each observation against all the
+other values. The other approach is to use a subquery that groups all the
+observations ordered by their value using the \lstinline|GROUP_CONCAT|. 
+However, SPARQL does not offer a function to calculate the position
+of a substring in a string\footnote{This function is called \lstinline|strpos| in PHP or \lstinline|indexOf| in Java}, 
+so we divided the length of the substring before the concept's 
+name by the length of the concept's name. 
+This approach is more efficient but only works when all the names have
+the same length.
+
+\item Given a list of values $x_1,x_2\ldots{}x_n$ the expected value
+$x_{n+1}$ can be extrapolated using the forward average growth formula: 
+$x_n\times{\frac{\frac{x_{n}}{x_{n-1}}+\ldots{}+\frac{x_{2}}{x_1}}{n-1}}$. 
+Accessing RDF collections in SPARQL 1.1 requires property paths 
+and offers limited expressivity. In this particular case 
+the query can be expressed 
+as\footnote{This query was suggested by Joshua Taylor.}:
+
+\begin{lstlisting}[style=SPARQL]
+CONSTRUCT {
+  # ... omitted for brevity
+} WHERE { 
+  ?obs cex:computation [a cex:AverageGrowth; cex:observations ?ls] ;
+  cex:value ?val .
+  ?ls rdf:first [cex:value ?v1 ] .
+  { SELECT ( SUM(?v_n / ?v_n1)/COUNT(*) as ?meanGrowth) WHERE {
+      ?ls rdf:rest* [ rdf:first [ cex:value ?v_n ] ; 
+                      rdf:rest  [ rdf:first [ cex:value ?v_n1 ]]] .
+  }} 
+ FILTER (abs(?meanGrowth * ?v1 - ?val) > 0.001) }
+\end{lstlisting}
+
+\end{itemize}
