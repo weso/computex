@@ -481,7 +481,8 @@ p.backtop {
 }
 
 p.backtop a:link, p.backtop a:hover, p.backtop a:visited {
-        color: #bbc;
+        color: #888;
+        font-size: 1.2em;
         text-decoration: none;
 }
 

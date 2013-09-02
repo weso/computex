@@ -53,8 +53,7 @@ acronym:hover, abbr:hover {
 /* @group Basics */
 
 body {
-	padding-bottom: 6em;
-	min-width: 40em; /* for the tabs, mostly */
+	min-width: 900px;
 	font-family: 'Raleway', sans-serif;
 }
 
@@ -125,7 +124,7 @@ div#frontforms input {
 }
 
 input#uri, input#file, input#uploaded_file, input#keywords, input#short_desc, textarea {
-	font-family: Monaco, "Courier New", Monospace;
+	font-family: 'Raleway', sans-serif;
 	font-size: 0.9em;
 	border: 1px solid #bbb;
 	border-top: 1px solid #777;
@@ -229,9 +228,8 @@ h1#title {
 	font-family: "Myriad Web", "Myriad Pro", "Gill Sans", Helvetica, Arial, Sans-Serif;
 	background-color: #007bd7;
 	color: #fdfdfd;
-	font-size: 1.6em;
 	padding-bottom: 0.430em;
-	margin-top: 18px;
+	margin-top: 22px;
 }
 h1#title a, h1#title a img {
 background-color: #007bd7;
@@ -322,10 +320,9 @@ body ul#tabset_tabs li.selected a span {
 ul#tabset_tabs li a:link, ul#tabset_tabs li a:visited {
 	color: #007bd7;
 	display: block;
-	padding: 0.515em 1.3em 0.215em 0.8em;
-	margin-left: 0.5em;
+	/*padding: 0.515em 1.3em 0.215em 0.8em;*/
+	/*margin-left: 0.5em;*/
 	font-size: 0.9em;
-	font-weight: bold;
 	text-decoration: none;
 }
 

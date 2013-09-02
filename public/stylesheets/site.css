@@ -2,7 +2,7 @@ header#banner {
 	margin: 0em;
 	background: #007bd7;
 	overflow: auto;
-	height: 130px;
+	height: 118px;
 }
 
 header h1 {
@@ -29,13 +29,13 @@ header a:visited {
 
 span.computex {
 	font-family: 'Advent Pro', sans-serif;
-	font-size: 2em;
+	font-size: 2.3em;
 }
 
 span.validation {
-	font-family: 'Bad Script', cursive;
+	font-family: 'Advent Pro', sans-serif;
 	color: #333;
-	font-size: 1.2em;
+	font-size: 2.3em;
 	font-weight: 100;
 }
 
@@ -43,13 +43,13 @@ span.validation {
 	float: right;
 	width: 80px;
 	height: 80px;
-	margin: 22px 20px 0px 0px;
+	margin: 18px 20px 0px 0px;
 	background-color: #fff;
 	border-radius: 40px;
 	text-align: center;
 	text-decoration: none;
 	padding-top: 30px;
-	color: #3554b6;
+	color: #007bd7
 }
 
 .circle-link {
@@ -80,7 +80,7 @@ span.validation {
 #frontforms > nav {
 	height: 100px;
 	width: 450px;
-	margin: 0px auto 20px auto;
+	margin: 0px auto 0px auto;
 }
 
 #validate {
@@ -96,9 +96,9 @@ span.validation {
 }
 
 ul#tabset_tabs li {
-	width: 100px;
-	height: 100px;
-	border-radius: 50px;
+	width: 80px;
+	height: 80px;
+	border-radius: 40px;
 	font-size: 1.2em;
 }
 
@@ -129,23 +129,30 @@ ul#tabset_tabs.pills li a:link,ul#tabset_tabs.pills li a:visited {
 
 header a#weso-logo {
 	float: left;
-	margin: 13px 30px 0px 20px;
+	margin: 3px 30px 0px 20px;
 }
 
 header p#tagline {
 	margin: 5px 0 0 122px;
-	font-family: 'Bad Script', cursive;
+	font-family: 'Advent Pro', sans-serif;
+	font-size: 0.8em;
 	width: 600px;
+}
+
+div#main {
+	min-height: 100%;
 }
 
 footer {
 	padding-top: 20px;
+	height: 130px;
+	font-size: 0.8em;
 }
 
 footer p {
-	font-size: small;
+	font-size: 1.15em;
 	text-align: center;
-	color: #888;
+	color: #555;
 	background-color: white;
 }
 
@@ -157,7 +164,7 @@ form {
 #frontforms {
 	margin: 0em;
 	background-color: #eee;
-	padding-top: 30px;
+	padding-top: 15px;
 }
 
 #frontforms label {
