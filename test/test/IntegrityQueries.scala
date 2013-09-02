@@ -219,9 +219,9 @@ class IntegrityQueries extends Specification with BeforeExample {
     }
   }
 
-  "Processing 'obs2values.ttl' file " should {
+  "Processing 'obs_2values.ttl' file " should {
     
-    val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/obs2values.ttl")
+    val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/obs_2values.ttl")
     "must fail only one integrity query" in {
       map must size(1)
     }
