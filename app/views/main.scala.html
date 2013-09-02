@@ -26,7 +26,7 @@
         <script type="text/javascript" src="@routes.Assets.at("javascripts/highlighter/lang-sparql.js")"></script>
         <link href="http://fonts.googleapis.com/css?family=Advent+Pro:200" rel="stylesheet" type="text/css">
         <link href='http://fonts.googleapis.com/css?family=Bad+Script' rel='stylesheet' type='text/css'>
-        <link href="http://fonts.googleapis.com/css?family=Raleway:100" rel="stylesheet" type="text/css">
+        <link href="http://fonts.googleapis.com/css?family=Raleway:400" rel="stylesheet" type="text/css">
 	</head>
     <body onload="prettyPrint()">
     	<header id="banner">
@@ -39,7 +39,9 @@
 	      		<p id="tagline">Validates <a href="http://www.w3.org/TR/vocab-data-cube/">RDF Data Cube</a> and Statistical Indexes with computations a.k.a. Computex</p>
     		</div>
       	</header>
-      	@content
+      	<div id="main">
+	      	@content
+      	</div>
 		<footer id="footer">
 			<p>"COMPUTEX Validation Service" is a web service developed by <a href="http://www.weso.es" title="WESO RG">WESO RG</a></p>
 			<p>( <a href="mailto:cesar.luis@@weso.es" title="Mail to César Luis Alvargonzález">César Luis Alvargonzález</a>, <a href="mailto:labra@@uniovi.es" title="Mail to Jose Emilio Labra Gayo">Jose Emilio Labra Gayo</a>, <a href="mailto:ignacio.fuertes@@weso.es" title="Mail to Ignacio Fuertes Bernardo">Ignacio Fuertes Bernardo</a> and <a href="mailto:jmalvarez@@seerc.org" title="Mail to Jose Maria Alvarez Rodriguez">Jose Maria Alvarez Rodriguez</a> )<p>
