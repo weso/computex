@@ -83,25 +83,8 @@ class IntegrityQueries extends Specification with BeforeExample {
   "Processing 'badRanking.ttl' file " should {
     val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/badRanking.ttl")
 
-    "must fail only two integrity query" in {
-      map must size(2)
-    }
-
-    val iq11: CIntegrityQuery = map.getOrElse("11", null)
-
-    "error message should be 'Observation does not have value'" in {
-      println(iq11.message)
-      iq11.message must equalTo("Observation does not have value")
-    }
-
-    "must be comprised by only two error message" in {
-      iq11.errorMessages must size(2)
-    }
-
-    for (em <- iq11.errorMessages) {
-      " must have '1' parameters" in {
-        em.params must size(1)
-      }
+    "must fail only one integrity query" in {
+      map must size(1)
     }
 
     val iq12: CIntegrityQuery = map.getOrElse("12", null)
