@@ -27,5 +27,6 @@
 obs:withTwoValues a qb:Observation ;
 		 cex:value 2 ;
 		 cex:value 3 ;
+		 qb:dataSet dataset:A-Normalized; 
 		 .
 

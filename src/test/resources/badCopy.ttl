@@ -22,7 +22,10 @@
 @prefix wi-people:  <http://data.webfoundation.org/webindex/people/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-obs:A a qb:Observation; cex:value 4 .
+obs:A a qb:Observation; 
+		cex:value 4 ;
+		qb:dataSet dataset:A-Normalized; 
+		.
 
 obs:A-Copy a qb:Observation ;
 		cex:computation 
@@ -30,5 +33,6 @@ obs:A-Copy a qb:Observation ;
 			  cex:observation obs:A ;
 			] ;   
 	    cex:value 5 ;
+	    qb:dataSet dataset:A-Normalized; 
 	  .
 

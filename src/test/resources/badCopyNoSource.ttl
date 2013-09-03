@@ -29,5 +29,6 @@ obs:A-Copy a qb:Observation ;
 			  cex:observation obs:A ;
 			] ;   
 	    cex:value 5 ;
+	    qb:dataSet dataset:A-Normalized;
 	  .
 

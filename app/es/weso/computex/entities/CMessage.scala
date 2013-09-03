@@ -49,7 +49,7 @@ case class CMessage(val action: String) {
       val sb = new StringBuilder();
       var line = bufferedReader.readLine();
       while (line != null) {
-        sb.append(line);
+        sb.append(line).append("\n");
         line = bufferedReader.readLine();
       }
       bufferedReader.close();

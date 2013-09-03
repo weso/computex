@@ -17,6 +17,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sdmx-code:  <http://purl.org/linked-data/sdmx/2009/code#> .
 @prefix sdmx-concept: <http://purl.org/linked-data/sdmx/2009/concept#> .
+@prefix sdmx-attribute: <http://purl.org/linked-data/sdmx/2009/attribute#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix time:  <http://www.w3.org/2006/time#> .
 @prefix wi-onto: <http://data.webfoundation.org/webindex/ontology/> .
@@ -26,15 +27,21 @@
 
 obs:A a qb:Observation ;
 	  cex:value 2 ;
-	  cex:indicator indicator:I .
+	  cex:indicator indicator:I ;
+	  qb:dataSet dataset:A-Normalized; 
+	  .
 
 obs:B a qb:Observation ;
 	  cex:value 4 ;
-	  cex:indicator indicator:I .
+	  cex:indicator indicator:I ;
+	  qb:dataSet dataset:A-Normalized; 
+	  .
 
 obs:C a qb:Observation ;
 	  cex:value 6 ;
-	  cex:indicator indicator:I .
+	  cex:indicator indicator:I ;
+	  qb:dataSet dataset:A-Normalized;
+	  .
 	  
 obs:N a qb:Observation ;
 	  cex:value -1 ;  
@@ -42,9 +49,38 @@ obs:N a qb:Observation ;
 	    [ a cex:Normalize ;
 		  cex:observation obs:A 
 		] ;
-	  cex:indicator cex:indicator:I .
-	  
-slice:S a qb:Slice ;
-       qb:observation obs:A , obs:B, obs:C .
-	  
+	  cex:indicator cex:indicator:I ;
+	  qb:dataSet dataset:A-Normalized;
+	  .
+      
 indicator:I cex:highLow cex:High .
+
+slice:S a qb:Slice ;
+       qb:observation obs:A , obs:B, obs:C ;
+       cex:indicator indicator:I ;
+       wi-onto:ref-year 2011 ;
+       qb:sliceStructure wi-onto:sliceByArea ;
+       .
+
+wi-onto:sliceByArea a qb:SliceKey;
+    rdfs:label "slice by area"@en;
+    rdfs:comment "Slice by grouping areas together fixing year"@en;
+    qb:componentProperty cex:indicator, wi-onto:ref-year ;
+    .
+    
+wi-onto:DSD a qb:DataStructureDefinition;
+    qb:component 
+
+        [ qb:dimension wi-onto:ref-area; qb:order 1 ],
+        [ qb:dimension wi-onto:ref-year; qb:order 2 ],
+        [ qb:dimension cex:indicator; qb:order 3 ] ;
+        
+    qb:component [ qb:measure cex:value ];
+    
+    qb:component [ qb:attribute sdmx-attribute:unitMeasure; 
+                   qb:componentRequired "true"^^xsd:boolean;
+                   qb:componentAttachment qb:DataSet; ] ;
+    
+    qb:sliceKey wi-onto:sliceByArea ;
+    .
+ 

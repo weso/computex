@@ -26,15 +26,21 @@
 
 obs:A a qb:Observation ;
 	  cex:value 2 ;
-	  cex:indicator indicator:I .
+	  cex:indicator indicator:I ;
+	  qb:dataSet dataset:A-Normalized; 
+	  .
 
 obs:B a qb:Observation ;
 	  cex:value 4 ;
-	  cex:indicator indicator:I .
+	  cex:indicator indicator:I ;
+	  qb:dataSet dataset:A-Normalized; 
+	  .
 
 obs:C a qb:Observation ;
 	  cex:value 6 ;
-	  cex:indicator indicator:I .
+	  cex:indicator indicator:I ;
+	  qb:dataSet dataset:A-Normalized; 
+	  .
 	  
 obs:N a qb:Observation ;
 	  cex:value -1 ; # should be 1 
@@ -42,7 +48,9 @@ obs:N a qb:Observation ;
 	    [ a cex:Normalize ;
 		  cex:observation obs:A 
 		] ;
-	  cex:indicator cex:indicator:I .
+	  cex:indicator cex:indicator:I ;
+	  qb:dataSet dataset:A-Normalized; 
+	  .
 	  
 slice:S a qb:Slice ;
        qb:observation obs:A , obs:B, obs:C .

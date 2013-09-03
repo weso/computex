@@ -24,7 +24,9 @@
 
 obs:A a qb:Observation ;
 	  cex:value 2 ;
-	  cex:indicator indicator:I .
+	  cex:indicator indicator:I ;
+	  qb:dataSet dataset:A-Normalized;
+	  .
 
 obs:A-D a qb:Observation ;
 		cex:computation 
@@ -33,5 +35,6 @@ obs:A-D a qb:Observation ;
 			  cex:increment 8 ;
 			] ;   
 	  cex:value 10 ;
+	  qb:dataSet dataset:A-Normalized;
 	  .
 
