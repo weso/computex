@@ -183,7 +183,7 @@ class IntegrityQueries extends Specification with BeforeExample {
     }
 
   }
-  
+  /*
   "Processing 'badNormalized.ttl' file " should {
     val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/badNormalized.ttl")
 
@@ -208,7 +208,7 @@ class IntegrityQueries extends Specification with BeforeExample {
       cm.params must size(2)
     }
 
-  }
+  }*/
   
   "Processing 'badRanking.ttl' file " should {
     val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/badRanking.ttl")
@@ -313,22 +313,70 @@ class IntegrityQueries extends Specification with BeforeExample {
 
   "Processing 'missingObsNoValues.ttl' file " should {
     val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/missingObsNoValues.ttl")
-    "must pass all integrity queries" in {
-      map must size(0)
+   "must fail only one integrity query" in {
+      map must size(1)
+    }
+
+    val iq: CIntegrityQuery = map.getOrElse("7", null)
+
+    "error message should be 'Observation with Status obsStatus-M (Missing) should not have value'" in {
+      println(iq.message)
+      iq.message must equalTo("Observation with Status obsStatus-M (Missing) should not have value")
+    }
+
+    "must be comprised by only two error message" in {
+      iq.errorMessages must size(1)
+    }
+	
+    val cm = iq.errorMessages.head
+    " must have '1' parameters" in {
+      cm.params must size(2)
     }
   }
 
   "Processing 'obs_noSheet-type.ttl' file " should {
     val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/obs_noSheet-type.ttl")
-    "must pass all integrity queries" in {
-      map must size(0)
+   "must fail only one integrity query" in {
+      map must size(1)
+    }
+
+    val iq: CIntegrityQuery = map.getOrElse("9", null)
+
+    "error message should be 'Observation does not have sheet-type'" in {
+      println(iq.message)
+      iq.message must equalTo("Observation does not have sheet-type")
+    }
+
+    "must be comprised by only two error message" in {
+      iq.errorMessages must size(1)
+    }
+	
+    val cm = iq.errorMessages.head
+    " must have '1' parameters" in {
+      cm.params must size(1)
     }
   }
 
   "Processing 'obs_noValue.ttl' file " should {
     val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/obs_noValue.ttl")
-    "must pass all integrity queries" in {
-      map must size(0)
+   "must fail only one integrity query" in {
+      map must size(1)
+    }
+
+    val iq: CIntegrityQuery = map.getOrElse("11", null)
+
+    "error message should be 'Observation does not have value'" in {
+      println(iq.message)
+      iq.message must equalTo("Observation does not have value")
+    }
+
+    "must be comprised by only two error message" in {
+      iq.errorMessages must size(1)
+    }
+	
+    val cm = iq.errorMessages.head
+    " must have '1' parameters" in {
+      cm.params must size(1)
     }
   }
 

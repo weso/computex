@@ -25,7 +25,8 @@
 
 # An observation without a value
 obs:missingObsValues a qb:Observation ;
-				     sdmx-concept:obsStatus sdmx-code:obsStatus-M ;
-					 cex:value 2 
+				    sdmx-concept:obsStatus sdmx-code:obsStatus-M ;
+					cex:value 2 ;
+					qb:dataSet dataset:A-Normalized ; 
 		 .
 
