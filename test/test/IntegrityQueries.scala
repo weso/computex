@@ -105,7 +105,7 @@ class IntegrityQueries extends Specification with BeforeExample {
     }
 
   }
-  
+
   "Processing 'badIncrementedNoValueSource.ttl' file " should {
     val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/badIncrementedNoValueSource.ttl")
 
@@ -131,7 +131,7 @@ class IntegrityQueries extends Specification with BeforeExample {
     }
 
   }
-  
+
   "Processing 'badMean.ttl' file " should {
     val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/badMean.ttl")
 
@@ -157,7 +157,7 @@ class IntegrityQueries extends Specification with BeforeExample {
     }
 
   }
-  
+
   "Processing 'badMeanNoSource.ttl' file " should {
     val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/badMeanNoSource.ttl")
 
@@ -178,38 +178,55 @@ class IntegrityQueries extends Specification with BeforeExample {
 
     val cm = iq.errorMessages.head
 
-    " must have '2' parameters" in {
-      cm.params must size(2)
+    " must have '4' parameters" in {
+      cm.params must size(4)
     }
 
   }
-  /*
+
   "Processing 'badNormalized.ttl' file " should {
     val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/badNormalized.ttl")
 
-    "must fail only one integrity query" in {
-      map must size(1)
+    "must fail only two integrity queries" in {
+      map must size(2)
     }
 
-    val iq: CIntegrityQuery = map.getOrElse("6", null)
+    val iq8: CIntegrityQuery = map.getOrElse("8", null)
 
-    "error message should be 'Observation does not have value in mean'" in {
-      println(iq.message)
-      iq.message must equalTo("Observation does not have value in mean")
+    "error message should be 'Normalized value does not match computed z-score'" in {
+      println(iq8.message)
+      iq8.message must equalTo("Normalized value does not match computed z-score")
     }
 
     "must be comprised by only one error message" in {
-      iq.errorMessages must size(1)
+      iq8.errorMessages must size(1)
     }
 
-    val cm = iq.errorMessages.head
+    val cm8 = iq8.errorMessages.head
 
-    " must have '2' parameters" in {
-      cm.params must size(2)
+    " must have '4' parameters" in {
+      cm8.params must size(2)
     }
 
-  }*/
-  
+    val iq6a: CIntegrityQuery = map.getOrElse("8", null)
+
+    "error message should be 'Every Slice must have exactly one sliceStructure'" in {
+      println(iq6a.message)
+      iq6a.message must equalTo("Every Slice must have exactly one sliceStructure")
+    }
+
+    "must be comprised by only one error message" in {
+      iq6a.errorMessages must size(1)
+    }
+
+    val cm6a = iq6a.errorMessages.head
+
+    " must have '1' parameters" in {
+      cm8.params must size(1)
+    }
+
+  }
+
   "Processing 'badRanking.ttl' file " should {
     val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/badRanking.ttl")
 
@@ -313,7 +330,7 @@ class IntegrityQueries extends Specification with BeforeExample {
 
   "Processing 'missingObsNoValues.ttl' file " should {
     val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/missingObsNoValues.ttl")
-   "must fail only one integrity query" in {
+    "must fail only one integrity query" in {
       map must size(1)
     }
 
@@ -327,7 +344,7 @@ class IntegrityQueries extends Specification with BeforeExample {
     "must be comprised by only two error message" in {
       iq.errorMessages must size(1)
     }
-	
+
     val cm = iq.errorMessages.head
     " must have '1' parameters" in {
       cm.params must size(2)
@@ -336,7 +353,7 @@ class IntegrityQueries extends Specification with BeforeExample {
 
   "Processing 'obs_noSheet-type.ttl' file " should {
     val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/obs_noSheet-type.ttl")
-   "must fail only one integrity query" in {
+    "must fail only one integrity query" in {
       map must size(1)
     }
 
@@ -350,7 +367,7 @@ class IntegrityQueries extends Specification with BeforeExample {
     "must be comprised by only two error message" in {
       iq.errorMessages must size(1)
     }
-	
+
     val cm = iq.errorMessages.head
     " must have '1' parameters" in {
       cm.params must size(1)
@@ -359,7 +376,7 @@ class IntegrityQueries extends Specification with BeforeExample {
 
   "Processing 'obs_noValue.ttl' file " should {
     val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/obs_noValue.ttl")
-   "must fail only one integrity query" in {
+    "must fail only one integrity query" in {
       map must size(1)
     }
 
@@ -373,7 +390,7 @@ class IntegrityQueries extends Specification with BeforeExample {
     "must be comprised by only two error message" in {
       iq.errorMessages must size(1)
     }
-	
+
     val cm = iq.errorMessages.head
     " must have '1' parameters" in {
       cm.params must size(1)
