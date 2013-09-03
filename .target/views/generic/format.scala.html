@@ -14,6 +14,11 @@
 	
 	}}
 	<div id="results_container">    
+		<script>
+			$('html, body').animate({
+		        scrollTop: $("#results_container").offset().top
+		    }, 1000);
+		</script>
 	    <h2 class="@if(message.message equals MsgOK){valid}else{invalid}">@Html(message.message)</h2>
 	    <p class="backtop"><a href="#frontforms">↑ Top</a></p>
 	    <div id="result">
