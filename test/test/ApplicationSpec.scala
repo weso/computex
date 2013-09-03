@@ -22,7 +22,7 @@ import org.specs2.runner.JUnitRunner
 @RunWith(classOf[JUnitRunner])
 class ApplicationSpec extends Specification {
 
-  "Computex V.S." should {
+  "Computex Validation Service" should {
 
     "send 404 on a bad request" in {
       running(FakeApplication()) {

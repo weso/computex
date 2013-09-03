@@ -24,9 +24,13 @@ import es.weso.utils.JenaUtils.Turtle
 import play.api.Logger
 import es.weso.computex.entities.CQuery
 
-case class Computex(val ontologyURI: String, val validationDir: String,
-  val computationDir: String, val closureFile: String, val flattenFile: String,
-  val findStepsQuery: String) {
+case class Computex(
+		val ontologyURI: String, 
+		val validationDir: String,
+		val computationDir: String, 
+		val closureFile: String, 
+		val flattenFile: String,
+		val findStepsQuery: String) {
 
   def computex(message: CMessage): Array[CIntegrityQuery] = {
     Logger.info("Computex: Compute and Validate index data")
@@ -76,7 +80,8 @@ case class Computex(val ontologyURI: String, val validationDir: String,
       }
     }
 
-    val result: Model = ModelFactory.createModelForGraph(graphStore.getDefaultGraph())
+    val result: Model = 
+    		ModelFactory.createModelForGraph(graphStore.getDefaultGraph())
     result.setNsPrefixes(model)
     result
 
@@ -99,7 +104,8 @@ case class Computex(val ontologyURI: String, val validationDir: String,
     ls.map(r => r.getLiteral(varName).getString)
   }
 
-  def validate(model: Model, validationDir: String): Array[CIntegrityQuery] = {
+  def validate(	model: Model, 
+		  		validationDir: String): Array[CIntegrityQuery] = {
     val dir = new File(validationDir)
     val iQueries: Array[CIntegrityQuery] = 
     for {

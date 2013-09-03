@@ -29,7 +29,9 @@ import es.weso.computex.entities.CIntegrityQuery
  * For more information, consult the wiki.
  */
 @RunWith(classOf[JUnitRunner])
-class IntegrityQueries extends Specification with BeforeExample {
+class IntegrityQueries 
+		extends Specification 
+		with BeforeExample {
 
   var computex: Computex = null
 
@@ -150,7 +152,9 @@ class IntegrityQueries extends Specification with BeforeExample {
   }
 
   "Processing 'goodCopy.ttl' file " should {
-    val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/goodCopy.ttl")
+    val map: Map[String, CIntegrityQuery] = 
+      processFile("src/test/resources/goodCopy.ttl")
+    
     "must pass all integrity queries" in {
       map must size(0)
     }
