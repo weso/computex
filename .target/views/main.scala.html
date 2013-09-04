@@ -24,14 +24,20 @@
         <link rel="stylesheet" href="@routes.Assets.at("stylesheets/prettify.css")" />
         <script type="text/javascript" src="@routes.Assets.at("javascripts/highlighter/prettify.js")"></script>
         <script type="text/javascript" src="@routes.Assets.at("javascripts/highlighter/lang-sparql.js")"></script>
+        <link href="http://fonts.googleapis.com/css?family=Advent+Pro:200" rel="stylesheet" type="text/css">
+        <link href='http://fonts.googleapis.com/css?family=Bad+Script' rel='stylesheet' type='text/css'>
+        <link href="http://fonts.googleapis.com/css?family=Raleway:100" rel="stylesheet" type="text/css">
 	</head>
     <body onload="prettyPrint()">
     	<header id="banner">
-			<h1 id="title">
-      			<a href="/"><img alt="W3C" width="110" height="61" id="logo" src="@routes.Assets.at("images/weso.png")"></a>
-				<a href="/"><span>COMPUTEX Validation Service</span></a>
-      		</h1>
-      		<p id="tagline">Validates <a href="http://www.w3.org/TR/vocab-data-cube/">RDF Data Cube</a> and Statistical Indexes with computations a.k.a. Computex</p>
+    		<a id="weso-link" class="circle-link" href="/about">about</a>
+    		<a id="weso-logo" href="/"><img alt="WESO" width="100" height="100" id="logo" src="@routes.Assets.at("images/weso.png")"></a>
+    		<div>
+				<h1 id="title">
+					<a href="/"><span class="computex">COMPUTEX</span> <span class="validation">Validation Service</span></a>
+	      		</h1>
+	      		<p id="tagline">Validates <a href="http://www.w3.org/TR/vocab-data-cube/">RDF Data Cube</a> and Statistical Indexes with computations a.k.a. Computex</p>
+    		</div>
       	</header>
       	@content
 		<footer id="footer">
