@@ -30,22 +30,20 @@ class CubeSuite extends FunSpec with SparqlSuite with ShouldMatchers {
   
   val cex = Computex(ontologyURI,validationDir,computationDir,closureFile,flattenFile,findStepsQuery)
 
-  val PREFIXES =
-"""
-PREFIX rdf:            <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX skos:           <http://www.w3.org/2004/02/skos/core#>
-PREFIX qb:             <http://purl.org/linked-data/cube#>
-PREFIX xsd:            <http://www.w3.org/2001/XMLSchema#>
-PREFIX owl:            <http://www.w3.org/2002/07/owl#>
-PREFIX eg:             <http://example.com/abbrv-cube/>
-"""
+  val PREFIXES = """|PREFIX rdf:            <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+  				    |PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
+  					|PREFIX skos:           <http://www.w3.org/2004/02/skos/core#>
+  					|PREFIX qb:             <http://purl.org/linked-data/cube#>
+  					|PREFIX xsd:            <http://www.w3.org/2001/XMLSchema#>
+  					|PREFIX owl:            <http://www.w3.org/2002/07/owl#>
+  					|PREFIX eg:             <http://example.com/abbrv-cube/>
+  					|""".stripMargin
 
   describe("The Cube example") {
 
    describe("should pass all the RDF Data Cube integrity tests") {
-      val model = cex.loadData(demoCubeUri)
-      val expanded = cex.expandCube(model)
+      val model 	= cex.loadData(demoCubeUri)
+      val expanded 	= cex.expandCube(model)
       passDir(model,cubeDataDir)
     }
   }

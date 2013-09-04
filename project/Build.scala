@@ -18,7 +18,8 @@ object ApplicationBuild extends Build {
     "commons-io" % "commons-io" % "2.4",
     "org.rogach" %% "scallop" % "0.9.1" ,
     "org.scalatest" % "scalatest_2.10" % "1.9.1" % "test", 
-    "com.typesafe" % "config" % "1.0.1"
+    "com.typesafe" % "config" % "1.0.1",
+    "org.scalaj" %% "scalaj-collection" % "1.5"
   )
 
 

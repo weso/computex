@@ -75,13 +75,17 @@ case class Generator(
   
   lazy val model : Model = {
     val m = ModelFactory.createDefaultModel()
-    
+    val rdftype = m.createProperty(PREFIXES.rdf + "type")
+    val dataStructureDefinition = m.createResource(PREFIXES.qb + "DataStructureDefinition")
+    val dsd = m.createResource(PREFIXES.wi_onto + "DSD")
+    m.add(dsd,rdftype,dataStructureDefinition)
     m
   }
 }
 
 object Generator {
 
+  
 }
     
     
