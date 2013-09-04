@@ -25,12 +25,12 @@ import play.api.Logger
 import es.weso.computex.entities.CQuery
 
 case class Computex(
-		val ontologyURI: String, 
-		val validationDir: String,
-		val computationDir: String, 
-		val closureFile: String, 
-		val flattenFile: String,
-		val findStepsQuery: String) {
+    val ontologyURI: String, 
+    val validationDir: String,
+    val computationDir: String, 
+    val closureFile: String, 
+    val flattenFile: String,
+    val findStepsQuery: String) {
 
   def computex(message: CMessage): Array[CIntegrityQuery] = {
     Logger.info("Computex: Compute and Validate index data")
@@ -42,8 +42,22 @@ case class Computex(
     validate(expandedComputex, validationDir)
   }
 
-  def loadData(ontologyURI: String,
-    message: CMessage): Model = {
+    def loadData(ontologyURI: String): Model = {
+		val model = ModelFactory.createDefaultModel
+		loadModel(model, Computex.loadFile(ontologyURI))
+    }
+
+  def loadData(ontologyURI: String, 
+              indexDataURI: String) : Model = {
+	val model = ModelFactory.createDefaultModel
+	loadModel(model, Computex.loadFile(ontologyURI))
+    loadModel(model, Computex.loadFile(indexDataURI))
+  }
+  
+  def loadData(
+      ontologyURI: String,
+      message: CMessage
+      ): Model = {
     val model = ModelFactory.createDefaultModel
 
     loadModel(model, Computex.loadFile(ontologyURI))
@@ -80,8 +94,7 @@ case class Computex(
       }
     }
 
-    val result: Model = 
-    		ModelFactory.createModelForGraph(graphStore.getDefaultGraph())
+    val result: Model = ModelFactory.createModelForGraph(graphStore.getDefaultGraph())
     result.setNsPrefixes(model)
     result
 
@@ -104,8 +117,19 @@ case class Computex(
     ls.map(r => r.getLiteral(varName).getString)
   }
 
-  def validate(	model: Model, 
-		  		validationDir: String): Array[CIntegrityQuery] = {
+  def validate2Model(model: Model, validationDir: String): Model = {
+    val reportModel = ModelFactory.createDefaultModel 
+    val dir = new File(validationDir)
+    for {
+      vDir <- dir.listFiles.filter(_.isDirectory())
+      cq <- readQueries(vDir)
+    } {
+      reportModel.add(executeQuery(model, cq.query))
+    }
+    reportModel
+  }
+
+  def validate(model: Model, validationDir: String): Array[CIntegrityQuery] = {
     val dir = new File(validationDir)
     val iQueries: Array[CIntegrityQuery] = 
     for {
@@ -146,6 +170,10 @@ case class Computex(
     resultModel
   }
 
+  def loadTurtle(model: Model, fileName: String) = {
+   model.read(fileName, "",Turtle)
+  }
+  
   def loadModel(model: Model, inputStream: InputStream, format: String = Turtle) = {
     model.read(inputStream, "", format)
   }

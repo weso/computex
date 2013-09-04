@@ -12,10 +12,7 @@ import scala.collection.JavaConversions._
 import java.io.IOException
 import java.io.File
 
-class CubeSuite extends 
-			FunSpec with 
-			SparqlSuite with 
-			ShouldMatchers {
+class CubeSuite extends FunSpec with SparqlSuite with ShouldMatchers {
 
   val conf : Config = ConfigFactory.load()
 
@@ -28,9 +25,10 @@ class CubeSuite extends
   val demoCubeUri = conf.getString("demoCubeURI")
   val closureFile = conf.getString("closureFile")
   val flattenFile = conf.getString("flattenFile")
+  val findStepsQuery 	= conf.getString("findStepsQuery") 
   
   
-  val cex = new Computex
+  val cex = Computex(ontologyURI,validationDir,computationDir,closureFile,flattenFile,findStepsQuery)
 
   val PREFIXES =
 """
@@ -47,7 +45,7 @@ PREFIX eg:             <http://example.com/abbrv-cube/>
 
    describe("should pass all the RDF Data Cube integrity tests") {
       val model = cex.loadData(demoCubeUri)
-      val expanded = cex.expandCube(model,closureFile,flattenFile)
+      val expanded = cex.expandCube(model)
       passDir(model,cubeDataDir)
     }
   }
@@ -56,8 +54,8 @@ PREFIX eg:             <http://example.com/abbrv-cube/>
 
     describe("should pass all the RDF Data Cube integrity tests") {
       val model = cex.loadData(ontologyURI,demoAbbrURI)
-      val expanded = cex.expandCube(model,closureFile,flattenFile)
-      cex.validate(expanded,cubeDataDir)
+      val expanded = cex.expandCube(model)
+      // cex.validate2Model(expanded,cubeDataDir)
       passDir(expanded,cubeDataDir)
     }
   }
@@ -66,7 +64,7 @@ PREFIX eg:             <http://example.com/abbrv-cube/>
 
     describe("should pass all the RDF Data Cube integrity tests") {
       val model = cex.loadData(ontologyURI,demoURI)
-      val expanded = cex.expandCube(model,closureFile,flattenFile)
+      val expanded = cex.expandCube(model)
       passDir(expanded,cubeDataDir)
     }
     
