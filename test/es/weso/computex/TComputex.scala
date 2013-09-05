@@ -80,7 +80,7 @@ class ComputexSuite
 	val expandedCex 	= cex.expandComputex(expandedCube)
     
     describe("Should pass all validation tests from Computex") {
-	  passDir(model,validationDir)
+	  passDir(expandedCex,validationDir)
     } 
 
 	it("Should contain 6 imputed values using Mean") {

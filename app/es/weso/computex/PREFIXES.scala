@@ -5,38 +5,62 @@ import com.hp.hpl.jena.shared.impl.PrefixMappingImpl
 import scalaj.collection.Imports._
 
 object PREFIXES {
-  val webindex = "http://data.webfoundation.org/webindex/v2013/"
-  val rdf 			= "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-  val qb  			= "http://purl.org/linked-data/cube#"
-  val wi_onto		= "http://data.webfoundation.org/webindex/ontology/"
-  val nsMap : Map[String,String] = 
+  lazy val webindex 	= "http://data.webfoundation.org/webindex/v2013/"
+  lazy val computation	= webindex + "computation/"
+  lazy val dataset		= webindex + "dataset/"
+  lazy val ranking		= webindex + "ranking/"
+  lazy val indicator	= webindex + "indicator/"
+  lazy val country		= webindex + "country/"
+  lazy val obs			= webindex + "observation/"
+  lazy val slice		= webindex + "slice/"
+  lazy val cex			= "http://purl.org/weso/ontology/computex#"
+  lazy val dcterms		= "http://purl.org/dc/terms/"
+  lazy val geo			= "http://www.w3.org/2003/01/geo/wgs84_pos#"
+  lazy val rdf 			= "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  lazy val qb  			= "http://purl.org/linked-data/cube#"
+  lazy val owl 			= "http://www.w3.org/2002/07/owl#"
+  lazy val wi_onto		= "http://data.webfoundation.org/webindex/ontology/"
+  lazy val rdfs			= "http://www.w3.org/2000/01/rdf-schema#"
+  lazy val sdmxAttribute = "http://purl.org/linked-data/sdmx/2009/attribute#"
+  lazy val sdmxCode		= "http://purl.org/linked-data/sdmx/2009/code#"
+  lazy val sdmxConcept	= "http://purl.org/linked-data/sdmx/2009/concept#"
+  lazy val sdmxSubject	= "http://purl.org/linked-data/sdmx/2009/subject#"
+  lazy val skos			= "http://www.w3.org/2004/02/skos/core#"
+  lazy val time			= "http://www.w3.org/2006/time#"
+  lazy val wi_org		= "http://data.webfoundation.org/webindex/organization/"
+  lazy val wi_people	= "http://data.webfoundation.org/webindex/people/"
+  lazy val xsd			= "http://www.w3.org/2001/XMLSchema#"
+
+  private val cexMap : Map[String,String] = 
     	Map("webindex" 		-> webindex,
-		    "computation" 	-> ( webindex + "computation/" ),
-		    "ranking" 		-> ( webindex + "ranking/" ),
-		    "indicator"		-> ( webindex + "indicator/" ),
-		    "country"		-> ( webindex + "country/" ),
-		    "obs"			-> (webindex + "observation/"), 
-		    "slice"			-> (webindex + "slice/"),
-		    "cex"			-> "http://purl.org/weso/ontology/computex#",
-		    "dcterms"		-> "http://purl.org/dc/terms/",
-		    "geo"			-> "http://www.w3.org/2003/01/geo/wgs84_pos#",
+		    "computation" 	-> computation,
+		    "ranking" 		-> ranking,
+		    "indicator"		-> indicator,
+		    "country"		-> country,
+		    "dataset"		-> dataset,
+		    "obs"			-> obs, 
+		    "slice"			-> slice,
+		    "cex"			-> cex,
+		    "dcterms"		-> dcterms,
+		    "geo"			-> geo,
 		    "qb"			-> qb,
-		    "owl"			-> "http://www.w3.org/2002/07/owl#",
+		    "owl"			-> owl,
 		    "rdf"			-> rdf,
-		    "rdfs"			-> "http://www.w3.org/2000/01/rdf-schema#",
-		    "sdmxAttribute" -> "http://purl.org/linked-data/sdmx/2009/attribute#",
-		    "sdmxCode"		-> "http://purl.org/linked-data/sdmx/2009/code#",
-		    "sdmxConcept"	-> "http://purl.org/linked-data/sdmx/2009/concept#",
-		    "sdmxSubject"	-> "http://purl.org/linked-data/sdmx/2009/subject#",
-		    "skos"			-> "http://www.w3.org/2004/02/skos/core#",
-		    "time"			-> "http://www.w3.org/2006/time#",
+		    "rdfs"			-> rdfs,
+		    "sdmxAttribute" -> sdmxAttribute,
+		    "sdmxCode"		-> sdmxCode,
+		    "sdmxConcept"	-> sdmxConcept,
+		    "sdmxSubject"	-> sdmxSubject,
+		    "skos"			-> skos,
+		    "time"			-> time,
 		    "wi-onto"		-> wi_onto,
-		    "wi-org"		-> "http://data.webfoundation.org/webindex/organization/",
-		    "wi-people"		-> "http://data.webfoundation.org/webindex/people/",
-		    "xsd"			-> "http://www.w3.org/2001/XMLSchema#"
+		    "wi-org"		-> wi_org,
+		    "wi-people"		-> wi_people,
+		    "xsd"			-> xsd
     )
-    val prefixMap = new PrefixMappingImpl()
+
+    val cexMapping = new PrefixMappingImpl()
     
-    prefixMap.setNsPrefixes(nsMap.asJava)
+    cexMapping.setNsPrefixes(cexMap.asJava)
     
 }
