@@ -12,6 +12,8 @@ import com.hp.hpl.jena.query.Query
 import com.hp.hpl.jena.query.QueryExecutionFactory
 import com.hp.hpl.jena.query.QueryFactory
 import java.io.StringWriter
+import com.hp.hpl.jena.rdf.model.RDFNode
+import com.hp.hpl.jena.rdf.model.Property
 
 object JenaUtils {
 
@@ -73,8 +75,59 @@ object JenaUtils {
     } catch {
       case e: Exception => None
     }
+  } 
+    
+   def getLiteral(
+       r : RDFNode, 
+       property: Property) : String = {
+    if (r.isResource()) {
+        val res = r.asResource
+    	val stmt = res.getRequiredProperty(property)
+    	stmt match {
+    	  case null => 
+    	    throw new Exception("getName: " + res + " doesn't have value for property " + property + ".\n" + 
+    	    					showResource(r.asResource) )
+    	  case _ => 
+    	    if (stmt.getObject.isLiteral) stmt.getObject.asLiteral.getString
+    	    else 
+    	      throw new Exception("getName: " + stmt.getObject + " is not a literal")
+    	}
+    } 
+    else 
+      throw new Exception("getName: " + r + "is not a resource")
   }
-  
+
+  def getUri(
+		  r : RDFNode, 
+		  property: Property
+	) : String = {
+    if (r.isResource()) {
+    	val resUri = r.asResource().getPropertyResourceValue(property)
+    	resUri match {
+    	  case null => 
+    	    throw new Exception("getUri: " + resUri + " doesn't have value for property " + property + ".\n" + showResource(r.asResource) )
+    	  case _ => 
+    	    if (resUri.isResource) resUri.getURI
+    	    else 
+    	      throw new Exception("getUri: " + resUri + " is not a resource")
+        }
+     } else 
+       throw new Exception("getURI: Node " + r + " is not a resource")
+  }
+
+  /**
+   * Shows infomation about a resource (list all the statements)
+   */
+  def showResource(resource: Resource) : String = {
+   val sb = new StringBuilder
+   val iter = resource.listProperties()
+   sb ++= ("Infor about: " + resource + "\n")
+   while (iter.hasNext) {
+     val st = iter.next
+     sb ++= (st.toString + "\n")
+   }
+   sb.toString
+  }
 
   def parseQuery(
       str: String
@@ -87,6 +140,7 @@ object JenaUtils {
    }
   }
   
+  
   def model2Str(
 		  model: Model, 
 		  syntax: String = Turtle) : String = {
@@ -94,4 +148,6 @@ object JenaUtils {
     model.write(strWriter,syntax)
     strWriter.toString
   }
+
+
 }

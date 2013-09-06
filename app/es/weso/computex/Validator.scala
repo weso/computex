@@ -40,8 +40,9 @@ import java.io.FileOutputStream
  * 
  */
 case class Validator(
-    val query: Query,
-    val name: String = "") {
+    val query: 	Query,
+    val name: 	String = "",
+    val uri: 	String = "") {
   
 
   /**
@@ -57,6 +58,12 @@ case class Validator(
       NotPassed(resultModel)
   }
   
+
+  override def toString : String = {
+    "Validator" + name + ". URI(" + uri + ") \n" +
+    "Query: " + query    
+  }
+
 }
 
 object Validator {
@@ -64,10 +71,9 @@ object Validator {
   /**
    * Create validators from queries represented as String
    * @param queryStr Validation SPARQL query as a String
-   * @param name of the validation query 
    */
-  def apply(queryStr: String, name: String) = 
-    new Validator(parseQuery(queryStr).get,name)
+  def apply(queryStr: String) = 
+    new Validator(parseQuery(queryStr).get)
 
 }
     

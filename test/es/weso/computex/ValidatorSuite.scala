@@ -36,7 +36,7 @@ class ValidatorSuite
                    |""".stripMargin
                    
      val model 		= parseModel(data).get
-     val validator 	= Validator(queryStr,"test1")
+     val validator 	= Validator(queryStr)
      shouldNotPassReport(validator.validate(model))
    }
 
@@ -57,7 +57,7 @@ class ValidatorSuite
                    |""".stripMargin
                    
      val model 		= parseModel(data).get
-     val validator 	= Validator(queryStr,"test1")
+     val validator 	= Validator(queryStr)
      shouldPassReport(validator.validate(model))
    }
 }

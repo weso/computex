@@ -1,0 +1,40 @@
+# RDF Data Cube Profile
+
+@prefix cex: <http://purl.org/weso/ontology/computex#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix qb: <http://purl.org/linked-data/cube#> .
+@prefix cubeURI: <ontology/validation/cube/> .
+@prefix cubeURIExpand: <ontology/computation/cube/> .
+
+<> a cex:ValidationProfile ;
+   cex:expansion
+	[a cex:Expansion ;
+	 cex:expandQuery 
+	 	[ cex:name "Flatten" ; 
+	 	  cex:uri cubeURIExpand:flatten.ru 
+	 	] ;
+     cex:expandQuery 
+        [ cex:name "Closure" ; 
+          cex:uri cubeURIExpand:closure.ru  
+        ] 
+	] ;
+	cex:integrity
+	 [ a cex:IntegrityConstraintSet ;
+	   cex:integrityQuery 
+	    [ cex:name "IC-1. Unique DataSet (Q1a)" ;
+	      cex:uri	cubeURI:q1a-integrity.sparql 
+	    ] ;
+	   cex:integrityQuery 
+	    [ cex:name "IC-1. Unique DataSet (Q1b)" ;
+	      cex:uri	cubeURI:q1b-integrity.sparql 
+	    ] ;
+	   cex:integrityQuery 
+	    [ cex:name "IC-2. Unique DSD (Q2a)" ;
+	      cex:uri	cubeURI:q2a-integrity.sparql 
+	    ] ;
+	 cex:integrityQuery 
+	    [ cex:name "IC-2. Unique DSD (Q2b)" ;
+	      cex:uri	cubeURI:q2b-integrity.sparql 
+	    ] 
+     ]
+   .
