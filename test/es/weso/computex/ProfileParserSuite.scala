@@ -20,12 +20,19 @@ class ProfileParserSuite
 	with ShouldMatchers {
  describe("Profile Parser") {
    it("Should obtain a list of validators") {
-     
      val contents = scala.io.Source.fromFile("ontology/cube.ttl").mkString;
      val cube = parseModel(contents).get
      val profileParser = ProfileParser(cube)
      val validators = profileParser.validators
      validators.length should be(4)
+   }
+
+   it("Should obtain a list of expanders") {
+     val contents = scala.io.Source.fromFile("ontology/cube.ttl").mkString;
+     val cube = parseModel(contents).get
+     val profileParser = ProfileParser(cube)
+     val validators = profileParser.expanders
+     validators.length should be(2)
    }
  }
 }

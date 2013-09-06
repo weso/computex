@@ -41,7 +41,8 @@ import com.hp.hpl.jena.update.UpdateFactory
  */
 case class Expander(
     val update: UpdateRequest,
-    val name: String = ""
+    val name: String = "",
+    val uri: String = ""
 ) {
   
   /**
