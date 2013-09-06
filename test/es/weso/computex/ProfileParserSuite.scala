@@ -19,20 +19,37 @@ class ProfileParserSuite
 	extends FunSpec 
 	with ShouldMatchers {
  describe("Profile Parser") {
-   it("Should obtain a list of validators") {
+   it("Should obtain a list of validators for RDF Data Cube") {
      val contents = scala.io.Source.fromFile("ontology/cube.ttl").mkString;
      val cube = parseModel(contents).get
      val profileParser = ProfileParser(cube)
      val validators = profileParser.validators
-     validators.length should be(4)
+     validators.length should be(23)
    }
 
-   it("Should obtain a list of expanders") {
+   it("Should obtain a list of validators for Computex") {
+     val contents = scala.io.Source.fromFile("ontology/computex.ttl").mkString;
+     val cube = parseModel(contents).get
+     val profileParser = ProfileParser(cube)
+     val validators = profileParser.validators
+     validators.length should be(1)
+   }
+
+   it("Should obtain a list of expanders for RDF Data Cube profile") {
      val contents = scala.io.Source.fromFile("ontology/cube.ttl").mkString;
      val cube = parseModel(contents).get
      val profileParser = ProfileParser(cube)
      val validators = profileParser.expanders
      validators.length should be(2)
    }
- }
+
+ 
+   it("Should obtain a list of expanders for Computex profile") {
+     val contents = scala.io.Source.fromFile("ontology/computex.ttl").mkString;
+     val cube = parseModel(contents).get
+     val profileParser = ProfileParser(cube)
+     val validators = profileParser.expanders
+     validators.length should be(1)
+   }
+}
 }
