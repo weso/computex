@@ -62,6 +62,11 @@ class ValidatorSuite
    }
 }
  
+  describe("Validators") {
+   it("Should not validate a query without values for observations") {
+   }
+  }
+ 
  def shouldPassReport(report: ValidationReport[Model]) : Unit = {
      report match {
        case Passed => info("Validates without errors")

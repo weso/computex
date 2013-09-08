@@ -16,14 +16,17 @@ import play.api.mvc.RequestHeader
 trait Base extends Controller {
 
   def validateStream(message: CMessage)(implicit request: RequestHeader): CMessage = {
+    
     val conf: Config = ConfigFactory.load()
-    val validationDir = conf.getString("validationDir")
-    val computationDir = conf.getString("computationDir")
-    val ontologyURI = conf.getString("ontologyURI")
-    val closureFile = conf.getString("closureFile")
-    val flattenFile = conf.getString("flattenFile")
-    val findStepsQuery = conf.getString("findStepsQuery")
+    
+    val validationDir 	= conf.getString("validationDir")
+    val computationDir 	= conf.getString("computationDir")
+    val ontologyURI 	= conf.getString("ontologyURI")
+    val closureFile 	= conf.getString("closureFile")
+    val flattenFile 	= conf.getString("flattenFile")
+    val findStepsQuery 	= conf.getString("findStepsQuery")
 
+    
     val cex = Computex(ontologyURI, validationDir, computationDir, closureFile, flattenFile, findStepsQuery)
 
     try {
@@ -41,7 +44,7 @@ trait Base extends Controller {
 
 }
 
-object Main extends Base {
+/*object Main extends Base {
   def main(args: Array[String]): Unit = {
     var message = CMessage(CMessage.Uri)
     message.contentIS = Computex.loadFile("http://localhost:9000/assets/example.ttl")
@@ -51,4 +54,4 @@ object Main extends Base {
     message.expand = true
     message = validateStream(message)(null)
   }
-}
+}*/

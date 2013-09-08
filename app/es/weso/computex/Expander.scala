@@ -34,15 +34,16 @@ import com.hp.hpl.jena.rdf.model.Literal
 import java.io.FileOutputStream
 import com.hp.hpl.jena.update.UpdateRequest
 import com.hp.hpl.jena.update.UpdateFactory
+import java.net.URI
 
 /**
  * Expands a Model with an UPDATE Query
  * 
  */
 case class Expander(
-    val update: UpdateRequest,
-    val name: String = "",
-    val uri: String = ""
+    val update: 	UpdateRequest,
+    val name: 		String 		= "",
+    val uri: 		URI 		= new URI("")
 ) {
   
   /**

@@ -14,6 +14,8 @@ import com.hp.hpl.jena.query.QueryFactory
 import java.io.StringWriter
 import com.hp.hpl.jena.rdf.model.RDFNode
 import com.hp.hpl.jena.rdf.model.Property
+import java.net.URI
+import java.net.URL
 
 object JenaUtils {
 
@@ -59,6 +61,19 @@ object JenaUtils {
       }
     } else resource
   }
+
+  def parseFromURI(
+      uriName: String,
+      base: String = "",
+      syntax: String = Turtle) : Model = {
+    val model = ModelFactory.createDefaultModel()
+    val url = new URL(uriName)
+    val urlCon = url.openConnection()
+    urlCon.setConnectTimeout(4000)
+    urlCon.setReadTimeout(2000)
+    val input = urlCon.getInputStream()
+    model.read(input,base,syntax)
+  }
   
   /**
    * Returns a RDF model after parsing a String
@@ -97,19 +112,34 @@ object JenaUtils {
       throw new Exception("getName: " + r + "is not a resource")
   }
 
-  def getUri(
-		  r : RDFNode, 
-		  property: Property
-	) : String = {
+  
+  /*
+   * 
+   */
+  def getURI(r: RDFNode) : URI = {
+    if (r.isResource) {
+      new URI(r.asResource.getURI)
+    }
+    else 
+       throw new Exception("getURI: Node " + r + " is not a resource")
+  }
+   
+  /*
+   * If there is a triple <r,p,u> and u is a URI, returns u
+   * @param r RDFNode
+   * @param property
+   */
+  def getObjectURI(
+		  r: RDFNode, 
+		  p: Property
+	) : URI = {
     if (r.isResource()) {
-    	val resUri = r.asResource().getPropertyResourceValue(property)
+    	val resUri = r.asResource().getPropertyResourceValue(p)
     	resUri match {
     	  case null => 
-    	    throw new Exception("getUri: " + resUri + " doesn't have value for property " + property + ".\n" + showResource(r.asResource) )
+    	    throw new Exception("getURI: " + resUri + " doesn't have value for property " + p + ".\n" + showResource(r.asResource) )
     	  case _ => 
-    	    if (resUri.isResource) resUri.getURI
-    	    else 
-    	      throw new Exception("getUri: " + resUri + " is not a resource")
+    	    getURI(resUri)
         }
      } else 
        throw new Exception("getURI: Node " + r + " is not a resource")
@@ -129,6 +159,9 @@ object JenaUtils {
    sb.toString
   }
 
+  /*
+   * Parse a string to obtain a query
+   */
   def parseQuery(
       str: String
       ) : Option[Query] = {
@@ -140,7 +173,10 @@ object JenaUtils {
    }
   }
   
-  
+ 
+  /*
+   * Convert a model to a String
+   */
   def model2Str(
 		  model: Model, 
 		  syntax: String = Turtle) : String = {

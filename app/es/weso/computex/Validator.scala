@@ -32,6 +32,7 @@ import com.hp.hpl.jena.rdf.model.Resource
 import com.hp.hpl.jena.datatypes.xsd.XSDDatatype
 import com.hp.hpl.jena.rdf.model.Literal
 import java.io.FileOutputStream
+import java.net.URI
 
 /**
  * Contains a validation query. 
@@ -42,7 +43,7 @@ import java.io.FileOutputStream
 case class Validator(
     val query: 	Query,
     val name: 	String = "",
-    val uri: 	String = "") {
+    val uri: 	URI = new URI("")) {
   
 
   /**

@@ -3,22 +3,19 @@
 @prefix cex: <http://purl.org/weso/ontology/computex#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix qb: <http://purl.org/linked-data/cube#> .
+@prefix profileURI: <ontology/> .
 @prefix cexURI: <ontology/validation/computex/> .
 @prefix cexURIExpand: <ontology/computation/> .
 
-<> a cex:ValidationProfile ;
-   cex:expansion
-	[a cex:Expansion ;
-	 cex:expandQuery 
+cex:computex a cex:ValidationProfile ;
+   cex:name "Computex" ;
+   cex:import profileURI:cube.ttl ;
+   cex:expandQuery 
 	 	[ cex:name "Adjust values" ; 
 	 	  cex:uri cexURIExpand:q1-Adjust.sparql 
 	 	] ;
-    ] ;
-	cex:integrity
-	 [ a cex:IntegrityConstraintSet ;
-	   cex:integrityQuery 
+   cex:integrityQuery 
 	    [ cex:name "Adjusted computation must have a value" ;
 	      cex:uri	cexURI:q1-adjustedValueExistsObs.sparql 
 	    ] 
-     ]
    .

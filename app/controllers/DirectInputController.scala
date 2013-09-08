@@ -14,9 +14,17 @@ import play.api.data.Forms.text
 import play.api.mvc.Action
 import play.api.mvc.Controller
 
-object DirectInputController extends Controller with Base {
+object DirectInputController 
+	extends Controller 
+	with Base {
   
-  case class DirectInput(val content: Option[String], val format: Option[String], val ss: Option[Int], val verbose: Option[Int], val expand: Option[Int])
+  case class DirectInput(
+      val content: Option[String], 
+      val format: Option[String], 
+      val ss: Option[Int], 
+      val verbose: Option[Int], 
+      val expand: Option[Int]
+      )
 
   val directInputForm: Form[DirectInput] = Form(
     mapping(
