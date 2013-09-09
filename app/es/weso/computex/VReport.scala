@@ -1,4 +1,4 @@
-package es.weso.computex
+package es.weso.computex.profile
 
 import java.io.File
 import java.io.IOException
@@ -20,7 +20,7 @@ import com.hp.hpl.jena.update.GraphStoreFactory
 import com.hp.hpl.jena.update.UpdateAction
 import es.weso.computex.entities.CMessage
 import es.weso.computex.entities.CIntegrityQuery
-import es.weso.utils.JenaUtils._
+import es.weso.utils.JenaUtils.Turtle
 import play.api.Logger
 import es.weso.computex.entities.CQuery
 import com.typesafe.config.ConfigFactory
@@ -32,50 +32,42 @@ import com.hp.hpl.jena.rdf.model.Resource
 import com.hp.hpl.jena.datatypes.xsd.XSDDatatype
 import com.hp.hpl.jena.rdf.model.Literal
 import java.io.FileOutputStream
-import java.net.URI
+import es.weso.computex.Passed
+import es.weso.computex.NotPassed
+import es.weso.computex.ValidationReport
+import es.weso.computex.Validator
 
-/**
- * Contains a validation query. 
- * Validation queries have a name and a SPARQL CONSTRUCT query which constructs
- * an error model in case the model does not pass.
- * 
- */
-case class Validator(
-    val query: 	Query,
-    val name: 	String = "",
-    val uri: 	URI = new URI("")) {
+package object VReport {
+
+  type VReport = ValidationReport[Model,
+    Seq[Validator],
+    (Seq[Validator],Seq[Validator])
+  ]
   
-  /**
-   *  Validates a model using this validation 
-   */
-  def validate(model:Model) : ValidationReport[Model,Validator,Validator] = {
-   val resultModel = ModelFactory.createDefaultModel
-    val qexec = QueryExecutionFactory.create(query, model)
-    qexec.execConstruct(resultModel)
-    if (resultModel.size == 0) 
-      Passed(this)
-    else 
-      NotPassed(resultModel,this)
-  }
+ def show(
+     vr: VReport, 
+     verbose: Boolean = false) : String = {
+   vr match {
+     case Passed(vs) => 
+      if (verbose) {
+       "Passed \nValidators: " + vs
+      } else {
+       "Passed " + vs.length + " validators"
+      }
+     case NotPassed(m,(vs,nvs)) =>
+       if (verbose) {
+         "Not passed\n" + 
+         "Validators that passed: " + vs +
+         "Validators that didn't pass: " + nvs
+       } else {
+         "Not passed:\n" + 
+         showNameVals(nvs) + 
+         "Passed: " + vs.length + " validators"
+       }
+   }
+ }
   
-
-  override def toString : String = {
-    "Validator" + name + ". URI(" + uri + ") \n" +
-    "Query: " + query    
+  def showNameVals(vals : Seq[Validator]) = {
+    vals.foldLeft("")((r,v) => v.name + ", " + r)
   }
-
 }
-
-object Validator {
-
-  /**
-   * Create validators from queries represented as String
-   * @param queryStr Validation SPARQL query as a String
-   */
-  def apply(queryStr: String) = 
-    new Validator(parseQuery(queryStr).get)
-
-}
-    
-    
-

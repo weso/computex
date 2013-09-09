@@ -67,17 +67,17 @@ class ValidatorSuite
    }
   }
  
- def shouldPassReport(report: ValidationReport[Model]) : Unit = {
+ def shouldPassReport(report: ValidationReport[Model,Validator,Validator]) : Unit = {
      report match {
-       case Passed => info("Validates without errors")
-       case NotPassed(error) => fail("Does not validate. Error: \n" + model2Str(error))
+       case Passed(_) => info("Validates without errors")
+       case NotPassed(error,_) => fail("Does not validate. Error: \n" + model2Str(error))
      }
  }
 
- def shouldNotPassReport(report: ValidationReport[Model]) : Unit = {
+ def shouldNotPassReport(report: ValidationReport[Model,Validator,Validator]) : Unit = {
      report match {
-       case Passed => fail("Validates without errors. But expected not to pass")
-       case NotPassed(error) => info("Does not validate as expected")
+       case Passed(_) => fail("Validates without errors. But expected not to pass")
+       case NotPassed(error,_) => info("Does not validate as expected")
      }
  }
 

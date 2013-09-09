@@ -31,10 +31,12 @@ case class Driver(
     dataURI: String,
     syntax: String,
     profileName: String,
-    extend: Boolean,
+    expand: Boolean,
     imports: Boolean) {
 
- def validate : (ValidationReport[Model],Model) = {
+ type VReport = ValidationReport[Model,Seq[Validator],(Seq[Validator],Seq[Validator])]
+ 
+ def validate : (VReport,Model) = {
    val ontology = JenaUtils.parseFromURI(ontologyURI)
    val data 	= JenaUtils.parseFromURI(dataURI)
    data.add(ontology)
@@ -44,12 +46,7 @@ case class Driver(
      case _ => throw new RuntimeException("validate: Unknown profile " + profileName)
    }
    
-   val expanded = if (extend) profile.expand(data)
-                  else data
-
-   val report = if (extend) profile.validateExpanded(expanded)
-                else profile.validate(data)
-   (report,expanded)
+   profile.validate(data,expand,imports)
  }
 }
 

@@ -19,6 +19,7 @@ import scala.io.Source
 import es.weso.utils._
 import es.weso.computex.Passed
 import es.weso.computex.NotPassed
+import es.weso.computex.profile.VReport._
 
 class ProfileParserSuite 
 	extends FunSpec 
@@ -62,36 +63,39 @@ class ProfileParserSuite
   it("Should validate demo of RDF Data Cube profile") {
      val profile 	= Profile.Cube
      val model 		= JenaUtils.parseFromURI(demoCubeURI)
-     profile.validateExpanded(model) match {
-       case Passed => info("Validates")
-       case NotPassed(model) => fail("Does not validate " + model)
+     profile.validate(model) match {
+       case (Passed(_),_) => info("Validates")
+       case vr@(NotPassed(model,(vs,nvs)),_) => 
+         fail("Does not validate " + VReport.show(vr._1))
      }
    }
 
   it("Should validate computex demo with RDF Data Cube profile") {
      val profile 	= Profile.Cube
      val model 		= JenaUtils.parseFromURI(demoComputexURI)
-     profile.validateExpanded(model) match {
-       case Passed => info("Validates")
-       case NotPassed(model) => fail("Does not validate " + model)
+     profile.validate(model) match {
+       case (Passed(_),_) => info("Validates")
+       case vr@(NotPassed(model,_),_) => 
+         fail("Does not validate " + VReport.show(vr._1))
      }
    }
   
   it("Should validate cube demo with Computex profile") {
      val profile 	= Profile.Computex
      val model 		= JenaUtils.parseFromURI(demoCubeURI)
-     profile.validateExpanded(model) match {
-       case Passed => info("Validates")
-       case NotPassed(model) => fail("Does not validate " + model)
+     profile.validate(model) match {
+       case (Passed(_),_) => info("Validates")
+       case (NotPassed(model,_),_) => fail("Does not validate " )
      }
    }
 
   it("Should validate computex demo with Computex profile") {
      val profile 	= Profile.Computex
      val model 		= JenaUtils.parseFromURI(demoComputexURI)
-     profile.validateExpanded(model) match {
-       case Passed => info("Validates")
-       case NotPassed(model) => fail("Does not validate " + model)
+     profile.validate(model) match {
+       case (Passed(_),_) => info("Validates")
+       case vr@(NotPassed(model,_),_) => 
+         fail("Does not validate " + VReport.show(vr._1, false))
      }
    }
   

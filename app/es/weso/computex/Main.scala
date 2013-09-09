@@ -7,7 +7,7 @@ import com.hp.hpl.jena.query._
 import com.hp.hpl.jena.query.Query._
 import com.hp.hpl.jena.ontology.OntModelSpec._
 import org.slf4j._
-import com.hp.hpl.jena.rdf.model._
+import com.hp.hpl.jena.rdf.model.Model
 import org.rogach.scallop._
 import com.typesafe.config._
 import es.weso.utils.JenaUtils
@@ -36,16 +36,21 @@ class Opts(arguments: Array[String],
     val profile = opt[String]("profile",
     				default=Some("Cube"),
     				descr = "Profile used to validate: Cube, Computex")
-    val extend  = toggle("extend", 
+    val expand 	= toggle("expand", 
     				prefix = "no-", 
     				default = Some(true),
-    				descrYes = "enable extension queries", 
-        			descrNo = "disable extension queries")
+    				descrYes = "expand model before validation", 
+        			descrNo  = "disable model expansion before validation")
     val imports  = toggle("imports", 
     				prefix = "no-",
     				default = Some(true),
     				descrYes = "enable profile imports", 
         			descrNo = "disable profile imports")
+    val showModel  = toggle("show", 
+    				prefix = "no-",
+    				default = Some(false),
+    				descrYes = "show model validated", 
+        			descrNo = "don't show model validated")
     val output  = opt[String]("out",
     				descr = "Output model to file")
     val report  = opt[String]("report",
@@ -74,15 +79,21 @@ object Main extends App {
 		  opts.data(),
 		  opts.syntax(),
 		  opts.profile(),
-		  opts.extend(),
+		  opts.expand(),
 		  opts.imports())
 	   println("Driver: " + driver)
        val (report,model) = driver.validate
        report match {
-         case Passed => println("Valid")
-         case NotPassed(reportModel) => showModel(opts.report.get,reportModel,"TURTLE","Report")
+         case Passed(vs) => println("Valid. " + vs.length + " validators passed\n")
+         case NotPassed(reportModel,(vs,nvs)) => 
+           showModel(opts.report.get,reportModel,"TURTLE","Report")
+           println("Not valid: ")
+           println(vs.length + " validators passed")
+           println(nvs.length + " validators didn't pass")
        }
+       if (opts.showModel()) {
        showModel(opts.output.get,model,"TURTLE","Model")
+       }
      } catch {
   	    case e: Exception => println("Exception:" + e)
   	 }
@@ -114,4 +125,7 @@ object Main extends App {
   }
  }
   
+ def showValidators (vals: Seq[Validator]) : String = {
+   vals.foldLeft("")((r,v) => v.name + "\n" + r)
+ }
 } 

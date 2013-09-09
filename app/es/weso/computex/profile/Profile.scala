@@ -12,7 +12,7 @@ import es.weso.computex.Expander
 import es.weso.computex.Validator
 import es.weso.utils.ConfigUtils
 import scala.io.Source
-
+import es.weso.computex.profile.VReport._
 /**
  * Contains a validation query. 
  * Validation queries have a name and a SPARQL CONSTRUCT query which constructs
@@ -26,6 +26,7 @@ case class Profile(
     val name: String = "",
     val uri: String = ""
     ) {
+
 
   /*
    * Retrieves all the validators from the imported profiles
@@ -50,40 +51,51 @@ case class Profile(
 
   private def combineExpansion(model: Model, expander: Expander) : Model = {
     expander.expand(model) match {
-      case None => throw new Exception("Cannot expand model " + model + " with expander " + expander)
+      case None => 
+        throw 
+        new Exception("Cannot expand model " + model + " with expander " + expander)
       case Some(newModel) => newModel
     }
   }
 
   
   /**
-   *  Validates a model using this profile
+   *  Validates a model using this profile. Returns a validation report and 
+   *     the model that has been evaluated
+   *  @param Model to validate
+   *  @param expandBefore if true applies expanders before validation
+   *  @param imports if true applies imports 
    */
-  def validate(model:Model) : ValidationReport[Model] = {
-    allValidators.foldLeft(Passed : ValidationReport[Model])(combineReport(model))
+  def validate(model:Model, expandBefore: Boolean = true, imports: Boolean = true) : 
+	  (VReport,Model) = {
+    val expanded = if (expandBefore) expand(model)
+    			   else model
+    val vals 	 = if (imports) allValidators
+    			   else validators
+    ((vals.foldLeft(Passed(Seq()) : VReport)(combineReport(model))),expanded)
   }
 
   /*
    * Combines a report with the result of a validator applied to a model
+   * It takes into account which validators have passed and which didn't
    */
   private def combineReport(model: Model)
-    	(r: ValidationReport[Model], v: Validator) : 
-    		ValidationReport[Model] = {
+    	(r: VReport, v: Validator) : 
+    		VReport = {
       v.validate(model) match {
-        case Passed => r
-        case NotPassed(m1) => r match {
-          case Passed => Passed
-          case NotPassed(m2) => NotPassed(m1.add(m2))
+        case Passed(v) => r match {
+          case Passed(vs) => 
+            Passed(v +: vs)
+          case NotPassed(m,(vs,nvs)) => 
+            NotPassed(m,(v +: vs,nvs))
+        }
+        case NotPassed(m1,v) => r match {
+          case Passed(vs) => 
+            NotPassed(m1, (vs, Seq(v)))
+          case NotPassed(m2,(vs,nvs)) => 
+            NotPassed(m1.add(m2),(vs, v +: nvs))
         }
       }
-  }
-
-  /*
-   * Validate a model after its expansion
-   */
-  def validateExpanded(model: Model) : ValidationReport[Model] = {
-    val expanded = expand(model)
-    validate(expanded)
   }
 
   override def toString : String = {
@@ -96,7 +108,7 @@ case class Profile(
 }
 
 object Profile {
-
+  
   val conf 				= ConfigFactory.load()
     
   def Cube : Profile = {
