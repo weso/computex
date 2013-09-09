@@ -5,14 +5,15 @@
 @import scala.io.Source._
 @import scala.io.Codec._
 
-@if(message.ss){
+@if(message.showSource){
 		<div id="source">
 		<h3>Source Listing</h3>
-		<p>Below is the source input I used for this validation:</p>
+		<p>Source:</p>
 		<pre>
 			<code class="prettyprint lang-sparql">
 			@for(line <- fromInputStream(message.contentIS)(message.charset).getLines){
-				@line.trim
+				@line
+				<p>Hola</p>
 			}
 			</code>
 		</pre>

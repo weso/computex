@@ -2,14 +2,13 @@ package controllers
 
 import java.io.FileNotFoundException
 import java.io.IOException
-
 import es.weso.computex.Computex
 import es.weso.computex.entities.CMessage
 import es.weso.computex.entities.CMessage.Msg404
 import es.weso.computex.entities.CMessage.MsgBadFormed
 import es.weso.computex.entities.CMessage.MsgEmpty
 import es.weso.computex.entities.CMessage.Uri
-import es.weso.utils.JenaUtils.Turtle
+import es.weso.utils.JenaUtils._
 import play.api.data.Form
 import play.api.data.Forms.mapping
 import play.api.data.Forms.number
@@ -17,18 +16,23 @@ import play.api.data.Forms.optional
 import play.api.data.Forms.text
 import play.api.mvc.Action
 import play.api.mvc.Controller
+import es.weso.utils.JenaUtils
 
 object URIController extends Controller with Base {
 
-  case class UriPath(val uri: Option[String], val format: Option[String], val ss: Option[Int], val verbose: Option[Int], val expand: Option[Int])
+  // TODO: change to boolean values showSource, verbose, etc
+  case class UriPath(val uri: Option[String], val format: Option[String], val showSource: Option[Int], val verbose: Option[Int], val expand: Option[Int])
   
   val uriForm: Form[UriPath] = Form(
     mapping(
-      "uri" -> optional(text),
-      "doctype" -> optional(text),
-      "ss" -> optional(number),
-      "verbose" -> optional(number),
-      "expand" -> optional(number))(UriPath.apply)(UriPath.unapply))
+      "uri" 		-> optional(text),
+      "doctype" 	-> optional(text),
+      "showSource" 	-> optional(number),  // TODO: should be booleans
+      "verbose" 	-> optional(number),
+      "expand" 		-> optional(number))
+      (UriPath.apply)
+      (UriPath.unapply)
+    )
 
   def byUriGET(uriOpt: Option[String]) = Action {
     implicit request =>
@@ -42,15 +46,17 @@ object URIController extends Controller with Base {
         uriPath => {
           val uri = uriPath.uri.getOrElse(null)
           if (uri != null) {
-            message.content = if (!uri.startsWith("http://")) {
+            message.content = uri 
+            // TODO: I removed the following code. Check behaviour with relative URIs
+            /* if (!uri.startsWith("http://")) {
               if (!uri.startsWith("https://")) {
                 "http://" + uri
               } else { uri }
-            } else { uri }
+            } else { uri } */
             try {
-              message.contentIS = Computex.loadFile(message.content)
+              message.contentIS = JenaUtils.dereferenceURI(message.content)
               message.contentFormat = uriPath.format.getOrElse(Turtle)
-              message.ss = uriPath.ss.getOrElse(0) != 0
+              message.showSource = uriPath.showSource.getOrElse(0) != 0
               message.verbose = uriPath.verbose.getOrElse(0) != 0
               message.expand = uriPath.expand.getOrElse(0) != 0
               message = validateStream(message)

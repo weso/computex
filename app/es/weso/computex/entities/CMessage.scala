@@ -13,22 +13,28 @@ import org.apache.commons.io.IOUtils
 import java.io.BufferedReader
 import play.api.Logger
 
+// TODO...this case class contains a lot of vars that I think we could remove
 case class CMessage(val action: String) {
   
-  var message: 	String 		= CMessage.MsgOK
-  var content: 	String 		= null
+  // TODO....try to remove the use of var's
+  var message: 		 String = CMessage.MsgOK
+  var content: 		 String = null
   var contentFormat: String = JenaUtils.TTL
 
-  var verbose 	= false
-  var ss 		= false
-  var expand 	= false
+  var verbose 	 = false
+  var showSource = false
+  var expand 	 = false
 
+  // Try to remove the use of var's and null's !!!
   private var _contentIS: String = null
   private var _contentCharset: Charset = null
   private var _integrityQueries: Array[CIntegrityQuery] = Array.empty
 
-  def integrityQueries_=(iq: Array[CIntegrityQuery]): Unit = _integrityQueries = iq
-  def integrityQueries: Array[CIntegrityQuery] = _integrityQueries.sortWith(_.query.name < _.query.name)
+  def integrityQueries_=(iq: Array[CIntegrityQuery]): Unit = 
+    _integrityQueries = iq
+  
+  def integrityQueries: Array[CIntegrityQuery] = 
+    _integrityQueries.sortWith(_.query.name < _.query.name)
 
   def size = _integrityQueries.map(_.size).foldLeft(0)(_ + _)
 
@@ -38,7 +44,7 @@ case class CMessage(val action: String) {
     case _ => CMessage.Invalid
   }
 
-  def contentIS_=(is: InputStream): Unit = {
+  def contentIS_= (is: InputStream): Unit = {
     val charsetDecoder = Charset.forName("UTF-8").newDecoder();
     charsetDecoder.onMalformedInput(CodingErrorAction.REPLACE);
     charsetDecoder.onUnmappableCharacter(CodingErrorAction.REPLACE);

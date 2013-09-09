@@ -100,6 +100,7 @@ case class Computex(
 
   }
 
+  // This is only needed to obtain the list of expanders...can be removed
   def getSteps(model: Model): List[String] = {
     val file = new File(findStepsQuery)
     val query = readQuery(file)
@@ -112,11 +113,13 @@ case class Computex(
     }
   }
 
-  def collect(varName: String, result: ResultSet): List[String] = {
+  // helper for getSteps
+  private def collect(varName: String, result: ResultSet): List[String] = {
     val ls = result.toList
     ls.map(r => r.getLiteral(varName).getString)
   }
 
+  // Old style validation
   def validate2Model(model: Model, validationDir: String): Model = {
     val reportModel = ModelFactory.createDefaultModel 
     val dir = new File(validationDir)
@@ -124,18 +127,20 @@ case class Computex(
       vDir <- dir.listFiles.filter(_.isDirectory())
       cq <- readQueries(vDir)
     } {
-      reportModel.add(executeQuery(model, cq.query))
+      reportModel.add(executeConstructQuery(model, cq.query))
     }
     reportModel
   }
 
+  // For each validator generates an CIntegrityQuery
+  // Replace this validation Reports
   def validate(model: Model, validationDir: String): Array[CIntegrityQuery] = {
     val dir = new File(validationDir)
     val iQueries: Array[CIntegrityQuery] = 
     for {
       vDir <- dir.listFiles.filter(_.isDirectory())
       cq <- readQueries(vDir)
-      currentModel = executeQuery(model, cq.query)
+      currentModel = executeConstructQuery(model, cq.query)
     } yield {
       currentModel.setNsPrefixes(model)
       Parser.parse(cq, currentModel)
@@ -143,6 +148,7 @@ case class Computex(
     iQueries
   }
 
+  // Should be replaced by Profiles
   def readQueries(dir: File): Array[CQuery] = {
     val pattern = """q(.+)-.*.sparql""".r
     if (dir == null || dir.listFiles == null)
@@ -158,12 +164,14 @@ case class Computex(
     }
   }
 
+  // maybe not necessary
   def readQuery(file: File): Query = {
     val contents = scala.io.Source.fromFile(file).mkString;
     QueryFactory.create(contents)
   }
 
-  def executeQuery(model: Model, query: Query): Model = {
+  // helper model...to JenaUtils
+  def executeConstructQuery(model: Model, query: Query): Model = {
     val resultModel = ModelFactory.createDefaultModel
     val qexec = QueryExecutionFactory.create(query, model)
     qexec.execConstruct(resultModel)

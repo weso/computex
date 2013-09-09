@@ -1,0 +1,43 @@
+\section{Other queries}
+
+\subsection{Ranking}
+Suppose I have the following triples:
+
+\begin{lstlisting}[style=SPARQL]
+:A :value 60 .
+:B :value 23 .
+:C :value 89 .
+:D :value 34 .
+\end{lstlisting}
+
+and I want to obtain a ranking where C would be 1, A 2, D 3 and B 4.
+
+The ranking can be obtained as:
+
+\begin{lstlisting}[style=SPARQL]
+SELECT ?x ?v ?ranking { 
+ ?x :value ?v .
+ { SELECT (GROUP_CONCAT(?x;separator="") as ?ordered) {
+    { SELECT ?x {
+       ?x :value ?v .
+      } ORDER BY DESC(?v)
+    }
+   }
+ }
+ BIND (str(?x) as ?xName)
+ BIND (strbefore(?ordered,?xName) as ?before) 
+ BIND ((strlen(?before) / strlen(?xName)) + 1 as ?ranking)
+} ORDER BY ?ranking
+\end{lstlisting}
+
+Anothre solution by Joshua Taylor would be:
+
+\begin{lstlisting}[style=SPARQL]
+SELECT ?x ?v (COUNT(*) as ?ranking) WHERE {
+  ?x :value ?v .
+  [] :value ?u .
+  FILTER( ?v <= ?u )
+}
+GROUP BY ?x ?v
+ORDER BY ?ranking
+\end{lstlisting}

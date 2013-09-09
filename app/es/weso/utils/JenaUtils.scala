@@ -16,6 +16,8 @@ import com.hp.hpl.jena.rdf.model.RDFNode
 import com.hp.hpl.jena.rdf.model.Property
 import java.net.URI
 import java.net.URL
+import java.io.InputStream
+import java.io.FileOutputStream
 
 object JenaUtils {
 
@@ -62,17 +64,20 @@ object JenaUtils {
     } else resource
   }
 
+  def dereferenceURI( uri: String ) : InputStream = {
+    val url = new URL(uri)
+    val urlCon = url.openConnection()
+    urlCon.setConnectTimeout(4000)
+    urlCon.setReadTimeout(2000)
+    urlCon.getInputStream()
+  }
+  
   def parseFromURI(
       uriName: String,
       base: String = "",
       syntax: String = Turtle) : Model = {
     val model = ModelFactory.createDefaultModel()
-    val url = new URL(uriName)
-    val urlCon = url.openConnection()
-    urlCon.setConnectTimeout(4000)
-    urlCon.setReadTimeout(2000)
-    val input = urlCon.getInputStream()
-    model.read(input,base,syntax)
+    model.read(dereferenceURI(uriName),base,syntax)
   }
   
   /**
@@ -185,5 +190,14 @@ object JenaUtils {
     strWriter.toString
   }
 
+  /*
+   * Write a model to a file
+   */
+  def model2File(
+		  model: Model, 
+		  fileName : String,
+		  syntax: String = Turtle) : Unit = {
+    model.write(new FileOutputStream(fileName),syntax)
+  }
 
 }

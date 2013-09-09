@@ -32,8 +32,8 @@
 					<option value="N3" @if(message.contentFormat equals N3){selected="selected"}>N3</option>
 				</select>
 	      	</p>
-	      	<p class="instructions">
-	      		<input type="checkbox" value="1" id="ss" name="ss" @if(message.ss){checked="checked"}>
+			<p class="instructions">
+	      		<input type="checkbox" value="1" id="showSource" name="showSource" @if(message.showSource){checked="checked"}>
 	      		<label title="Show Page Source" for="ss">Show&nbsp;Source</label>
 	      	</p>
 	      	<p class="instructions">
@@ -44,8 +44,9 @@
 	      		<input type="checkbox" value="1" id="expand" name="expand" @if(message.expand){checked="checked"}>
 	      		<label title="Expand Computex" for="verbose">Expand&nbsp;Computex</label>
 	      	</p>
-			<p class="submit_button">
-				<input type="submit" title="Submit for validation" value="Check" class="button"/>
+	      	<p class="submit_button">
+				<input type="submit" 
+					   title="Submit for validation" value="Check" class="button"/>
 			</p>
 		}
 	</div>

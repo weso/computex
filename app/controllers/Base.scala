@@ -15,6 +15,7 @@ import play.api.mvc.RequestHeader
 
 trait Base extends Controller {
 
+  
   def validateStream(message: CMessage)(implicit request: RequestHeader): CMessage = {
     
     val conf: Config = ConfigFactory.load()
@@ -36,8 +37,10 @@ trait Base extends Controller {
       }
 
     } catch {
-      case e: AtlasException => message.message = s"${MsgBadFormed} as ${message.contentFormat}<br/>${e.getMessage}"
-      case e: RiotException => message.message =  s"${MsgBadFormed} as ${message.contentFormat}<br/>${e.getMessage}"
+      case e: AtlasException => 
+        message.message = s"${MsgBadFormed} as ${message.contentFormat}<br/>${e.getMessage}"
+      case e: RiotException => 
+        message.message =  s"${MsgBadFormed} as ${message.contentFormat}<br/>${e.getMessage}"
     }
     message
   }

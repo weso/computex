@@ -10,10 +10,11 @@
 cex:computex a cex:ValidationProfile ;
    cex:name "Computex" ;
    cex:import profileURI:cube.ttl ;
-   cex:expandQuery 
-	 	[ cex:name "Adjust values" ; 
+   cex:expandSteps 
+      ( [ cex:name "Adjust values" ; 
 	 	  cex:uri cexURIExpand:q1-Adjust.sparql 
-	 	] ;
+	 	] 
+	  ) ;
    cex:integrityQuery 
 	    [ cex:name "Adjusted computation must have a value" ;
 	      cex:uri	cexURI:q1-adjustedValueExistsObs.sparql 

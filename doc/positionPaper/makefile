@@ -4,6 +4,8 @@ pdf		:
 	pdflatex -quiet document.tex
 	pdflatex -quiet document.tex
 	
+extended		:
+	pdflatex -quiet extended.tex
 
 step: 
 	pdflatex document.tex

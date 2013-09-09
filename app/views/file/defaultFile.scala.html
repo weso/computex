@@ -22,6 +22,13 @@
 	      		<input type="file" id="uploaded_file" name="uploaded_file"/>
 	      	</p>
 	      	<p class="instructions">
+				<label for="profile">Profile:</label>
+				<select id="profile" name="profile">
+					<option value="RDF Data Cube">RDF Data Cube</option>
+					<option value="Computex">Computex</option>
+			    </select>
+			</p>
+	      	<p class="instructions">
 				<label for="direct-doctype">Use Doctype:</label>
 				<select id="direct-doctype" name="doctype">
 					<option value="RDF/XML" @if(message.contentFormat equals RdfXML){selected="selected"}>RDF/XML</option>
@@ -33,7 +40,7 @@
 				</select>
 	      	</p>
 	      	<p class="instructions">
-	      		<input type="checkbox" value="1" id="ss" name="ss" @if(message.ss){checked="checked"}>
+	      		<input type="checkbox" value="1" id="showSource" name="showSource" @if(message.showSource){checked="checked"}>
 	      		<label title="Show Page Source" for="ss">Show&nbsp;Source</label>
 	      	</p>
 	      	<p class="instructions">
@@ -44,7 +51,7 @@
 	      		<input type="checkbox" value="1" id="expand" name="expand" @if(message.expand){checked="checked"}>
 	      		<label title="Expand Computex" for="verbose">Expand&nbsp;Computex</label>
 	      	</p>
-			<p class="submit_button">
+	      	<p class="submit_button">
 				<input type="submit" title="Submit for validation" value="Check" class="button"/>
 			</p>
 		}

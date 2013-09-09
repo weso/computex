@@ -27,7 +27,6 @@ case class Profile(
     val uri: String = ""
     ) {
 
-
   /*
    * Retrieves all the validators from the imported profiles
    */
@@ -49,7 +48,7 @@ case class Profile(
     allExpanders.foldLeft(model)(combineExpansion)
   }
 
-  def combineExpansion(model: Model, expander: Expander) : Model = {
+  private def combineExpansion(model: Model, expander: Expander) : Model = {
     expander.expand(model) match {
       case None => throw new Exception("Cannot expand model " + model + " with expander " + expander)
       case Some(newModel) => newModel

@@ -8,14 +8,17 @@
 
 cex:cube a cex:ValidationProfile ;
    cex:name "RDF Data Cube" ;
-   cex:expandQuery 
-	 	[ cex:name "Flatten" ; 
+
+   # We use a collection for expandSteps because their order is significant
+   cex:expandSteps 
+	 	([ cex:name "Flatten" ; 
 	 	  cex:uri cubeURIExpand:flatten.ru 
-	 	] ;
-   cex:expandQuery 
-        [ cex:name "Closure" ; 
+	 	 ] 
+         [ cex:name "Closure" ; 
           cex:uri cubeURIExpand:closure.ru  
-        ] ;
+         ]
+        ) ;
+   # Integrity queries from RDF Data Cube
    cex:integrityQuery 
 	    [ cex:name "IC-1. Unique DataSet (Q1a)" ;
 	      cex:uri	cubeURI:q1a-integrity.sparql 
