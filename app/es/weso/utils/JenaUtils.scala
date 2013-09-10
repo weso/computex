@@ -86,14 +86,16 @@ object JenaUtils {
   def parseModel(
       str: String,
 	  base: String = "",
-	  syntax: String = Turtle) : Option[Model] = {
+	  syntax: String = Turtle) : Model = {
     try {
       val model = ModelFactory.createDefaultModel()
       val stream = new ByteArrayInputStream(str.getBytes("UTF-8"))
       model.read(stream,base,syntax)
-      Some(model)
+      model
     } catch {
-      case e: Exception => None
+      case e: Exception => {
+        throw new Exception("Cannot parse model . Exception: " + e + "\nStr = " + str)
+      }
     }
   } 
     

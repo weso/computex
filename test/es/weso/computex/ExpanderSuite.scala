@@ -39,8 +39,8 @@ class ExpanderSuite
                |:o1 a qb:Observation .
        		   |:a qb:observation :o1 .""".stripMargin
                    
-     val model 		= parseModel(strModel).get
-     val expected	= parseModel(strExpected).get
+     val model 		= parseModel(strModel)
+     val expected	= parseModel(strExpected)
      val updateReq  = UpdateFactory.create(query)
      val expander 	= Expander(updateReq,"expander")
      expander.expand(model) match {

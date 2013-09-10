@@ -21,6 +21,7 @@ INSERT {
  _:obs a qb:Observation ;
        cex:value ?adjusted ;
        cex:indicator ?indicator ;
+       qb:dataSet ?dataSetToCopy ;
 	   ?dim ?valueDim ;
 	   wi-onto:ref-area ?area ;
 	   sdmx-concept:obsStatus cex:Adjusted ;

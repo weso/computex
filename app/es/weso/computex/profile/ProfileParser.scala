@@ -20,6 +20,7 @@ case class ProfileParser(profile : Model) {
 
   val rdf_type 				= profile.createProperty(PREFIXES.rdf + "type")
   val cex_ValidationProfile = profile.createProperty(PREFIXES.cex + "ValidationProfile")
+  val cex_ontologyBase		= profile.createProperty(PREFIXES.cex + "ontologyBase")
   val cex_import 			= profile.createProperty(PREFIXES.cex + "import")
   val cex_integrityQuery 	= profile.createProperty(PREFIXES.cex + "integrityQuery")
   val cex_expandQuery 		= profile.createProperty(PREFIXES.cex + "expandQuery")
@@ -80,6 +81,10 @@ case class ProfileParser(profile : Model) {
     JenaUtils.getLiteral(resource, cex_name)
   }
 
+  def base(resource: Resource): URI = {
+    JenaUtils.getObjectURI(resource, cex_ontologyBase)
+  }
+
   def uri(resource: Resource): String = {
     resource.getURI
   }
@@ -94,13 +99,9 @@ case class ProfileParser(profile : Model) {
         throw new Exception("imports: URI " + uri + " already visited. List of visited uris = " + visited)
       } else {
         val contents = Source.fromURI(uri).mkString
-        JenaUtils.parseModel(contents) match {
-          case None => throw new Exception("Cannot parse model from URI " + uri)
-          case Some(model) => {
-            val profiles = ProfileParser.fromModel(model,uri +: visited) 
-            seq ++= profiles.map(p => (uri,p))
-          }
-        }
+        val model = JenaUtils.parseModel(contents) 
+        val profiles = ProfileParser.fromModel(model,uri +: visited) 
+        seq ++= profiles.map(p => (uri,p))
       }
     }
     seq.result
@@ -110,14 +111,15 @@ case class ProfileParser(profile : Model) {
     val seq = Vector.newBuilder[Profile]
     val iter = profile.listStatements(null,rdf_type,cex_ValidationProfile) 
     while (iter.hasNext) {
-      val s = iter.next
-      val r = s.getSubject()
-      val n    = name(r)
-      val u    = uri(r)
-      val vals = validators(r)
-      val exps = expanders(r)
-      val imps = imports(r, new URI(r.getURI) +: visited)
-      seq += Profile(vals,exps,imps,n,u)
+      val s 	= iter.next
+      val r 	= s.getSubject()
+      val n    	= name(r)
+      val u    	= uri(r)
+      val b 	= base(r)
+      val vals 	= validators(r)
+      val exps 	= expanders(r)
+      val imps 	= imports(r, new URI(r.getURI) +: visited)
+      seq += Profile(b,vals,exps,imps,n,u)
     }
     seq.result
   }
@@ -143,13 +145,14 @@ object ProfileParser {
     val m= ModelFactory.createDefaultModel
     m.setNsPrefixes(PREFIXES.cexMapping)
     val root = m.createResource(profile.uri)
-    val rdf_type 			 = m.createProperty(PREFIXES.rdf + "type")
-    val rdf_List 			 = m.createProperty(PREFIXES.rdf + "List")
-    val rdf_first 			 = m.createProperty(PREFIXES.rdf + "first")
-    val rdf_rest 			 = m.createProperty(PREFIXES.rdf + "rest")
-   	val cex_ValidationProfile = m.createProperty(PREFIXES.cex + "ValidationProfile")
-   	val cex_import 			= m.createProperty(PREFIXES.cex + "import")
-    val cex_integrityQuery 	= m.createProperty(PREFIXES.cex + "integrityQuery")
+    val rdf_type 			 	= m.createProperty(PREFIXES.rdf + "type")
+    val rdf_List 			 	= m.createProperty(PREFIXES.rdf + "List")
+    val rdf_first 			 	= m.createProperty(PREFIXES.rdf + "first")
+    val rdf_rest 			 	= m.createProperty(PREFIXES.rdf + "rest")
+   	val cex_ontologyBase	 	= m.createProperty(PREFIXES.cex + "ontologyBase")
+   	val cex_ValidationProfile 	= m.createProperty(PREFIXES.cex + "ValidationProfile")
+   	val cex_import 				= m.createProperty(PREFIXES.cex + "import")
+    val cex_integrityQuery 		= m.createProperty(PREFIXES.cex + "integrityQuery")
   	val cex_expandQuery 		= m.createProperty(PREFIXES.cex + "expandQuery")
   	val cex_expandSteps 		= m.createProperty(PREFIXES.cex + "expandSteps")
   	val cex_name 				= m.createProperty(PREFIXES.cex + "name")
@@ -157,6 +160,8 @@ object ProfileParser {
   	
     m.add(root,rdf_type,cex_ValidationProfile)
     m.add(root,cex_name,profile.name)
+    val uriBase = m.createResource(profile.ontologyBase.toString)
+    m.add(root,cex_ontologyBase,uriBase)
     for (i <- profile.imports) {
       val uri = m.createResource(i._1.toString)
       m.add(root,cex_import,uri)

@@ -14,12 +14,21 @@ import java.io.FileOutputStream
 import java.io.File
 import java.io.StringWriter
 import es.weso.utils.JenaUtils._
+import es.weso.utils.ConfigUtils
+import es.weso.utils.JenaUtils
+import scala.io.Source
+import java.net.URI
 
 class ValidatorSuite 
 	extends FunSpec 
 	with SparqlSuite 
 	with ShouldMatchers {
- describe("Validator object") {
+
+  val conf : Config = ConfigFactory.load()
+  val demoCubeURI	= ConfigUtils.getName(conf,"demoCubeURI")
+  val cubeDataDir   = ConfigUtils.getName(conf,"cubeDataDir")
+  
+  describe("Validator object") {
    it("Should not validate a query without values for observations") {
      val queryStr = """|prefix cex: <http://purl.org/weso/ontology/computex#>
                     |prefix : <http://example.org#>
@@ -35,7 +44,7 @@ class ValidatorSuite
                    |:o1 a :Observation .
                    |""".stripMargin
                    
-     val model 		= parseModel(data).get
+     val model 		= parseModel(data)
      val validator 	= Validator(queryStr)
      shouldNotPassReport(validator.validate(model))
    }
@@ -56,17 +65,22 @@ class ValidatorSuite
        			   |    cex:value 1 .
                    |""".stripMargin
                    
-     val model 		= parseModel(data).get
+     val model 		= parseModel(data)
      val validator 	= Validator(queryStr)
      shouldPassReport(validator.validate(model))
    }
-}
- 
-  describe("Validators") {
-   it("Should not validate a query without values for observations") {
-   }
+  
+    it("Should pass q13-integrity with RDF Data Cube demo.ttl") {
+      val model = JenaUtils.parseFromURI(demoCubeURI)
+      val queryStr = Source.fromFile(cubeDataDir + "q13-integrity.sparql").mkString
+      val validator = Validator(queryStr)
+      shouldPassReport(validator.validate(model))
+    }
+  
   }
  
+  
+  
  def shouldPassReport(report: ValidationReport[Model,Validator,Validator]) : Unit = {
      report match {
        case Passed(_) => info("Validates without errors")

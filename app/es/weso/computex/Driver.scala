@@ -25,6 +25,8 @@ import play.api.Logger
 import es.weso.computex.entities.CQuery
 import es.weso.utils.JenaUtils
 import es.weso.computex.profile.Profile
+import es.weso.computex.profile.ProfileParser
+import scala.io.Source
 
 case class Driver(
     ontologyURI: String,
@@ -43,7 +45,11 @@ case class Driver(
    val profile = profileName match {
      case "Cube" 	 => Profile.Cube
      case "Computex" => Profile.Computex
-     case _ => throw new RuntimeException("validate: Unknown profile " + profileName)
+     case _ => {
+    	 val contents 	= Source.fromFile(profileName).mkString
+    	 val model 		= JenaUtils.parseModel(contents)
+    	 ProfileParser.fromModel(model)(0)
+     }
    }
    
    profile.validate(data,expand,imports)

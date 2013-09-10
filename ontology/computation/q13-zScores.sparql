@@ -32,7 +32,7 @@ INSERT {
 			.
  ?sliceToCopy qb:observation _:obs .
 } WHERE { 
-  ?datasetNormalized a qb:DataSet ;
+  ?dataSetNormalized a qb:DataSet ;
 	      cex:computation [ a cex:NormalizeDataSet ;
 						    cex:dataSet ?dataSet ;
 					      ] ;

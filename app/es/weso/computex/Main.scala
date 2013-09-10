@@ -15,15 +15,12 @@ import org.rogach.scallop.exceptions.Help
 import org.rogach.scallop.exceptions.ScallopException
 import org.rogach.scallop.exceptions.RequiredOptionNotFound
 
-
 class Opts(arguments: Array[String],
     onError: (Throwable, Scallop) => Nothing
     ) extends ScallopConf(arguments) {
 
     banner("""| Compute and/or validate RDF Data
-              | Options: --data <uri>
-              |          --profile <uri>
-              | For usage see below:
+              | Options:
               |""".stripMargin)
     footer("Enjoy!")
     version("Computex 0.1")
@@ -35,7 +32,7 @@ class Opts(arguments: Array[String],
         			descr = "Turtle, N-TRIPLES, RDF/XML")
     val profile = opt[String]("profile",
     				default=Some("Cube"),
-    				descr = "Profile used to validate: Cube, Computex")
+    				descr = "Profile used to validate: [Cube, Computex, <anyURI>]")
     val expand 	= toggle("expand", 
     				prefix = "no-", 
     				default = Some(true),

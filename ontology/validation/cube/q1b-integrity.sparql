@@ -12,11 +12,13 @@ prefix cex: 		   <http://purl.org/weso/ontology/computex#>
 CONSTRUCT {
  _:error a cex:Error .
  _:error cex:errorParam 
-	[cex:name "obs"; cex:value ?obs] .
+	[cex:name "obs"; cex:value ?obs] ,
+	[cex:name "value"; cex:value ?value] .
  _:error cex:msg "Observation must have a data set" .
 } WHERE {
     # Check observation has a data set
     ?obs a qb:Observation .
+    ?obs cex:value ?value .
     FILTER NOT EXISTS { ?obs qb:dataSet ?dataset1 . }
 } 
 
