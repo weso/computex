@@ -12,7 +12,7 @@
 		<pre>
 			<code class="prettyprint lang-sparql">
 			@for(line <- fromInputStream(message.contentIS)(message.charset).getLines){
-				@line.trim
+@line
 			}
 			</code>
 		</pre>

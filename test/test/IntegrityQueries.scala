@@ -79,6 +79,32 @@ class IntegrityQueries extends Specification with BeforeExample {
     }
 
   }
+  
+    "Processing 'badCopyNoSource.ttl' file " should {
+    val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/badCopyNoSource.ttl")
+
+    "must fail only one integrity query" in {
+      map must size(1)
+    }
+
+    val iq: CIntegrityQuery = map.getOrElse("5", null)
+
+    "error message should be 'Observation does not have value in copy'" in {
+      println(iq.message)
+      iq.message must equalTo("Observation does not have value in copy")
+    }
+
+    "must be comprised by only one error message" in {
+      iq.errorMessages must size(1)
+    }
+
+    val cm = iq.errorMessages.head
+
+    " must have '2' parameters" in {
+      cm.params must size(2)
+    }
+
+  }
 
   "Processing 'badIncremented.ttl' file " should {
     val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/badIncremented.ttl")
@@ -105,7 +131,7 @@ class IntegrityQueries extends Specification with BeforeExample {
     }
 
   }
-  
+
   "Processing 'badIncrementedNoValueSource.ttl' file " should {
     val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/badIncrementedNoValueSource.ttl")
 
@@ -131,7 +157,7 @@ class IntegrityQueries extends Specification with BeforeExample {
     }
 
   }
-  
+
   "Processing 'badMean.ttl' file " should {
     val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/badMean.ttl")
 
@@ -157,7 +183,7 @@ class IntegrityQueries extends Specification with BeforeExample {
     }
 
   }
-  
+
   "Processing 'badMeanNoSource.ttl' file " should {
     val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/badMeanNoSource.ttl")
 
@@ -183,29 +209,97 @@ class IntegrityQueries extends Specification with BeforeExample {
     }
 
   }
-  
-  "Processing 'badNormalized.ttl' file " should {
-    val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/badNormalized.ttl")
 
-    "must fail only one integrity query" in {
-      map must size(1)
+  "Processing 'badNormalizedLow.ttl' file " should {
+    val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/badNormalizedLow.ttl")
+
+    "must fail only two integrity queries" in {
+      map must size(2)
     }
 
-    val iq: CIntegrityQuery = map.getOrElse("6", null)
+    val iq8: CIntegrityQuery = map.getOrElse("8", null)
 
-    "error message should be 'Observation does not have value in mean'" in {
-      println(iq.message)
-      iq.message must equalTo("Observation does not have value in mean")
+    "error message should be 'Normalized value does not match computed z-score'" in {
+      println(iq8.message)
+      iq8.message must equalTo("Normalized value does not match computed z-score")
     }
 
     "must be comprised by only one error message" in {
-      iq.errorMessages must size(1)
+      iq8.errorMessages must size(1)
     }
 
-    val cm = iq.errorMessages.head
+    val cm8 = iq8.errorMessages.head
 
-    " must have '2' parameters" in {
-      cm.params must size(2)
+    " must have '4' parameters" in {
+      cm8.params must size(4)
+    }
+    
+    " 'highLow' must be 'http://purl.org/weso/ontology/computex#Low'" in {
+    	cm8.params.filter(_.name == "highLow").head.value must equalTo("http://purl.org/weso/ontology/computex#Low")
+    }
+
+    val iq6a: CIntegrityQuery = map.getOrElse("9a", null)
+
+    "error message should be 'Every Slice must have exactly one sliceStructure'" in {
+      println(iq6a.message)
+      iq6a.message must equalTo("Every Slice must have exactly one sliceStructure")
+    }
+
+    "must be comprised by only one error message" in {
+      iq6a.errorMessages must size(1)
+    }
+
+    val cm6a = iq6a.errorMessages.head
+
+    " must have '1' parameters" in {
+      cm6a.params must size(1)
+    }
+
+  }
+
+  "Processing 'badNormalizedHigh.ttl' file " should {
+    val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/badNormalizedHigh.ttl")
+
+    "must fail only two integrity queries" in {
+      map must size(2)
+    }
+
+    val iq8: CIntegrityQuery = map.getOrElse("8", null)
+
+    "error message should be 'Normalized value does not match computed z-score'" in {
+      println(iq8.message)
+      iq8.message must equalTo("Normalized value does not match computed z-score")
+    }
+
+    "must be comprised by only one error message" in {
+      iq8.errorMessages must size(1)
+    }
+
+    val cm8 = iq8.errorMessages.head
+
+    " must have '4' parameters" in {
+      cm8.params must size(4)
+    }
+    
+    " 'highLow' must be 'http://purl.org/weso/ontology/computex#High'" in {
+    	cm8.params.filter(_.name == "highLow").head.value must equalTo("http://purl.org/weso/ontology/computex#High")
+    }
+
+    val iq6a: CIntegrityQuery = map.getOrElse("9a", null)
+
+    "error message should be 'Every Slice must have exactly one sliceStructure'" in {
+      println(iq6a.message)
+      iq6a.message must equalTo("Every Slice must have exactly one sliceStructure")
+    }
+
+    "must be comprised by only one error message" in {
+      iq6a.errorMessages must size(1)
+    }
+
+    val cm6a = iq6a.errorMessages.head
+
+    " must have '1' parameters" in {
+      cm6a.params must size(1)
     }
 
   }
@@ -313,22 +407,24 @@ class IntegrityQueries extends Specification with BeforeExample {
 
   "Processing 'missingObsNoValues.ttl' file " should {
     val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/missingObsNoValues.ttl")
-    "must pass all integrity queries" in {
-      map must size(0)
+    "must fail only one integrity query" in {
+      map must size(1)
     }
-  }
 
-  "Processing 'obs_noSheet-type.ttl' file " should {
-    val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/obs_noSheet-type.ttl")
-    "must pass all integrity queries" in {
-      map must size(0)
+    val iq: CIntegrityQuery = map.getOrElse("7", null)
+
+    "error message should be 'Observation with Status obsStatus-M (Missing) should not have value'" in {
+      println(iq.message)
+      iq.message must equalTo("Observation with Status obsStatus-M (Missing) should not have value")
     }
-  }
 
-  "Processing 'obs_noValue.ttl' file " should {
-    val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/obs_noValue.ttl")
-    "must pass all integrity queries" in {
-      map must size(0)
+    "must be comprised by only two error message" in {
+      iq.errorMessages must size(1)
+    }
+
+    val cm = iq.errorMessages.head
+    " must have '1' parameters" in {
+      cm.params must size(2)
     }
   }
 
@@ -354,6 +450,51 @@ class IntegrityQueries extends Specification with BeforeExample {
       " must have '3' parameters" in {
         em.params must size(3)
       }
+    }
+  }
+
+  "Processing 'obs_noSheet-type.ttl' file " should {
+    val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/obs_noSheet-type.ttl")
+    "must fail only one integrity query" in {
+      map must size(1)
+    }
+
+    val iq: CIntegrityQuery = map.getOrElse("9", null)
+
+    "error message should be 'Observation does not have sheet-type'" in {
+      println(iq.message)
+      iq.message must equalTo("Observation does not have sheet-type")
+    }
+
+    "must be comprised by only two error message" in {
+      iq.errorMessages must size(1)
+    }
+
+    val cm = iq.errorMessages.head
+    " must have '1' parameters" in {
+      cm.params must size(1)
+    }
+  }
+  "Processing 'obs_noValue.ttl' file " should {
+    val map: Map[String, CIntegrityQuery] = processFile("src/test/resources/obs_noValue.ttl")
+    "must fail only one integrity query" in {
+      map must size(1)
+    }
+
+    val iq: CIntegrityQuery = map.getOrElse("11", null)
+
+    "error message should be 'Observation does not have value'" in {
+      println(iq.message)
+      iq.message must equalTo("Observation does not have value")
+    }
+
+    "must be comprised by only two error message" in {
+      iq.errorMessages must size(1)
+    }
+
+    val cm = iq.errorMessages.head
+    " must have '1' parameters" in {
+      cm.params must size(1)
     }
   }
 }
