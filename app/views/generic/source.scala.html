@@ -8,7 +8,7 @@
 @if(message.ss){
 		<div id="source">
 		<h3>Source Listing</h3>
-		<p>Below is the source input I used for this validation:</p>
+		<p>Source used for validation:</p>
 		<pre>
 			<code class="prettyprint lang-sparql">
 			@for(line <- fromInputStream(message.contentIS)(message.charset).getLines){
