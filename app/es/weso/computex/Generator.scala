@@ -186,14 +186,6 @@ case class Generator(
     m.add(measure,qb_measure,cex_value)
     m.add(wi_ontoDSD,qb_component,measure) 
     
-/* It seems that it is not necessary... 
-  val atts = m.createResource()
-    m.add(atts,qb_attribute,sdmxUnitMeasure)
-    m.add(atts,qb_componentRequired,literalTrue)
-    m.add(atts,qb_componentAttachment,qbDataset)
-    m.add(wi_ontoDSD,qb_component,atts) */ 
-    
-    
     wi_ontoDSD
   }
   

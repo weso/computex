@@ -41,3 +41,52 @@ SELECT ?x ?v (COUNT(*) as ?ranking) WHERE {
 GROUP BY ?x ?v
 ORDER BY ?ranking
 \end{lstlisting}
+
+RDF Data Cube Profile
+
+\begin{lstlisting}[style=SPARQL]
+cex:cube a cex:ValidationProfile ;
+   cex:name 			"RDF Data Cube" ;
+   cex:ontologyBase 	cexOntology:cube.ttl ;
+   cex:expandSteps 
+	 	([ cex:name "Closure" ; 
+          cex:uri cubeURIExpand:closure.ru  
+         ]
+	 	 [ cex:name "Flatten" ; 
+	 	   cex:uri cubeURIExpand:flatten.ru 
+	 	 ] 
+        ) ;
+   # Integrity queries from RDF Data Cube
+   cex:integrityQuery 
+	    [ cex:name "IC-1. Unique DataSet (Q1a)" ;
+	      cex:uri	cubeURI:q1a-integrity.sparql 
+	    ] ;
+   cex:integrityQuery 
+	    [ cex:name "IC-1. Unique DataSet (Q1b)" ;
+	      cex:uri	cubeURI:q1b-integrity.sparql 
+	    ] ;
+	# Other integrity queries
+   .
+\end{lstlisting}
+
+Computex Profile
+
+\begin{lstlisting}[style=SPARQL]
+cex:computex a cex:ValidationProfile ;
+   cex:name "Computex" ;
+   cex:ontologyBase cexOntology:computex.ttl ;
+   cex:import profileURI:cubeProfile.ttl ;
+   cex:expandSteps 
+      ( 
+		[ cex:name "Copy Raw" ; 
+	 	  cex:uri cexURIExpand:q4-copyRaw.sparql 
+	 	]         
+	 # Other UPDATE queries
+	  ) ;
+   cex:integrityQuery 
+	    [ cex:name "Adjusted computation must have a value" ;
+	      cex:uri	cexURI:q1-adjustedValueExistsObs.sparql 
+	    ] 
+	# Other integrity queries
+   .
+\end{lstlisting}
