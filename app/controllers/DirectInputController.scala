@@ -5,7 +5,6 @@ import java.io.ByteArrayInputStream
 import es.weso.computex.entities.CMessage
 import es.weso.computex.entities.CMessage.MsgBadFormed
 import es.weso.computex.entities.CMessage.MsgEmpty
-import es.weso.utils.JenaUtils.Turtle
 import play.api.data.Form
 import play.api.data.Forms.mapping
 import play.api.data.Forms.number
@@ -15,8 +14,11 @@ import play.api.mvc.Action
 import play.api.mvc.Controller
 
 object DirectInputController extends Controller with Base {
-  
-  case class DirectInput(val content: Option[String], val format: Option[String], val ss: Option[Int], val verbose: Option[Int], val expand: Option[Int])
+
+  case class DirectInput(val content: Option[String], _format: Option[String],
+    _ss: Option[Int], _verbose: Option[Int], _expand: Option[Int],
+    _preffix: Option[Int]) extends BaseInput(_format, _ss, _verbose, _expand,
+    _preffix)
 
   val directInputForm: Form[DirectInput] = Form(
     mapping(
@@ -24,7 +26,8 @@ object DirectInputController extends Controller with Base {
       "doctype" -> optional(text),
       "ss" -> optional(number),
       "verbose" -> optional(number),
-      "expand" -> optional(number))(DirectInput.apply)(DirectInput.unapply))
+      "expand" -> optional(number),
+      "preffix" -> optional(number))(DirectInput.apply)(DirectInput.unapply))
 
   def byDirectInputGET() = Action {
     implicit request =>
@@ -44,11 +47,8 @@ object DirectInputController extends Controller with Base {
         directInput => {
           message.content = directInput.content.getOrElse(null)
           if (message.content != null) {
-            message.contentFormat = directInput.format.getOrElse(Turtle)
+            message = handleOptions(message, directInput)
             message.contentIS = new ByteArrayInputStream(message.content.getBytes("UTF-8"))
-            message.ss = directInput.ss.getOrElse(0) != 0
-            message.verbose = directInput.verbose.getOrElse(0) != 0
-            message.expand = directInput.expand.getOrElse(0) != 0
             message = validateStream(message)
             Ok(views.html.generic.format(message))
           } else {
@@ -57,6 +57,5 @@ object DirectInputController extends Controller with Base {
           }
         })
   }
-  
-  
+
 }

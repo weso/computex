@@ -9,7 +9,6 @@ import es.weso.computex.entities.CMessage.Msg404
 import es.weso.computex.entities.CMessage.MsgBadFormed
 import es.weso.computex.entities.CMessage.MsgEmpty
 import es.weso.computex.entities.CMessage.Uri
-import es.weso.utils.JenaUtils.Turtle
 import play.api.data.Form
 import play.api.data.Forms.mapping
 import play.api.data.Forms.number
@@ -20,7 +19,10 @@ import play.api.mvc.Controller
 
 object URIController extends Controller with Base {
 
-  case class UriPath(val uri: Option[String], val format: Option[String], val ss: Option[Int], val verbose: Option[Int], val expand: Option[Int])
+  case class UriPath(val uri: Option[String], _format: Option[String],
+    _ss: Option[Int], _verbose: Option[Int], _expand: Option[Int],
+    _preffix: Option[Int]) extends BaseInput(_format, _ss, _verbose, _expand,
+    _preffix)
   
   val uriForm: Form[UriPath] = Form(
     mapping(
@@ -28,7 +30,8 @@ object URIController extends Controller with Base {
       "doctype" -> optional(text),
       "ss" -> optional(number),
       "verbose" -> optional(number),
-      "expand" -> optional(number))(UriPath.apply)(UriPath.unapply))
+      "expand" -> optional(number),
+      "preffix" -> optional(number))(UriPath.apply)(UriPath.unapply))
 
   def byUriGET(uriOpt: Option[String]) = Action {
     implicit request =>
@@ -48,11 +51,8 @@ object URIController extends Controller with Base {
               } else { uri }
             } else { uri }
             try {
+              message = handleOptions(message, uriPath)
               message.contentIS = Computex.loadFile(message.content)
-              message.contentFormat = uriPath.format.getOrElse(Turtle)
-              message.ss = uriPath.ss.getOrElse(0) != 0
-              message.verbose = uriPath.verbose.getOrElse(0) != 0
-              message.expand = uriPath.expand.getOrElse(0) != 0
               message = validateStream(message)
             } catch {
               case e: FileNotFoundException =>
@@ -67,4 +67,5 @@ object URIController extends Controller with Base {
           }
         })
   }
+  
 }

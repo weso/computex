@@ -22,6 +22,7 @@ case class CMessage(val action: String) {
   var verbose = false
   var ss = false
   var expand = false
+  var preffix = false
 
   private var _contentIS: String = null
   private var _contentCharset: Charset = null
