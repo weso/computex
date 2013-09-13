@@ -30,90 +30,92 @@ case class Computex(val ontologyURI: String, val validationDir: String,
 
   def computex(message: CMessage): Array[CIntegrityQuery] = {
     Logger.info("Computex: Compute and Validate index data")
+
+    def loadData(ontologyURI: String,
+      message: CMessage): Model = {
+      val model = ModelFactory.createDefaultModel
+
+      loadModel(model, Computex.loadFile(ontologyURI))
+      loadModel(model, message.contentIS, message.contentFormat)
+    }
+
+    def expandCube(model: Model): Model = {
+      val closure = fromFile(closureFile).mkString
+      val flatten = fromFile(flattenFile).mkString
+      val ds: Dataset = DatasetFactory.create(model)
+      val graphStore: GraphStore = GraphStoreFactory.create(ds)
+      UpdateAction.parseExecute(closure, graphStore)
+      UpdateAction.parseExecute(flatten, graphStore)
+      val result: Model = ModelFactory.createModelForGraph(graphStore.getDefaultGraph())
+      result.setNsPrefixes(model)
+      result
+    }
+
+    def expandComputex(model: Model): Model = {
+      val ds: Dataset = DatasetFactory.create(model)
+      val graphStore: GraphStore = GraphStoreFactory.create(ds)
+      val steps = getSteps(model)
+
+      for {
+        step <- steps
+        pattern = s"(.*q.*-${step}.sparql)".r
+        file <- new File(computationDir).listFiles
+      } {
+        file.getAbsolutePath() match {
+          case pattern(name) =>
+            val contents = fromFile(name).mkString
+            UpdateAction.parseExecute(contents, graphStore)
+          case _ => {}
+        }
+      }
+
+      val result: Model = ModelFactory.createModelForGraph(graphStore.getDefaultGraph())
+      result.setNsPrefixes(model)
+      result
+
+    }
+
+    def getSteps(model: Model): List[String] = {
+      val file = new File(findStepsQuery)
+      val query = readQuery(file)
+      val qexec = QueryExecutionFactory.create(query, model)
+      try {
+        val result = qexec.execSelect()
+        collect("stepQuery", result)
+      } finally {
+        qexec.close
+      }
+    }
+
+    def collect(varName: String, result: ResultSet): List[String] = {
+      val ls = result.toList
+      ls.map(r => r.getLiteral(varName).getString)
+    }
+
+    def validate(model: Model, validationDir: String): Array[CIntegrityQuery] = {
+      val dir = new File(validationDir)
+      val iQueries: Array[CIntegrityQuery] =
+        for {
+          vDir <- dir.listFiles.filter(_.isDirectory())
+          cq <- readQueries(vDir)
+          currentModel = executeQuery(model, cq.query)
+        } yield {
+          currentModel.setNsPrefixes(model)
+          Parser.parse(cq, currentModel)
+        }
+      iQueries
+    }
+
     val model = loadData(ontologyURI, message)
     val expandedCube = expandCube(model)
     val expandedComputex = if (message.expand) {
       expandComputex(model)
     } else { model }
+
     validate(expandedComputex, validationDir)
   }
 
-  def loadData(ontologyURI: String,
-    message: CMessage): Model = {
-    val model = ModelFactory.createDefaultModel
-
-    loadModel(model, Computex.loadFile(ontologyURI))
-    loadModel(model, message.contentIS, message.contentFormat)
-  }
-
-  def expandCube(model: Model): Model = {
-    val closure = fromFile(closureFile).mkString
-    val flatten = fromFile(flattenFile).mkString
-    val ds: Dataset = DatasetFactory.create(model)
-    val graphStore: GraphStore = GraphStoreFactory.create(ds)
-    UpdateAction.parseExecute(closure, graphStore)
-    UpdateAction.parseExecute(flatten, graphStore)
-    val result: Model = ModelFactory.createModelForGraph(graphStore.getDefaultGraph())
-    result.setNsPrefixes(model)
-    result
-  }
-
-  def expandComputex(model: Model): Model = {
-    val ds: Dataset = DatasetFactory.create(model)
-    val graphStore: GraphStore = GraphStoreFactory.create(ds)
-    val steps = getSteps(model)
-
-    for {
-      step <- steps
-      pattern = s"(.*q.*-${step}.sparql)".r
-      file <- new File(computationDir).listFiles
-    } {
-      file.getAbsolutePath() match {
-        case pattern(name) =>
-          val contents = fromFile(name).mkString
-          UpdateAction.parseExecute(contents, graphStore)
-        case _ => {}
-      }
-    }
-
-    val result: Model = ModelFactory.createModelForGraph(graphStore.getDefaultGraph())
-    result.setNsPrefixes(model)
-    result
-
-  }
-
-  def getSteps(model: Model): List[String] = {
-    val file = new File(findStepsQuery)
-    val query = readQuery(file)
-    val qexec = QueryExecutionFactory.create(query, model)
-    try {
-      val result = qexec.execSelect()
-      collect("stepQuery", result)
-    } finally {
-      qexec.close
-    }
-  }
-
-  def collect(varName: String, result: ResultSet): List[String] = {
-    val ls = result.toList
-    ls.map(r => r.getLiteral(varName).getString)
-  }
-
-  def validate(model: Model, validationDir: String): Array[CIntegrityQuery] = {
-    val dir = new File(validationDir)
-    val iQueries: Array[CIntegrityQuery] = 
-    for {
-      vDir <- dir.listFiles.filter(_.isDirectory())
-      cq <- readQueries(vDir)
-      currentModel = executeQuery(model, cq.query)
-    } yield {
-      currentModel.setNsPrefixes(model)
-      Parser.parse(cq, currentModel)
-    }
-    iQueries
-  }
-
-  def readQueries(dir: File): Array[CQuery] = {
+  private def readQueries(dir: File): Array[CQuery] = {
     val pattern = """q(.+)-.*.sparql""".r
     if (dir == null || dir.listFiles == null)
       throw new IOException(s"Directory: ${dir.getName} not accessible")
@@ -128,19 +130,19 @@ case class Computex(val ontologyURI: String, val validationDir: String,
     }
   }
 
-  def readQuery(file: File): Query = {
+  private def readQuery(file: File): Query = {
     val contents = scala.io.Source.fromFile(file).mkString;
     QueryFactory.create(contents)
   }
 
-  def executeQuery(model: Model, query: Query): Model = {
+  private def executeQuery(model: Model, query: Query): Model = {
     val resultModel = ModelFactory.createDefaultModel
     val qexec = QueryExecutionFactory.create(query, model)
     qexec.execConstruct(resultModel)
     resultModel
   }
 
-  def loadModel(model: Model, inputStream: InputStream, format: String = Turtle) = {
+  private def loadModel(model: Model, inputStream: InputStream, format: String = Turtle) = {
     model.read(inputStream, "", format)
   }
 
@@ -155,4 +157,5 @@ object Computex {
     urlCon.setReadTimeout(2000)
     urlCon.getInputStream()
   }
+  
 }
