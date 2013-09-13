@@ -1,4 +1,4 @@
-package es.weso.computex
+package es.weso.computex.profile
 
 import java.io.File
 import java.io.IOException

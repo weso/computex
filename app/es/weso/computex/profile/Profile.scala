@@ -5,11 +5,7 @@ import es.weso.utils.JenaUtils._
 import com.typesafe.config.ConfigFactory
 import com.typesafe.config.Config
 import java.net.URI
-import es.weso.computex.Passed
-import es.weso.computex.ValidationReport
-import es.weso.computex.NotPassed
-import es.weso.computex.Expander
-import es.weso.computex.Validator
+import es.weso.computex.profile._
 import es.weso.utils.ConfigUtils
 import scala.io.Source
 import es.weso.computex.profile.VReport._
@@ -134,6 +130,15 @@ object Profile {
     val contents 		= Source.fromFile(computexProfile).mkString
     val model			= parseModel(contents)
     ProfileParser.fromModel(model)(0)
+  }
+  
+  def getProfile(name: String): Option[Profile] = {
+    name match {
+      case "Cube" 		=> Some(Cube)
+      case "Computex" 	=> Some(Computex)
+      case _ 			=> None
+    }
+    
   }
 }
     

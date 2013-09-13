@@ -12,80 +12,98 @@ import java.nio.charset.CodingErrorAction
 import org.apache.commons.io.IOUtils
 import java.io.BufferedReader
 import play.api.Logger
+import es.weso.computex.profile.Profile
+import es.weso.computex.profile.VReport._
+import com.hp.hpl.jena.rdf.model.Model
 
-// TODO...this case class contains a lot of vars that I think we could remove
-case class CMessage(val action: String) {
-  
-  // TODO....try to remove the use of var's
-  var message: 		 String = CMessage.MsgOK
-  var content: 		 String = null
-  var contentFormat: String = JenaUtils.TTL
+sealed abstract class Action;
+case object ByURI 			extends Action ;
+case object ByDirectInput 	extends Action ;
+case object ByFile 			extends Action ;
 
-  var verbose 	 = false
-  var showSource = false
-  var expand 	 = false
+sealed abstract class Message ;
+case object MsgOk 		extends Message {
+  override def toString = "OK";
+}
 
-  // Try to remove the use of var's and null's !!!
-  private var _contentIS: String = null
-  private var _contentCharset: Charset = null
-  private var _integrityQueries: Array[CIntegrityQuery] = Array.empty
+case object MsgEmpty 	extends Message {
+  override def toString = "Empty";
+}
 
-  def integrityQueries_=(iq: Array[CIntegrityQuery]): Unit = 
-    _integrityQueries = iq
-  
-  def integrityQueries: Array[CIntegrityQuery] = 
-    _integrityQueries.sortWith(_.query.name < _.query.name)
+case object MsgOK 		extends Message {
+  override def toString = "This document was successfully checked"
+}
 
-  def size = _integrityQueries.map(_.size).foldLeft(0)(_ + _)
+case object Msg404 		extends Message {
+  override def toString = "File Not Found"
+}
+
+case object MsgBadFormed extends Message {
+  override def toString = "Bad Formed File"
+}	
+
+case class MsgError(msg: String) 	extends Message {
+ override def toString = "Error: " + msg
+}
+
+
+sealed abstract class Status;
+case object Valid 	extends Status;
+case object Invalid 	extends Status;
+case object Idle		extends Status;
+
+case class CMessage(
+    val action: 		Action,
+    val message: 		Message,
+    val content: 		Option[String] 		= None ,
+    val profile: 		Option[Profile] 	= None,
+    val contentFormat: 	String 				= JenaUtils.TTL,
+    val verbose: 		Boolean 			= false,
+    val showSource: 	Boolean 			= false,
+    val expand: 		Boolean 			= false,
+    val result:			Option[(VReport,Model)]		= None
+    ) {
 
   def status = message match {
-    case CMessage.MsgOK => CMessage.Valid
-    case CMessage.MsgEmpty => CMessage.Idle
-    case _ => CMessage.Invalid
+    case MsgOK 		=> Valid
+    case MsgEmpty 	=> Idle
+    case _ 			=> Invalid
   }
 
-  def contentIS_= (is: InputStream): Unit = {
+  def is2str (is: InputStream) : String = {
     val charsetDecoder = Charset.forName("UTF-8").newDecoder();
     charsetDecoder.onMalformedInput(CodingErrorAction.REPLACE);
     charsetDecoder.onUnmappableCharacter(CodingErrorAction.REPLACE);
-    _contentIS = {
-      val in = new BufferedInputStream(is);
-      val inputReader = new InputStreamReader(in, charsetDecoder);
-      val bufferedReader = new BufferedReader(inputReader);
-      val sb = new StringBuilder();
-      var line = bufferedReader.readLine();
-      while (line != null) {
+    val in = new BufferedInputStream(is);
+    val inputReader = new InputStreamReader(in, charsetDecoder);
+    val bufferedReader = new BufferedReader(inputReader);
+    val sb = new StringBuilder();
+    var line = bufferedReader.readLine();
+    while (line != null) {
         sb.append(line);
         line = bufferedReader.readLine();
-      }
-      bufferedReader.close();
-      sb.toString();
     }
-    _contentCharset = charsetDecoder.charset()
-  }
-
-  def contentIS: InputStream = {
-    if (_contentIS == null) null
-    else {
-      new ByteArrayInputStream(_contentIS.getBytes(_contentCharset))
-    }
+    bufferedReader.close();
+    sb.toString();
   }
   
-  def charset: Charset = _contentCharset
+
+  def str2is (str: String, charset: Charset) : InputStream = {
+    new ByteArrayInputStream(str.getBytes(charset))
+  }
+
+  def setError(str: String) : CMessage = 
+    this.copy(message=MsgError(str))
+  
+  def setResult(r: (VReport,Model) ): CMessage =
+    this.copy(result = Some(r))
+    
+  def getModel : Option[Model] = {
+    content.map(str => JenaUtils.parseModel(str, "", contentFormat))
+  }
+    
 }
 
 object CMessage {
-  val Uri 			= "URI"
-  val DirectInput 	= "DIRECT_IMPUT"
-  val File 			= "FILE"
 
-  val Valid 		= "valid"
-  val Invalid 		= "invalid"
-  val Idle 			= "idle"
-
-  val MsgEmpty 		= "EMPTY"
-  val MsgOK 		= "This document was successfully checked"
-  val Msg404 		= "File Not Found"
-  val MsgBadFormed 	= "Bad Formed File"
-  val MsgError 		= "Errors found while checking this document"
 }

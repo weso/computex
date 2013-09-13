@@ -1,4 +1,4 @@
-package es.weso.computex
+package es.weso.computex.profile
 
 import java.io.File
 import java.io.IOException
@@ -32,17 +32,38 @@ import com.hp.hpl.jena.rdf.model.Resource
 import com.hp.hpl.jena.datatypes.xsd.XSDDatatype
 import com.hp.hpl.jena.rdf.model.Literal
 import java.io.FileOutputStream
+import com.hp.hpl.jena.update.UpdateRequest
+import com.hp.hpl.jena.update.UpdateFactory
+import java.net.URI
 
 /**
- * Represents validation reports. 
- * Instances of ValidationReport are either the object $passed with a validator argument or
- * an instance of $Notpassed with some info about the reason and the validator
+ * Expands a Model with an UPDATE Query
  * 
- * This type is similar to $option where None could be Passed and Some(x) could be NotPassed(x) 
  */
-sealed abstract class ValidationReport[+A,+B,+C] 
+case class Expander(
+    val update: 	UpdateRequest,
+    val name: 		String 		= "",
+    val uri: 		URI 		= new URI("")
+) {
+  
+  /**
+   * Expands a model 
+   */
+  def expand(model:Model) : Option[Model] = {
+    val ds: Dataset = DatasetFactory.create(model)
+    val graphStore: GraphStore = GraphStoreFactory.create(ds)
+    UpdateAction.execute(update, graphStore)
+    val result: Model = 
+      ModelFactory.createModelForGraph(graphStore.getDefaultGraph())
+    if (result.size > 0) Some(result)
+      else None
+  }
+  
+}
 
-final case class Passed[B](info:B) extends ValidationReport[Nothing,B,Nothing]
-final case class NotPassed[A,C](report: A, info:C) extends ValidationReport[A,Nothing,C]
+object Expander {
+
+}
+    
     
 

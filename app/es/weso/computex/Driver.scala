@@ -27,6 +27,8 @@ import es.weso.utils.JenaUtils
 import es.weso.computex.profile.Profile
 import es.weso.computex.profile.ProfileParser
 import scala.io.Source
+import es.weso.computex.profile.ValidationReport
+import es.weso.computex.profile.Validator
 
 case class Driver(
     ontologyURI: String,

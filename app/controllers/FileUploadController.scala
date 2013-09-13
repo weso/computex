@@ -15,15 +15,22 @@ import play.api.mvc.Controller
 
 object FileUploadController extends Controller with Base {
   
-  case class FileInput(val format: Option[String], val showSource: Option[Int], val verbose: Option[Int], val expand: Option[Int])
+  case class FileInput(
+      val doctype: Option[String], 
+      val profile: Option[String], 
+      val showSource: Option[Int], 
+      val verbose: Option[Int], 
+      val expand: Option[Int])
     
   val fileInputForm: Form[FileInput] = Form(
     mapping(
       "doctype" -> optional(text),
+      "profile" -> optional(text),
       "showSource" -> optional(number),
       "verbose" -> optional(number),
-      "expand" -> optional(number))(FileInput.apply)(FileInput.unapply))
-  
+      "expand" -> optional(number))
+      (FileInput.apply)
+      (FileInput.unapply))
   
   
   def byFileUploadGET() = Action {
@@ -47,7 +54,8 @@ def byFileUploadPOST() = Action(parse.multipartFormData) {
             val filename = file.filename
             val contentType = file.contentType
             message.content = file.filename
-            message.contentFormat = fileInput.format.getOrElse(Turtle)
+            message.contentFormat = fileInput.doctype.getOrElse(Turtle)
+            message.profile = fileInput.profile.getOrElse("Computex")
             message.contentIS = new ByteArrayInputStream(FileUtils.readFileToByteArray(file.ref.file))
             message.showSource = fileInput.showSource.getOrElse(0) != 0
             message.verbose = fileInput.verbose.getOrElse(0) != 0

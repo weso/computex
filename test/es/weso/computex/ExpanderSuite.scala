@@ -1,4 +1,4 @@
-package es.weso.computex
+package es.weso.computex.profile
 
 import org.scalatest._
 import org.scalatest.matchers.ShouldMatchers
@@ -15,6 +15,7 @@ import java.io.File
 import java.io.StringWriter
 import es.weso.utils.JenaUtils._
 import com.hp.hpl.jena.update.UpdateFactory
+import es.weso.computex.SparqlSuite
 
 class ExpanderSuite 
 	extends FunSpec 

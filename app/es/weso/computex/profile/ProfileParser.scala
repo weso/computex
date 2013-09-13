@@ -8,9 +8,8 @@ import com.hp.hpl.jena.rdf.model.ModelFactory
 import com.hp.hpl.jena.rdf.model.RDFList
 import com.hp.hpl.jena.rdf.model.RDFNode
 import com.hp.hpl.jena.rdf.model.Resource
-import es.weso.computex.Expander
+import es.weso.computex.profile._
 import es.weso.computex.PREFIXES
-import es.weso.computex.Validator
 import es.weso.utils.JenaUtils
 import com.hp.hpl.jena.vocabulary.RDF
 import com.hp.hpl.jena.update.UpdateFactory

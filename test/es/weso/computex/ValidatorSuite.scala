@@ -1,4 +1,4 @@
-package es.weso.computex
+package es.weso.computex.profile
 
 import org.scalatest._
 import org.scalatest.matchers.ShouldMatchers
@@ -18,6 +18,7 @@ import es.weso.utils.ConfigUtils
 import es.weso.utils.JenaUtils
 import scala.io.Source
 import java.net.URI
+import es.weso.computex.SparqlSuite
 
 class ValidatorSuite 
 	extends FunSpec 

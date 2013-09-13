@@ -14,6 +14,9 @@ import es.weso.utils.JenaUtils
 import org.rogach.scallop.exceptions.Help
 import org.rogach.scallop.exceptions.ScallopException
 import org.rogach.scallop.exceptions.RequiredOptionNotFound
+import es.weso.computex.profile.Passed
+import es.weso.computex.profile.NotPassed
+import es.weso.computex.profile.Validator
 
 class Opts(arguments: Array[String],
     onError: (Throwable, Scallop) => Nothing

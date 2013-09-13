@@ -21,12 +21,20 @@ import es.weso.utils.JenaUtils
 object URIController extends Controller with Base {
 
   // TODO: change to boolean values showSource, verbose, etc
-  case class UriPath(val uri: Option[String], val format: Option[String], val showSource: Option[Int], val verbose: Option[Int], val expand: Option[Int])
+  case class UriPath(
+      val uri: Option[String], 
+      val format: Option[String], 
+      val profile: Option[String],
+      val showSource: Option[Int], 
+      val verbose: Option[Int], 
+      val expand: Option[Int]
+      )
   
   val uriForm: Form[UriPath] = Form(
     mapping(
       "uri" 		-> optional(text),
       "doctype" 	-> optional(text),
+      "profile" 	-> optional(text),
       "showSource" 	-> optional(number),  // TODO: should be booleans
       "verbose" 	-> optional(number),
       "expand" 		-> optional(number))
@@ -55,6 +63,7 @@ object URIController extends Controller with Base {
             } else { uri } */
             try {
               message.contentIS = JenaUtils.dereferenceURI(message.content)
+              message.profile = uriPath.profile.getOrElse("Computex")
               message.contentFormat = uriPath.format.getOrElse(Turtle)
               message.showSource = uriPath.showSource.getOrElse(0) != 0
               message.verbose = uriPath.verbose.getOrElse(0) != 0

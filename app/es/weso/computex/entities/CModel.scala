@@ -9,7 +9,8 @@ import es.weso.computex.PREFIXES
 
 case class CModel(
     val model: Model, 
-    val format:String = Turtle) {
+    val format:String = Turtle
+    ) {
   
   override def toString(): String = {
     val out = new ByteArrayOutputStream()

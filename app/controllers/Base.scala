@@ -8,41 +8,35 @@ import com.typesafe.config.ConfigFactory
 
 import es.weso.computex.Computex
 import es.weso.computex.entities.CMessage
-import es.weso.computex.entities.CMessage.MsgBadFormed
-import es.weso.computex.entities.CMessage.MsgError
 import play.api.mvc.Controller
 import play.api.mvc.RequestHeader
 
 trait Base extends Controller {
 
-  
-  def validateStream(message: CMessage)(implicit request: RequestHeader): CMessage = {
+  def validateMessage
+  			(message: CMessage)
+  			(implicit request: RequestHeader): CMessage = {
     
-    val conf: Config = ConfigFactory.load()
-    
-    val validationDir 	= conf.getString("validationDir")
-    val computationDir 	= conf.getString("computationDir")
-    val ontologyURI 	= conf.getString("ontologyURI")
-    val closureFile 	= conf.getString("closureFile")
-    val flattenFile 	= conf.getString("flattenFile")
-    val findStepsQuery 	= conf.getString("findStepsQuery")
-
-    
-    val cex = Computex(ontologyURI, validationDir, computationDir, closureFile, flattenFile, findStepsQuery)
-
     try {
-      message.integrityQueries = cex.computex(message)
-      if (message.size > 0) {
-        message.message = MsgError
+      message.profile match {
+        case None 		=> message.setError("Profile not initialized")
+        case Some(prof) => {
+          message.getModel match {
+            case Some(m) => {
+              val result = prof.validate(m, message.expand, true)
+              message.setResult(result) 
+            }
+            case None => 
+              message.setError("Cannot parse model")
+          }
+        }
       }
-
     } catch {
       case e: AtlasException => 
-        message.message = s"${MsgBadFormed} as ${message.contentFormat}<br/>${e.getMessage}"
+        message.setError(s"Bad formed as ${message.contentFormat}<br/>${e.getMessage}")
       case e: RiotException => 
-        message.message =  s"${MsgBadFormed} as ${message.contentFormat}<br/>${e.getMessage}"
+        message.setError(s"Bad formed as ${message.contentFormat}<br/>${e.getMessage}")
     }
-    message
   }
 
 }

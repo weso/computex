@@ -13,6 +13,8 @@
 		case File => file.defaultFile(message)
 	
 	}}
+	<div id="info_profile">
+	<p>Validating with Profile: @message.profile</div>
 	<div id="results_container">    
 	    <h2 class="@if(message.message equals MsgOK){valid}else{invalid}">@Html(message.message)</h2>
 	    <p class="backtop"><a href="#frontforms">↑ Top</a></p>

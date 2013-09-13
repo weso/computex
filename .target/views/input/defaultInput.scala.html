@@ -28,6 +28,13 @@
 	      		<textarea id="fragment" name="fragment" rows="90" cols="120">@message.content</textarea>
 	      	</p>
 	      	<p class="instructions">
+				<label for="profile">Profile:</label>
+				<select id="profile" name="profile">
+					<option value="RDF Data Cube">RDF Data Cube</option>
+					<option value="Computex">Computex</option>
+			    </select>
+			</p>
+	      	<p class="instructions">
 				<label for="direct-doctype">Use Doctype:</label>
 				<select id="direct-doctype" name="doctype">
 					<option value="RDF/XML" @if(message.contentFormat equals RdfXML){selected="selected"}>RDF/XML</option>
