@@ -101,7 +101,7 @@ case class Computex(val ontologyURI: String, val validationDir: String,
           currentModel = executeQuery(model, cq.query)
         } yield {
           currentModel.setNsPrefixes(model)
-          Parser.parse(cq, currentModel)
+          Parser.parse(cq, currentModel, message.preffix)
         }
       iQueries
     }
