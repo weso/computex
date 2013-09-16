@@ -17,8 +17,7 @@ import es.weso.utils.JenaUtils._
 import java.net.URI
 import scala.io.Source
 import es.weso.utils._
-import es.weso.computex.Passed
-import es.weso.computex.NotPassed
+import es.weso.computex.profile._
 import es.weso.computex.profile.VReport._
 import es.weso.computex.Generator
 

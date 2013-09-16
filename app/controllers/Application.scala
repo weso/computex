@@ -1,8 +1,6 @@
 package controllers
 
-import es.weso.computex.entities.CMessage
-import es.weso.computex.entities.CMessage.MsgEmpty
-import es.weso.computex.entities.CMessage.Uri
+import es.weso.computex.entities._
 import play.api.mvc.Action
 import play.api.mvc.Controller
 
@@ -10,16 +8,12 @@ object Application extends Controller {
 
   def index = Action {
     implicit request =>
-      val message = CMessage(Uri)
-      message.message = MsgEmpty
-      Ok(views.html.index(message))
+      Ok(views.html.index(CMessage(ByURI,MsgEmpty)))
   }
 
   def about() = Action {
     implicit request =>
-      val message = CMessage(Uri)
-      message.message = MsgEmpty
-      Ok(views.html.about.about(message))
+      Ok(views.html.about.about(CMessage(ByURI,MsgEmpty)))
   }
   
 }

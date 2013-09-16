@@ -18,10 +18,10 @@ import es.weso.computex.entities.CQuery
 object Parser {
 
   def parse(query: CQuery, model: Model): CIntegrityQuery = {
-    val iQuery = CIntegrityQuery(query)
-    iQuery.message = extractMessage(query.query)
-    iQuery.errorMessages = parseErrors(model)
-    iQuery
+    CIntegrityQuery(query, 
+    				extractMessage(query.query), 
+    				parseErrors(model)
+    				)
   }
 
   private def extractMessage(query: Query) = {

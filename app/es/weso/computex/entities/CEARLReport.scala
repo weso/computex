@@ -32,15 +32,18 @@ case class CEARLReport(message: CMessage) {
   private def addResults() = {
     var assertionId: Int = 1
     var errorId: Int = 1
-    message.integrityQueries.foreach(iq => {
+    
+    /* 
+     
+     message.integrityQueries.foreach(iq => {
       if (iq.errorMessages.size > 0) {
         createFailedTest(assertionId, errorId, iq)
         errorId += 1
       } else {
         createPassedTest(assertionId, iq)
       }
-      assertionId += 1
-    })
+      assertionId += 1  
+    }) */
   }
 
   private def createFailedTest(assertionId: Int, errorId: Int,
@@ -120,11 +123,12 @@ case class CEARLReport(message: CMessage) {
         XSDDatatype.XSDstring))
     tested.addProperty(CEARLReport.PropertyCNTCharacterEncoding,
       ResourceFactory.createTypedLiteral("UTF-8", XSDDatatype.XSDstring))
+    /*  
     tested.addProperty(CEARLReport.PropertyCNTChars,
       ResourceFactory.createTypedLiteral(
         if (message.contentIS == null) ""
         else Source.fromInputStream(message.contentIS).mkString,
-        XSDDatatype.XSDstring))
+        XSDDatatype.XSDstring)) */
     tested
   }
 

@@ -8,18 +8,18 @@
 @main(message) {
 	
 	@{message.action match {
-		case Uri => uri.defaultUri(message)
-		case DirectInput => input.defaultInput(message)
-		case File => file.defaultFile(message)
+		case ByURI => uri.defaultUri(message)
+		case ByDirectInput => input.defaultInput(message)
+		case ByFile => file.defaultFile(message)
 	
 	}}
 	<div id="info_profile">
 	<p>Validating with Profile: @message.profile</div>
 	<div id="results_container">    
-	    <h2 class="@if(message.message equals MsgOK){valid}else{invalid}">@Html(message.message)</h2>
+	    <h2 class="@if(message.message equals MsgOK){valid}else{invalid}">@Html(message.message.toString)</h2>
 	    <p class="backtop"><a href="#frontforms">↑ Top</a></p>
 	    <div id="result">
-	    	<h3 class="@if(message.size > 0){invalid}else{valid}">Validation Output: @message.size RDF Data Cube Validation Service Errors</h3>
+	    	<h3 class="@if(message.hasErrors){invalid}else{valid}">Validation Output: @message.numErrors RDF Data Cube Validation Service Errors</h3>
 	    	@if(!message.integrityQueries.isEmpty){
 		    	<ol id="error_loop">
 		    	@message.integrityQueries.zipWithIndex.map { iQ =>

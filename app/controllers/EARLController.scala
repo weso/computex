@@ -11,6 +11,8 @@ import play.api.mvc.Accepting
 import play.api.mvc.SimpleResult
 import play.api.mvc.RequestHeader
 import play.api.mvc.RawBuffer
+import es.weso.computex.entities.ByFile
+import es.weso.computex.entities.MsgOk
 
 object EARLController extends Controller {
 
@@ -36,8 +38,7 @@ object EARLController extends Controller {
   private def displayEARL(name: String)(implicit request: RequestHeader): SimpleResult[play.api.templates.Html] = {
     val model = ModelFactory.createDefaultModel
     model.read(s"file:public/earls/${name}", "", JenaUtils.TTL)
-    val message = CMessage(CMessage.File)
-    message.content = name
+    val message = CMessage(ByFile,MsgOk,Some(name))
     Ok(views.html.earl.defaultEARL(model, message))
   }
 }

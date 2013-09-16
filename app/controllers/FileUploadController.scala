@@ -1,17 +1,18 @@
 package controllers
 
 import java.io.ByteArrayInputStream
-
 import org.apache.commons.io.FileUtils
-
 import es.weso.computex.entities.CMessage
-import es.weso.computex.entities.CMessage.MsgBadFormed
-import es.weso.computex.entities.CMessage.MsgEmpty
 import es.weso.utils.JenaUtils.Turtle
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Action
 import play.api.mvc.Controller
+import es.weso.computex.entities.ByFile
+import es.weso.computex.entities.MsgEmpty
+import es.weso.computex.entities.MsgBadFormed
+import es.weso.computex.entities.MsgOK
+import es.weso.computex.profile.Profile
 
 object FileUploadController extends Controller with Base {
   
@@ -35,39 +36,43 @@ object FileUploadController extends Controller with Base {
   
   def byFileUploadGET() = Action {
     implicit request =>
-      val message = CMessage(CMessage.File)
-      message.message = MsgEmpty
+      val message = CMessage(ByFile,MsgEmpty)
       Ok(views.html.file.defaultFileGET(message))
   }
 
 def byFileUploadPOST() = Action(parse.multipartFormData) {
     implicit request =>
-      var message = CMessage(CMessage.File)
       request.body.file("uploaded_file").map { file =>
         fileInputForm.bindFromRequest.fold(
           errors => {
-            message.message = MsgBadFormed
-            BadRequest(views.html.file.defaultFileGET(message))
+            BadRequest(views.html.file.defaultFileGET(CMessage(ByFile,MsgBadFormed)))
           },
           fileInput => {
             import java.io.File
-            val filename = file.filename
-            val contentType = file.contentType
-            message.content = file.filename
-            message.contentFormat = fileInput.doctype.getOrElse(Turtle)
-            message.profile = fileInput.profile.getOrElse("Computex")
-            message.contentIS = new ByteArrayInputStream(FileUtils.readFileToByteArray(file.ref.file))
-            message.showSource = fileInput.showSource.getOrElse(0) != 0
-            message.verbose = fileInput.verbose.getOrElse(0) != 0
-            message.expand = fileInput.expand.getOrElse(0) != 0
-            message = validateStream(message)
-            Ok(views.html.generic.format(message))
+            val filename 		= file.filename
+            val contentType 	= file.contentType
+            val contentFormat 	= fileInput.doctype.getOrElse(Turtle)
+            val profile 		= fileInput.profile.getOrElse("Computex")
+            val contentIS 		= new ByteArrayInputStream(FileUtils.readFileToByteArray(file.ref.file))
+            val contentString 	= CMessage.is2str(contentIS) 
+            val showSource 		= fileInput.showSource.getOrElse(0) != 0
+            val verbose 		= fileInput.verbose.getOrElse(0) != 0
+            val expand 			= fileInput.expand.getOrElse(0) != 0
+            val message = CMessage(
+            			 ByFile,
+                		 MsgOK,
+                		 Some(contentString),
+                		 Profile.getProfile(profile),
+            			 contentFormat,
+            			 verbose,
+            			 showSource,
+            			 expand)
+             val newMessage = validateMessage(message)                		
+             Ok(views.html.generic.format(newMessage))
           })
 
       }.getOrElse {
-        val message = CMessage(CMessage.File)
-        message.message = MsgEmpty
-        Ok(views.html.file.defaultFileGET(message))
+        Ok(views.html.file.defaultFileGET(CMessage(ByFile,MsgEmpty)))
       }
   }
 }
