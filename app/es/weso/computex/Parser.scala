@@ -7,7 +7,7 @@ import com.hp.hpl.jena.query.Query
 import com.hp.hpl.jena.rdf.model.Model
 import com.hp.hpl.jena.rdf.model.Property
 import com.hp.hpl.jena.rdf.model.RDFNode
-import es.weso.computex.entities.CErrorMessage
+import es.weso.computex.entities.ErrorMessage
 import es.weso.computex.entities.CModel
 import es.weso.computex.entities.CParam
 import es.weso.computex.entities.CIntegrityQuery
@@ -31,13 +31,13 @@ object Parser {
     literal.getValue().toString()
   }
 
-  private def parseErrors(model: Model): List[CErrorMessage] = {
+  private def parseErrors(model: Model): List[ErrorMessage] = {
     val computexError: Property = model.getProperty("http://purl.org/weso/ontology/computex#Error")
     val computexMsg: Property = model.getProperty("http://purl.org/weso/ontology/computex#msg")
 
     val iterator = model.listStatements(null, null, computexError)
 
-    val errors: ListBuffer[CErrorMessage] = ListBuffer.empty
+    val errors: ListBuffer[ErrorMessage] = ListBuffer.empty
 
     while (iterator.hasNext()) {
       val stmt = iterator.nextStatement();
@@ -53,7 +53,7 @@ object Parser {
         
       val params = extractParams(subModel)
 
-      errors += CErrorMessage(params, new CModel(subModel))
+      errors += ErrorMessage(params, new CModel(subModel))
 
     }
     errors.toList

@@ -26,25 +26,37 @@ import es.weso.utils.NotParsed
 object URIController extends Controller with Base {
 
   // TODO: change to boolean values showSource, verbose, etc
-  case class UriPath(
+  case class UriInput(
       val uri: 			Option[String], 
-      val format: 		Option[String], 
-      val profile: 		Option[String],
-      val showSource: 	Option[Int], 
-      val verbose: 		Option[Int], 
-      val expand: 		Option[Int]
-      )
+      val _syntax: 		Option[String], 
+      val _profile: 		Option[String],
+      val _showSource: 	Option[Int], 
+      val _verbose: 		Option[Int], 
+      val _expand: 		Option[Int],
+      val _prefix: 		Option[Int]
+      ) extends 
+    	BaseInput(
+    	    _profile, 
+    	    _syntax, 
+    	    _showSource, 
+    	    _verbose, 
+    	    _expand, 
+    	    _prefix
+    	    )
+
   
-  val uriForm: Form[UriPath] = Form(
+  val uriForm: Form[UriInput] = Form(
     mapping(
       "uri" 		-> optional(text),
       "doctype" 	-> optional(text),
       "profile" 	-> optional(text),
       "showSource" 	-> optional(number),  // TODO: should be booleans
       "verbose" 	-> optional(number),
-      "expand" 		-> optional(number))
-      (UriPath.apply)
-      (UriPath.unapply)
+      "expand" 		-> optional(number),
+      "prefix" 		-> optional(number)
+      )
+      (UriInput.apply)
+      (UriInput.unapply)
     )
 
   def byUriGET(uriOpt: Option[String]) = Action {
@@ -53,48 +65,29 @@ object URIController extends Controller with Base {
         errors => {
           BadRequest(views.html.uri.defaultUriGET(CMessage(ByURI,MsgBadFormed)))
         },
-        uriPath => {
-          val uri = uriPath.uri.getOrElse(null)
-          if (uri != null) {
-            // TODO: I removed the following code. Check behaviour with relative URIs
-            /* if (!uri.startsWith("http://")) {
-              if (!uri.startsWith("https://")) {
-                "http://" + uri
-              } else { uri }
-            } else { uri } */
+        uriInput => {
+          uriInput.uri match {
+            case None =>
+                Ok(views.html.uri.defaultUriGET(CMessage(ByURI,MsgEmpty)))
+
+            case Some(uri) =>
             try {
-              val is 			= JenaUtils.dereferenceURI(uri)
-              val profile 		= uriPath.profile.getOrElse("Computex")
-              val contentFormat = uriPath.format.getOrElse(Turtle)
-              val showSource 	= uriPath.showSource.getOrElse(0) != 0
-              val verbose 		= uriPath.verbose.getOrElse(0) != 0
-              val expand 		= uriPath.expand.getOrElse(0) != 0
-              JenaUtils.parseInputStream(is,"",contentFormat) match {
-                case Parsed(model) => 
-                  Profile.getProfile(profile) match {
-                   case None => { 
-              	    val msg = CMessage(ByURI,MsgError("Unknown profile: " + profile))
-              	    BadRequest(views.html.input.defaultInputGET(msg))
-                   }
-                  case Some(profile) => {
-                    val message = CMessage(ByURI,Message.validate(profile,model,expand))
+              val opts 			= handleOptions(uriInput)
+              parseInputStream(dereferenceURI(uri),"",opts.contentFormat) match {
+                case Parsed(model) => {
+                    val message = CMessage(ByURI,Message.validate(opts.profile,model,opts.expand))
             	    Ok(views.html.generic.format(message))
-                  }
                 }
                 case NotParsed(err) => {
            	        val msg = CMessage(ByURI,MsgError("Error parsing: " + err))
            	        BadRequest(views.html.input.defaultInputGET(msg))
                 }
-              }
-            } catch {
-              case e: FileNotFoundException =>
-              	Ok(views.html.generic.format(CMessage(ByURI,Msg404)))
-              case e: IOException =>
-              	Ok(views.html.generic.format(CMessage(ByURI,Msg404)))
             }
-          } else {
-            Ok(views.html.uri.defaultUriGET(CMessage(ByURI,MsgEmpty)))
-          }
-        })
+            } catch {
+              case e: Exception =>
+              	Ok(views.html.generic.format(CMessage(ByURI,Msg404)))
+              }
+           }
+         })
   }
 }

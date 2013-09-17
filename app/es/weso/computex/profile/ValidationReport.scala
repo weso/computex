@@ -42,12 +42,12 @@ import java.io.FileOutputStream
  * 
  * This type is similar to $option where None could be Passed and Some(x) could be NotPassed(x) 
  */
-sealed abstract class ValidationReport[+A,+B,+C] 
+sealed abstract class ValidationReport[+A,+B] 
 
-final case class Passed[B](info:B) 
-	extends ValidationReport[Nothing,B,Nothing]
+final case class Passed[A](info:A) 
+	extends ValidationReport[A,Nothing]
 
-final case class NotPassed[A,C](report: A, info:C) 
-	extends ValidationReport[A,Nothing,C]
+final case class NotPassed[B](info:B) 
+	extends ValidationReport[Nothing,B]
     
 

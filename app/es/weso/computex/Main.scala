@@ -85,8 +85,7 @@ object Main extends App {
        val (report,model) = driver.validate
        report match {
          case Passed(vs) => println("Valid. " + vs.length + " validators passed\n")
-         case NotPassed(reportModel,(vs,nvs)) => 
-           showModel(opts.report.get,reportModel,"TURTLE","Report")
+         case NotPassed((vs,nvs)) => 
            println("Not valid: ")
            println(vs.length + " validators passed")
            println(nvs.length + " validators didn't pass")

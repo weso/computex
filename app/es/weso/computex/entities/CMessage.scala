@@ -16,6 +16,8 @@ import es.weso.computex.profile.Profile
 import com.hp.hpl.jena.rdf.model.Model
 import es.weso.computex.profile._
 import es.weso.computex.profile.VReport.VReport
+import es.weso.computex.entities.Message._
+import es.weso.computex.Parser
 
 
 sealed abstract class Action;
@@ -37,12 +39,11 @@ case class MsgPassed(
 }
 
 case class MsgNotPassed(
-    val modelWithErrors: Model,
-    val valsNotPassed: Seq[Validator],
     val valsPassed: Seq[Validator],
+    val valsNotPassed: Seq[CIntegrityQuery],
     val modelChecked: Model
     )  extends Message {
-  override def toString = "This document was successfully checked"
+  override def toString = "This document contains errors"
 }
 
 case object Msg404 		extends Message {
@@ -63,14 +64,20 @@ case object Valid 		extends Status;
 case object Invalid 	extends Status;
 case object Idle		extends Status;
 
-case class CMessage(
-    val action: 		Action,
-    val message: 		Message,
+case class Options(
     val profile:		Profile = Profile.Computex,
     val contentFormat:	String  = JenaUtils.TTL,
     val verbose: 		Boolean = false,
     val showSource:		Boolean = true,
-    val expand:			Boolean = true
+    val expand:			Boolean = true,
+ //   val imports:		Boolean = true,
+    val prefix:			Boolean = true
+    )
+
+case class CMessage(
+    val action: 		Action,
+    val message: 		Message,
+    val options: 		Options = Options()
     ) {
   
   def setError(str: String) : CMessage = 
@@ -80,9 +87,10 @@ case class CMessage(
     r match {
     	case Passed(vs) => 
     	  this.copy(message = MsgPassed(vs,m))
-    	case NotPassed(mError,(vs,nvs)) => 
-    	  this.copy(message = MsgNotPassed(mError,nvs,vs,m))
+    	case NotPassed((vs,nvs)) => 
+    	  this.copy(message = MsgNotPassed(vs,parseErrors(nvs),m))
     }
+  
 
    def status : Status = message match {
     case MsgPassed(_,_) => Valid
@@ -90,14 +98,50 @@ case class CMessage(
     case _ 			 	=> Invalid
   }
 
+ def passed = !hasErrors
+
  def hasErrors : Boolean = message match {
-   case MsgNotPassed(_,_,_,_) => true
-   case _ 					  => false
+   case MsgNotPassed(_,_,_) => true
+   case _ 					=> false
  }
+ 
+ def numErrors: Int = message match {
+   case MsgNotPassed(_,nvs,_) => nvs.size
+   case _ => 0
+ }
+ 
+ def numPassed: Int = message match {
+   case MsgNotPassed(vs,_,_) 	=> vs.size
+   case MsgPassed(vs,_) 		=> vs.size
+   case _ 						=> 0
+ }
+ 
+ def integrityQueries: Seq[CIntegrityQuery] = message match {
+   case MsgNotPassed(_,iqs,_) => iqs 
+   case _ => Seq()
+ }
+ 
+ def passedVals: Seq[Validator] = message match {
+   case MsgNotPassed(vs,_,_) => vs
+   case MsgPassed(vs,_) => vs
+   case _ => Seq()
+ }
+
+ def profile 		= options.profile
+ def contentFormat 	= options.contentFormat
+ def showSource 	= options.showSource
+ def expand	 		= options.expand
+ def verbose 		= options.verbose
+  
 }
 
 object Message {
  
+  def parseErrors(errors : Seq[(Validator,Model)]) : Seq[CIntegrityQuery] = {
+    errors.map((p) => 
+      Parser.parse(CQuery(p._1.name,p._1.query),p._2))
+  }
+
   /**
    * Generic utility to convert from String to InputStream
    */
@@ -132,7 +176,7 @@ object Message {
     val (report,checked) = p.validate(m,expand,imports) 
     report match {
       case Passed(vs) => MsgPassed(vs,checked)
-      case NotPassed(merror,p) => MsgNotPassed(merror,p._1,p._2,checked)
+      case NotPassed((vs,nvs)) => MsgNotPassed(vs,parseErrors(nvs),checked)
     }
   }
 }

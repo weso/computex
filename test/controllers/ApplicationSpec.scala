@@ -10,7 +10,6 @@ import play.api.mvc.Controller
 import play.api.mvc.SimpleResult
 import play.api.mvc.Results
 
-@RunWith(classOf[JUnitRunner])
 object ApplicationSpec extends Specification with Results {
 
   class TestApplication() extends Controller with Application

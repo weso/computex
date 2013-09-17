@@ -48,14 +48,14 @@ case class Validator(
   /**
    *  Validates a model using this validation 
    */
-  def validate(model:Model) : ValidationReport[Model,Validator,Validator] = {
+  def validate(model:Model) : ValidationReport[Validator,(Validator,Model)] = {
    val resultModel = ModelFactory.createDefaultModel
     val qexec = QueryExecutionFactory.create(query, model)
     qexec.execConstruct(resultModel)
     if (resultModel.size == 0) 
       Passed(this)
     else 
-      NotPassed(resultModel,this)
+      NotPassed((this,resultModel))
   }
   
 

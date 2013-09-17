@@ -29,6 +29,7 @@ import es.weso.computex.profile.ProfileParser
 import scala.io.Source
 import es.weso.computex.profile.ValidationReport
 import es.weso.computex.profile.Validator
+import es.weso.computex.profile.VReport._
 
 case class Driver(
     ontologyURI: String,
@@ -38,8 +39,7 @@ case class Driver(
     expand: Boolean,
     imports: Boolean) {
 
- type VReport = ValidationReport[Model,Seq[Validator],(Seq[Validator],Seq[Validator])]
- 
+
  def validate : (VReport,Model) = {
    val ontology = JenaUtils.parseFromURI(ontologyURI)
    val data 	= JenaUtils.parseFromURI(dataURI)

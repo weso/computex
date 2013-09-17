@@ -93,14 +93,14 @@ case class Profile(
         case Passed(v) => r match {
           case Passed(vs) => 
             Passed(v +: vs)
-          case NotPassed(m,(vs,nvs)) => 
-            NotPassed(m,(v +: vs,nvs))
+          case NotPassed((vs,nvs)) => 
+            NotPassed((v +: vs,nvs))
         }
-        case NotPassed(m1,v) => r match {
+        case NotPassed((v,m1)) => r match {
           case Passed(vs) => 
-            NotPassed(m1, (vs, Seq(v)))
-          case NotPassed(m2,(vs,nvs)) => 
-            NotPassed(m1.add(m2),(vs, v +: nvs))
+            NotPassed((vs, Seq((v,m1))))
+          case NotPassed((vs,nvs)) => 
+            NotPassed((vs, (v,m1) +: nvs))
         }
       }
   }
@@ -134,12 +134,16 @@ object Profile {
   
   def getProfile(name: String): Option[Profile] = {
     name match {
+      case "Cube" 			=> Some(Cube)
       case "RDF Data Cube" 	=> Some(Cube)
       case "Computex" 		=> Some(Computex)
       case _ 				=> None
     }
     
   }
+  
+  def profiles : Seq[String] = Seq("Cube", "Computex")
+
 }
     
     

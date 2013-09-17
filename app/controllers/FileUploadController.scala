@@ -12,20 +12,23 @@ import es.weso.computex.entities.ByFile
 import es.weso.computex.entities.MsgEmpty
 import es.weso.computex.entities.MsgBadFormed
 import es.weso.computex.profile.Profile
-import es.weso.utils.JenaUtils
+import es.weso.utils.JenaUtils._
 import es.weso.computex.entities.MsgError
 import es.weso.computex.entities.Message
 import es.weso.utils.Parsed
 import es.weso.utils.NotParsed
+import es.weso.computex.entities.Options
 
 object FileUploadController extends Controller with Base {
   
   case class FileInput(
-      val doctype: Option[String], 
-      val profile: Option[String], 
-      val showSource: Option[Int], 
-      val verbose: Option[Int], 
-      val expand: Option[Int])
+      _profile: Option[String], 
+      _syntax: Option[String], 
+      _showSource: Option[Int], 
+      _verbose: Option[Int], 
+      _expand: Option[Int],
+      _prefix: Option[Int]
+      ) extends BaseInput(_profile,_syntax,_showSource,_verbose,_expand,_prefix)
     
   val fileInputForm: Form[FileInput] = Form(
     mapping(
@@ -33,14 +36,16 @@ object FileUploadController extends Controller with Base {
       "profile" -> optional(text),
       "showSource" -> optional(number),
       "verbose" -> optional(number),
-      "expand" -> optional(number))
+      "expand" -> optional(number),
+      "prefix" -> optional(number)      
+      )
       (FileInput.apply)
       (FileInput.unapply))
   
   
   def byFileUploadGET() = Action {
     implicit request =>
-      val message = CMessage(ByFile,MsgEmpty)
+      val message = CMessage(ByFile,MsgEmpty,Options())
       Ok(views.html.file.defaultFileGET(message))
   }
 
@@ -49,38 +54,29 @@ def byFileUploadPOST() = Action(parse.multipartFormData) {
       request.body.file("uploaded_file").map { file =>
         fileInputForm.bindFromRequest.fold(
           errors => {
-            BadRequest(views.html.file.defaultFileGET(CMessage(ByFile,MsgBadFormed)))
+            BadRequest(views.html.file.defaultFileGET(CMessage(ByFile,MsgBadFormed,Options())))
           },
-          fileInput => {
+          fileInput => try {
+            val opts = handleOptions(fileInput)
             import java.io.File
             val filename 		= file.filename
             val contentType 	= file.contentType
-            val contentFormat 	= fileInput.doctype.getOrElse(Turtle)
-            val profile 		= fileInput.profile.getOrElse("Computex")
             val input 			= new ByteArrayInputStream(FileUtils.readFileToByteArray(file.ref.file))
-            val showSource 		= fileInput.showSource.getOrElse(0) != 0
-            val verbose 		= fileInput.verbose.getOrElse(0) != 0
-            val expand 			= fileInput.expand.getOrElse(0) != 0
-            
-            JenaUtils.parseInputStream(input,"",contentFormat) match {
-              case Parsed(model) => 
-                Profile.getProfile(profile) match {
-                  case None => { 
-              	   val msg = CMessage(ByFile,MsgError("Unknown profile: " + profile))
-              	   BadRequest(views.html.input.defaultInputGET(msg))
-                  }
-                  case Some(profile) => {
-                   val message = CMessage(ByFile,Message.validate(profile,model,expand))
+            parseInputStream(input,"",opts.contentFormat) match {
+              case Parsed(model) => {
+                   val message = CMessage(ByFile,Message.validate(opts.profile,model,opts.expand),opts)
             	   Ok(views.html.generic.format(message))
                   }
-                }
               case NotParsed(err) => {
-                   val msg = CMessage(ByFile,MsgError("Error parsing: " + err))
+                   val msg = CMessage(ByFile,MsgError("Error parsing file: " + err),opts)
               	   BadRequest(views.html.input.defaultInputGET(msg))
               }
             }
-          })
-
+          } catch {
+          case e: Exception => 
+              BadRequest(views.html.input.defaultInputGET(CMessage(ByFile,MsgError("Exception: " + e))))
+          }
+       )
       }.getOrElse {
         Ok(views.html.file.defaultFileGET(CMessage(ByFile,MsgEmpty)))
       }

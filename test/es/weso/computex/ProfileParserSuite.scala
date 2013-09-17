@@ -66,8 +66,7 @@ class ProfileParserSuite
      val demoCube 		= JenaUtils.parseFromURI(demoCubeURI)
      profile.validate(demoCube) match {
        case (Passed(_),_) => info("Validates")
-       case vr@(NotPassed(model,(vs,nvs)),returnedModel) => {
-    	 fail("Error Model: " + JenaUtils.model2Str(model))
+       case vr@(NotPassed((vs,nvs)),returnedModel) => {
          fail("not passed" + nvs)
          fail("Does not validate " + VReport.show(vr._1))
        }
@@ -84,9 +83,8 @@ class ProfileParserSuite
      model.add(ontology)  
      profile.validate(model) match {
        case (Passed(_),_) => info("Validates")
-       case vr@(NotPassed(model,_),returnedModel) => {
+       case vr@(NotPassed(_),returnedModel) => {
          //JenaUtils.model2File(returnedModel,"returned.ttl")
-         fail("Error model:" + model2Str(model))
          fail("Does not validate " + VReport.show(vr._1))
        }
      }
@@ -97,7 +95,7 @@ class ProfileParserSuite
      val model 		= JenaUtils.parseFromURI(demoCubeURI)
      profile.validate(model) match {
        case (Passed(_),_) => info("Validates")
-       case (NotPassed(model,_),_) => fail("Does not validate " )
+       case (NotPassed(_),_) => fail("Does not validate " )
      }
    }
 
@@ -106,7 +104,7 @@ class ProfileParserSuite
      val model 		= JenaUtils.parseFromURI(demoComputexAbbrURI)
      profile.validate(model) match {
        case (Passed(_),_) => info("Validates")
-       case vr@(NotPassed(model,_),returnedModel) => 
+       case vr@(NotPassed(_),returnedModel) => 
          JenaUtils.model2File(returnedModel,"returned.ttl")
          info("Error model:" + model2Str(model))
          fail("Does not validate " + VReport.show(vr._1, false))
@@ -118,7 +116,7 @@ class ProfileParserSuite
      val model 		= Generator(1,1,1).model
      profile.validate(model) match {
        case (Passed(_),_) => info("Validates")
-       case vr@(NotPassed(model,_),returnedModel) => 
+       case vr@(NotPassed(_),returnedModel) => 
          JenaUtils.model2File(returnedModel,"returned.ttl")
          info("Error model:" + model2Str(model))
          fail("Does not validate " + VReport.show(vr._1, false))

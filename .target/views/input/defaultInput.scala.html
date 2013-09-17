@@ -2,6 +2,7 @@
 
 @import es.weso.computex.entities.CMessage
 @import es.weso.computex.entities.CMessage._
+@import es.weso.computex.profile.Profile
 @import es.weso.utils.JenaUtils._
 @import helper._
 
@@ -9,7 +10,7 @@
 	<nav>
 		<span id="validate">Validate by</span>
 		<ul id="tabset_tabs">
-			<li id="by_uri">
+			<li id="by_uri" class="circle-link circle">
 				<a href="/uri" class="circle-link">URI</a>
 			</li>
 			<li id="by_file" 
@@ -25,18 +26,22 @@
 	<div>
 		@helper.form(action = routes.DirectInputController.byDirectInputPOST) {
 	      	<p class="instructions">
-	      		<label title="Paste a complete (TTL) Document here" for="fragment">Enter the .ttl to validate:</label><br>
+	      		<label title="Paste a complete document here" for="fragment">Enter document to validate:</label><br>
 	      		<textarea id="fragment" name="fragment" rows="90" cols="120">@*  @message.content *@</textarea>
 	      	</p>
 	      	<p class="instructions">
 				<label for="profile">Profile:</label>
+				@* Check which is the profile selected from message *@
 				<select id="profile" name="profile">
-					<option value="RDF Data Cube">RDF Data Cube</option>
-					<option value="Computex">Computex</option>
+				@for(p <- Profile.profiles) {
+					<option 
+					  value="@p" @if(message.profile.name equals p){selected="selected"}>@p</option>
+			    }
 			    </select>
 			</p>
 	      	<p class="instructions">
 				<label for="direct-doctype">Use Doctype:</label>
+				@* Check which is the doctype selected from message *@
 				<select id="direct-doctype" name="doctype">
 					<option value="RDF/XML" @if(message.contentFormat equals RdfXML){selected="selected"}>RDF/XML</option>
 					<option value="RDF/XML-ABBREV" @if(message.contentFormat equals RdfXMLAbbr){selected="selected"}>RDF/XML-ABBREV</option>

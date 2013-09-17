@@ -6,23 +6,105 @@
 @import scala.io.Codec._
 
 @main(message) {
-	
+
 	@{message.action match {
-		case ByURI => uri.defaultUri(message)
-		case ByDirectInput => input.defaultInput(message)
-		case ByFile => file.defaultFile(message)
+		case ByURI 			=> uri.defaultUri(message)
+		case ByDirectInput 	=> input.defaultInput(message)
+		case ByFile 		=> file.defaultFile(message)
 	
 	}}
+	
 	<div id="info_profile">
-	<p>Validating with Profile: @message.profile.name
+		<p>Validating with Profile: @message.profile.name
 	</div>
+
 	<div id="results_container">    
-	    <h2 class="@if(message.status equals Valid){valid}else{invalid}">@Html(message.message.toString)</h2>
-	    <p class="backtop"><a href="#frontforms">↑ Top</a></p>
+	    <h2 class="@if(message.status equals Valid){valid}else{invalid}">Result: @Html(message.message.toString)</h2>
 	    <div id="result">
-	    	<h3 class="@if(message.hasErrors){invalid}else{valid}">Not valid</h3>
+        @if(message.passed) {
+  			<p>Passed @message.numPassed validators</p>
+		} else {
+  			<p>@message.numErrors validators did not pass. @message.numPassed passed</p>
+		}
+
+		
+		@if(message.hasErrors){
+	    <h3 class="invalid">Validators that failed</h3>
+	    <ol id="error_loop">
+		@message.integrityQueries.zipWithIndex.map { iQ =>
+		    		@if(message.verbose || iQ._1.size>0){
+			    		<li class="msg_err">
+				    		<span class="err_type">
+				    		@if(iQ._1.size>0){
+				    		<img src="http://validator.w3.org/images/info_icons/error.png" alt="Error" title="Error"/>
+				    		}else{
+				    		<img src="http://www.w3.org/2011/gld/validator/qb/img/tick-16.png" alt="Valid" title="Valid"/>
+				    		}
+				    		q@{iQ._1.query.name}: @{iQ._1.size} Errors</span>, 
+				    		<span class="msg"> @iQ._1.message</span>
+				    		<div class="query">
+					    		<pre class="hide">
+					   				<code class="prettyprint lang-sparql">@iQ._1.query.query</code>
+						    	</pre>
+						    	<p class="backtop"><a href="#">↓ Show Integrity Query</a></p>
+			    			</div>
+			    		</li>
+			    		@iQ._1.errorMessages.zipWithIndex.map { e =>
+				    		<li class="msg_err">
+				    			<span class="err_type">
+				    			q@{iQ._1.query.name} - @{e._2+1}
+				    			</span>
+				    			<em>Error</em>: 
+				    			<span class="msg">@iQ._1.message</span>
+				    			<table>
+				    			<thead>
+					    			<tr>
+					    				<th>Name</th>
+					    				<th>Value</th>
+					    			</tr>
+				    			</thead>
+				    			<tfoot>
+					    			<tr>
+					    				<th>Name</th>
+					    				<th>Value</th>
+					    			</tr>
+				    			</tfoot>
+				    			@e._1.params.map { p =>
+				    				<tr>
+					    				<td>@p.name</td>
+					    				<td>@p.value</td>
+				    				</tr>
+				    			}
+				    			</table>
+				   				<pre class="hide">
+				   					<code class="prettyprint lang-sparql">@e._1.model</code>
+					    		</pre>
+					    		<p class="backtop"><a href="#">↓ SHOW RAW DATA</a></p>
+				    		</li>
+			    		}
+			    	}
+		    	}
+		    	</ol>
+		    }
+		    
+		@if(message.verbose && message.passedVals.length > 0) {
+	    <p class="backtop"><a href="#frontforms">↑ Top</a></p>
+	    <h3 class="valid">Validators that passed</h3>
+	    <ol id="error_loop">
+		  
+		  @for(v <- message.passedVals.sortBy(_.name)){
+		  <li class="msg_err">
+   		   <span class="err_type">
+		    <img src="http://www.w3.org/2011/gld/validator/qb/img/tick-16.png" alt="Valid" title="Valid"/>
+		    Passed: @v.name
+		   </span>
+		  </li>
+		 }
+		 </ol>
+		}
 	    <p class="backtop"><a href="#frontforms">↑ Top</a></p>
 	    </div>
+
 	    @generic.source(message)
 	    <div id="earl">
 		    <h3>EARL REPORT</h3>

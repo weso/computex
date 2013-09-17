@@ -36,10 +36,9 @@ import java.io.FileOutputStream
 package object VReport {
 
   type VReport = ValidationReport[
-    Model,							 // Model that was analyzed
-    Seq[Validator],  				 // List of validators that passed
-    (Seq[Validator],Seq[Validator])  // Pair with list of validators that passed and 
-    								 // list of validators that didn't pass
+     Seq[Validator],  				 		 // List of validators that passed
+    (Seq[Validator],Seq[(Validator,Model)])  // Pair with list of validators that passed and 
+    								 		 // list of (validators,error models) that didn't pass
   ]
   
  def show(
@@ -52,14 +51,14 @@ package object VReport {
       } else {
        "Passed " + vs.length + " validators"
       }
-     case NotPassed(m,(vs,nvs)) =>
+     case NotPassed((vs,nvs)) =>
        if (verbose) {
          "Not passed\n" + 
          "Validators that passed: " + vs +
          "Validators that didn't pass: " + nvs
        } else {
          "Not passed:\n" + 
-         showNameVals(nvs) + 
+         showNameVals(nvs.map(_._1)) + 
          "Passed: " + vs.length + " validators"
        }
    }

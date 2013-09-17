@@ -29,12 +29,23 @@ class IntegrationSpec extends Specification {
         browser.goTo("http://localhost:3333/")
         // Go to about
         browser.waitUntil[Boolean]{
-         browser.$("#about-link").click()
+         browser.$("#weso-link").click()
          browser.$("#about").first.getText.contains("About Computex")
         }
       }
     }
-    
+
+   "validate by input" in {
+      running(TestServer(3333), HTMLUNIT) { browser =>
+        browser.goTo("http://localhost:3333/")
+        // Go to about
+        browser.waitUntil[Boolean]{
+         browser.$("#by_direct a").click()
+         browser.pageSource.contains("fragment")
+        }
+      }
+    }
+
   }
   
 }
