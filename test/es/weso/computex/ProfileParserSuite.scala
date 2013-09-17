@@ -128,7 +128,7 @@ class ProfileParserSuite
   it("Should parse and generate the same cube profile") {
      val computexProfile = ConfigUtils.getName(conf, "cubeProfile")
      val contents 		= Source.fromFile(computexProfile).mkString
-     val model			= parseModel(contents,"",Turtle)
+     val model			= parseFromString(contents,"",Turtle)
      val profile 	= Profile.Cube
      val modelGenerated = ProfileParser.toModel(profile)
      if (model.isIsomorphicWith(modelGenerated)) 
@@ -143,7 +143,7 @@ class ProfileParserSuite
     it("Should parse and generate the same computex profile") {
      val computexProfile = ConfigUtils.getName(conf, "computexProfile")
      val contents 		= Source.fromFile(computexProfile).mkString
-     val model			= parseModel(contents,"",Turtle)
+     val model			= parseFromString(contents,"",Turtle)
      val profile 	= Profile.Computex
      val modelGenerated = ProfileParser.toModel(profile)
      if (model.isIsomorphicWith(modelGenerated)) 

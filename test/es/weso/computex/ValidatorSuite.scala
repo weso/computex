@@ -45,7 +45,7 @@ class ValidatorSuite
                    |:o1 a :Observation .
                    |""".stripMargin
                    
-     val model 		= parseModel(data)
+     val model 		= parseFromString(data)
      val validator 	= Validator(queryStr)
      shouldNotPassReport(validator.validate(model))
    }
@@ -66,7 +66,7 @@ class ValidatorSuite
        			   |    cex:value 1 .
                    |""".stripMargin
                    
-     val model 		= parseModel(data)
+     val model 		= parseFromString(data)
      val validator 	= Validator(queryStr)
      shouldPassReport(validator.validate(model))
    }

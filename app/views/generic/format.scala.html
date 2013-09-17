@@ -14,75 +14,20 @@
 	
 	}}
 	<div id="info_profile">
-	<p>Validating with Profile: @message.profile</div>
+	<p>Validating with Profile: @message.profile.name
+	</div>
 	<div id="results_container">    
-	    <h2 class="@if(message.message equals MsgOK){valid}else{invalid}">@Html(message.message.toString)</h2>
+	    <h2 class="@if(message.status equals Valid){valid}else{invalid}">@Html(message.message.toString)</h2>
 	    <p class="backtop"><a href="#frontforms">↑ Top</a></p>
 	    <div id="result">
-	    	<h3 class="@if(message.hasErrors){invalid}else{valid}">Validation Output: @message.numErrors RDF Data Cube Validation Service Errors</h3>
-	    	@if(!message.integrityQueries.isEmpty){
-		    	<ol id="error_loop">
-		    	@message.integrityQueries.zipWithIndex.map { iQ =>
-		    		@if(message.verbose || iQ._1.size>0){
-			    		<li class="msg_err">
-				    		<span class="err_type">
-				    		@if(iQ._1.size>0){
-				    		<img src="http://validator.w3.org/images/info_icons/error.png" alt="Error" title="Error"/>
-				    		}else{
-				    		<img src="http://www.w3.org/2011/gld/validator/qb/img/tick-16.png" alt="Valid" title="Valid"/>
-				    		}
-				    		q@{iQ._1.query.name}: @{iQ._1.size} Errors</span>, 
-				    		<span class="msg"> @iQ._1.message</span>
-				    		<div class="query">
-					    		<pre class="hide">
-					   				<code class="prettyprint lang-sparql">@iQ._1.query.query</code>
-						    	</pre>
-						    	<p class="backtop"><a href="#">↓ Show Integrity Query</a></p>
-			    			</div>
-			    		</li>
-			    		@iQ._1.errorMessages.zipWithIndex.map { e =>
-				    		<li class="msg_err">
-				    			<span class="err_type">
-				    			q@{iQ._1.query.name} - @{e._2+1}
-				    			</span>
-				    			<em>Error</em>: 
-				    			<span class="msg">@iQ._1.message</span>
-				    			<table>
-				    			<thead>
-					    			<tr>
-					    				<th>Name</th>
-					    				<th>Value</th>
-					    			</tr>
-				    			</thead>
-				    			<tfoot>
-					    			<tr>
-					    				<th>Name</th>
-					    				<th>Value</th>
-					    			</tr>
-				    			</tfoot>
-				    			@e._1.params.map { p =>
-				    				<tr>
-					    				<td>@p.name</td>
-					    				<td>@p.value</td>
-				    				</tr>
-				    			}
-				    			</table>
-				   				<pre class="hide">
-				   					<code class="prettyprint lang-sparql">@e._1.model</code>
-					    		</pre>
-					    		<p class="backtop"><a href="#">↓ SHOW RAW DATA</a></p>
-				    		</li>
-			    		}
-			    	}
-		    	}
-		    	</ol>
-		    }
+	    	<h3 class="@if(message.hasErrors){invalid}else{valid}">Not valid</h3>
 	    <p class="backtop"><a href="#frontforms">↑ Top</a></p>
 	    </div>
 	    @generic.source(message)
 	    <div id="earl">
 		    <h3>EARL REPORT</h3>
-		    <p><a href="@CEARLReport(message).saveModel" title="Download EARL Report">Download</a> <span class="asterisk">*</span></p>
+		    <p><a href="@CEARLReport(message).saveModel" title="Download EARL Report">Download</a> <span class="asterisk">*</span>
+		    </p>
 		   	<p class="disclaimer"><span class="asterisk">*</span> The generated EARL REPORT will last at least 24h, after that it will be destroy.</p>
 		   	<p class="backtop"><a href="#frontforms">↑ Top</a></p>
 	   	</div>

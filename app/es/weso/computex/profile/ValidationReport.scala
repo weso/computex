@@ -35,14 +35,19 @@ import java.io.FileOutputStream
 
 /**
  * Represents validation reports. 
- * Instances of ValidationReport are either the object $passed with a validator argument or
- * an instance of $Notpassed with some info about the reason and the validator
+ * Instances of ValidationReport are either 
+ * the object $passed with a validator argument or
+ * an instance of $Notpassed with some info about 
+ * the reason and the validator
  * 
  * This type is similar to $option where None could be Passed and Some(x) could be NotPassed(x) 
  */
 sealed abstract class ValidationReport[+A,+B,+C] 
 
-final case class Passed[B](info:B) extends ValidationReport[Nothing,B,Nothing]
-final case class NotPassed[A,C](report: A, info:C) extends ValidationReport[A,Nothing,C]
+final case class Passed[B](info:B) 
+	extends ValidationReport[Nothing,B,Nothing]
+
+final case class NotPassed[A,C](report: A, info:C) 
+	extends ValidationReport[A,Nothing,C]
     
 

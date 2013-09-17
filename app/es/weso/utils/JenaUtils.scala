@@ -18,6 +18,16 @@ import java.net.URI
 import java.net.URL
 import java.io.InputStream
 import java.io.FileOutputStream
+import org.apache.jena.atlas.AtlasException
+import org.apache.jena.riot.RiotException
+
+sealed abstract class ParserReport[+A,+B] 
+
+final case class Parsed[A](info:A) 
+	extends ParserReport[A,Nothing]
+
+final case class NotParsed[B](error: B) 
+	extends ParserReport[Nothing,B]
 
 object JenaUtils {
 
@@ -71,35 +81,84 @@ object JenaUtils {
     urlCon.setReadTimeout(2000)
     urlCon.getInputStream()
   }
-  
-  def parseFromURI(
+
+  def parseFromURI(uri: String, 
+      base: String = "", 
+      syntax: String = Turtle) : Model = {
+    uri2Model(uri,base,syntax) match {
+      case Parsed(model) => model
+      case NotParsed(err) => throw new Exception("Cannot parse from URI: " + uri + ". Error: " + err)
+    }
+  }
+
+  def parseFromString(
+      content: String, 
+      base: String = "", 
+      syntax: String = Turtle) : Model = {
+    str2Model(content,base,syntax) match {
+      case Parsed(model) => model
+      case NotParsed(err) => 
+        throw new Exception("Cannot parse from string: " + content + ". Error: " + err + ". Syntax: " + syntax)
+    }
+  }
+
+  def uri2Model(
       uriName: String,
       base: String = "",
-      syntax: String = Turtle) : Model = {
-    val model = ModelFactory.createDefaultModel()
-    model.read(dereferenceURI(uriName),base,syntax)
+      syntax: String = Turtle) : ParserReport[Model,String] = {
+    try {
+      val model = ModelFactory.createDefaultModel()
+      Parsed(model.read(dereferenceURI(uriName),base,syntax))
+    } catch {
+      case e@(_: AtlasException | _: RiotException) => 
+        NotParsed("Bad formed with syntax " + syntax + ". " + e.getLocalizedMessage())
+      case e : Exception =>
+        NotParsed("Exception parsing from URI " + uriName + 
+            " with syntax " + syntax + ". " + e.getLocalizedMessage())
+    }
   }
   
+
   /**
    * Returns a RDF model after parsing a String
    */
-  def parseModel(
+  def str2Model(
       str: String,
 	  base: String = "",
-	  syntax: String = Turtle) : Model = {
+	  syntax: String = Turtle) : ParserReport[Model,String] = {
     try {
       val model = ModelFactory.createDefaultModel()
       val stream = new ByteArrayInputStream(str.getBytes("UTF-8"))
-      model.read(stream,base,syntax)
-      model
+      Parsed(model.read(stream,base,syntax))
     } catch {
-      case e: Exception => {
-        throw new Exception("Cannot parse model . Exception: " + e + "\nStr = " + str)
-      }
+      case e@(_: AtlasException | _: RiotException) => 
+        NotParsed("Bad formed with syntax " + syntax + ". " + e.getLocalizedMessage())
+      case e : Exception =>
+        NotParsed("Exception parsing from String " + str + 
+            " with syntax " + syntax + ". " + e.getLocalizedMessage())
     }
   } 
     
-   def getLiteral(
+  /**
+   * Returns a RDF model after parsing an InputStream
+   */
+  def parseInputStream(
+      stream: 	InputStream,
+	  base: 	String = "",
+	  syntax: 	String = Turtle) : ParserReport[Model,String] = {
+    try {
+      val model = ModelFactory.createDefaultModel()
+      Parsed(model.read(stream,base,syntax))
+    } catch {
+      case e@(_: AtlasException | _: RiotException) => 
+        NotParsed("Bad formed with syntax " + syntax + ". " + e.getLocalizedMessage())
+      case e : Exception =>
+        NotParsed("Exception parsing " + 
+            " with syntax " + syntax + ". " + e.getLocalizedMessage())
+    }
+  } 
+
+  def getLiteral(
        r : RDFNode, 
        property: Property) : String = {
     if (r.isResource()) {

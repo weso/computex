@@ -121,22 +121,22 @@ object Profile {
   def Cube : Profile = {
     val cubeProfile 	= ConfigUtils.getName(conf, "cubeProfile")
     val contents 		= Source.fromFile(cubeProfile).mkString
-    val model 			= parseModel(contents)
+    val model 			= parseFromString(contents)
     ProfileParser.fromModel(model)(0)
   }
 
   def Computex : Profile = {
     val computexProfile = ConfigUtils.getName(conf, "computexProfile")
     val contents 		= Source.fromFile(computexProfile).mkString
-    val model			= parseModel(contents)
+    val model			= parseFromString(contents)
     ProfileParser.fromModel(model)(0)
   }
   
   def getProfile(name: String): Option[Profile] = {
     name match {
-      case "Cube" 		=> Some(Cube)
-      case "Computex" 	=> Some(Computex)
-      case _ 			=> None
+      case "RDF Data Cube" 	=> Some(Cube)
+      case "Computex" 		=> Some(Computex)
+      case _ 				=> None
     }
     
   }

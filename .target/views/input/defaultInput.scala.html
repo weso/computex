@@ -9,14 +9,15 @@
 	<nav>
 		<span id="validate">Validate by</span>
 		<ul id="tabset_tabs">
-			<li id="uri">
+			<li id="by_uri">
 				<a href="/uri" class="circle-link">URI</a>
 			</li>
-			<li id="central-circle" 
+			<li id="by_file" 
 				class="circle-link circle">
 				<a href="/file" class="circle-link">File Upload</a>
 			</li>
-			<li class="circle selected">
+			<li id="by_direct" 
+				class="circle selected">
 				<a href="/direct" class="circle-link">Direct Input</a>
 			</li>
 		</ul>
@@ -25,7 +26,7 @@
 		@helper.form(action = routes.DirectInputController.byDirectInputPOST) {
 	      	<p class="instructions">
 	      		<label title="Paste a complete (TTL) Document here" for="fragment">Enter the .ttl to validate:</label><br>
-	      		<textarea id="fragment" name="fragment" rows="90" cols="120">@message.content</textarea>
+	      		<textarea id="fragment" name="fragment" rows="90" cols="120">@*  @message.content *@</textarea>
 	      	</p>
 	      	<p class="instructions">
 				<label for="profile">Profile:</label>

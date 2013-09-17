@@ -15,21 +15,24 @@ import play.api.mvc.Controller
 import es.weso.utils.JenaUtils
 import es.weso.computex.entities.ByURI
 import es.weso.computex.entities.MsgBadFormed
-import es.weso.computex.entities.MsgOK
 import es.weso.computex.profile.Profile
 import es.weso.computex.entities.Msg404
 import es.weso.computex.entities.MsgEmpty
+import es.weso.computex.entities.MsgError
+import es.weso.computex.entities.Message
+import es.weso.utils.Parsed
+import es.weso.utils.NotParsed
 
 object URIController extends Controller with Base {
 
   // TODO: change to boolean values showSource, verbose, etc
   case class UriPath(
-      val uri: Option[String], 
-      val format: Option[String], 
-      val profile: Option[String],
-      val showSource: Option[Int], 
-      val verbose: Option[Int], 
-      val expand: Option[Int]
+      val uri: 			Option[String], 
+      val format: 		Option[String], 
+      val profile: 		Option[String],
+      val showSource: 	Option[Int], 
+      val verbose: 		Option[Int], 
+      val expand: 		Option[Int]
       )
   
   val uriForm: Form[UriPath] = Form(
@@ -66,17 +69,23 @@ object URIController extends Controller with Base {
               val showSource 	= uriPath.showSource.getOrElse(0) != 0
               val verbose 		= uriPath.verbose.getOrElse(0) != 0
               val expand 		= uriPath.expand.getOrElse(0) != 0
-              val m 	= CMessage(
-            		  ByURI,
-            		  MsgOK,
-            		  Some(CMessage.is2str(is)),
-            		  Profile.getProfile(profile),
-            	      contentFormat,
-            		  verbose,
-            		  showSource,
-            		  expand)	
-              val newMessage = validateMessage(m)
-              Ok(views.html.generic.format(newMessage))
+              JenaUtils.parseInputStream(is,"",contentFormat) match {
+                case Parsed(model) => 
+                  Profile.getProfile(profile) match {
+                   case None => { 
+              	    val msg = CMessage(ByURI,MsgError("Unknown profile: " + profile))
+              	    BadRequest(views.html.input.defaultInputGET(msg))
+                   }
+                  case Some(profile) => {
+                    val message = CMessage(ByURI,Message.validate(profile,model,expand))
+            	    Ok(views.html.generic.format(message))
+                  }
+                }
+                case NotParsed(err) => {
+           	        val msg = CMessage(ByURI,MsgError("Error parsing: " + err))
+           	        BadRequest(views.html.input.defaultInputGET(msg))
+                }
+              }
             } catch {
               case e: FileNotFoundException =>
               	Ok(views.html.generic.format(CMessage(ByURI,Msg404)))

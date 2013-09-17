@@ -11,8 +11,12 @@ import play.api.mvc.Controller
 import es.weso.computex.entities.ByFile
 import es.weso.computex.entities.MsgEmpty
 import es.weso.computex.entities.MsgBadFormed
-import es.weso.computex.entities.MsgOK
 import es.weso.computex.profile.Profile
+import es.weso.utils.JenaUtils
+import es.weso.computex.entities.MsgError
+import es.weso.computex.entities.Message
+import es.weso.utils.Parsed
+import es.weso.utils.NotParsed
 
 object FileUploadController extends Controller with Base {
   
@@ -53,22 +57,28 @@ def byFileUploadPOST() = Action(parse.multipartFormData) {
             val contentType 	= file.contentType
             val contentFormat 	= fileInput.doctype.getOrElse(Turtle)
             val profile 		= fileInput.profile.getOrElse("Computex")
-            val contentIS 		= new ByteArrayInputStream(FileUtils.readFileToByteArray(file.ref.file))
-            val contentString 	= CMessage.is2str(contentIS) 
+            val input 			= new ByteArrayInputStream(FileUtils.readFileToByteArray(file.ref.file))
             val showSource 		= fileInput.showSource.getOrElse(0) != 0
             val verbose 		= fileInput.verbose.getOrElse(0) != 0
             val expand 			= fileInput.expand.getOrElse(0) != 0
-            val message = CMessage(
-            			 ByFile,
-                		 MsgOK,
-                		 Some(contentString),
-                		 Profile.getProfile(profile),
-            			 contentFormat,
-            			 verbose,
-            			 showSource,
-            			 expand)
-             val newMessage = validateMessage(message)                		
-             Ok(views.html.generic.format(newMessage))
+            
+            JenaUtils.parseInputStream(input,"",contentFormat) match {
+              case Parsed(model) => 
+                Profile.getProfile(profile) match {
+                  case None => { 
+              	   val msg = CMessage(ByFile,MsgError("Unknown profile: " + profile))
+              	   BadRequest(views.html.input.defaultInputGET(msg))
+                  }
+                  case Some(profile) => {
+                   val message = CMessage(ByFile,Message.validate(profile,model,expand))
+            	   Ok(views.html.generic.format(message))
+                  }
+                }
+              case NotParsed(err) => {
+                   val msg = CMessage(ByFile,MsgError("Error parsing: " + err))
+              	   BadRequest(views.html.input.defaultInputGET(msg))
+              }
+            }
           })
 
       }.getOrElse {

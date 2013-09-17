@@ -49,7 +49,7 @@ case class Driver(
      case "Computex" => Profile.Computex
      case _ => {
     	 val contents 	= Source.fromFile(profileName).mkString
-    	 val model 		= JenaUtils.parseModel(contents)
+    	 val model 		= JenaUtils.parseFromString(contents)
     	 ProfileParser.fromModel(model)(0)
      }
    }

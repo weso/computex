@@ -4,7 +4,10 @@ import es.weso.computex.entities._
 import play.api.mvc.Action
 import play.api.mvc.Controller
 
-object Application extends Controller {
+// We use a explicitly typed self reference for Unit testing
+// following Play documentation for testing
+trait Application {
+  this: Controller => 
 
   def index = Action {
     implicit request =>
@@ -17,3 +20,5 @@ object Application extends Controller {
   }
   
 }
+  
+object Application extends Controller with Application

@@ -24,15 +24,24 @@ case object ByDirectInput 	extends Action ;
 case object ByFile 			extends Action ;
 
 sealed abstract class Message ;
-case object MsgOk 		extends Message {
-  override def toString = "OK";
-}
 
 case object MsgEmpty 	extends Message {
   override def toString = "Empty";
 }
 
-case object MsgOK 		extends Message {
+case class MsgPassed(
+    val vals: Seq[Validator],
+    val modelChecked: Model
+    )  extends Message {
+  override def toString = "This document was successfully checked"
+}
+
+case class MsgNotPassed(
+    val modelWithErrors: Model,
+    val valsNotPassed: Seq[Validator],
+    val valsPassed: Seq[Validator],
+    val modelChecked: Model
+    )  extends Message {
   override def toString = "This document was successfully checked"
 }
 
@@ -50,61 +59,44 @@ case class MsgError(msg: String) 	extends Message {
 
 
 sealed abstract class Status;
-case object Valid 	extends Status;
+case object Valid 		extends Status;
 case object Invalid 	extends Status;
 case object Idle		extends Status;
 
 case class CMessage(
     val action: 		Action,
     val message: 		Message,
-    val content: 		Option[String] 		= None ,
-    val profile: 		Option[Profile] 	= None,
-    val contentFormat: 	String 				= JenaUtils.TTL,
-    val verbose: 		Boolean 			= false,
-    val showSource: 	Boolean 			= false,
-    val expand: 		Boolean 			= false,
-    val result:			Option[(VReport,Model)]		= None
+    val profile:		Profile = Profile.Computex,
+    val contentFormat:	String  = JenaUtils.TTL,
+    val verbose: 		Boolean = false,
+    val showSource:		Boolean = true,
+    val expand:			Boolean = true
     ) {
-
-  def status = message match {
-    case MsgOK 		=> Valid
-    case MsgEmpty 	=> Idle
-    case _ 			=> Invalid
-  }
-
   
-  /**
-   * Content as InputStream
-   */
-  def contentIS : InputStream = {
-    CMessage.str2is(content.getOrElse(""),Charset.forName("UTF-8"))
-  }
-
   def setError(str: String) : CMessage = 
     this.copy(message=MsgError(str))
   
-  def setResult(r: (VReport,Model) ): CMessage =
-    this.copy(result = Some(r))
-    
-  def getModel : Option[Model] = {
-    content.map(str => JenaUtils.parseModel(str, "", contentFormat))
-  }
-    
-  def hasErrors : Boolean = {
-    ???
+  def setResult(r: VReport, m: Model): CMessage =
+    r match {
+    	case Passed(vs) => 
+    	  this.copy(message = MsgPassed(vs,m))
+    	case NotPassed(mError,(vs,nvs)) => 
+    	  this.copy(message = MsgNotPassed(mError,nvs,vs,m))
+    }
+
+   def status : Status = message match {
+    case MsgPassed(_,_) => Valid
+    case MsgEmpty 	 	=> Idle
+    case _ 			 	=> Invalid
   }
 
-  def numErrors : Integer = {
-    ???
-  }
-
-  def integrityQueries : List[CIntegrityQuery] = {
-    ???
-  }
-
+ def hasErrors : Boolean = message match {
+   case MsgNotPassed(_,_,_,_) => true
+   case _ 					  => false
+ }
 }
 
-object CMessage {
+object Message {
  
   /**
    * Generic utility to convert from String to InputStream
@@ -133,4 +125,14 @@ object CMessage {
     sb.toString();
   }
 
+ 
+  def validate(p: Profile, m: Model, 
+      expand: Boolean, 
+      imports: Boolean = true) : Message = {
+    val (report,checked) = p.validate(m,expand,imports) 
+    report match {
+      case Passed(vs) => MsgPassed(vs,checked)
+      case NotPassed(merror,p) => MsgNotPassed(merror,p._1,p._2,checked)
+    }
+  }
 }

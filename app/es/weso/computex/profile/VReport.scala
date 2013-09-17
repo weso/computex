@@ -35,9 +35,11 @@ import java.io.FileOutputStream
 
 package object VReport {
 
-  type VReport = ValidationReport[Model,
-    Seq[Validator],
-    (Seq[Validator],Seq[Validator])
+  type VReport = ValidationReport[
+    Model,							 // Model that was analyzed
+    Seq[Validator],  				 // List of validators that passed
+    (Seq[Validator],Seq[Validator])  // Pair with list of validators that passed and 
+    								 // list of validators that didn't pass
   ]
   
  def show(

@@ -1,5 +1,6 @@
 @(message: es.weso.computex.entities.CMessage)(content: Html)
-@import es.weso.computex.entities.CMessage._
+@import es.weso.computex.entities._
+
 <!DOCTYPE html>
 <!--[if IE 8]>
 <html class="no-js lt-ie9" lang="en" >
@@ -16,11 +17,11 @@
         <link rel="stylesheet" href="@routes.Assets.at("stylesheets/base.css")"></script>
         <link rel="stylesheet" href="@routes.Assets.at("stylesheets/results.css")"></script>
         <link rel="stylesheet" href="@routes.Assets.at("stylesheets/site.css")" />
-        <link rel="icon" type="image/png" href="@routes.Assets.at(message.status match{
+       <!--  <link rel="icon" type="image/png" href="@routes.Assets.at(message.status match{
           case Valid => "images/favicon_ok.png"
           case Invalid => "images/favicon_fail.png"
           case _ => "images/weso.png"
-         })"/>
+         })"/>  -->
         <link rel="stylesheet" href="@routes.Assets.at("stylesheets/prettify.css")" />
         <script type="text/javascript" src="@routes.Assets.at("javascripts/highlighter/prettify.js")"></script>
         <script type="text/javascript" src="@routes.Assets.at("javascripts/highlighter/lang-sparql.js")"></script>
@@ -30,13 +31,16 @@
 	</head>
     <body onload="prettyPrint()">
     	<header id="banner">
-    		<a id="weso-link" class="circle-link" href="/about">about</a>
+    		<a id="about-link" class="circle-link" href="/about">about</a>
     		<a id="weso-logo" href="/"><img alt="WESO" width="100" height="100" id="logo" src="@routes.Assets.at("images/weso.png")"></a>
     		<div>
 				<h1 id="title">
-					<a href="/"><span class="computex">COMPUTEX</span> <span class="validation">Validation Service</span></a>
+					<a href="/"><span class="computex">COMPUTEX</span> <span class="validation">RDF Validation Service</span></a>
 	      		</h1>
-	      		<p id="tagline">Validates <a href="http://www.w3.org/TR/vocab-data-cube/">RDF Data Cube</a> and Statistical Indexes with computations a.k.a. Computex</p>
+	      		<p id="tagline">Validates RDF profiles like
+	      		   <a href="http://www.w3.org/TR/vocab-data-cube/">RDF Data Cube</a>
+	      		   and other RDF data with statistical computations.
+	      		</p>
     		</div>
       	</header>
       	@content

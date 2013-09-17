@@ -33,13 +33,14 @@ case class Computex(
     val findStepsQuery: String) {
 
   def computex(message: CMessage): Array[CIntegrityQuery] = {
-    Logger.info("Computex: Compute and Validate index data")
+/*    Logger.info("Computex: Compute and Validate index data")
     val model = loadData(ontologyURI, message)
     val expandedCube = expandCube(model)
     val expandedComputex = if (message.expand) {
       expandComputex(model)
     } else { model }
-    validate(expandedComputex, validationDir)
+    validate(expandedComputex, validationDir) */
+    ???
   }
 
     def loadData(ontologyURI: String): Model = {
@@ -58,10 +59,12 @@ case class Computex(
       ontologyURI: String,
       message: CMessage
       ): Model = {
+    /*
     val model = ModelFactory.createDefaultModel
 
     loadModel(model, Computex.loadFile(ontologyURI))
-    loadModel(model, message.contentIS, message.contentFormat)
+    loadModel(model, message.contentIS, message.contentFormat) */
+    ???
   }
 
   def expandCube(model: Model): Model = {

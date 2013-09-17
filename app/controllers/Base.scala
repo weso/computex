@@ -16,7 +16,9 @@ trait Base extends Controller {
   def validateMessage
   			(message: CMessage)
   			(implicit request: RequestHeader): CMessage = {
-    
+
+    ???
+    /*
     try {
       message.profile match {
         case None 		=> message.setError("Profile not initialized")
@@ -38,17 +40,7 @@ trait Base extends Controller {
         message.setError(s"Bad formed as ${message.contentFormat}<br/>${e.getMessage}")
     }
   }
-
+ */
+  }
 }
 
-/*object Main extends Base {
-  def main(args: Array[String]): Unit = {
-    var message = CMessage(CMessage.Uri)
-    message.contentIS = Computex.loadFile("http://localhost:9000/assets/example.ttl")
-    message.contentFormat = es.weso.utils.JenaUtils.Turtle
-    message.ss = true
-    message.verbose = true
-    message.expand = true
-    message = validateStream(message)(null)
-  }
-}*/

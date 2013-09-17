@@ -98,7 +98,7 @@ case class ProfileParser(profile : Model) {
         throw new Exception("imports: URI " + uri + " already visited. List of visited uris = " + visited)
       } else {
         val contents = Source.fromURI(uri).mkString
-        val model = JenaUtils.parseModel(contents) 
+        val model = JenaUtils.parseFromString(contents) 
         val profiles = ProfileParser.fromModel(model,uri +: visited) 
         seq ++= profiles.map(p => (uri,p))
       }

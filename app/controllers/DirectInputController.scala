@@ -13,6 +13,10 @@ import es.weso.computex.entities.MsgEmpty
 import es.weso.computex.entities.MsgBadFormed
 import es.weso.computex.profile.Profile
 import es.weso.computex.entities.MsgError
+import es.weso.utils.JenaUtils
+import es.weso.computex.entities.Message
+import es.weso.utils.Parsed
+import es.weso.utils.NotParsed
 
 
 object DirectInputController 
@@ -53,37 +57,38 @@ case class DirectInput(
           BadRequest(views.html.input.defaultInputGET(msg))
         },
         directInput => {
-          val content = directInput.content.getOrElse(null)
-          if (content != null) {
-            val profileStr 		= directInput.profile.getOrElse("Computex")
-            val contentFormat 	= directInput.format.getOrElse(Turtle)
-            val verbose 		= directInput.verbose.getOrElse(0) != 0
-            val showSource 		= directInput.showSource.getOrElse(0) != 0
-            val expand 			= directInput.expand.getOrElse(0) != 0  
-            // TODO: add toggle of imports            val imports			= directInput.imoprts.getOrElse(0) != 0  
-            Profile.getProfile(profileStr) match {
-              case None => 
-              	val msg = CMessage(ByDirectInput,MsgError("Unknown profile: " + profileStr))
-              	BadRequest(views.html.input.defaultInputGET(msg))
-              case Some(profile) => {
-            	  val message = 
-            			  CMessage(ByDirectInput,
-            					  MsgEmpty,
-            					  Some(content),
-            					  Some(profile),
-            					  contentFormat,
-            					  verbose,
-            					  showSource,
-            					  expand)
-            	   val newMessage = validateMessage(message)
-            	   Ok(views.html.generic.format(newMessage))
+          directInput.content match {
+            case None => 
+            	Ok(views.html.input.defaultInputGET(CMessage(ByDirectInput,MsgEmpty)))
+            case Some(content) => {
+            	val profileStr 		= directInput.profile.getOrElse("Computex")
+            	val contentFormat 	= directInput.format.getOrElse(Turtle)
+                val verbose 		= directInput.verbose.getOrElse(0) != 0
+                val showSource 		= directInput.showSource.getOrElse(0) != 0
+                val expand 			= directInput.expand.getOrElse(0) != 0  
+                // TODO: add toggle of imports            val imports			= directInput.imoprts.getOrElse(0) != 0  
+                JenaUtils.str2Model(content,"",contentFormat) match {
+            	  case Parsed(model) => 
+            	     Profile.getProfile(profileStr) match {
+                       case Some(profile) => {
+                        val message = CMessage(ByDirectInput,Message.validate(profile,model,expand))
+            	        println("Parsed! ")
+            	        Ok(views.html.generic.format(message))
+                       }
+                      case None => { 
+              	        val msg = CMessage(ByDirectInput,MsgError("Unknown profile: " + profileStr))
+            	        BadRequest(views.html.input.defaultInputGET(msg))
+                       }
+            	     }
+            	 case NotParsed(err) => {
+            	        val msg = CMessage(ByDirectInput,MsgError("Error parsing: " + err))
+              	        BadRequest(views.html.input.defaultInputGET(msg))
+            	 }
+            	}
              }
             }
-          } else {
-            val message = CMessage(ByDirectInput,MsgEmpty)
-            Ok(views.html.input.defaultInputGET(message))
-          }
-        })
+          } 
+        )
   }
   
   
