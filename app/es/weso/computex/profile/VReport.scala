@@ -20,7 +20,7 @@ import com.hp.hpl.jena.update.GraphStoreFactory
 import com.hp.hpl.jena.update.UpdateAction
 import es.weso.computex.entities.CMessage
 import es.weso.computex.entities.CIntegrityQuery
-import es.weso.utils.JenaUtils.Turtle
+import es.weso.utils.JenaUtils._
 import play.api.Logger
 import es.weso.computex.entities.CQuery
 import com.typesafe.config.ConfigFactory
@@ -58,13 +58,13 @@ package object VReport {
          "Validators that didn't pass: " + nvs
        } else {
          "Not passed:\n" + 
-         showNameVals(nvs.map(_._1)) + 
+         showNotPassed(nvs) + 
          "Passed: " + vs.length + " validators"
        }
    }
  }
   
-  def showNameVals(vals : Seq[Validator]) = {
-    vals.foldLeft("")((r,v) => v.name + ", " + r)
+  def showNotPassed(vals : Seq[(Validator,Model)]) = {
+    vals.foldLeft("")((r,p) => p._1.name + ". " + model2Str(p._2) + r)
   }
 }

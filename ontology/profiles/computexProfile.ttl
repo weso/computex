@@ -50,6 +50,45 @@ cex:computex a cex:ValidationProfile ;
 	  ) ;
    cex:integrityQuery 
 	    [ cex:name "Adjusted computation must have a value" ;
-	      cex:uri	cexURI:q1-adjustedValueExistsObs.sparql 
-	    ] 
+	      cex:uri	cexURI:adjustedValueExistsObs.sparql 
+	    ],  
+   	    [ cex:name "Adjusted values must match" ;
+	      cex:uri	cexURI:adjustedValues.sparql 
+	    ],
+	    [ cex:name "Average growth" ;
+	      cex:uri	cexURI:avgGrowthN.sparql 
+	    ],
+	    [ cex:name "Computation copy" ;
+	      cex:uri	cexURI:computationCopy.sparql 
+	    ],
+	    [ cex:name "Copy value exists" ;
+	      cex:uri	cexURI:copyValueExistsObs.sparql 
+	    ],
+	    [ cex:name "Mean values" ;
+	      cex:uri	cexURI:meanValueExistsObs.sparql 
+	    ],
+	    [ cex:name "Missing Observation has no values" ;
+	      cex:uri	cexURI:missingObsNoValues.sparql 
+	    ],
+	    [ cex:name "Normalized values" ;
+	      cex:uri	cexURI:normalizedValues.sparql 
+	    ],
+	    [ cex:name "observation must have only one value" ;
+	      cex:uri	cexURI:obs2values.sparql 
+	    ],
+	    [ cex:name "observation must have at least one value" ;
+	      cex:uri	cexURI:obsNoValue.sparql 
+	    ],
+	    [ cex:name "Ranking value must match" ;
+	      cex:uri	cexURI:ranking_2.sparql 
+	    ],
+	    [ cex:name "Weighted Mean" ;
+	      cex:uri	cexURI:weightedMean.sparql 
+	    ],
+	    [ cex:name "Weighted Values" ;
+	      cex:uri	cexURI:weightedValues.sparql 
+	    ],
+	    [ cex:name "Mean Values" ;
+	      cex:uri	cexURI:meanValues.sparql 
+	    ]
    .

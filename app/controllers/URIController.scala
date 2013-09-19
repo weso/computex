@@ -13,7 +13,7 @@ import play.api.data.Forms.text
 import play.api.mvc.Action
 import play.api.mvc.Controller
 import es.weso.utils.JenaUtils
-import es.weso.computex.entities.ByURI
+import es.weso.computex.entities.Action._
 import es.weso.computex.entities.MsgBadFormed
 import es.weso.computex.profile.Profile
 import es.weso.computex.entities.Msg404
@@ -72,21 +72,21 @@ object URIController extends Controller with Base {
 
             case Some(uri) =>
             try {
-              val opts 			= handleOptions(uriInput)
+              val opts = handleOptions(uriInput)
               parseInputStream(dereferenceURI(uri),"",opts.contentFormat) match {
                 case Parsed(model) => {
-                    val message = CMessage(ByURI,Message.validate(opts.profile,model,opts.expand))
+                    val message = CMessage(ByURI,Message.validate(opts.profile,model,opts.expand),opts,uri)
             	    Ok(views.html.generic.format(message))
                 }
                 case NotParsed(err) => {
            	        val msg = CMessage(ByURI,MsgError("Error parsing: " + err))
-           	        BadRequest(views.html.input.defaultInputGET(msg))
+           	        BadRequest(views.html.uri.defaultUriGET(msg))
                 }
             }
             } catch {
               case e: Exception =>
-              	Ok(views.html.generic.format(CMessage(ByURI,Msg404)))
-              }
+              	val msg = CMessage(ByURI,MsgError("Error: " + e + " with URI " + uri))
+           	    BadRequest(views.html.uri.defaultUriGET(msg))              }
            }
          })
   }

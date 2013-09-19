@@ -11,7 +11,7 @@ import play.api.mvc.Accepting
 import play.api.mvc.SimpleResult
 import play.api.mvc.RequestHeader
 import play.api.mvc.RawBuffer
-import es.weso.computex.entities.ByFile
+import es.weso.computex.entities.Action._
 
 object EARLController extends Controller {
 

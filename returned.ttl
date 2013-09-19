@@ -1,0 +1,471 @@
+@prefix wi-people: <http://data.webfoundation.org/webindex/people/> .
+@prefix indicator: <http://data.webfoundation.org/webindex/v2013/indicator/> .
+@prefix sdmxConcept: <http://purl.org/linked-data/sdmx/2009/concept#> .
+@prefix sdmxAttribute: <http://purl.org/linked-data/sdmx/2009/attribute#> .
+@prefix cex:   <http://purl.org/weso/ontology/computex#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix obs:   <http://data.webfoundation.org/webindex/v2013/observation/> .
+@prefix time:  <http://www.w3.org/2006/time#> .
+@prefix sdmxSubject: <http://purl.org/linked-data/sdmx/2009/subject#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix wi-org: <http://data.webfoundation.org/webindex/organization/> .
+@prefix sdmxCode: <http://purl.org/linked-data/sdmx/2009/code#> .
+@prefix webindex: <http://data.webfoundation.org/webindex/v2013/> .
+@prefix geo:   <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix qb:    <http://purl.org/linked-data/cube#> .
+@prefix wi-onto: <http://data.webfoundation.org/webindex/ontology/> .
+@prefix country: <http://data.webfoundation.org/webindex/v2013/country/> .
+@prefix dataset: <http://data.webfoundation.org/webindex/v2013/dataset/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix computation: <http://data.webfoundation.org/webindex/v2013/computation/> .
+@prefix slice: <http://data.webfoundation.org/webindex/v2013/slice/> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix ranking: <http://data.webfoundation.org/webindex/v2013/ranking/> .
+
+rdfs:domain  a       rdf:Property , rdfs:Resource ;
+        rdfs:domain  rdf:Property ;
+        rdfs:range   rdfs:Class .
+
+rdfs:comment  a     rdf:Property , rdfs:Resource ;
+        rdfs:range  rdfs:Literal .
+
+rdf:first  a                rdf:Property , rdfs:Resource ;
+        rdfs:domain         rdf:List ;
+        rdfs:subPropertyOf  rdf:first .
+
+cex:Weight  a            rdfs:Class , owl:Class , rdfs:Resource ;
+        rdfs:label       "Obtain from an observation and a weightSchema"@en ;
+        rdfs:subClassOf  rdfs:Resource , cex:Weight , cex:Computation .
+
+rdf:object  a               rdf:Property , rdfs:Resource ;
+        rdfs:domain         rdf:Statement ;
+        rdfs:subPropertyOf  rdf:object .
+
+rdfs:subPropertyOf  a  rdf:Property , rdfs:Resource ;
+        rdfs:domain  rdf:Property ;
+        rdfs:range   rdf:Property .
+
+cex:Index  a             rdfs:Class , owl:Class , rdfs:Resource ;
+        rdfs:label       "Índice"@es , "Index"@en ;
+        rdfs:subClassOf  rdfs:Resource , cex:Index .
+
+rdf:List  a              rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  rdfs:Resource .
+
+cex:HighLow  a           rdfs:Class , skos:Concept , rdfs:Resource ;
+        rdfs:label       "High/Low"@en ;
+        rdfs:subClassOf  rdfs:Resource , cex:HighLow .
+
+rdf:Statement  a         rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  rdfs:Resource .
+
+wi-onto:Observation  a   rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  rdfs:Resource , wi-onto:Observation .
+
+cex:Ranking  a           rdfs:Class , owl:Class , rdfs:Resource ;
+        rdfs:label       "Ranking of a slice"@en ;
+        rdfs:subClassOf  rdfs:Resource , cex:Ranking , cex:Computation .
+
+cex:Copy  a              rdfs:Class , owl:Class , rdfs:Resource ;
+        rdfs:label       "Value copied from other observation"@en ;
+        rdfs:subClassOf  rdfs:Resource , cex:Copy , cex:Computation .
+
+rdf:Property  a          rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  rdfs:Resource , rdf:Property .
+
+rdf:XMLLiteral  a  rdfs:Datatype , rdfs:Class , rdfs:Resource .
+
+rdf:nil  a      rdf:List , rdfs:Resource .
+
+cex:ErrorParam  a        rdfs:Class , owl:Class , rdfs:Resource ;
+        rdfs:label       "Error Parameter" ;
+        rdfs:subClassOf  rdfs:Resource , cex:ErrorParam , cex:Param .
+
+rdfs:range  a        rdf:Property , rdfs:Resource ;
+        rdfs:domain  rdf:Property ;
+        rdfs:range   rdfs:Class .
+
+skos:Concept  a          rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  rdfs:Resource , skos:Concept .
+
+cex:Normalize  a         rdfs:Class , owl:Class , rdfs:Resource ;
+        rdfs:label       "Normalize an observation (z-score)"@en ;
+        rdfs:subClassOf  rdfs:Resource , cex:Normalize , cex:Computation .
+
+cex:SubIndex  a          rdfs:Class , owl:Class , rdfs:Resource ;
+        rdfs:label       "Subíndice"@es , "Subindex"@en , "Subindex" ;
+        rdfs:subClassOf  rdfs:Resource , cex:SubIndex .
+
+cex:Observation  a       rdfs:Class , owl:Class , rdfs:Resource ;
+        rdfs:comment     "An observation" ;
+        rdfs:label       "Observation" ;
+        rdfs:subClassOf  rdfs:Resource , cex:Observation .
+
+rdfs:label  a       rdf:Property , rdfs:Resource ;
+        rdfs:range  rdfs:Literal .
+
+wi-onto:SecondaryIndicator
+        a                rdfs:Class , owl:Class , rdfs:Resource ;
+        rdfs:comment     "This indicator is established by third parties such as ITU, UN, etc. Its observations are part of a component."@en ;
+        rdfs:label       "Secondary Indicator"@en ;
+        rdfs:subClassOf  rdfs:Resource , wi-onto:SecondaryIndicator , cex:Indicator .
+
+wi-onto:has-country  a      rdf:Property , owl:ObjectProperty , rdfs:Resource ;
+        rdfs:comment        "Creates a link between a region and a country."@en ;
+        rdfs:label          "has Country property"@en ;
+        rdfs:range          skos:Concept ;
+        rdfs:subPropertyOf  wi-onto:has-country .
+
+cex:Computation  a       rdfs:Class , owl:Class , rdfs:Resource ;
+        rdfs:label       "Computation"@en ;
+        rdfs:subClassOf  rdfs:Resource , cex:Computation .
+
+wi-onto:Year  a          rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  rdfs:Resource , wi-onto:Year .
+
+rdf:predicate  a            rdf:Property , rdfs:Resource ;
+        rdfs:domain         rdf:Statement ;
+        rdfs:subPropertyOf  rdf:predicate .
+
+cex:ImputedSlice  a      rdfs:Class , owl:Class , rdfs:Resource ;
+        rdfs:label       "Impute values from a Slice"@en ;
+        rdfs:subClassOf  rdfs:Resource , cex:ImputedSlice , cex:Computation .
+
+cex:unit  a                 rdf:Property , owl:ObjectProperty , rdfs:Resource ;
+        rdfs:comment        "Measure unit"@en ;
+        rdfs:label          "unit of measure property"@en ;
+        rdfs:range          rdf:Resource ;
+        rdfs:subPropertyOf  cex:unit .
+
+cex:AverageGrowth4  a    rdfs:Class , owl:Class , rdfs:Resource ;
+        rdfs:label       "Impute a value as the average growth of 4 values"@en ;
+        rdfs:subClassOf  rdfs:Resource , cex:AverageGrowth4 , cex:Computation .
+
+rdfs:subClassOf  a   rdf:Property , rdfs:Resource ;
+        rdfs:domain  rdfs:Class ;
+        rdfs:range   rdfs:Class .
+
+wi-onto:Area  a           rdfs:Class , skos:Concept , rdfs:Resource ;
+        rdfs:isDefinedBy  <http://purl.org/weso/ontology/webindex> ;
+        rdfs:label        "Area"@en ;
+        rdfs:seeAlso      <http://purl.org/weso/ontology/webindex> ;
+        rdfs:subClassOf   rdfs:Resource , wi-onto:Area ;
+        skos:narrower     wi-onto:Country , wi-onto:Region .
+
+rdfs:Resource  a         rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  rdfs:Resource .
+
+cex:WeightedMean  a      rdfs:Class , owl:Class , rdfs:Resource ;
+        rdfs:label       "Weighted mean using a weightSchema"@en ;
+        rdfs:subClassOf  rdfs:Resource , cex:WeightedMean , cex:Computation .
+
+cex:Param  a             rdfs:Class , owl:Class , rdfs:Resource ;
+        rdfs:label       "Parameter"@en ;
+        rdfs:subClassOf  rdfs:Resource , cex:Param .
+
+rdf:rest  a                 rdf:Property , rdfs:Resource ;
+        rdfs:domain         rdf:List ;
+        rdfs:range          rdf:List ;
+        rdfs:subPropertyOf  rdf:rest .
+
+wi-onto:Indicator  a     rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  rdfs:Resource , wi-onto:Indicator .
+
+cex:Component  a         rdfs:Class , owl:Class , rdfs:Resource ;
+        rdfs:comment     "A component is an aggregation of several indicators" ;
+        rdfs:label       "Componente"@es , "Component"@en , "Component" ;
+        rdfs:subClassOf  rdfs:Resource , cex:Component ;
+        skos:broader     cex:SubIndex .
+
+cex:Error  a                 rdfs:Class , owl:Class , rdfs:Resource ;
+        rdfs:label           "Validation Error"@en ;
+        rdfs:subClassOf      rdfs:Resource , cex:Error , <http://www.w3.org/ns/earl#TestResult> ;
+        owl:equivalentClass  [ a               owl:Restriction ;
+                               owl:hasValue    <http://www.w3.org/ns/earl#failed> ;
+                               owl:onProperty  <http://www.w3.org/ns/earl#outcome>
+                             ] .
+
+rdf:type  a         rdf:Property , rdfs:Resource ;
+        rdfs:range  rdfs:Class .
+
+xsd:String  a            rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  rdfs:Resource , xsd:String .
+
+rdfs:Class  a            rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  rdfs:Resource , rdfs:Class .
+
+wi-onto:ref-dbpedia  a      rdf:Property , owl:ObjectProperty , rdfs:Resource ;
+        rdfs:comment        "A mapping property to link an entity with a DBPedia resource"@en ;
+        rdfs:label          "link to DBPedia resource"@en ;
+        rdfs:range          skos:Concept ;
+        rdfs:subPropertyOf  wi-onto:ref-dbpedia .
+
+cex:highLow  a              rdf:Property , owl:ObjectProperty , rdfs:Resource ;
+        rdfs:comment        "Indicates which value if High (Low) values are preferred"@en ;
+        rdfs:label          "high/low property"@en ;
+        rdfs:range          skos:Concept ;
+        rdfs:subPropertyOf  cex:highLow .
+
+cex:AverageGrowth3  a    rdfs:Class , owl:Class , rdfs:Resource ;
+        rdfs:label       "Impute a value as the average growth of 3 values"@en ;
+        rdfs:subClassOf  rdfs:Resource , cex:AverageGrowth3 , cex:Computation .
+
+rdf:subject  a              rdf:Property , rdfs:Resource ;
+        rdfs:domain         rdf:Statement ;
+        rdfs:subPropertyOf  rdf:subject .
+
+xsd:integer  a           rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  rdfs:Resource , xsd:integer .
+
+rdfs:Literal  a          rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  rdfs:Resource .
+
+rdf:Resource  a          rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  rdfs:Resource , rdf:Resource .
+
+cex:AverageGrowth2  a    rdfs:Class , owl:Class , rdfs:Resource ;
+        rdfs:label       "Impute a value as the average growth of 2 values"@en ;
+        rdfs:subClassOf  rdfs:Resource , cex:AverageGrowth2 , cex:Computation .
+
+cex:component  a            rdf:Property , owl:ObjectProperty , rdfs:Resource ;
+        rdfs:comment        "Component that provides the indicator"@en ;
+        rdfs:domain         cex:Indicator ;
+        rdfs:label          "has-component"@en ;
+        rdfs:range          cex:Component ;
+        rdfs:subPropertyOf  cex:component .
+
+cex:Increment  a         rdfs:Class , owl:Class , rdfs:Resource ;
+        rdfs:label       "Increment a value by a fixed quantity"@en ;
+        rdfs:subClassOf  rdfs:Resource , cex:Increment , cex:Computation .
+
+cex:Indicator  a         rdfs:Class , owl:Class , rdfs:Resource ;
+        rdfs:comment     "A given indicator. Several indicators make a Component" ;
+        rdfs:label       "Indicator" ;
+        rdfs:subClassOf  rdfs:Resource , cex:Indicator ;
+        skos:broader     cex:Component .
+
+wi-onto:ref-area  a  qb:DimensionProperty , owl:FunctionalProperty , rdf:Property , rdfs:Resource ;
+        rdfs:domain  wi-onto:Observation ;
+        rdfs:range   wi-onto:Area .
+
+dataset:I0-Raw  a     qb:DataSet ;
+        rdfs:label    "Dataset I0-Raw"@en ;
+        qb:slice      slice:I0Year0-Raw ;
+        qb:structure  wi-onto:DSD .
+
+slice:I0Year0-Raw  a       qb:Slice , cex:Observation , wi-onto:Observation , rdfs:Resource ;
+        wi-onto:ref-year   "Year0" ;
+        qb:observation     obs:I0Year0C0 ;
+        qb:sliceStructure  wi-onto:sliceByArea ;
+        cex:indicator      indicator:I0 .
+
+indicator:C0  a     wi-onto:Country , wi-onto:Area , rdfs:Resource ;
+        rdfs:label  "Country C0"@en .
+
+wi-onto:DSD  a        qb:DataStructureDefinition ;
+        qb:component  [ qb:componentProperty  cex:value ;
+                        qb:measure            cex:value
+                      ] ;
+        qb:component  [ qb:componentProperty  cex:indicator ;
+                        qb:dimension          cex:indicator ;
+                        qb:order              "3"^^xsd:int
+                      ] ;
+        qb:component  [ qb:componentProperty  wi-onto:ref-year ;
+                        qb:dimension          wi-onto:ref-year ;
+                        qb:order              "2"^^xsd:int
+                      ] ;
+        qb:component  [ qb:componentProperty  wi-onto:ref-area ;
+                        qb:dimension          wi-onto:ref-area ;
+                        qb:order              "1"^^xsd:int
+                      ] ;
+        qb:sliceKey   wi-onto:sliceByArea .
+
+wi-onto:sliceByArea  a        qb:SliceKey ;
+        qb:componentProperty  wi-onto:ref-year , cex:indicator .
+
+cex:value  a    qb:MeasureProperty .
+
+cex:indicator  a     qb:DimensionProperty , owl:FunctionalProperty , rdf:Property , rdfs:Resource ;
+        rdfs:domain  cex:Observation ;
+        rdfs:range   wi-onto:Indicator , cex:Indicator .
+
+indicator:I0  a     wi-onto:SecondaryIndicator , cex:Indicator , wi-onto:Indicator , rdfs:Resource ;
+        rdfs:label  "Indicator I0"@en .
+
+wi-onto:ref-year  a  qb:DimensionProperty , owl:FunctionalProperty , owl:DatatypeProperty , rdf:Property , rdfs:Resource ;
+        rdfs:domain  wi-onto:Observation ;
+        rdfs:range   wi-onto:Year , xsd:integer .
+
+obs:I0Year0C0  a          qb:Observation , cex:Observation , wi-onto:Observation , rdfs:Resource ;
+        wi-onto:ref-area  indicator:C0 ;
+        wi-onto:ref-year  "Year0" ;
+        qb:dataSet        dataset:I0-Raw ;
+        cex:indicator     indicator:I0 ;
+        cex:value         "0.0028010607"^^xsd:float .
+
+cex:Mean  a              rdfs:Class , owl:Class , rdfs:Resource ;
+        rdfs:label       "Mean of other observations"@en ;
+        rdfs:subClassOf  cex:Mean , rdfs:Resource , cex:Computation .
+
+<http://www.w3.org/ns/earl#TestResult>
+        a                rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  <http://www.w3.org/ns/earl#TestResult> .
+
+rdf:Alt  a               rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  rdf:Alt , rdfs:Container .
+
+cex:SheetData  a         rdfs:Class , owl:Class , rdfs:Resource ;
+        rdfs:label       "Sheet data"@en ;
+        rdfs:subClassOf  cex:SheetData , skos:Concept , rdfs:Resource .
+
+wi-onto:Country  a       <http://linkedgeodata.org/ontology/Country> , skos:Concept , rdfs:Class , rdfs:Resource ;
+        rdfs:label       "Country concept"@en ;
+        rdfs:subClassOf  wi-onto:Country , rdfs:Resource , wi-onto:Area ;
+        skos:broader     wi-onto:Region .
+
+cex:High  a              skos:Concept , rdfs:Class , rdfs:Resource ;
+        rdfs:comment     "A high value is preferred than a lower one"@en ;
+        rdfs:label       "High"@en ;
+        rdfs:subClassOf  cex:High , cex:HighLow , rdfs:Resource .
+
+rdfs:Datatype  a         rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  rdfs:Datatype , rdfs:Class .
+
+rdfs:Container  a        rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  rdfs:Container .
+
+rdf:Seq  a               rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  rdf:Seq , rdfs:Container .
+
+cex:Low  a               skos:Concept , rdfs:Class , rdfs:Resource ;
+        rdfs:comment     "A low value is preferred than a higher one"@en ;
+        rdfs:label       "Low"@en ;
+        rdfs:subClassOf  cex:Low , cex:HighLow , rdfs:Resource .
+
+wi-onto:PrimaryIndicator
+        a                rdfs:Class , owl:Class , rdfs:Resource ;
+        rdfs:comment     "Primary indicator is an indicator defined by the Webfoundation."@en ;
+        rdfs:label       "Primary Indicator"@en ;
+        rdfs:subClassOf  wi-onto:PrimaryIndicator , cex:Indicator , rdfs:Resource .
+
+rdfs:ContainerMembershipProperty
+        a                rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  rdfs:ContainerMembershipProperty , rdf:Property .
+
+wi-onto:ExternalIndicator
+        a                rdfs:Class , owl:Class , rdfs:Resource ;
+        rdfs:comment     "This indicator is established by third parties such as Worldbank but its observations are not part of a component."@en ;
+        rdfs:label       "External Indicator"@en ;
+        rdfs:subClassOf  wi-onto:ExternalIndicator , cex:Indicator , rdfs:Resource .
+
+rdf:Bag  a               rdfs:Class , rdfs:Resource ;
+        rdfs:subClassOf  rdf:Bag , rdfs:Container .
+
+cex:Raw  a               rdfs:Class , owl:Class , cex:ObsStatus , rdfs:Resource ;
+        rdfs:comment     "Raw data values that have been collected from a datasource without any normalisation process."@en ;
+        rdfs:label       "Raw value, not computed"@en , "Raw data"@en ;
+        rdfs:subClassOf  cex:Raw , rdfs:Resource , cex:Computation .
+
+rdfs:isDefinedBy  a         rdf:Property , rdfs:Resource ;
+        rdfs:subPropertyOf  rdfs:isDefinedBy , rdfs:seeAlso .
+
+rdfs:seeAlso  a             rdf:Property , rdfs:Resource ;
+        rdfs:subPropertyOf  rdfs:seeAlso .
+
+dcterms:identifier  a       rdf:Property , rdfs:Resource ;
+        rdfs:subPropertyOf  dcterms:identifier .
+
+wi-onto:has-iso-alpha2-code
+        a                   rdf:Property , owl:DatatypeProperty , rdfs:Resource ;
+        rdfs:comment        "This property creates a link between a country and its ISO code (2 digit)"@en ;
+        rdfs:label          "ISO-code-alpha 2 digit"@en ;
+        rdfs:subPropertyOf  wi-onto:has-iso-alpha2-code , dcterms:identifier .
+
+wi-onto:has-iso-alpha3-code
+        a                   rdf:Property , owl:DatatypeProperty , rdfs:Resource ;
+        rdfs:comment        "This property creates a link between a country and its ISO code (3 digit)"@en ;
+        rdfs:label          "ISO-code-alpha 3 property"@en ;
+        rdfs:subPropertyOf  wi-onto:has-iso-alpha3-code , dcterms:identifier .
+
+cex:Imputed  a        cex:ObsStatus ;
+        rdfs:comment  "Data values that have been imputed from their raw version"@en ;
+        rdfs:label    "Imputed data"@en .
+
+cex:Ranked  a         cex:ObsStatus ;
+        rdfs:comment  "Data values that have been obtained by ranking their position."@en ;
+        rdfs:label    "Ranked data"@en .
+
+<http://purl.org/weso/ontology/computex>
+        a                    owl:Ontology ;
+        rdfs:comment         "Vocabulary for describing index structures and observations."@en ;
+        rdfs:label           "Computational Index ontology"@en ;
+        dcterms:author       wi-org:WESO , wi-people:Chema , wi-people:Labra ;
+        dcterms:contributor  wi-people:Jules , wi-people:Hania ;
+        dcterms:created      "2012-06-07"^^xsd:date ;
+        dcterms:license      <http://www.opendatacommons.org/licenses/pddl/1.0/> ;
+        dcterms:modified     "2013-06-07"^^xsd:date ;
+        dcterms:publisher    wi-org:WebFoundation ;
+        dcterms:title        "Core Computational Index ontology"@en ;
+        owl:versionInfo      "0.2" .
+
+cex:msg  a          owl:DatatypeProperty ;
+        rdfs:label  "Message"@en .
+
+cex:Normalized  a     cex:ObsStatus ;
+        rdfs:comment  "Data values that have been normalized. Usually by z-scores"@en ;
+        rdfs:label    "Normalized data"@en .
+
+cex:name  a          owl:DatatypeProperty , rdf:Property , rdfs:Resource ;
+        rdfs:domain  cex:Param ;
+        rdfs:range   xsd:String .
+
+wi-onto:Region  a      <http://linkedgeodata.org/ontology/Place> , skos:Concept , rdfs:Resource ;
+        rdfs:comment   "A region represents a set of countries."@en ;
+        rdfs:label     "Region concept"@en ;
+        skos:narrower  wi-onto:Country .
+
+cex:Computed  a       cex:ObsStatus ;
+        rdfs:comment  "Data values that have been computed by some algorithm."@en ;
+        rdfs:label    "Computed data"@en .
+
+cex:errorParam  a    owl:ObjectProperty , rdf:Property , rdfs:Resource ;
+        rdfs:domain  cex:Error ;
+        rdfs:range   cex:ErrorParam .
+
+qb:Slice  a     rdfs:Class , rdfs:Resource .
+
+qb:DimensionProperty  a  rdfs:Class , rdfs:Resource .
+
+qb:DataSet  a   rdfs:Class , rdfs:Resource .
+
+qb:DataStructureDefinition
+        a       rdfs:Class , rdfs:Resource .
+
+qb:SliceKey  a  rdfs:Class , rdfs:Resource .
+
+qb:MeasureProperty  a  rdfs:Class , rdfs:Resource .
+
+qb:Observation  a  rdfs:Class , rdfs:Resource .
+
+owl:Class  a    rdfs:Class , rdfs:Resource .
+
+owl:DatatypeProperty  a  rdfs:Class , rdfs:Resource .
+
+cex:ObsStatus  a  rdfs:Class , rdfs:Resource .
+
+owl:ObjectProperty  a  rdfs:Class , rdfs:Resource .
+
+owl:FunctionalProperty
+        a       rdfs:Class , rdfs:Resource .
+
+<http://linkedgeodata.org/ontology/Country>
+        a       rdfs:Class , rdfs:Resource .
+
+owl:Restriction  a  rdfs:Class , rdfs:Resource .
+
+owl:Ontology  a  rdfs:Class , rdfs:Resource .
+
+<http://linkedgeodata.org/ontology/Place>
+        a       rdfs:Class , rdfs:Resource .

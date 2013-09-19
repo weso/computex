@@ -1,4 +1,4 @@
-# normalize computations using z-scores
+# Adjusted values must match
 prefix country:      <http://data.webfoundation.org/webindex/v2013/country/> 
 prefix dataset:      <http://data.webfoundation.org/webindex/v2013/dataset/> 
 prefix indicator:    <http://data.webfoundation.org/webindex/v2013/indicator/> 

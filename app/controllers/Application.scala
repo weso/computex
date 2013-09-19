@@ -1,6 +1,7 @@
 package controllers
 
 import es.weso.computex.entities._
+import es.weso.computex.entities.Action._
 import play.api.mvc.Action
 import play.api.mvc.Controller
 

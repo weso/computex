@@ -1,3 +1,4 @@
+# Observation must have a sheet type
 prefix component: <http://data.webfoundation.org/webindex/v2013/component/> 
 prefix country: <http://data.webfoundation.org/webindex/v2013/country/> 
 prefix dataset: <http://data.webfoundation.org/webindex/v2013/dataset/> 

@@ -8,7 +8,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Action
 import play.api.mvc.Controller
-import es.weso.computex.entities.ByDirectInput
+import es.weso.computex.entities.Action._
 import es.weso.computex.entities.MsgEmpty
 import es.weso.computex.entities.MsgBadFormed
 import es.weso.computex.profile.Profile
@@ -72,17 +72,17 @@ case class DirectInput(
           val opts  = handleOptions(directInput)
           directInput.content match {
             case None => 
-              	val msg = CMessage(ByDirectInput,MsgError("Empty input"),opts)
+              	val msg = CMessage(ByDirectInput,MsgError("Empty input"),opts,"")
             	Ok(views.html.generic.format(msg))
             case Some(content) => {
             	val model = parseFromString(content,"",opts.contentFormat) 
-                val message = CMessage(ByDirectInput,Message.validate(opts.profile,model,opts.expand),opts)
+                val message = CMessage(ByDirectInput,Message.validate(opts.profile,model,opts.expand),opts,content)
             	Ok(views.html.generic.format(message))
             }
           }
          } catch {
             case e: Exception => 
-              { val msg = CMessage(ByDirectInput,MsgError("Error: " + e),Options())
+              { val msg = CMessage(ByDirectInput,MsgError("Error: " + e),Options(),directInput.content.getOrElse(""))
               	BadRequest(views.html.generic.format(msg))
               }
           } 	 

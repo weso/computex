@@ -38,7 +38,7 @@ class IntegrationSpec extends Specification {
    "validate by input" in {
       running(TestServer(3333), HTMLUNIT) { browser =>
         browser.goTo("http://localhost:3333/")
-        // Go to about
+        // Go to input
         browser.waitUntil[Boolean]{
          browser.$("#by_direct a").click()
          browser.pageSource.contains("fragment")
@@ -46,6 +46,16 @@ class IntegrationSpec extends Specification {
       }
     }
 
+   "validate by file" in {
+      running(TestServer(3333), HTMLUNIT) { browser =>
+        browser.goTo("http://localhost:3333/")
+        // Go to file
+        browser.waitUntil[Boolean]{
+         browser.$("#by_file a").click()
+         browser.pageSource.contains("File:")
+        }
+      }
+    }
   }
   
 }

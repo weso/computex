@@ -43,12 +43,12 @@ class ProfileParserSuite
 
    it("Should obtain a list of validators for Computex") {
      val profile = Profile.Computex
-     profile.validators.length should be(1)
+     profile.validators.length should be(14)
    }
 
    it("Should obtain a list of all validators for Computex") {
      val profile = Profile.Computex
-     profile.allValidators.length should be(24)
+     profile.allValidators.length should be(37)
    }
 
   it("Should obtain a list of expanders for RDF Data Cube profile") {
@@ -90,12 +90,16 @@ class ProfileParserSuite
      }
    }
   
-  it("Should validate cube demo with Computex profile") {
+  // Cube demo contains observations without cex:value
+  it("Should not validate cube demo with Computex profile") {
      val profile 	= Profile.Computex
      val model 		= JenaUtils.parseFromURI(demoCubeURI)
      profile.validate(model) match {
-       case (Passed(_),_) => info("Validates")
-       case (NotPassed(_),_) => fail("Does not validate " )
+       case (Passed(_),_) => 
+         fail("Validates but was expected to fail")
+       case vr@(NotPassed(_),_) => 
+         info("Does not validate as expected")
+       
      }
    }
 
@@ -105,8 +109,8 @@ class ProfileParserSuite
      profile.validate(model) match {
        case (Passed(_),_) => info("Validates")
        case vr@(NotPassed(_),returnedModel) => 
-         JenaUtils.model2File(returnedModel,"returned.ttl")
-         info("Error model:" + model2Str(model))
+         // JenaUtils.model2File(returnedModel,"returned.ttl")
+         // info("Error model:" + model2Str(model))
          fail("Does not validate " + VReport.show(vr._1, false))
      }
    }
@@ -116,9 +120,9 @@ class ProfileParserSuite
      val model 		= Generator(1,1,1).model
      profile.validate(model) match {
        case (Passed(_),_) => info("Validates")
-       case vr@(NotPassed(_),returnedModel) => 
-         JenaUtils.model2File(returnedModel,"returned.ttl")
-         info("Error model:" + model2Str(model))
+       case vr@(NotPassed(e),returnedModel) => 
+         // JenaUtils.model2File(returnedModel,"returned.ttl")
+         // info("Error model:" + model2Str(e))
          fail("Does not validate " + VReport.show(vr._1, false))
      }
    }
@@ -132,8 +136,8 @@ class ProfileParserSuite
      if (model.isIsomorphicWith(modelGenerated)) 
        info("Models are isomorphic")
      else {
-       info("Model1: " + model2Str(model))
-       info("Model2: " + model2Str(modelGenerated))
+       // info("Model1: " + model2Str(model))
+       // info("Model2: " + model2Str(modelGenerated))
        fail("Models are not isomorphic.")
      } 
    }
@@ -147,9 +151,9 @@ class ProfileParserSuite
      if (model.isIsomorphicWith(modelGenerated)) 
        info("Models are isomorphic")
      else {
-       info("Model1: " + model2Str(model))
-       info("ProfileGenerated: " + profile.toString)
-       info("Model2: " + model2Str(modelGenerated))
+       // info("Model1: " + model2Str(model))
+       // info("ProfileGenerated: " + profile.toString)
+       // info("Model2: " + model2Str(modelGenerated))
        fail("Models are not isomorphic.")
      } 
    }

@@ -1,0 +1,20 @@
+# WebIndex Cube Profile
+
+@prefix cex: 			<http://purl.org/weso/ontology/computex#> .
+@prefix dcterms: 		<http://purl.org/dc/terms/> .
+@prefix qb: 			<http://purl.org/linked-data/cube#> .
+@prefix profileURI: 	<ontology/profiles/> .
+@prefix cexOntology: 	<ontology/> .
+@prefix cexURI: 		<ontology/validation/computex/> .
+@prefix cexURIExpand: 	<ontology/computation/> .
+
+cex:computex a cex:ValidationProfile ;
+   cex:name "WebIndex" ;
+   cex:ontologyBase cexOntology:computex.ttl ;
+   cex:import profileURI:computexProfile.ttl ;
+   cex:expandSteps ()  ;
+   cex:integrityQuery 
+	    [ cex:name "Observations must have a sheet type" ;
+	      cex:uri	cexURI:obs_NoSheetType.sparql 
+	    ]
+   .

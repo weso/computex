@@ -1,37 +1,22 @@
 @(message: es.weso.computex.entities.CMessage)(implicit flash: Flash)
 
-@import es.weso.computex.entities.CMessage
+@import es.weso.computex.entities.Action.ByDirectInput
 @import es.weso.computex.entities.CMessage._
 @import es.weso.computex.profile.Profile
 @import es.weso.utils.JenaUtils._
 @import helper._
 
 <div id="frontforms">
-	<nav>
-		<span id="validate">Validate by</span>
-		<ul id="tabset_tabs">
-			<li id="by_uri" class="circle-link circle">
-				<a href="/uri" class="circle-link">URI</a>
-			</li>
-			<li id="by_file" 
-				class="circle-link circle">
-				<a href="/file" class="circle-link">File Upload</a>
-			</li>
-			<li id="by_direct" 
-				class="circle selected">
-				<a href="/direct" class="circle-link">Direct Input</a>
-			</li>
-		</ul>
-	</nav>
-	<div>
-		@helper.form(action = routes.DirectInputController.byDirectInputPOST) {
-	      	<p class="instructions">
-	      		<label title="Paste a complete document here" for="fragment">Enter document to validate:</label><br>
-	      		<textarea id="fragment" name="fragment" rows="90" cols="120">@*  @message.content *@</textarea>
+	@views.html.mainNav(ByDirectInput)
+	
+<div>
+	@helper.form(action = routes.DirectInputController.byDirectInputPOST) {
+   	<p class="instructions">
+	      		<label title="Enter document to validate" for="fragment">Document to validate:</label><br>
+	      		<textarea id="fragment" name="fragment" rows="90" cols="120">@message.content</textarea>
 	      	</p>
 	      	<p class="instructions">
 				<label for="profile">Profile:</label>
-				@* Check which is the profile selected from message *@
 				<select id="profile" name="profile">
 				@for(p <- Profile.profiles) {
 					<option 
@@ -41,7 +26,6 @@
 			</p>
 	      	<p class="instructions">
 				<label for="direct-doctype">Use Doctype:</label>
-				@* Check which is the doctype selected from message *@
 				<select id="direct-doctype" name="doctype">
 					<option value="RDF/XML" @if(message.contentFormat equals RdfXML){selected="selected"}>RDF/XML</option>
 					<option value="RDF/XML-ABBREV" @if(message.contentFormat equals RdfXMLAbbr){selected="selected"}>RDF/XML-ABBREV</option>
@@ -69,5 +53,5 @@
 				<input type="submit" title="Submit for validation" value="Check" class="button"/>
 			</p>
 		}
-	</div>
+</div>
 </div>
