@@ -1,0 +1,49 @@
+Public and private bodies are continuously seeking for new analytical tools and methods to assess, rank and compare their performance based 
+on distinct indicators and dimensions with the objective of making some decision or developing a new policy. 
+In this context the creation and use of quantitative indexes is a widely accepted practice that has been applied to various 
+domains such as Bibliometrics, academic performance and quality (the Impact Factor by Thomson-Reuters, the H-index or the Shanghai and Webometrics rankings), 
+the Web impact (the Webindex by the Webfoundation) or Cloud Computing (the Service Measurement Index by the CSMIC consortium, the Global Cloud Index by Cisco, 
+the CSC index, the VMWare Cloud Index, etc.) or Smart Cities (The European Smart Cities ranking) to name a few (apart from the traditional ones such as the Gross domestic product). 
+Therefore policymakers as well as individuals are continuously evaluating quantitative measures to tackle or improve 
+existing problems in different areas and support their decisions. Nevertheless the sheer mass of data now available in the web is 
+raising a new dynamic and challenging environment in which traditional tools are facing major 
+problems to deal with data-sources diversity, structural issues or complex processes of estimation. According to some efforts 
+such as the ``Policy-making $2.0$'' within the Cross-Over project~\footnote{\url{http://www.crossover-project.eu/}} that \textit{refers to a blend of emerging and fast developing technologies 
+that enable better, more timely and more participated decision-making}, new paradigms and tools are required to take advantage of 
+the existing environment (open data and big data) to design and estimate actions in this dynamic context according to requirements of 
+transparency, standardization, adaptability and extensibility among others with the aim of providing new context-aware 
+and added-value services such as visualization that can help a deepen and broaden understanding of the impact of a 
+policy in a more fast and efficient way. As a consequence common features and requirements can be extracted from the existing situation out:
+\begin{itemize}
+ \item Data sources. Data and information is continuously being generated as observations from social networks, public and private institutions, NGOs, services and applications, etc. 
+ creating a tangled environment of sources, formats and access protocols with a huge but restricted potential for exploitation. Nevertheless data processing, knowledge inferring, etc. are not mere processes 
+ of gathering and analyzing, it is necessary to deal with semantic and syntactic issues, e.g. particular measurements and dimensions or name mismatches, 
+ in order to enable a proper data/information re-use and knowledge generation.
+ 
+ \item Structure. Quantitative indexes are usually defined (a mathematical model) by experts to aggregate several indicators (in a hierarchy structure) in just one value to provide
+ a measure of the impact or performance of some policy in a certain context. The structure of these indexes are obviously subjected to change over time 
+ to collect more information or adjust their composition and relationships (narrower/broader). That is why technology should be able to afford 
+ adequate techniques to automatically populate new changes in an efficient way.
+ 
+  \item Computation process. This feature refers to the calculation of the index. Observations are gathered from diverse data sources and aligned 
+  to the index structure, commonly indicators, that are processed through various mathematical operators to generate a final index value. 
+  Nevertheless the computation process is not always described neither open (any minor change can imply a long time for validation) implying that 
+  cannot be easily replied for third-parties with other purposes, for instance research, preventing one 
+  of the most wanted characteristics such as transparency. Furthermore it is necessary to ensure that the computation process 
+  is sound and correct.
+
+  \item Documentation. As the European project Cross-over has stated, new policy-making strategies go ahead of a simple and closed value and it is necessary to bring 
+  new ways of exploiting data and information. Moreover the use of the Web as a dissemination channel represents a powerful environment in which 
+  information should be available taking into account the multilingual and multicultural character of information. In this context documentation mechanisms 
+  must necessarily cover all the aforementioned features to afford a detailed explanation of a quantitative index-based policy to both policymakers 
+  and final users. However existing initiatives usually generates some kind of hand-made report which is not easy to keep up-to-date and deliver 
+  to the long-tail of interested third-parties.
+\end{itemize}
+
+On the other hand, the Semantic Web area has experienced during last years a growing commitment from both academia and industrial areas with the objective of elevating the meaning of web information resources through a common and shared data model (graphs) and an underlying semantics based on a logic formalism (ontologies). The Resource Description Framework (RDF), based on a graph model, and the Web Ontology Language (OWL), designed to formalize and model domain knowledge, are a \textit{lingua-franca} to re-use information and data in a knowledge-based environment. Thus data, information and knowledge can be easily shared, exchanged and linked to other databases through the use URIs, more specifically HTTP-URIs. 
+
+\subsection{Main Contributions}
+
+Obviously semantic web technologies can partially fulfill the features and requirements of this challenging environment for supporting  new policy-making strategies. A common and shared data model based on existing standardized semantic web vocabularies and datasets can be used to represent quantitative indexes from both, structural and computational, points of view enabling a right exploitation of meta-data and semantics. That is why the present paper introduces: 1) a high-level model on top of the RDF Data Cube Vocabulary~\cite{rdf-data-cube}, a shared effort to model statistical data in RDF reusing parts 
+(the cube model) of the Statistical Data and Metadata Exchange Vocabulary~\cite{sdmx} (SDMX), to represent the structure and computation of quantitative indexes and 2) a Java-SPARQL based processor to exploit the meta-information and compute the new index values.
+
