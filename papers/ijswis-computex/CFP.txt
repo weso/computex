@@ -1,0 +1,62 @@
+Special Issue on "Web Data Quality"
+
+Call for Papers
+Special Issue on Web Data Quality
+Guest Editors:
+Laure Berti-Equille, Institut de Recherche pour le Développement, France
+Andrea Maurino, University of Milano-Bicocca, Italy
+Amrapali Zaveri, University of Leipzig, Germany
+
+About
+The standardization and adoption of Semantic Web technologies has resulted in an unprecedented volume of data being published as Linked Open Data (LOD). The integration across this Web of Data, however, is hampered by the ‘publish first, refine later’ philosophy. This leads to various quality problems arising in the underlying data such as incompleteness, inconsistency and incomprehensibility. These problems affect every application domain, be it scientific (e.g., life science, environment), governmental or industrial applications.
+
+Traditional efforts focused on data quality assessment include the definition and modeling of several data quality dimensions (or criteria), such as data completeness, accuracy, timeliness, consistency or absence of duplicates. However, in the Web of Data, there are many other dimensions are particularly relevant considering the uniform structure of the data, such as representational consistency and conciseness, as well as the accessibility and amount of data. Logical or formal consistency, trustworthiness and relevancy are yet another set of dimensions that are important in terms of the Web of Data quality. Even though these myriads of dimensions have been identified, the means to measure them, that is their corresponding metrics, are still ambiguous.
+
+Despite the quality in LOD being an essential concept, few efforts are currently available to standardize how data quality tracking and assurance should be implemented. Particularly in LOD, assuring data quality is a challenge as it involves a set of autonomously evolving data sources. Additionally, detecting the quality of datasets available and making the information explicit is yet another challenge. This includes the (semi-)automatic identification of existing problems. Moreover, none of the current approaches use the assessment to ultimately improve the quality of the underlying dataset.
+Besides datasets, the quality of ontologies is yet another important aspect on the Web of Data. The vocabulary, syntax, structure, semantics, representation, inconsistency and context of an ontology are various means by which it can be evaluated. There exist a number of metrics to evaluate the accuracy, adaptability, completeness, computational efficiency, consistency, and organizational fitness of ontologies. However, there still exists a lack in domain and task-specific evaluations as well as experimental verifications for evaluating the quality of ontologies.
+
+Moreover, there are several issues in LOD which hampers the use of datasets in building real-world LOD-based applications and research solutions. One of challenges is the method to find the most relevant LOD data for a particular application. Also, generating meaningful associations between the LOD datasets, at the ontology, data or property level is an important issue to be considered when building such applications.
+
+This Special Issue is addressed to those members of the community interested in providing novel methodologies or frameworks in assessing, monitoring, maintaining and improving the quality of the Web of Data and also introduce tools and user interfaces which can effectively assist in the assessment. The benefits of such methodologies will not only help in detecting inherent data quality problems currently plaguing the Web of Data, but also provide the means to fix these problems and maintain the quality in the long run. Additionally, we also seek articles that help identify the current impediments in building real-world LOD applications.
+
+Topics
+The aim of this special issue is to select and publish a set of high-quality research papers on the aspects including but not limited to:
+
+Web data and LOD quality concepts
+Data quality dimensions and metrics for Web data and LOD quality
+Web data and LOD quality methodologies
+Data quality assessment frameworks
+Evaluation of quality and trustworthiness in the web of data
+(Semi-)automatic assessment in the web of data
+Large-scale quality assessment of structured datasets
+Validation of currently existing data quality assessment methodologies
+Use-case driven quality assessment
+Quality assessment leveraging background knowledge
+Co-reference detection and dataset reconciliation
+Data quality methodologies for linked open data
+Evaluating quality of ontologies
+Web data and LOD quality tools
+Design and implementation of data quality monitoring, assessment and improvement tools
+Quality exploration and analysis interfaces
+Scalability and performance of tools
+Monitoring tools
+Case studies on Web data and LOD quality assessment and improvement
+Web data and LOD quality benchmarks
+Issues in LOD
+Methods to acquire most relevant LOD datasets
+Generating meaningful associations across LOD datasets
+Key Dates
+Abstract Submission Deadline: 20th September, 2013
+Submission Deadline: 27th September, 2013
+Notifications: 9th December, 2013
+Revised Papers: April 2014
+Final Versions: June 2014
+
+Submissions
+Submissions should be suitable for a highly ranked archival journal (IJSWIS is among the top journals in WWW). Papers will be categorised broadly as:
+
+Full research papers: typical length: 8K words (longer submissions are possible if editors and reviewers feel content is necessary)
+Application papers: 5K- 8K words
+Please follow the journal's guidelines for submissions. Initial submission should be made as a PDF document to the EasyChair website.
+Please include, in accordance with the journal's guidelines, 5-10 keywords, to assist both with indexing and reviewer selection.
+Contact: ijswiswdq2013@easychair.org
