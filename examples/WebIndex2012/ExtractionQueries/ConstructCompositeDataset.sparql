@@ -1,0 +1,38 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX qb: <http://purl.org/linked-data/cube#>
+PREFIX sdmx-concept:  <http://purl.org/linked-data/sdmx/2009/concept#>
+PREFIX sdmx-attribute: <http://purl.org/linked-data/sdmx/2009/attribute#>
+PREFIX sdmx-subject: <http://purl.org/linked-data/sdmx/2009/subject#>
+PREFIX wi-onto:  <http://data.webfoundation.org/webindex/ontology/>
+PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX cex: <http://purl.org/weso/ontology/computex#>
+PREFIX dcterms:  <http://purl.org/dc/terms/>
+PREFIX wi-org: <http://data.webfoundation.org/webindex/v2013/organization/>
+PREFIX wi-slice:  <http://data.webfoundation.org/webindex/v2013/slice/> 
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+PREFIX wi-dataset: <http://data.webfoundation.org/webindex/v2013/dataset/>
+PREFIX index: <http://data.webfoundation.org/webindex/v2013/index/>
+
+CONSTRUCT {
+	?x rdf:type qb:DataSet .
+	?x dcterms:contributor wi-org:WESO .
+	?x dcterms:issued "2013-07-11" .
+	?x dcterms:publisher wi-org:WebFoundation .
+	?x dcterms:title "Composite Index" .
+	?x dcterms:subject sdmx-subject:2.5 .
+	?x rdfs:label "Composite Index" .
+	?x rdfs:comment "Description of Composite grouped" .
+	?x qb:structure wi-onto:DSD .
+	?x sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> .
+	?x qb:slice ?z .
+	?x cex:computation _:0 .
+	_:0 rdf:type cex:WeightedMean .
+	_:0 cex:dataSet wi-dataset:SubindexGrouped .
+	_:0 cex:component index:index .
+	_:0 cex:dimension wi-onto:ref-area .
+	_:0 cex:weightSchema <http://data.webfoundation.org/webindex/v2013/weightSchema/subindexWeight>
+} WHERE {
+	?z rdf:type qb:Slice .
+	FILTER(CONTAINS(str(?z), "Composite"))
+	BIND(URI("http://data.webfoundation.org/webindex/v2013/dataset/Composite") AS ?x)
+}

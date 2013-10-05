@@ -1,0 +1,43 @@
+PREFIX ex: <http://ex.example/#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+SELECT ?IssueShape ?IssueShape_p0 ?IssueShape_o0 ?IssueShape_p1 ?IssueShape_o1 ?IssueShape_p2 ?IssueShape_o2 ?UserShape ?UserShape_p0 ?UserShape_o0 ?UserShape_p1 ?UserShape_o1 ?UserShape_p2 ?UserShape_o2 ?UserShape_p3 ?UserShape_o3 ?IssueShape_p0 ?IssueShape_o0 ?IssueShape_p3 ?IssueShape_o3 ?IssueShape_p4 ?IssueShape_o4 
+WHERE {
+    { SELECT ?IssueShape (?p AS ?IssueShape_p0) (?o AS ?IssueShape_o0) {
+      ?IssueShape ?p ?o . FILTER (?p = ex:state && (?o = ex:unassigned || ?o = ex:assigned))
+    }}
+    { SELECT ?IssueShape (?p AS ?IssueShape_p1) (?o AS ?IssueShape_o1) (?o AS ?UserShape) {
+      ?IssueShape ?p ?o . FILTER (?p = ex:reportedBy && isIRI(?o))
+    }}
+    { SELECT ?UserShape ?UserShape_p0 ?UserShape ?UserShape_o0 ?UserShape_p1 ?UserShape_o1 ?UserShape_p2 ?UserShape_o2 ?UserShape_p3 ?UserShape_o3 {
+        { SELECT ?UserShape ?UserShape_p0 ?UserShape ?UserShape_o0 ?UserShape_p1 ?UserShape_o1 ?UserShape_p2 ?UserShape_o2 WHERE {
+            {
+                { SELECT ?UserShape (?p AS ?UserShape_p0) (?o AS ?UserShape_o0) {
+                  ?UserShape ?p ?o . FILTER (?p = foaf:name && isLiteral(?o))
+                }}
+            } UNION {
+                { SELECT ?UserShape (?p AS ?UserShape_p1) (?o AS ?UserShape_o1) {
+                  ?UserShape ?p ?o . FILTER (?p = foaf:givenName && isLiteral(?o))
+                }}
+                { SELECT ?UserShape (?p AS ?UserShape_p2) (?o AS ?UserShape_o2) {
+                  ?UserShape ?p ?o . FILTER (?p = foaf:familyName && isLiteral(?o))
+                }}
+            }
+        }}
+        { SELECT ?UserShape (?p AS ?UserShape_p3) (?o AS ?UserShape_o3) {
+          ?UserShape ?p ?o . FILTER (?p = foaf:mbox && isIRI(?o))
+        }}
+    }}
+    { SELECT ?IssueShape (?p AS ?IssueShape_p2) (?o AS ?IssueShape_o2) {
+      ?IssueShape ?p ?o . FILTER (?p = ex:reportedOn && datatype(?o) = xsd:dateTime)
+    }}
+    { SELECT ?IssueShape ?IssueShape_p3 ?IssueShape ?IssueShape_o3 ?IssueShape_p4 ?IssueShape_o4 {
+        { SELECT ?IssueShape (?p AS ?IssueShape_p3) (?o AS ?IssueShape_o3) {
+          ?IssueShape ?p ?o . FILTER (?p = ex:reproducedBy && isIRI(?o))
+        }}
+        { SELECT ?IssueShape (?p AS ?IssueShape_p4) (?o AS ?IssueShape_o4) {
+          ?IssueShape ?p ?o . FILTER (?p = ex:reproducedOn && datatype(?o) = xsd:dateTime)
+        }}
+    }}
+}

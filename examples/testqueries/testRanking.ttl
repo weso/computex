@@ -1,0 +1,6 @@
+@prefix : <http://example.org#> .
+
+:A :value 60 .
+:B :value 23 .
+:C :value 89 .
+:D :value 34 .

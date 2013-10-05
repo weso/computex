@@ -1,0 +1,10 @@
+PREFIX ex: <http://ex.example/#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+SELECT ?IssueShape {
+      ?IssueShape ?p ?o . 
+	  FILTER (?p = ex:state && (?o = ex:unassigned || ?o = ex:assigned))
+    } GROUP BY ?IssueShape 
+	  HAVING (COUNT(*)=1)
+    
