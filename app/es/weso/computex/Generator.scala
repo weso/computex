@@ -60,12 +60,14 @@ case class Generator(
    val cex_value				= m.createProperty(PREFIXES.cex 	+ "value")
    val cex_computation			= m.createProperty(PREFIXES.cex 	+ "computation")
    val cex_dataSet				= m.createProperty(PREFIXES.cex 	+ "dataSet")
+   val cex_highLow				= m.createProperty(PREFIXES.cex 	+ "highLow")
    val cex_method				= m.createProperty(PREFIXES.cex 	+ "method")
    val cex_ImputeDataSet		= m.createProperty(PREFIXES.cex 	+ "ImputeDataSet")
    val cex_NormalizeDataSet		= m.createProperty(PREFIXES.cex 	+ "NormalizeDataSet")
    val cex_MeanBetweenMissing	= m.createProperty(PREFIXES.cex 	+ "MeanBetweenMissing")
    val cex_AvgGrowth2Missing	= m.createProperty(PREFIXES.cex 	+ "AvgGrowth2Missing")
    val cex_CopyRaw				= m.createProperty(PREFIXES.cex 	+ "CopyRaw")
+   val cex_High					= m.createProperty(PREFIXES.cex 	+ "High")
 
    val qb_attribute 			= m.createProperty(PREFIXES.qb 		+ "attribute")
    val qb_dataSet	 			= m.createProperty(PREFIXES.qb 		+ "dataSet")
@@ -225,6 +227,7 @@ case class Generator(
     for (name <- indicatorNames) {
       val ind = indicator(name)
       m.add(ind,rdf_type,wi_ontoSecondaryIndicator)
+      m.add(ind,cex_highLow,cex_High)
       m.add(ind,rdfs_label,m.createLiteral("Indicator " + name,"en"))
     }
   }

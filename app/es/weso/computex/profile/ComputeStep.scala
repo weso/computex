@@ -51,19 +51,20 @@ case class ComputeStep(
   /**
    * Applies a construct query to a model 
    */
-  def step(model:Model) : Option[Model] = {
+  def step(model:Model) : Model = {
     val resultModel = ModelFactory.createDefaultModel
     val qexec = QueryExecutionFactory.create(query, model)
     qexec.execConstruct(resultModel)
-    if (resultModel.size == 0) None
-    else Some(resultModel)
+    resultModel
   }
   
-  def extend(model:Model): (Model,Option[Model]) = {
-    step(model) match {
-      case None => (model,None)
-      case s@Some(newModel) => (model.add(newModel),s)
-    }
+  /**
+   * Computes a compute step on a model
+   * @return a pair with the new model (the constructed triples added to the model) and the new triples
+   */
+  def compute(model:Model): (Model,Model) = {
+    val newModel = step(model) 
+    (model.add(newModel),newModel)
   }
   
 }

@@ -70,16 +70,9 @@ case class Profile(
   }
 
   private def combineComputation(model: Model, computeStep: ComputeStep) : Model = {
-    computeStep.extend(model) match {
-      case (newModel,None) => {
-        info("Computer step " + computeStep.name + " does not produce any triple")
-        newModel
-      }
-      case (newModel,Some(m)) => {
-        info("Computer step " + computeStep.name + " produced " + m.size + " triples")
-        newModel
-      }
-    }
+    val (newModel,constructed) = computeStep.compute(model) 
+    info("Computer step " + computeStep.name + " produced " + constructed.size + " triples")
+    newModel
   }
 
   private def info(msg : String) : Unit = {
