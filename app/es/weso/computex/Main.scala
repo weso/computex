@@ -81,7 +81,6 @@ object Main extends App {
 		  opts.profile(),
 		  opts.expand(),
 		  opts.imports())
-	   println("Driver: " + driver)
        val (report,model) = driver.validate
        report match {
          case Passed(vs) => println("Valid. " + vs.length + " validators passed\n")
@@ -91,10 +90,10 @@ object Main extends App {
            println(nvs.length + " validators didn't pass")
        }
        if (opts.showModel()) {
-       showModel(opts.output.get,model,"TURTLE","Model")
+         showModel(opts.output.get,model,"TURTLE","Model")
        }
      } catch {
-  	    case e: Exception => println("Exception:" + e)
+  	    case e: Exception => println("\nException:\n" + e.getLocalizedMessage())
   	 }
  }
 
@@ -116,10 +115,10 @@ object Main extends App {
   optName match {
     case None => {
       println(msg)
-      model.write(System.out,syntax)
+      JenaUtils.model2Str(model,syntax)
     }
     case Some(outFile) => {
-      JenaUtils.model2File(model,outFile)
+      JenaUtils.model2File(model,outFile,syntax)
     }
   }
  }

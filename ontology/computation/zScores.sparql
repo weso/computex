@@ -1,0 +1,81 @@
+# compute z-scores
+prefix country:      <http://data.webfoundation.org/webindex/v2013/country/> 
+prefix dataset:      <http://data.webfoundation.org/webindex/v2013/dataset/> 
+prefix indicator:    <http://data.webfoundation.org/webindex/v2013/indicator/> 
+prefix obs:          <http://data.webfoundation.org/webindex/v2013/observation/> 
+prefix organization: <http://data.webfoundation.org/webindex/v2013/organization> 
+
+prefix afn:			 <http://jena.hpl.hp.com/ARQ/function#>
+prefix cex:          <http://purl.org/weso/ontology/computex#> 
+prefix owl:          <http://www.w3.org/2002/07/owl#> 
+prefix qb:           <http://purl.org/linked-data/cube#>
+prefix rdf:          <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+prefix rdfs:         <http://www.w3.org/2000/01/rdf-schema#> 
+prefix wi-onto:      <http://data.webfoundation.org/webindex/ontology/> 
+prefix xml:          <http://www.w3.org/XML/1998/namespace> 
+prefix xsd:          <http://www.w3.org/2001/XMLSchema#> 
+prefix sdmx-concept: <http://purl.org/linked-data/sdmx/2009/concept#> 
+
+
+CONSTRUCT {
+ _:obs a qb:Observation ;
+       cex:value ?zScore ;
+       cex:indicator ?indicator ;
+       qb:dataSet ?dataSetNormalized ;
+	   wi-onto:ref-year ?year ;
+	   wi-onto:ref-area ?area ;
+	   sdmx-concept:obsStatus cex:Normalized ;
+	   cex:computation 
+		    [ a cex:Normalize ;
+			  cex:observation ?obs 
+			] ;   
+			.
+ ?sliceToCopy qb:observation _:obs .
+} WHERE { 
+  ?dataSetNormalized a qb:DataSet ;
+	      cex:computation [ a cex:NormalizeDataSet ;
+						    cex:dataSet ?dataSet ;
+					      ] ;
+		  qb:slice ?sliceToCopy .
+  ?dataSet qb:slice ?slice .
+ 
+  ?slice cex:indicator ?indicator ;
+	     wi-onto:ref-year ?year ;
+	     qb:observation ?obs .
+	     
+  ?sliceToCopy wi-onto:ref-year ?year .
+  
+  ?obs cex:value ?value ;
+       wi-onto:ref-area ?area ;
+       cex:indicator ?indicator .
+  
+  ?indicator cex:highLow ?highLow .
+
+  { SELECT ?slice (AVG(?value) as ?mean) WHERE {
+     ?slice a              qb:Slice ;
+            qb:observation ?obs .
+            ?obs cex:value ?value .
+    } GROUP BY ?slice 
+  } 
+
+  { SELECT ?slice (afn:sqrt(?sumSquares / ?lengthMinusOne) as ?sd) WHERE { 
+     { SELECT ?slice 
+       (SUM((?value - ?mean) * (?value - ?mean)) as ?sumSquares) 
+	   (COUNT(?obs) - 1 as ?lengthMinusOne) 
+       WHERE {
+	    ?slice qb:observation ?obs .
+        ?obs cex:value ?value .
+		{ SELECT ?slice (AVG(?value) as ?mean) WHERE {
+		    ?slice qb:observation ?obs .
+			?obs cex:value ?value .
+		  } 
+		  GROUP BY ?slice
+		}
+     } GROUP BY ?slice
+    }
+   } 
+  }
+  BIND (if(?highLow = cex:High,?value - ?mean,?mean - ?value) as ?difference)
+  BIND (?difference / ?sd as ?zScore)
+}
+

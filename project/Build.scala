@@ -14,7 +14,7 @@ object ApplicationBuild extends Build {
     anorm,
     "junit" % "junit" % "4.8.1" % "test",
     "commons-configuration" % "commons-configuration" % "1.7",
-    "org.apache.jena" % "jena-arq" % "2.10.1",
+    "org.apache.jena" % "apache-jena-libs" % "2.11.0" excludeAll(ExclusionRule(organization = "org.slf4j")),
     "commons-io" % "commons-io" % "2.4",
     "org.rogach" %% "scallop" % "0.9.1" ,
     "org.scalatest" % "scalatest_2.10" % "1.9.1" % "test", 

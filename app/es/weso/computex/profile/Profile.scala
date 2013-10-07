@@ -21,6 +21,7 @@ case class Profile(
     val ontologyBase 	: URI,
     val validators		: Seq[Validator],
     val expanders		: Seq[Expander],
+    val computeSteps	: Seq[ComputeStep],
     val imports			: Seq[(URI,Profile)],
     val name			: String = "",
     val uri				: String = ""
@@ -61,6 +62,29 @@ case class Profile(
     }
   }
 
+  /**
+   *  Expands a model using this profile
+   */
+  def compute(model:Model) : Model = {
+    computeSteps.foldLeft(model)(combineComputation)
+  }
+
+  private def combineComputation(model: Model, computeStep: ComputeStep) : Model = {
+    computeStep.extend(model) match {
+      case (newModel,None) => {
+        info("Computer step " + computeStep.name + " does not produce any triple")
+        newModel
+      }
+      case (newModel,Some(m)) => {
+        info("Computer step " + computeStep.name + " produced " + m.size + " triples")
+        newModel
+      }
+    }
+  }
+
+  private def info(msg : String) : Unit = {
+    println(msg)
+  }
   
   /**
    *  Validates a model using this profile. Returns a validation report and 
@@ -109,6 +133,7 @@ case class Profile(
     "Profile. Name = " + name + " URI = " + uri + 
     "\nValidators:" + validators + 
     "\nExpanders:" + expanders + 
+    "\nComputeSteps:" + computeSteps + 
     "\nImports: " + imports
   }
 

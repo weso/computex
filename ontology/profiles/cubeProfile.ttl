@@ -6,7 +6,7 @@
 @prefix cubeURI: 		<ontology/validation/cube/> .
 @prefix profileURI: 	<ontology/profiles/> .
 @prefix cexOntology: 	<ontology/> .
-@prefix cubeURIExpand: 	<ontology/computation/cube/> .
+@prefix cubeURIExpand: 	<ontology/expansion/cube/> .
 
 cex:cube a cex:ValidationProfile ;
    cex:name 			"RDF Data Cube" ;

@@ -32,6 +32,13 @@ import com.hp.hpl.jena.rdf.model.Resource
 import com.hp.hpl.jena.datatypes.xsd.XSDDatatype
 import com.hp.hpl.jena.rdf.model.Literal
 import java.io.FileOutputStream
+import org.slf4j.LoggerFactory
+import org.rogach.scallop.Scallop
+import org.rogach.scallop.ScallopConf
+import org.rogach.scallop.exceptions.Help
+import es.weso.utils.JenaUtils
+import es.weso.computex.profile.Profile
+import es.weso.computex.profile.VReport
 
 /**
  * Generates a WebIndex example file with random values
@@ -48,8 +55,17 @@ case class Generator(
    val rdfs_label				= m.createProperty(PREFIXES.rdfs 	+ "label")
    val rdfs_comment				= m.createProperty(PREFIXES.rdfs 	+ "comment")
    val rdfs_range				= m.createProperty(PREFIXES.rdfs 	+ "range")
+
    val cex_indicator			= m.createProperty(PREFIXES.cex 	+ "indicator")
    val cex_value				= m.createProperty(PREFIXES.cex 	+ "value")
+   val cex_computation			= m.createProperty(PREFIXES.cex 	+ "computation")
+   val cex_dataSet				= m.createProperty(PREFIXES.cex 	+ "dataSet")
+   val cex_method				= m.createProperty(PREFIXES.cex 	+ "method")
+   val cex_ImputeDataSet		= m.createProperty(PREFIXES.cex 	+ "ImputeDataSet")
+   val cex_NormalizeDataSet		= m.createProperty(PREFIXES.cex 	+ "NormalizeDataSet")
+   val cex_MeanBetweenMissing	= m.createProperty(PREFIXES.cex 	+ "MeanBetweenMissing")
+   val cex_AvgGrowth2Missing	= m.createProperty(PREFIXES.cex 	+ "AvgGrowth2Missing")
+   val cex_CopyRaw				= m.createProperty(PREFIXES.cex 	+ "CopyRaw")
 
    val qb_attribute 			= m.createProperty(PREFIXES.qb 		+ "attribute")
    val qb_dataSet	 			= m.createProperty(PREFIXES.qb 		+ "dataSet")
@@ -93,8 +109,16 @@ case class Generator(
     m.createResource(PREFIXES.indicator + name)
   }
 
-  private def dataSet(name: String) : Resource = {
+  private def dataSetRaw(name: String) : Resource = {
     m.createResource(PREFIXES.dataset + name + "-Raw")
+  }
+
+  private def dataSetImputed(name: String) : Resource = {
+    m.createResource(PREFIXES.dataset + name + "-Imputed")
+  }
+
+  private def dataSetNormalized(name: String) : Resource = {
+    m.createResource(PREFIXES.dataset + name + "-Normalized")
   }
 
   private def country(name: String) : Resource = {
@@ -106,8 +130,8 @@ case class Generator(
   }
 
 
-  private def sliceIndicatorYear(indicator: String, year: String) : Resource = {
-    m.createResource(PREFIXES.slice + indicator + year + "-Raw")
+  private def sliceIndicatorYear(indicator: String, year: String, kind: String) : Resource = {
+    m.createResource(PREFIXES.slice + indicator + year + "-" + kind)
   }
 
   lazy val indicatorNames: IndexedSeq[String] = {
@@ -221,21 +245,71 @@ case class Generator(
   
   def addDatasets : Unit = {
     for (name <- indicatorNames) {
-      val ds = dataSet(name)
+      val ds = dataSetRaw(name)
       m.add(ds,rdf_type,qbDataset)
       m.add(ds,qb_structure,wi_ontoDSD)
       m.add(ds,rdfs_label,m.createLiteral("Dataset " + name + "-Raw","en"))
       for (yearName <- yearNames) {
-        val slice = sliceIndicatorYear(name,yearName)
+        val slice = sliceIndicatorYear(name,yearName,"Raw")
         m.add(ds,qb_slice,slice)        
       }
     }
   }
   
+  def addDatasetsImputed : Unit = {
+    for (name <- indicatorNames) {
+      val ds = dataSetImputed(name)
+      m.add(ds,rdf_type,qbDataset)
+      m.add(ds,qb_structure,wi_ontoDSD)
+      m.add(ds,rdfs_label,m.createLiteral("Dataset " + name + "-Imputed","en"))
+      
+      val computation = m.createResource()
+      m.add(computation,rdf_type,cex_ImputeDataSet)
+      m.add(computation,cex_method,cex_CopyRaw)
+      m.add(computation,cex_method,cex_AvgGrowth2Missing)
+      m.add(computation,cex_method,cex_MeanBetweenMissing)
+      m.add(computation,cex_dataSet,dataSetRaw(name))
+      
+      m.add(ds,cex_computation,computation)
+      
+      for (yearName <- yearNames) {
+        val slice = sliceIndicatorYear(name,yearName,"Imputed")
+        m.add(ds,qb_slice,slice)
+        m.add(slice,qb_sliceStructure,wi_onto_sliceByArea)
+        m.add(slice,cex_indicator,indicator(name))      
+        m.add(slice,wi_onto_ref_year,literal(yearName))      
+        m.add(slice,rdf_type,qbSlice)      
+      }
+    }
+  }
+  
+  def addDatasetsNormalized : Unit = {
+    for (name <- indicatorNames) {
+      val ds = dataSetNormalized(name)
+      m.add(ds,rdf_type,qbDataset)
+      m.add(ds,qb_structure,wi_ontoDSD)
+      m.add(ds,rdfs_label,m.createLiteral("Dataset " + name + "-Normalized","en"))
+      
+      val computation = m.createResource()
+      m.add(computation,rdf_type,cex_NormalizeDataSet)
+      m.add(computation,cex_dataSet,dataSetImputed(name))
+      
+      m.add(ds,cex_computation,computation)
+      
+      for (yearName <- yearNames) {
+        val slice = sliceIndicatorYear(name,yearName,"Normalized")
+        m.add(ds,qb_slice,slice)
+        m.add(slice,qb_sliceStructure,wi_onto_sliceByArea)
+        m.add(slice,cex_indicator,indicator(name))      
+        m.add(slice,wi_onto_ref_year,literal(yearName))      
+        m.add(slice,rdf_type,qbSlice)      
+      }
+    }
+  }
 
   def addSlices : Unit = {
     for (indic <- indicatorNames; year <- yearNames) {
-      val slice = sliceIndicatorYear(indic, year)
+      val slice = sliceIndicatorYear(indic, year,"Raw")
       
       m.add(slice,rdf_type,qbSlice)
       m.add(slice,cex_indicator,indicator(indic))
@@ -258,7 +332,7 @@ case class Generator(
       m.add(obs,wi_onto_ref_area,country(c))
       m.add(obs,cex_indicator,indicator(i))
       m.add(obs,wi_onto_ref_year,literal(y))
-      m.add(obs,qb_dataSet,dataSet(i))
+      m.add(obs,qb_dataSet,dataSetRaw(i))
       m.add(obs,cex_value,literalFloat(getValue(c,i,y)))
       
     }
@@ -274,17 +348,105 @@ case class Generator(
     addDatasets
     addSlices
     addObservations
+    addDatasetsImputed
+    addDatasetsNormalized
     m
   }
   
   def showModel(syntax : String = "TURTLE") : String = {
-    val sw = new StringWriter
-    model.write(sw,syntax)
-    sw.toString()
+    JenaUtils.model2Str(model,syntax)
   }
 }
 
-object Generator {
+
+class GeneratorOpts(arguments: Array[String],onError: (Throwable, Scallop) => Nothing
+    ) extends ScallopConf(arguments) {
+
+    banner("""| Generate WebIndex sample data
+              | Options:
+              |""".stripMargin)
+    footer("Enjoy!")
+    version("Computex Generator 0.1")
+    val countries = opt[Int]("countries",
+    				default=Some(1),
+    				descr = "Number of countries")
+    val indicators = opt[Int]("indicators", 
+        			default=Some(1),
+    				descr = "Number of indicators")        			
+    val years      = opt[Int]("years", 
+        			default=Some(1),
+    				descr = "Number of years")        			
+    val doValidation = opt[Boolean]("validate",
+    				default=Some(false),
+    				descr = "Validate model using Computex")
+    val expand  = opt[Boolean]("expand",
+    				default=Some(false),
+    				descr = "Expand model using Computex")
+    val show  	= toggle("show",
+    				default=Some(true),
+    				descrYes = "Show model generated",
+    				descrNo = "Do not show model generated")
+    val output  = opt[String]("out",
+    				default=Some(""),
+    				descr = "Output model to file")
+    val verbose = toggle("Verbose", 
+    				default=Some(false),
+    				descrYes = "Verbose output",
+    				descrNo = "Not verbose"
+    				)
+    val version = opt[Boolean]("version", 
+    				noshort = true, 
+    				descr = "Print version")
+    val help 	= opt[Boolean]("help", 
+    				noshort = true, 
+    				descr = "Show this message")
+  
+  override protected def onError(e: Throwable) = onError(e, builder)
+}
+
+
+object Generator extends App {
+
+  override def main(args: Array[String]) {
+	  val logger 		= LoggerFactory.getLogger("Application")
+	  val conf 			= ConfigFactory.load()
+      val opts 			= new GeneratorOpts(args,onError)
+
+	  val gen = new Generator(opts.countries(),opts.indicators(),opts.years())
+
+	  val profile = Profile.Computex
+	  var outputModel = gen.model
+	  if (opts.doValidation()) {
+	    println("Validating generated model...")
+	    val (vr,model) = profile.validate(gen.model,opts.expand(),true)
+	    println("After validating generated model...")
+	    println(VReport.show(vr,opts.verbose()))
+	    outputModel = model
+	  }
+
+	  if (opts.show()) {
+		showOutputModel(opts.output(),outputModel)	    
+	  }
+
+  }
+  
+  def showOutputModel(output: String, model:Model) {
+    output match {
+	    case "" => println(JenaUtils.model2Str(model))
+	    case str => JenaUtils.model2File(model, str)
+	  }
+  }   
+  
+  private def onError(e: Throwable, scallop: Scallop) = e match {
+    case Help(s) =>
+      println("Help: " + s)
+      scallop.printHelp
+      sys.exit(0)
+    case _ =>
+      println("Error: %s".format(e.getMessage))
+      scallop.printHelp
+      sys.exit(1)
+  }
 
 }
     

@@ -58,7 +58,12 @@ class ProfileParserSuite
 
   it("Should obtain a list of expanders for Computex profile") {
      val profile = Profile.Computex
-     profile.expanders.length should be(11)
+     profile.expanders.length should be(0)
+   }
+
+  it("Should obtain a list of computeSteps for Computex profile") {
+     val profile = Profile.Computex
+     profile.computeSteps.length should be(5)
    }
 
   it("Should validate demo of RDF Data Cube profile") {
@@ -137,7 +142,7 @@ class ProfileParserSuite
        info("Models are isomorphic")
      else {
        // info("Model1: " + model2Str(model))
-       // info("Model2: " + model2Str(modelGenerated))
+       info("Model2: " + model2Str(modelGenerated))
        fail("Models are not isomorphic.")
      } 
    }
@@ -146,14 +151,14 @@ class ProfileParserSuite
      val computexProfile = ConfigUtils.getName(conf, "computexProfile")
      val contents 		= Source.fromFile(computexProfile).mkString
      val model			= parseFromString(contents,"",Turtle)
-     val profile 	= Profile.Computex
+     val profile 		= Profile.Computex
      val modelGenerated = ProfileParser.toModel(profile)
      if (model.isIsomorphicWith(modelGenerated)) 
        info("Models are isomorphic")
      else {
-       // info("Model1: " + model2Str(model))
+       info("Model1: " + model2Str(model))
        // info("ProfileGenerated: " + profile.toString)
-       // info("Model2: " + model2Str(modelGenerated))
+       info("Model2: " + model2Str(modelGenerated))
        fail("Models are not isomorphic.")
      } 
    }

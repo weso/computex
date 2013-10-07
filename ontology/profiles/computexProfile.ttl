@@ -6,48 +6,31 @@
 @prefix profileURI: 	<ontology/profiles/> .
 @prefix cexOntology: 	<ontology/> .
 @prefix cexURI: 		<ontology/validation/computex/> .
-@prefix cexURIExpand: 	<ontology/computation/> .
+@prefix cexURIExpand: 	<ontology/expansion/> .
+@prefix cexURICompute: 	<ontology/computation/> .
 
 cex:computex a cex:ValidationProfile ;
    cex:name "Computex" ;
    cex:ontologyBase cexOntology:computex.ttl ;
    cex:import profileURI:cubeProfile.ttl ;
-   cex:expandSteps 
+   cex:computeSteps
       ( 
 		[ cex:name "Copy Raw" ; 
-	 	  cex:uri cexURIExpand:q4-copyRaw.sparql 
-	 	]         
+	 	  cex:uri cexURICompute:copyRaw.sparql 
+	 	]
 		[ cex:name "Mean Between Missing values" ; 
-	 	  cex:uri cexURIExpand:q9-MeanBetweenMissing.sparql 
+	 	  cex:uri cexURICompute:MeanBetweenMissing.sparql 
 	 	]         
     	[ cex:name "Average Growth of 2 values missing" ; 
-    	  cex:uri cexURIExpand:q2-AvgGrowth2Missing.sparql 
+    	  cex:uri cexURICompute:AvgGrowth2Missing.sparql 
     	]
     	[ cex:name "Filter" ; 
-    	  cex:uri cexURIExpand:q5-Filter.sparql 
+    	  cex:uri cexURICompute:Filter.sparql 
     	]
     	[ cex:name "zScores" ; 
-    	  cex:uri cexURIExpand:q13-zScores.sparql 
+    	  cex:uri cexURICompute:zScores.sparql 
     	]
-    	[ cex:name "Adjust values" ; 
-    	  cex:uri cexURIExpand:q1-Adjust.sparql 
-    	]
-    	[ cex:name "WeightedSimple" ; 
-    	  cex:uri cexURIExpand:q10-WeightedSimple.sparql 
-    	]
-    	[ cex:name "GroupClusters" ; 
-    	  cex:uri cexURIExpand:q7-GroupClusters.sparql 
-    	]
-    	[ cex:name "GroupSubindex" ; 
-    	  cex:uri cexURIExpand:q8-GroupSubindex.sparql 
-    	]
-    	[ cex:name "WeightedMean" ; 
-    	  cex:uri cexURIExpand:q12-WeightedMean.sparql 
-    	]
-    	[ cex:name "Ranking" ; 
-    	  cex:uri cexURIExpand:q10-Ranking.sparql
-    	]
-	  ) ;
+      ) ;        
    cex:integrityQuery 
 	    [ cex:name "Adjusted computation must have a value" ;
 	      cex:uri	cexURI:adjustedValueExistsObs.sparql 

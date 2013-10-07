@@ -24,6 +24,7 @@ case class ProfileParser(profile : Model) {
   val cex_integrityQuery 	= profile.createProperty(PREFIXES.cex + "integrityQuery")
   val cex_expandQuery 		= profile.createProperty(PREFIXES.cex + "expandQuery")
   val cex_expandSteps 		= profile.createProperty(PREFIXES.cex + "expandSteps")
+  val cex_computeSteps 		= profile.createProperty(PREFIXES.cex + "computeSteps")
   val cex_name 				= profile.createProperty(PREFIXES.cex + "name")
   val cex_uri  				= profile.createProperty(PREFIXES.cex + "uri")
 
@@ -41,20 +42,28 @@ case class ProfileParser(profile : Model) {
     vals.result
   }
 
-  def expanders(resource : Resource): Seq[Expander] = {
-    /*
-    val seq = Vector.newBuilder[Expander]
-    val iter = profile.listStatements(resource,cex_expandQuery,null) 
-    while (iter.hasNext) {
+  def computeSteps(resource : Resource): Seq[ComputeStep] = {
+    val seq = Vector.newBuilder[ComputeStep]
+    val iter = profile.listStatements(resource,cex_computeSteps,null) 
+    if (iter.hasNext) {
       val s = iter.next
-      val r = s.getObject()
-      val name = JenaUtils.getLiteral(r,cex_name)
-      val uri  = JenaUtils.getObjectURI(r,cex_uri)
-      val contents = Source.fromURI(uri).mkString
-      val updateReq  = UpdateFactory.create(contents)
-      seq += Expander(updateReq,name,uri)
-    }
-    seq.result */
+      val nodeList : RDFNode = s.getObject()
+      var current : Resource = nodeList.asResource()
+      while (!RDF.nil.equals(current)) {
+        val r = current.getRequiredProperty(RDF.first).getObject.asResource
+        val name = JenaUtils.getLiteral(r,cex_name)
+        val uri  = JenaUtils.getObjectURI(r,cex_uri)
+        val contents = Source.fromURI(uri).mkString
+        val query = QueryFactory.read(uri.toString)
+        seq += ComputeStep(query,name,uri)
+        current = current.getRequiredProperty(RDF.rest).getObject.asResource
+      }
+    } 
+    seq.result
+  }
+
+  
+  def expanders(resource : Resource): Seq[Expander] = {
     val seq = Vector.newBuilder[Expander]
     val iter = profile.listStatements(resource,cex_expandSteps,null) 
     if (iter.hasNext) {
@@ -70,10 +79,8 @@ case class ProfileParser(profile : Model) {
         seq += Expander(updateReq,name,uri)
         current = current.getRequiredProperty(RDF.rest).getObject.asResource
       }
-      seq.result
-    } else {
-      throw new Exception("No expandSteps")
-    }
+    } 
+    seq.result
   }
 
   def name(resource: Resource): String = {
@@ -117,8 +124,9 @@ case class ProfileParser(profile : Model) {
       val b 	= base(r)
       val vals 	= validators(r)
       val exps 	= expanders(r)
+      val comps = computeSteps(r)
       val imps 	= imports(r, new URI(r.getURI) +: visited)
-      seq += Profile(b,vals,exps,imps,n,u)
+      seq += Profile(b,vals,exps,comps,imps,n,u)
     }
     seq.result
   }
@@ -154,6 +162,7 @@ object ProfileParser {
     val cex_integrityQuery 		= m.createProperty(PREFIXES.cex + "integrityQuery")
   	val cex_expandQuery 		= m.createProperty(PREFIXES.cex + "expandQuery")
   	val cex_expandSteps 		= m.createProperty(PREFIXES.cex + "expandSteps")
+  	val cex_computeSteps 		= m.createProperty(PREFIXES.cex + "computeSteps")
   	val cex_name 				= m.createProperty(PREFIXES.cex + "name")
   	val cex_uri  				= m.createProperty(PREFIXES.cex + "uri")
   	
@@ -166,18 +175,33 @@ object ProfileParser {
       m.add(root,cex_import,uri)
     }
 
-    // Generate RDF Collection list of expanders
-    val lsNodes = Vector.newBuilder[RDFNode]    
-    for (e <- profile.expanders) {
+    if (profile.expanders.length > 0) {
+     // Generate RDF Collection list of expanders
+     val lsNodes = Vector.newBuilder[RDFNode]    
+     for (e <- profile.expanders) {
+       val currentNode = m.createResource
+       m.add(currentNode,cex_name,e.name)
+       val uriExpander = m.createResource(e.uri.toString)
+       m.add(currentNode,cex_uri,uriExpander)
+       lsNodes += currentNode
+     }
+     val listExpanders = m.createList(lsNodes.result.toArray)
+     m.add(root,cex_expandSteps,listExpanders)
+    }
+    
+    if (profile.computeSteps.length > 0) {
+    // Generate RDF Collection list of computeSteps
+    val lsComps = Vector.newBuilder[RDFNode]    
+    for (e <- profile.computeSteps) {
       val currentNode = m.createResource
       m.add(currentNode,cex_name,e.name)
-      val uriExpander = m.createResource(e.uri.toString)
-      m.add(currentNode,cex_uri,uriExpander)
-      lsNodes += currentNode
+      val uriComputeStep = m.createResource(e.uri.toString)
+      m.add(currentNode,cex_uri,uriComputeStep)
+      lsComps += currentNode
     }
-    val listExpanders = m.createList(lsNodes.result.toArray)
-    m.add(root,cex_expandSteps,listExpanders)
-    
+    val listComputeStep = m.createList(lsComps.result.toArray)
+    m.add(root,cex_computeSteps,listComputeStep)
+    }
     for (v <- profile.validators) {
       val resourceValidator = m.createResource
       m.add(root,cex_integrityQuery,resourceValidator)

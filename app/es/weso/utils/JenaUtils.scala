@@ -87,7 +87,8 @@ object JenaUtils {
       syntax: String = Turtle) : Model = {
     uri2Model(uri,base,syntax) match {
       case Parsed(model) => model
-      case NotParsed(err) => throw new Exception("Cannot parse from URI: " + uri + ". Error: " + err)
+      case NotParsed(err) => 
+        throw new Exception(err)
     }
   }
 
@@ -110,11 +111,12 @@ object JenaUtils {
       val model = ModelFactory.createDefaultModel()
       Parsed(model.read(dereferenceURI(uriName),base,syntax))
     } catch {
-      case e@(_: AtlasException | _: RiotException) => 
-        NotParsed("Bad formed with syntax " + syntax + ". " + e.getLocalizedMessage())
+      case e: AtlasException => 
+        NotParsed("Error parsing URI " + uriName + " with syntax " + syntax + ".\n AtlasException: " + e.toString())
+      case e: RiotException =>  	        
+        NotParsed("Exception parsing URI " + uriName + " with syntax " + syntax + ".\n RIOT Exception: " + e.toString())
       case e : Exception =>
-        NotParsed("Exception parsing from URI " + uriName + 
-            " with syntax " + syntax + ". " + e.getLocalizedMessage())
+        NotParsed("Exception parsing URI " + uriName + " with syntax " + syntax + ".\n Exception: " + e.toString())
     }
   }
   
