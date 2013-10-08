@@ -8,11 +8,13 @@ object PREFIXES {
   lazy val webindex 	= "http://data.webfoundation.org/webindex/v2013/"
   lazy val computation	= webindex + "computation/"
   lazy val dataset		= webindex + "dataset/"
-  lazy val ranking		= webindex + "ranking/"
+  lazy val index		= webindex + "index/"
   lazy val indicator	= webindex + "indicator/"
   lazy val country		= webindex + "country/"
   lazy val obs			= webindex + "observation/"
+  lazy val ranking		= webindex + "ranking/"
   lazy val slice		= webindex + "slice/"
+  lazy val weightSchema	= webindex + "weightSchema/"
   lazy val cex			= "http://purl.org/weso/ontology/computex#"
   lazy val dcterms		= "http://purl.org/dc/terms/"
   lazy val geo			= "http://www.w3.org/2003/01/geo/wgs84_pos#"
@@ -42,6 +44,7 @@ object PREFIXES {
 		    "slice"			-> slice,
 		    "cex"			-> cex,
 		    "dcterms"		-> dcterms,
+		    "index"			-> index,
 		    "geo"			-> geo,
 		    "qb"			-> qb,
 		    "owl"			-> owl,
@@ -53,6 +56,7 @@ object PREFIXES {
 		    "sdmxSubject"	-> sdmxSubject,
 		    "skos"			-> skos,
 		    "time"			-> time,
+		    "weightSchema"	-> weightSchema,
 		    "wi-onto"		-> wi_onto,
 		    "wi-org"		-> wi_org,
 		    "wi-people"		-> wi_people,

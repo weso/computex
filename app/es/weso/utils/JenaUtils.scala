@@ -20,6 +20,7 @@ import java.io.InputStream
 import java.io.FileOutputStream
 import org.apache.jena.atlas.AtlasException
 import org.apache.jena.riot.RiotException
+import com.hp.hpl.jena.query.ResultSet
 
 sealed abstract class ParserReport[+A,+B] 
 
@@ -239,6 +240,28 @@ object JenaUtils {
    } catch {
    	 case e: Exception => None
    }
+  }
+  
+  
+  def querySelectModel(query: Query, model:Model) : ResultSet = {
+    val qexec = QueryExecutionFactory.create(query, model)
+    qexec.execSelect()
+  }
+
+  def querySelectModel(queryStr: String, model:Model) : ResultSet = {
+    val query = QueryFactory.create(queryStr)
+    querySelectModel(query, model)
+  }
+
+  def queryConstructModel(queryStr: String, model:Model) : Model = {
+    val query = QueryFactory.create(queryStr)
+    queryConstructModel(query, model)
+  }
+
+  def queryConstructModel(query: Query, model:Model) : Model = {
+	val resultModel = ModelFactory.createDefaultModel
+    val qexec = QueryExecutionFactory.create(query, model)
+    qexec.execConstruct
   }
   
  

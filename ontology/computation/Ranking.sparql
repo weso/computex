@@ -18,20 +18,19 @@ prefix xml:          <http://www.w3.org/XML/1998/namespace>
 prefix xsd:          <http://www.w3.org/2001/XMLSchema#> 
 
 CONSTRUCT {
- _:obs cex:computation 
-   [ a cex:Rank ;
-     cex:slice ?sliceToRank;
-     cex:dimension ?dim 
-   ] ;
-   qb:dataSet ?dataSetToCopy ;
-   wi-onto:ref-year ?year ;
-   cex:indicator ?indicator ;
-   cex:value ?ranking ;
-   ?dim ?valueDim 
-   .
-   
- ?sliceToCopy qb:observation _:obs .
-              
+ ?sliceToCopy qb:observation 
+   [ a qb:Observation; 
+     cex:computation 
+      [ a cex:Rank ;
+        cex:slice ?sliceToRank;
+        cex:dimension ?dim 
+      ] ;
+     qb:dataSet ?dataSetToCopy ;
+     wi-onto:ref-year ?year ;
+     cex:indicator ?indicator ;
+     cex:value ?ranking ;
+     ?dim ?valueDim 
+   ] .
 } WHERE {
 
  ?dataSetToCopy a qb:DataSet ;

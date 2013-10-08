@@ -57,17 +57,32 @@ case class Generator(
    val rdfs_range				= m.createProperty(PREFIXES.rdfs 	+ "range")
 
    val cex_indicator			= m.createProperty(PREFIXES.cex 	+ "indicator")
+   val cex_index				= m.createProperty(PREFIXES.cex 	+ "index")
+   val cex_element				= m.createProperty(PREFIXES.cex 	+ "element")
    val cex_value				= m.createProperty(PREFIXES.cex 	+ "value")
+   val cex_component			= m.createProperty(PREFIXES.cex 	+ "component")
    val cex_computation			= m.createProperty(PREFIXES.cex 	+ "computation")
    val cex_dataSet				= m.createProperty(PREFIXES.cex 	+ "dataSet")
+   val cex_dimension			= m.createProperty(PREFIXES.cex 	+ "dimension")
    val cex_highLow				= m.createProperty(PREFIXES.cex 	+ "highLow")
+   val cex_increment			= m.createProperty(PREFIXES.cex 	+ "increment")
    val cex_method				= m.createProperty(PREFIXES.cex 	+ "method")
+   val cex_slice				= m.createProperty(PREFIXES.cex 	+ "slice")
+   val cex_weight				= m.createProperty(PREFIXES.cex 	+ "weight")
+   val cex_weightSchema			= m.createProperty(PREFIXES.cex 	+ "weightSchema")   
    val cex_ImputeDataSet		= m.createProperty(PREFIXES.cex 	+ "ImputeDataSet")
    val cex_NormalizeDataSet		= m.createProperty(PREFIXES.cex 	+ "NormalizeDataSet")
+   val cex_AdjustDataSet		= m.createProperty(PREFIXES.cex 	+ "AdjustDataSet")
    val cex_MeanBetweenMissing	= m.createProperty(PREFIXES.cex 	+ "MeanBetweenMissing")
    val cex_AvgGrowth2Missing	= m.createProperty(PREFIXES.cex 	+ "AvgGrowth2Missing")
    val cex_CopyRaw				= m.createProperty(PREFIXES.cex 	+ "CopyRaw")
+   val cex_WeightedMean			= m.createProperty(PREFIXES.cex 	+ "WeightedMean")
+   val cex_Ranking				= m.createProperty(PREFIXES.cex 	+ "Ranking")
    val cex_High					= m.createProperty(PREFIXES.cex 	+ "High")
+   val cex_WeightSchema			= m.createProperty(PREFIXES.cex 	+ "WeightSchema")
+   val cex_Weight				= m.createProperty(PREFIXES.cex 	+ "Weight")
+
+   val index_index				= m.createProperty(PREFIXES.index 	+ "index")
 
    val qb_attribute 			= m.createProperty(PREFIXES.qb 		+ "attribute")
    val qb_dataSet	 			= m.createProperty(PREFIXES.qb 		+ "dataSet")
@@ -89,7 +104,8 @@ case class Generator(
    val qbSlice					= m.createResource(PREFIXES.qb 		+ "Slice")
    val qbSliceKey				= m.createResource(PREFIXES.qb 		+ "SliceKey")
    val qbObservation			= m.createResource(PREFIXES.qb 		+ "Observation")
-   
+
+   val indicatorWeights			= m.createResource(PREFIXES.weightSchema + "indicatorWeights")
 
    val wi_ontoDSD				= m.createResource(PREFIXES.wi_onto + "DSD")
    val sliceByArea 				= m.createResource(PREFIXES.wi_onto + "sliceByArea")
@@ -123,6 +139,18 @@ case class Generator(
     m.createResource(PREFIXES.dataset + name + "-Normalized")
   }
 
+  private def dataSetAdjusted : Resource = {
+    m.createResource(PREFIXES.dataset + "Adjusted")
+  }
+
+  private def dataSetComposite : Resource = {
+    m.createResource(PREFIXES.dataset + "Composite")
+  }
+
+  private def dataSetRanking : Resource = {
+    m.createResource(PREFIXES.dataset + "Ranking")
+  }
+
   private def country(name: String) : Resource = {
     m.createResource(PREFIXES.indicator + name)
   }
@@ -136,6 +164,14 @@ case class Generator(
     m.createResource(PREFIXES.slice + indicator + year + "-" + kind)
   }
 
+  private def slice_composite : Resource = {
+    m.createResource(PREFIXES.slice + "composite")
+  } 
+
+  private def slice_ranking : Resource = {
+    m.createResource(PREFIXES.slice + "ranking")
+  } 
+
   lazy val indicatorNames: IndexedSeq[String] = {
     for (i <- 0 to NumIndicators - 1) 
       yield "I" + i
@@ -145,6 +181,9 @@ case class Generator(
     for (i <- 0 to NumYears - 1) 
       yield "Year" + i
   }
+  
+  private lazy val year : String = 
+    yearNames.last
 
   lazy val countryNames: IndexedSeq[String] = {
     for (i <- 0 to NumCountries - 1) 
@@ -310,6 +349,89 @@ case class Generator(
     }
   }
 
+
+  def addDatasetsAdjusted : Unit = {
+      val ds = dataSetAdjusted
+      m.add(ds,rdf_type,qbDataset)
+      m.add(ds,qb_structure,wi_ontoDSD)
+      m.add(ds,rdfs_label,m.createLiteral("Dataset " + "Adjusted","en"))
+
+      val computation = m.createResource()
+      m.add(computation,rdf_type,cex_AdjustDataSet)
+      m.add(computation,cex_increment,literalInt(8))
+      m.add(computation,cex_dimension,wi_onto_ref_year)
+      m.add(computation,cex_value,year)
+      for (name <- indicatorNames) {
+       m.add(computation,cex_dataSet,dataSetNormalized(name))
+      }      
+      m.add(ds,cex_computation,computation)
+      
+      for (name <- indicatorNames) {      
+        val slice = sliceIndicatorYear(name,year,"Adjusted")
+        m.add(ds,qb_slice,slice)
+        m.add(slice,qb_sliceStructure,wi_onto_sliceByArea)
+        m.add(slice,cex_indicator,indicator(name))
+        m.add(slice,wi_onto_ref_year,literal(year))      
+        m.add(slice,rdf_type,qbSlice)      
+      }
+  }
+
+  def addWeightSchema : Unit = {
+    m.add(indicatorWeights,rdf_type,cex_WeightSchema)
+    for (name <- indicatorNames) {
+     val weight=m.createResource()
+     m.add(weight,rdf_type,cex_Weight)
+     m.add(weight,cex_dimension,cex_indicator)
+     m.add(weight,cex_element,indicator(name))
+     m.add(weight,cex_value,literalFloat(1 / indicatorNames.length.toFloat))
+     m.add(indicatorWeights,cex_weight,weight)
+    }
+  }
+
+  def addDatasetComposite : Unit = {
+    val composite = dataSetComposite
+    m.add(composite,rdf_type,qbDataset)
+    m.add(composite,qb_structure,wi_ontoDSD)
+    m.add(composite,rdfs_label,m.createLiteral("Dataset " + "Composite","en"))
+    val computation = m.createResource()
+    m.add(computation,rdf_type,cex_WeightedMean)
+    m.add(computation,cex_dataSet,dataSetAdjusted)
+    m.add(computation,cex_component,index_index)
+    m.add(computation,cex_dimension,wi_onto_ref_area)
+    m.add(computation,cex_weightSchema,indicatorWeights)
+    m.add(composite,cex_computation,computation)
+    val slice = slice_composite
+    m.add(composite,qb_slice,slice)
+    m.add(slice,qb_sliceStructure,wi_onto_sliceByArea)
+    m.add(slice,cex_indicator,index_index)
+    m.add(slice,wi_onto_ref_year,year)      
+    m.add(slice,rdf_type,qbSlice)
+    
+    m.add(index_index,rdf_type,cex_index)
+    for (name <- indicatorNames) {
+      m.add(index_index,cex_element,indicator(name))
+    }
+    
+  }
+
+  def addDatasetRanking : Unit = {
+    val ranking = dataSetRanking
+    m.add(ranking,rdf_type,qbDataset)
+    m.add(ranking,qb_structure,wi_ontoDSD)
+    m.add(ranking,rdfs_label,m.createLiteral("Dataset " + "Ranking","en"))
+    val computation = m.createResource()
+    m.add(computation,rdf_type,cex_Ranking)
+    m.add(computation,cex_slice,slice_composite)
+    m.add(computation,cex_dimension,wi_onto_ref_area)
+    m.add(ranking,cex_computation,computation)
+    val slice = slice_ranking
+    m.add(ranking,qb_slice,slice)
+    m.add(slice,qb_sliceStructure,wi_onto_sliceByArea)
+    m.add(slice,cex_indicator,index_index)
+    m.add(slice,wi_onto_ref_year,year)      
+    m.add(slice,rdf_type,qbSlice)
+  }
+
   def addSlices : Unit = {
     for (indic <- indicatorNames; year <- yearNames) {
       val slice = sliceIndicatorYear(indic, year,"Raw")
@@ -353,6 +475,10 @@ case class Generator(
     addObservations
     addDatasetsImputed
     addDatasetsNormalized
+    addDatasetsAdjusted
+    addWeightSchema
+    addDatasetComposite 
+    addDatasetRanking 
     m
   }
   
@@ -379,9 +505,16 @@ class GeneratorOpts(arguments: Array[String],onError: (Throwable, Scallop) => No
     val years      = opt[Int]("years", 
         			default=Some(1),
     				descr = "Number of years")        			
-    val doValidation = opt[Boolean]("validate",
+    val doValidation = 
+    			toggle("validate",
+    			    default=Some(false),
+    				descrYes = "Validate model using Computex",
+    				descrNo  = "Do not validate")
+    val doComputation = 
+    			toggle("compute",
     				default=Some(false),
-    				descr = "Validate model using Computex")
+    				descrYes = "Apply computation steps",
+    				descrNo  = "Don't compute")
     val expand  = opt[Boolean]("expand",
     				default=Some(false),
     				descr = "Expand model using Computex")
@@ -389,6 +522,10 @@ class GeneratorOpts(arguments: Array[String],onError: (Throwable, Scallop) => No
     				default=Some(true),
     				descrYes = "Show model generated",
     				descrNo = "Do not show model generated")
+    val showTime	= toggle("time",
+    				default=Some(true),
+    				descrYes = "Show time",
+    				descrNo = "Do not show time")
     val output  = opt[String]("out",
     				default=Some(""),
     				descr = "Output model to file")
@@ -396,6 +533,11 @@ class GeneratorOpts(arguments: Array[String],onError: (Throwable, Scallop) => No
     				default=Some(false),
     				descrYes = "Verbose output",
     				descrNo = "Not verbose"
+    				)
+    val statistics = toggle("statistics", 
+    				default=Some(false),
+    				descrYes = "Show statistics",
+    				descrNo = "Do not show statistics"
     				)
     val version = opt[Boolean]("version", 
     				noshort = true, 
@@ -411,24 +553,39 @@ class GeneratorOpts(arguments: Array[String],onError: (Throwable, Scallop) => No
 object Generator extends App {
 
   override def main(args: Array[String]) {
-	  val logger 		= LoggerFactory.getLogger("Application")
+      val logger 		= LoggerFactory.getLogger("Application")
 	  val conf 			= ConfigFactory.load()
       val opts 			= new GeneratorOpts(args,onError)
 
-	  val gen = new Generator(opts.countries(),opts.indicators(),opts.years())
+      val gen = new Generator(opts.countries(),opts.indicators(),opts.years())
 
+      val startTime = System.nanoTime
 	  val profile = Profile.Computex
 	  var outputModel = gen.model
+	  if (opts.doComputation()) {
+	    println("Applying computation steps to generated model...")
+	    val model = profile.compute(gen.model)
+	    outputModel = model
+	  }
+
 	  if (opts.doValidation()) {
 	    println("Validating generated model...")
-	    val (vr,model) = profile.validate(gen.model,opts.expand(),true)
+	    val (vr,model) = profile.validate(outputModel,opts.expand(),true)
 	    println("After validating generated model...")
 	    println(VReport.show(vr,opts.verbose()))
 	    outputModel = model
 	  }
 
+      if (opts.showTime()) {
+        println("Total time: " + (System.nanoTime-startTime)/1e6+"ms")
+      }
+
 	  if (opts.show()) {
 		showOutputModel(opts.output(),outputModel)	    
+	  }
+
+	  if (opts.statistics()) {
+	    println("Size of model:" + outputModel.size)
 	  }
 
   }
