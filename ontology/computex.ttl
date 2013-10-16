@@ -10,9 +10,9 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix earl:  <http://www.w3.org/ns/earl#> .
 
-@prefix wi-onto: <http://data.webfoundation.org/webindex/ontology/> .
-@prefix wi-org: <http://data.webfoundation.org/webindex/organization/> .
-@prefix wi-people:  <http://data.webfoundation.org/webindex/people/> .
+@prefix wf-onto: <http://data.webfoundation.org/ontology/> .
+@prefix wf-org: <http://data.webfoundation.org/organization/> .
+@prefix wf-people:  <http://data.webfoundation.org/people/> .
 
 <http://purl.org/weso/ontology/computex>
     a owl:Ontology;
@@ -22,9 +22,9 @@
     dcterms:created "2012-06-07"^^xsd:date;
     dcterms:modified "2013-06-07"^^xsd:date;
     dcterms:title "Core Computational Index ontology"@en;
-    dcterms:author wi-people:Labra , wi-people:Chema, wi-org:WESO ;
-    dcterms:publisher  wi-org:WebFoundation;
-    dcterms:contributor  wi-people:Hania, wi-people:Jules ;
+    dcterms:author wf-people:Labra , wf-people:Chema, wf-org:WESO ;
+    dcterms:publisher  wf-org:WebFoundation;
+    dcterms:contributor  wf-people:Hania, wf-people:Jules ;
 	dcterms:license <http://www.opendatacommons.org/licenses/pddl/1.0/> ;
 	.
 
@@ -263,77 +263,77 @@ cex:name a owl:DatatypeProperty ;
 #----------------------------------------------------
 # Definitions specific to TheWebIndex
 
-wi-onto:PrimaryIndicator a owl:Class, rdfs:Class;
+wf-onto:PrimaryIndicator a owl:Class, rdfs:Class;
 	rdfs:subClassOf cex:Indicator ;
 	rdfs:label "Primary Indicator"@en ;
 	rdfs:comment "Primary indicator is an indicator defined by the Webfoundation."@en;
 .
 
-wi-onto:SecondaryIndicator a owl:Class, rdfs:Class;
+wf-onto:SecondaryIndicator a owl:Class, rdfs:Class;
 	rdfs:subClassOf cex:Indicator ;
 	rdfs:label "Secondary Indicator"@en ;
 	rdfs:comment "This indicator is established by third parties such as ITU, UN, etc. Its observations are part of a component."@en;
 .
 
-wi-onto:ExternalIndicator a owl:Class, rdfs:Class;
+wf-onto:ExternalIndicator a owl:Class, rdfs:Class;
 	rdfs:subClassOf cex:Indicator ;
 	rdfs:label "External Indicator"@en ;
 	rdfs:comment "This indicator is established by third parties such as Worldbank but its observations are not part of a component."@en;
 .
 
-wi-onto:ref-area 
+wf-onto:ref-area 
     a owl:FunctionalProperty ;
-    rdfs:domain wi-onto:Observation ;
-	rdfs:range wi-onto:Area	.
+    rdfs:domain wf-onto:Observation ;
+	rdfs:range wf-onto:Area	.
 
 
-wi-onto:ref-year 
+wf-onto:ref-year 
     a owl:DatatypeProperty, owl:FunctionalProperty ;
-    rdfs:domain wi-onto:Observation ;
+    rdfs:domain wf-onto:Observation ;
 	rdfs:range xsd:integer ;
 	.
 
 #----------------------------------------------
 # Region and Country definitions
 
-wi-onto:Area a skos:Concept;
+wf-onto:Area a skos:Concept;
     rdfs:label "Area"@en ;
 	rdfs:isDefinedBy <http://purl.org/weso/ontology/webindex> ;
-	skos:narrower wi-onto:Region ;
-	skos:narrower wi-onto:Country ;
+	skos:narrower wf-onto:Region ;
+	skos:narrower wf-onto:Country ;
 	.
 
-wi-onto:Region a skos:Concept, lg:Place;
+wf-onto:Region a skos:Concept, lg:Place;
 	rdfs:label "Region concept"@en; 
 	rdfs:comment "A region represents a set of countries."@en;
-	skos:narrower wi-onto:Country;
+	skos:narrower wf-onto:Country;
 .
 
-wi-onto:Country a skos:Concept, lg:Country;
-	skos:broader wi-onto:Region;
+wf-onto:Country a skos:Concept, lg:Country;
+	skos:broader wf-onto:Region;
 	rdfs:label "Country concept"@en; 
-	rdfs:subClassOf wi-onto:Area ;
+	rdfs:subClassOf wf-onto:Area ;
 .
 
-wi-onto:has-iso-alpha2-code a owl:DatatypeProperty, rdf:Property; 
+wf-onto:has-iso-alpha2-code a owl:DatatypeProperty, rdf:Property; 
 	rdfs:label "ISO-code-alpha 2 digit"@en; 
 	rdfs:comment "This property creates a link between a country and its ISO code (2 digit)"@en;
 	rdfs:subPropertyOf dcterms:identifier; 
 . 
 
-wi-onto:has-iso-alpha3-code a owl:DatatypeProperty, rdf:Property; 
+wf-onto:has-iso-alpha3-code a owl:DatatypeProperty, rdf:Property; 
 	rdfs:label "ISO-code-alpha 3 property"@en; 
 	rdfs:comment "This property creates a link between a country and its ISO code (3 digit)"@en;
 	rdfs:subPropertyOf dcterms:identifier; 
 . 
 
-wi-onto:has-country a owl:ObjectProperty, rdf:Property; 
+wf-onto:has-country a owl:ObjectProperty, rdf:Property; 
 	rdfs:label "has Country property"@en; 
 	rdfs:comment "Creates a link between a region and a country."@en;
 	rdfs:range skos:Concept; 
 . 
 
-wi-onto:ref-dbpedia a owl:ObjectProperty, rdf:Property; 
+wf-onto:ref-dbpedia a owl:ObjectProperty, rdf:Property; 
 	rdfs:label "link to DBPedia resource"@en; 
 	rdfs:comment "A mapping property to link an entity with a DBPedia resource"@en;
 	rdfs:range skos:Concept; 

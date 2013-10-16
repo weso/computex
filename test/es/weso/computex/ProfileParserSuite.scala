@@ -63,7 +63,7 @@ class ProfileParserSuite
 
   it("Should obtain a list of computeSteps for Computex profile") {
      val profile = Profile.Computex
-     profile.computeSteps.length should be(5)
+     profile.computeSteps.length should be(8)
    }
 
   it("Should validate demo of RDF Data Cube profile") {

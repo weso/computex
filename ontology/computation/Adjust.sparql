@@ -13,7 +13,7 @@ prefix rdf:          <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 prefix rdfs:         <http://www.w3.org/2000/01/rdf-schema#> 
 prefix sdmx-code:  <http://purl.org/linked-data/sdmx/2009/code#> 
 prefix sdmx-concept: <http://purl.org/linked-data/sdmx/2009/concept#> 
-prefix wi-onto:      <http://data.webfoundation.org/webindex/ontology/> 
+prefix wf-onto:      <http://data.webfoundation.org/ontology/> 
 prefix xml:          <http://www.w3.org/XML/1998/namespace> 
 prefix xsd:          <http://www.w3.org/2001/XMLSchema#> 
 
@@ -23,7 +23,7 @@ CONSTRUCT {
        cex:indicator ?indicator ;
        qb:dataSet ?dataSetToCopy ;
 	   ?dim ?valueDim ;
-	   wi-onto:ref-area ?area ;
+	   wf-onto:ref-area ?area ;
 	   sdmx-concept:obsStatus cex:Adjusted ;
 	   cex:computation [ a cex:Adjust ;
 		                   cex:observation ?obsRaw ;
@@ -50,13 +50,13 @@ CONSTRUCT {
 	        .
  ?sliceToCopy ?dim ?valueDim ;
             cex:indicator ?indicator ;
-            wi-onto:ref-year ?year .
+            wf-onto:ref-year ?year .
 
  ?obsRaw cex:value ?value ;
-         wi-onto:ref-year ?year ;
+         wf-onto:ref-year ?year ;
          cex:indicator ?indicator ;
          ?dim ?valueDim ;
-         wi-onto:ref-area ?area ;
+         wf-onto:ref-area ?area ;
          .
          
  BIND(?value + ?increm as ?adjusted)

@@ -21,7 +21,7 @@ object PREFIXES {
   lazy val rdf 			= "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
   lazy val qb  			= "http://purl.org/linked-data/cube#"
   lazy val owl 			= "http://www.w3.org/2002/07/owl#"
-  lazy val wi_onto		= "http://data.webfoundation.org/webindex/ontology/"
+  lazy val wf_onto		= "http://data.webfoundation.org/ontology/"
   lazy val rdfs			= "http://www.w3.org/2000/01/rdf-schema#"
   lazy val sdmxAttribute = "http://purl.org/linked-data/sdmx/2009/attribute#"
   lazy val sdmxCode		= "http://purl.org/linked-data/sdmx/2009/code#"
@@ -29,8 +29,8 @@ object PREFIXES {
   lazy val sdmxSubject	= "http://purl.org/linked-data/sdmx/2009/subject#"
   lazy val skos			= "http://www.w3.org/2004/02/skos/core#"
   lazy val time			= "http://www.w3.org/2006/time#"
-  lazy val wi_org		= "http://data.webfoundation.org/webindex/organization/"
-  lazy val wi_people	= "http://data.webfoundation.org/webindex/people/"
+  lazy val wf_org		= "http://data.webfoundation.org/organization/"
+  lazy val wf_people	= "http://data.webfoundation.org/people/"
   lazy val xsd			= "http://www.w3.org/2001/XMLSchema#"
 
   private val cexMap : Map[String,String] = 
@@ -57,9 +57,9 @@ object PREFIXES {
 		    "skos"			-> skos,
 		    "time"			-> time,
 		    "weightSchema"	-> weightSchema,
-		    "wi-onto"		-> wi_onto,
-		    "wi-org"		-> wi_org,
-		    "wi-people"		-> wi_people,
+		    "wf-onto"		-> wf_onto,
+		    "wf-org"		-> wf_org,
+		    "wf-people"		-> wf_people,
 		    "xsd"			-> xsd
     )
 

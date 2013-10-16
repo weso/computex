@@ -11,7 +11,7 @@ prefix owl:          <http://www.w3.org/2002/07/owl#>
 prefix qb:           <http://purl.org/linked-data/cube#>
 prefix rdf:          <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
 prefix rdfs:         <http://www.w3.org/2000/01/rdf-schema#> 
-prefix wi-onto:      <http://data.webfoundation.org/webindex/ontology/> 
+prefix wf-onto:      <http://data.webfoundation.org/ontology/> 
 prefix xml:          <http://www.w3.org/XML/1998/namespace> 
 prefix xsd:          <http://www.w3.org/2001/XMLSchema#> 
 prefix sdmx-concept: <http://purl.org/linked-data/sdmx/2009/concept#> 
@@ -22,8 +22,8 @@ CONSTRUCT {
        cex:value ?zScore ;
        cex:indicator ?indicator ;
        qb:dataSet ?dataSetNormalized ;
-	   wi-onto:ref-year ?year ;
-	   wi-onto:ref-area ?area ;
+	   wf-onto:ref-year ?year ;
+	   wf-onto:ref-area ?area ;
 	   sdmx-concept:obsStatus cex:Normalized ;
 	   cex:computation 
 		    [ a cex:Normalize ;
@@ -40,13 +40,13 @@ CONSTRUCT {
   ?dataSet qb:slice ?slice .
  
   ?slice cex:indicator ?indicator ;
-	     wi-onto:ref-year ?year ;
+	     wf-onto:ref-year ?year ;
 	     qb:observation ?obs .
 	     
-  ?sliceToCopy wi-onto:ref-year ?year .
+  ?sliceToCopy wf-onto:ref-year ?year .
   
   ?obs cex:value ?value ;
-       wi-onto:ref-area ?area ;
+       wf-onto:ref-area ?area ;
        cex:indicator ?indicator .
   
   ?indicator cex:highLow ?highLow .

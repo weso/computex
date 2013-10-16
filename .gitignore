@@ -46,3 +46,6 @@ project/plugins/project/
 
 # EARL FILES
 public/earls/*.ttl
+
+# TEMP files
+public/temp/*

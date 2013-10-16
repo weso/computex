@@ -13,7 +13,7 @@ prefix rdf:          <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 prefix rdfs:         <http://www.w3.org/2000/01/rdf-schema#> 
 prefix sdmx-code:  <http://purl.org/linked-data/sdmx/2009/code#> 
 prefix sdmx-concept: <http://purl.org/linked-data/sdmx/2009/concept#> 
-prefix wi-onto:      <http://data.webfoundation.org/webindex/ontology/> 
+prefix wf-onto:      <http://data.webfoundation.org/ontology/> 
 prefix xml:          <http://www.w3.org/XML/1998/namespace> 
 prefix xsd:          <http://www.w3.org/2001/XMLSchema#> 
 
@@ -32,8 +32,8 @@ CONSTRUCT {
 		                   cex:value ?value ;
 						   cex:weightSchema ?weightSchema ;
 						 ] ;
-	   wi-onto:ref-area ?area ;
-	   wi-onto:ref-year ?year
+	   wf-onto:ref-area ?area ;
+	   wf-onto:ref-year ?year
   ]
 } WHERE {
  ?dataSetToCopy a qb:DataSet ;
@@ -53,17 +53,17 @@ CONSTRUCT {
  ?dataset qb:slice ?sliceFrom .
          
  ?sliceFrom ?dimension ?element ;
-            wi-onto:ref-year ?year ;
+            wf-onto:ref-year ?year ;
 	        qb:observation ?obsRaw ;
 	       .
 	       
  ?sliceToCopy ?dimension ?element ; 
-            wi-onto:ref-year ?year .
+            wf-onto:ref-year ?year .
 
  ?obsRaw cex:value ?value ;
          ?dimension ?element ;
-         wi-onto:ref-area ?area ;
-         wi-onto:ref-year ?year ;
+         wf-onto:ref-area ?area ;
+         wf-onto:ref-year ?year ;
  .
 
   BIND (?value * ?weight as ?product)

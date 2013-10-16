@@ -13,7 +13,7 @@ prefix rdf:          <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 prefix rdfs:         <http://www.w3.org/2000/01/rdf-schema#> 
 prefix sdmx-code:  <http://purl.org/linked-data/sdmx/2009/code#> 
 prefix sdmx-concept: <http://purl.org/linked-data/sdmx/2009/concept#> 
-prefix wi-onto:      <http://data.webfoundation.org/webindex/ontology/> 
+prefix wf-onto:      <http://data.webfoundation.org/ontology/> 
 prefix xml:          <http://www.w3.org/XML/1998/namespace> 
 prefix xsd:          <http://www.w3.org/2001/XMLSchema#> 
 
@@ -25,8 +25,8 @@ CONSTRUCT {
 	   qb:dataSet ?dataSetToCopy ;
 	   cex:indicator ?indicator ;
        cex:value ?value ;
-	   wi-onto:ref-year ?year3 ;
-       wi-onto:ref-area ?c ;
+	   wf-onto:ref-year ?year3 ;
+       wf-onto:ref-area ?c ;
 	   sdmx-concept:obsStatus cex:Imputed ;
 	.
  ?sliceToCopy qb:observation _:obs .
@@ -44,25 +44,25 @@ CONSTRUCT {
   
   ?obs1 cex:indicator ?indicator ;
         qb:dataSet ?dataset ;
-        wi-onto:ref-area ?c ;
-        wi-onto:ref-year ?year1 ;
+        wf-onto:ref-area ?c ;
+        wf-onto:ref-year ?year1 ;
         cex:value ?value1 .
   ?obs2 cex:indicator ?indicator ;
-        wi-onto:ref-area ?c ;
+        wf-onto:ref-area ?c ;
         qb:dataSet ?dataset ;
-        wi-onto:ref-year ?year2 ;
+        wf-onto:ref-year ?year2 ;
         cex:value ?value2 .
    FILTER (?year2 = ?year1 + 1) 
    FILTER NOT EXISTS {
     ?slice3 qb:observation ?obs3 .
     ?obs3 cex:indicator ?indicator ;
           qb:dataSet ?dataset ;
-          wi-onto:ref-area ?c ;
-          wi-onto:ref-year ?year3 .
+          wf-onto:ref-area ?c ;
+          wf-onto:ref-year ?year3 .
           FILTER (?year3 = ?year1 + 2)
    }
   BIND ((?value2 * (?value2 / ?value1)) as ?value) 
   BIND (?year1 + 2 as ?year3) 
-  ?slice3 wi-onto:ref-year ?year3 .
-  ?sliceToCopy wi-onto:ref-year ?year3 .
+  ?slice3 wf-onto:ref-year ?year3 .
+  ?sliceToCopy wf-onto:ref-year ?year3 .
 } 

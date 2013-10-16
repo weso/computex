@@ -24,6 +24,10 @@ import es.weso.utils.JenaUtils.Turtle
 import play.api.Logger
 import es.weso.computex.entities.CQuery
 
+/**
+ * This class has been refactored as is not needed 
+ * anymore
+ */
 case class Computex(
     val ontologyURI: String, 
     val validationDir: String,

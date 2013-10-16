@@ -14,6 +14,10 @@ import java.io.FileOutputStream
 import java.io.File
 import java.io.StringWriter
 
+/*
+ * The following tests could be declared in another Suite without the need for 
+ * Computex Class
+ */
 class ComputexSuite 
 	extends FunSpec 
 	with SparqlSuite 
@@ -21,25 +25,25 @@ class ComputexSuite
  
   val conf : Config 	= ConfigFactory.load()
   val validationDir 	= conf.getString("validationDir") 
-  val computationDir 	= conf.getString("computationDir") 
   val testDataDir 		= conf.getString("testDataDir") 
   val ontologyURI  		= conf.getString("ontologyURI") 
   val demoURI 			= conf.getString("demoURI")
   val demoAbbrURI 		= conf.getString("demoAbbrURI")
   val closureFile 		= conf.getString("closureFile")
   val flattenFile 		= conf.getString("flattenFile")
-  val findStepsQuery 	= conf.getString("findStepsQuery") 
-  val cex = Computex(ontologyURI,validationDir,computationDir,closureFile,flattenFile,findStepsQuery)
-  
+  val findStepsQuery 	= conf.getString("findStepsQuery")
+  // val cex = Computex(ontologyURI,validationDir,computationDir,closureFile,flattenFile,findStepsQuery)
+
+  /*
   val queryErrorMsg : String = 
    """PREFIX cex: <http://purl.org/weso/ontology/computex#>
-   SELECT ?msg WHERE { 
-    ?e a cex:Error ; cex:msg ?msg . 
-   }"""
+     |SELECT ?msg WHERE { 
+     |?e a cex:Error ; cex:msg ?msg . 
+     |}""".stripMargin
 
   describe("No errors in demo data") {
 	val model = cex.loadData(ontologyURI,demoURI)
-     passDir(model,validationDir)
+    passDir(model,validationDir)
   }
 
   describe("Comparing the expanded model using Computex with the example") {
@@ -317,4 +321,6 @@ class ComputexSuite
               ).toList
     msgs should contain(msg)
   }
+  
+  */
 }

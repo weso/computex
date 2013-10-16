@@ -107,14 +107,14 @@ case class Generator(
 
    val indicatorWeights			= m.createResource(PREFIXES.weightSchema + "indicatorWeights")
 
-   val wi_ontoDSD				= m.createResource(PREFIXES.wi_onto + "DSD")
-   val sliceByArea 				= m.createResource(PREFIXES.wi_onto + "sliceByArea")
+   val wf_ontoDSD				= m.createResource(PREFIXES.wf_onto + "DSD")
+   val sliceByArea 				= m.createResource(PREFIXES.wf_onto + "sliceByArea")
    
-   val wi_onto_ref_area 		= m.createProperty(PREFIXES.wi_onto + "ref-area")
-   val wi_onto_ref_year 		= m.createProperty(PREFIXES.wi_onto + "ref-year")
-   val wi_onto_sliceByArea 		= m.createProperty(PREFIXES.wi_onto + "sliceByArea")
-   val wi_ontoCountry 			= m.createResource(PREFIXES.wi_onto + "Country")
-   val wi_ontoSecondaryIndicator = m.createResource(PREFIXES.wi_onto + "SecondaryIndicator")
+   val wf_onto_ref_area 		= m.createProperty(PREFIXES.wf_onto + "ref-area")
+   val wf_onto_ref_year 		= m.createProperty(PREFIXES.wf_onto + "ref-year")
+   val wf_onto_sliceByArea 		= m.createProperty(PREFIXES.wf_onto + "sliceByArea")
+   val wf_ontoCountry 			= m.createResource(PREFIXES.wf_onto + "Country")
+   val wf_ontoSecondaryIndicator = m.createResource(PREFIXES.wf_onto + "SecondaryIndicator")
    val sdmxUnitMeasure			= m.createResource(PREFIXES.sdmxAttribute + "unitMeasure") 
 
    val literalTrue				= m.createTypedLiteral("true",XSDDatatype.XSDboolean)
@@ -231,33 +231,33 @@ case class Generator(
   }
 
   def createDSD(m : Model): Resource = {
-    m.add(wi_ontoDSD,rdf_type,qbDataStructureDefinition)
+    m.add(wf_ontoDSD,rdf_type,qbDataStructureDefinition)
     val c1 = m.createResource()
-    m.add(c1,qb_dimension,wi_onto_ref_area)
+    m.add(c1,qb_dimension,wf_onto_ref_area)
     m.add(c1,qb_order,literalInt(1))
-    m.add(wi_ontoDSD,qb_component,c1)     
+    m.add(wf_ontoDSD,qb_component,c1)     
 
     val c2 = m.createResource()
-    m.add(c2,qb_dimension,wi_onto_ref_year)
+    m.add(c2,qb_dimension,wf_onto_ref_year)
     m.add(c2,qb_order,literalInt(2))
-    m.add(wi_ontoDSD,qb_component,c2)     
+    m.add(wf_ontoDSD,qb_component,c2)     
     
     val c3 = m.createResource()
     m.add(c3,qb_dimension,cex_indicator)
     m.add(c3,qb_order,literalInt(3))
-    m.add(wi_ontoDSD,qb_component,c3)     
+    m.add(wf_ontoDSD,qb_component,c3)     
     
     val measure = m.createResource()
     m.add(measure,qb_measure,cex_value)
-    m.add(wi_ontoDSD,qb_component,measure) 
+    m.add(wf_ontoDSD,qb_component,measure) 
     
-    wi_ontoDSD
+    wf_ontoDSD
   }
   
   private def createSliceByArea(m : Model): Resource = {
     m.add(sliceByArea,rdf_type, qbSliceKey)
     m.add(sliceByArea,qb_componentProperty, cex_indicator)
-    m.add(sliceByArea,qb_componentProperty, wi_onto_ref_year)
+    m.add(sliceByArea,qb_componentProperty, wf_onto_ref_year)
     sliceByArea
   }
 
@@ -265,7 +265,7 @@ case class Generator(
   def addIndicators : Unit = {
     for (name <- indicatorNames) {
       val ind = indicator(name)
-      m.add(ind,rdf_type,wi_ontoSecondaryIndicator)
+      m.add(ind,rdf_type,wf_ontoSecondaryIndicator)
       m.add(ind,cex_highLow,cex_High)
       m.add(ind,rdfs_label,m.createLiteral("Indicator " + name,"en"))
     }
@@ -274,22 +274,22 @@ case class Generator(
   def addCountries : Unit = {
     for (name <- countryNames) {
       val c = country(name)
-      m.add(c,rdf_type,wi_ontoCountry)
+      m.add(c,rdf_type,wf_ontoCountry)
       m.add(c,rdfs_label,m.createLiteral("Country " + name,"en"))
     }
   }
 
   def addRanges : Unit = {
-    m.add(wi_onto_ref_year,rdfs_range,m.createResource(PREFIXES.wi_onto + "Year"))
-    m.add(wi_onto_ref_area,rdfs_range,m.createResource(PREFIXES.wi_onto + "Area"))
-    m.add(cex_indicator,rdfs_range,m.createResource(PREFIXES.wi_onto + "Indicator"))
+    m.add(wf_onto_ref_year,rdfs_range,m.createResource(PREFIXES.wf_onto + "Year"))
+    m.add(wf_onto_ref_area,rdfs_range,m.createResource(PREFIXES.wf_onto + "Area"))
+    m.add(cex_indicator,rdfs_range,m.createResource(PREFIXES.wf_onto + "Indicator"))
   }
   
   def addDatasets : Unit = {
     for (name <- indicatorNames) {
       val ds = dataSetRaw(name)
       m.add(ds,rdf_type,qbDataset)
-      m.add(ds,qb_structure,wi_ontoDSD)
+      m.add(ds,qb_structure,wf_ontoDSD)
       m.add(ds,rdfs_label,m.createLiteral("Dataset " + name + "-Raw","en"))
       for (yearName <- yearNames) {
         val slice = sliceIndicatorYear(name,yearName,"Raw")
@@ -302,7 +302,7 @@ case class Generator(
     for (name <- indicatorNames) {
       val ds = dataSetImputed(name)
       m.add(ds,rdf_type,qbDataset)
-      m.add(ds,qb_structure,wi_ontoDSD)
+      m.add(ds,qb_structure,wf_ontoDSD)
       m.add(ds,rdfs_label,m.createLiteral("Dataset " + name + "-Imputed","en"))
       
       val computation = m.createResource()
@@ -317,9 +317,9 @@ case class Generator(
       for (yearName <- yearNames) {
         val slice = sliceIndicatorYear(name,yearName,"Imputed")
         m.add(ds,qb_slice,slice)
-        m.add(slice,qb_sliceStructure,wi_onto_sliceByArea)
+        m.add(slice,qb_sliceStructure,wf_onto_sliceByArea)
         m.add(slice,cex_indicator,indicator(name))      
-        m.add(slice,wi_onto_ref_year,literal(yearName))      
+        m.add(slice,wf_onto_ref_year,literal(yearName))      
         m.add(slice,rdf_type,qbSlice)      
       }
     }
@@ -329,7 +329,7 @@ case class Generator(
     for (name <- indicatorNames) {
       val ds = dataSetNormalized(name)
       m.add(ds,rdf_type,qbDataset)
-      m.add(ds,qb_structure,wi_ontoDSD)
+      m.add(ds,qb_structure,wf_ontoDSD)
       m.add(ds,rdfs_label,m.createLiteral("Dataset " + name + "-Normalized","en"))
       
       val computation = m.createResource()
@@ -341,9 +341,9 @@ case class Generator(
       for (yearName <- yearNames) {
         val slice = sliceIndicatorYear(name,yearName,"Normalized")
         m.add(ds,qb_slice,slice)
-        m.add(slice,qb_sliceStructure,wi_onto_sliceByArea)
+        m.add(slice,qb_sliceStructure,wf_onto_sliceByArea)
         m.add(slice,cex_indicator,indicator(name))      
-        m.add(slice,wi_onto_ref_year,literal(yearName))      
+        m.add(slice,wf_onto_ref_year,literal(yearName))      
         m.add(slice,rdf_type,qbSlice)      
       }
     }
@@ -353,13 +353,13 @@ case class Generator(
   def addDatasetsAdjusted : Unit = {
       val ds = dataSetAdjusted
       m.add(ds,rdf_type,qbDataset)
-      m.add(ds,qb_structure,wi_ontoDSD)
+      m.add(ds,qb_structure,wf_ontoDSD)
       m.add(ds,rdfs_label,m.createLiteral("Dataset " + "Adjusted","en"))
 
       val computation = m.createResource()
       m.add(computation,rdf_type,cex_AdjustDataSet)
       m.add(computation,cex_increment,literalInt(8))
-      m.add(computation,cex_dimension,wi_onto_ref_year)
+      m.add(computation,cex_dimension,wf_onto_ref_year)
       m.add(computation,cex_value,year)
       for (name <- indicatorNames) {
        m.add(computation,cex_dataSet,dataSetNormalized(name))
@@ -369,9 +369,9 @@ case class Generator(
       for (name <- indicatorNames) {      
         val slice = sliceIndicatorYear(name,year,"Adjusted")
         m.add(ds,qb_slice,slice)
-        m.add(slice,qb_sliceStructure,wi_onto_sliceByArea)
+        m.add(slice,qb_sliceStructure,wf_onto_sliceByArea)
         m.add(slice,cex_indicator,indicator(name))
-        m.add(slice,wi_onto_ref_year,literal(year))      
+        m.add(slice,wf_onto_ref_year,literal(year))      
         m.add(slice,rdf_type,qbSlice)      
       }
   }
@@ -391,20 +391,20 @@ case class Generator(
   def addDatasetComposite : Unit = {
     val composite = dataSetComposite
     m.add(composite,rdf_type,qbDataset)
-    m.add(composite,qb_structure,wi_ontoDSD)
+    m.add(composite,qb_structure,wf_ontoDSD)
     m.add(composite,rdfs_label,m.createLiteral("Dataset " + "Composite","en"))
     val computation = m.createResource()
     m.add(computation,rdf_type,cex_WeightedMean)
     m.add(computation,cex_dataSet,dataSetAdjusted)
     m.add(computation,cex_component,index_index)
-    m.add(computation,cex_dimension,wi_onto_ref_area)
+    m.add(computation,cex_dimension,wf_onto_ref_area)
     m.add(computation,cex_weightSchema,indicatorWeights)
     m.add(composite,cex_computation,computation)
     val slice = slice_composite
     m.add(composite,qb_slice,slice)
-    m.add(slice,qb_sliceStructure,wi_onto_sliceByArea)
+    m.add(slice,qb_sliceStructure,wf_onto_sliceByArea)
     m.add(slice,cex_indicator,index_index)
-    m.add(slice,wi_onto_ref_year,year)      
+    m.add(slice,wf_onto_ref_year,year)      
     m.add(slice,rdf_type,qbSlice)
     
     m.add(index_index,rdf_type,cex_index)
@@ -417,18 +417,18 @@ case class Generator(
   def addDatasetRanking : Unit = {
     val ranking = dataSetRanking
     m.add(ranking,rdf_type,qbDataset)
-    m.add(ranking,qb_structure,wi_ontoDSD)
+    m.add(ranking,qb_structure,wf_ontoDSD)
     m.add(ranking,rdfs_label,m.createLiteral("Dataset " + "Ranking","en"))
     val computation = m.createResource()
     m.add(computation,rdf_type,cex_Ranking)
     m.add(computation,cex_slice,slice_composite)
-    m.add(computation,cex_dimension,wi_onto_ref_area)
+    m.add(computation,cex_dimension,wf_onto_ref_area)
     m.add(ranking,cex_computation,computation)
     val slice = slice_ranking
     m.add(ranking,qb_slice,slice)
-    m.add(slice,qb_sliceStructure,wi_onto_sliceByArea)
+    m.add(slice,qb_sliceStructure,wf_onto_sliceByArea)
     m.add(slice,cex_indicator,index_index)
-    m.add(slice,wi_onto_ref_year,year)      
+    m.add(slice,wf_onto_ref_year,year)      
     m.add(slice,rdf_type,qbSlice)
   }
 
@@ -438,8 +438,8 @@ case class Generator(
       
       m.add(slice,rdf_type,qbSlice)
       m.add(slice,cex_indicator,indicator(indic))
-      m.add(slice,wi_onto_ref_year,literal(year))
-      m.add(slice,qb_sliceStructure,wi_onto_sliceByArea)
+      m.add(slice,wf_onto_ref_year,literal(year))
+      m.add(slice,qb_sliceStructure,wf_onto_sliceByArea)
       for (country <- countryNames) {
         m.add(slice,qb_observation,observation(indic,year,country))
       }
@@ -454,9 +454,9 @@ case class Generator(
       val obs = observation(i,y,c)
       
       m.add(obs,rdf_type,qbObservation)
-      m.add(obs,wi_onto_ref_area,country(c))
+      m.add(obs,wf_onto_ref_area,country(c))
       m.add(obs,cex_indicator,indicator(i))
-      m.add(obs,wi_onto_ref_year,literal(y))
+      m.add(obs,wf_onto_ref_year,literal(y))
       m.add(obs,qb_dataSet,dataSetRaw(i))
       m.add(obs,cex_value,literalFloat(getValue(c,i,y)))
       
