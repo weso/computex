@@ -20,7 +20,13 @@
 	</div>
 
 	<div id="results_container">    
+		<script>
+			$('html, body').animate({
+		        scrollTop: $("#results_container").offset().top
+		    }, 1000);
+		</script>
 	    <h2 class="@if(message.status equals Valid){valid}else{invalid}">Result: @Html(message.message.toString)</h2>
+	    <p class="backtop"><a href="#frontforms">↑ Top</a></p>
 	    <div id="result">
         @if(message.passed) {
   			<p>Passed @message.numPassed validators</p>

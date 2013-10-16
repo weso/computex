@@ -25,15 +25,21 @@
 
 obs:oA a qb:Observation; 
       cex:value 4 ;
-      cex:element indicator:A .
+      cex:element indicator:A ;
+      qb:dataSet dataset:A-Normalized; 
+      .
 	  
 obs:oB a qb:Observation; 
       cex:value 6 ;
-      cex:element indicator:B .
+      cex:element indicator:B ;
+      qb:dataSet dataset:A-Normalized; 
+      .
 	  
 obs:oC a qb:Observation; 
       cex:value 8 ;
-      cex:element indicator:C .
+      cex:element indicator:C ;
+      qb:dataSet dataset:A-Normalized; 
+      .
 	  
 indicator:A a cex:Indicator .
 indicator:B a cex:Indicator .
@@ -60,5 +66,6 @@ obs:WM a qb:Observation ;
 			  cex:observation obs:oA, obs:oB, obs:oC ;
 			] ;   
 	    cex:value 6 ;
+	    qb:dataSet dataset:A-Normalized; 
 	  .
 

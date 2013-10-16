@@ -25,5 +25,6 @@
 
 # An observation without a value
 obs:noValue a qb:Observation ;
-		 .
+			qb:dataSet dataset:A-Normalized; 
+			.
 

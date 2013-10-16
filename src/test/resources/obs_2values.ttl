@@ -4,7 +4,6 @@
 @prefix indicator: <http://data.webfoundation.org/webindex/v2013/indicator/> .
 @prefix obs: <http://data.webfoundation.org/webindex/v2013/observation/> .
 @prefix organization: <http://data.webfoundation.org/webindex/v2013/organization/> .
-@prefix slice: <http://data.webfoundation.org/webindex/v2013/slice/> .
 
 
 
@@ -24,27 +23,10 @@
 @prefix wi-people:  <http://data.webfoundation.org/webindex/people/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-obs:A a qb:Observation ;
-	  cex:value 2 ;
-	  cex:indicator indicator:I .
 
-obs:B a qb:Observation ;
-	  cex:value 4 ;
-	  cex:indicator indicator:I .
+obs:withTwoValues a qb:Observation ;
+		 cex:value 2 ;
+		 cex:value 3 ;
+		 qb:dataSet dataset:A-Normalized; 
+		 .
 
-obs:C a qb:Observation ;
-	  cex:value 6 ;
-	  cex:indicator indicator:I .
-	  
-obs:N a qb:Observation ;
-	  cex:value 0 ; # should be -1 
-	  cex:computation 
-	    [ a cex:Normalize ;
-		  cex:observation obs:A 
-		] ;
-	  cex:indicator cex:indicator:I .
-	  
-slice:S a qb:Slice ;
-       qb:observation obs:A , obs:B, obs:C .
-	  
-indicator:I cex:highLow cex:High .

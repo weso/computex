@@ -29,5 +29,6 @@ obs:A-D a qb:Observation ;
 			  cex:increment 8 ;
 			] ;   
 	  cex:value 10 ;
+	  qb:dataSet dataset:A-Normalized; 
 	  .
 

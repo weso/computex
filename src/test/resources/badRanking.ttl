@@ -26,18 +26,30 @@
 obs:E a qb:Observation; 
       cex:value 5 ;
 	  wi-onto:ref-area country:ESP ;
+	  qb:dataSet dataset:A-Normalized; 
       . 
 	  
 obs:F a qb:Observation; 
       cex:value 7 ;
 	  wi-onto:ref-area country:FRA ;
+	  qb:dataSet dataset:A-Normalized; 
 	  .
 	  
 obs:C a qb:Observation; 
       cex:value 2 ;
 	  wi-onto:ref-area country:CHL ;
+	  qb:dataSet dataset:A-Normalized; 
       .
 
+obs:A a qb:Observation;
+		cex:value 2 ;
+		qb:dataSet dataset:A-Normalized;
+		.
+
+obs:B a qb:Observation;
+		cex:value 2 ;
+		qb:dataSet dataset:A-Normalized; 
+		.
 slice:s qb:observation obs:A, obs:B, obs:C .
 
 
@@ -49,4 +61,5 @@ obs:F-ranking a qb:Observation ;
 			] ;
       wi-onto:ref-area country:FRA ;
 	  cex:value 2 ;
+	  qb:dataSet dataset:A-Normalized; 
 	  .

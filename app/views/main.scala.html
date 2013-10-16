@@ -10,7 +10,7 @@
 <!--<![endif]-->
 	<head>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=900" />
 		<title>Computex - Validator</title>
 		<link rel="stylesheet" href="@routes.Assets.at("stylesheets/foundation.css")" />
         <link href='http://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet' type='text/css'>
@@ -25,9 +25,10 @@
         <link rel="stylesheet" href="@routes.Assets.at("stylesheets/prettify.css")" />
         <script type="text/javascript" src="@routes.Assets.at("javascripts/highlighter/prettify.js")"></script>
         <script type="text/javascript" src="@routes.Assets.at("javascripts/highlighter/lang-sparql.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/jquery-1.10.2.min.js")"></script>
         <link href="http://fonts.googleapis.com/css?family=Advent+Pro:200" rel="stylesheet" type="text/css">
         <link href='http://fonts.googleapis.com/css?family=Bad+Script' rel='stylesheet' type='text/css'>
-        <link href="http://fonts.googleapis.com/css?family=Raleway:100" rel="stylesheet" type="text/css">
+        <link href="http://fonts.googleapis.com/css?family=Raleway:400" rel="stylesheet" type="text/css">
 	</head>
     <body onload="prettyPrint()">
     	<header id="banner">
@@ -43,7 +44,9 @@
 	      		</p>
     		</div>
       	</header>
-      	@content
+      	<div id="main">
+	      	@content
+      	</div>
 		<footer id="footer">
 			<p>"COMPUTEX Validation Service" is a web service developed by <a href="http://www.weso.es" title="WESO RG">WESO RG</a></p>
 			<p>( <a href="mailto:cesar.luis@@weso.es" title="Mail to César Luis Alvargonzález">César Luis Alvargonzález</a>, <a href="mailto:labra@@uniovi.es" title="Mail to Jose Emilio Labra Gayo">Jose Emilio Labra Gayo</a>, <a href="mailto:ignacio.fuertes@@weso.es" title="Mail to Ignacio Fuertes Bernardo">Ignacio Fuertes Bernardo</a> and <a href="mailto:jmalvarez@@seerc.org" title="Mail to Jose Maria Alvarez Rodriguez">Jose Maria Alvarez Rodriguez</a> )<p>

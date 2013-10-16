@@ -40,6 +40,7 @@ project/plugins/project/
 .classpath
 .cache
 .DS_Store
+.target
 
 # Git specific
 *.orig
