@@ -44,7 +44,6 @@ object URIController extends Controller with Base {
     	    _prefix
     	    )
 
-  
   val uriForm: Form[UriInput] = Form(
     mapping(
       "uri" 		-> optional(text),
@@ -90,4 +89,5 @@ object URIController extends Controller with Base {
            }
          })
   }
+  
 }

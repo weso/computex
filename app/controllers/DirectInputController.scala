@@ -88,6 +88,5 @@ case class DirectInput(
           } 	 
        )
   }
-  
-  
+
 }

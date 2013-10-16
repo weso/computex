@@ -6,6 +6,7 @@ import com.typesafe.config.Config
 import com.typesafe.config.ConfigFactory
 import es.weso.computex.Computex
 import es.weso.computex.entities.CMessage
+import es.weso.utils.JenaUtils.Turtle
 import play.api.mvc.Controller
 import play.api.mvc.RequestHeader
 import es.weso.utils.JenaUtils.Turtle
@@ -26,7 +27,6 @@ trait Base extends Controller {
   def validateMessage
   			(message: CMessage)
   			(implicit request: RequestHeader): CMessage = {
-
     ???
   }
     /*

@@ -71,41 +71,41 @@ case class Computex(
     ???
   }
 
-  def expandCube(model: Model): Model = {
-    val closure = fromFile(closureFile).mkString
-    val flatten = fromFile(flattenFile).mkString
-    val ds: Dataset = DatasetFactory.create(model)
-    val graphStore: GraphStore = GraphStoreFactory.create(ds)
-    UpdateAction.parseExecute(closure, graphStore)
-    UpdateAction.parseExecute(flatten, graphStore)
-    val result: Model = ModelFactory.createModelForGraph(graphStore.getDefaultGraph())
-    result.setNsPrefixes(model)
-    result
-  }
-
-  def expandComputex(model: Model): Model = {
-    val ds: Dataset = DatasetFactory.create(model)
-    val graphStore: GraphStore = GraphStoreFactory.create(ds)
-    val steps = getSteps(model)
-
-    for {
-      step <- steps
-      pattern = s"(.*q.*-${step}.sparql)".r
-      file <- new File(computationDir).listFiles
-    } {
-      file.getAbsolutePath() match {
-        case pattern(name) =>
-          val contents = fromFile(name).mkString
-          UpdateAction.parseExecute(contents, graphStore)
-        case _ => {}
-      }
+    def expandCube(model: Model): Model = {
+      val closure = fromFile(closureFile).mkString
+      val flatten = fromFile(flattenFile).mkString
+      val ds: Dataset = DatasetFactory.create(model)
+      val graphStore: GraphStore = GraphStoreFactory.create(ds)
+      UpdateAction.parseExecute(closure, graphStore)
+      UpdateAction.parseExecute(flatten, graphStore)
+      val result: Model = ModelFactory.createModelForGraph(graphStore.getDefaultGraph())
+      result.setNsPrefixes(model)
+      result
     }
 
-    val result: Model = ModelFactory.createModelForGraph(graphStore.getDefaultGraph())
-    result.setNsPrefixes(model)
-    result
+    def expandComputex(model: Model): Model = {
+      val ds: Dataset = DatasetFactory.create(model)
+      val graphStore: GraphStore = GraphStoreFactory.create(ds)
+      val steps = getSteps(model)
 
-  }
+      for {
+        step <- steps
+        pattern = s"(.*q.*-${step}.sparql)".r
+        file <- new File(computationDir).listFiles
+      } {
+        file.getAbsolutePath() match {
+          case pattern(name) =>
+            val contents = fromFile(name).mkString
+            UpdateAction.parseExecute(contents, graphStore)
+          case _ => {}
+        }
+      }
+
+      val result: Model = ModelFactory.createModelForGraph(graphStore.getDefaultGraph())
+      result.setNsPrefixes(model)
+      result
+
+    }
 
   // This is only needed to obtain the list of expanders...can be removed
   def getSteps(model: Model): List[String] = {
@@ -141,6 +141,7 @@ case class Computex(
 
   // For each validator generates an CIntegrityQuery
   // Replace this validation Reports
+/*
   def validate(model: Model, validationDir: String): Array[CIntegrityQuery] = {
     val dir = new File(validationDir)
     val iQueries: Array[CIntegrityQuery] = 
@@ -152,9 +153,16 @@ case class Computex(
       currentModel.setNsPrefixes(model)
       Parser.parse(cq, currentModel)
     }
-    iQueries
-  }
 
+    val model = loadData(ontologyURI, message)
+    val expandedCube = expandCube(model)
+    val expandedComputex = if (message.expand) {
+      expandComputex(model)
+    } else { model }
+
+    validate(expandedComputex, validationDir)
+  }
+*/
   // Should be replaced by Profiles
   def readQueries(dir: File): Array[CQuery] = {
     val pattern = """q(.+)-.*.sparql""".r
@@ -204,4 +212,5 @@ object Computex {
     urlCon.setReadTimeout(2000)
     urlCon.getInputStream()
   }
+  
 }

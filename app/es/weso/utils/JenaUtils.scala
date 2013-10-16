@@ -60,15 +60,23 @@ object JenaUtils {
     inner(resource)
   }
 
-  def statementAsString(statement: Statement): String = {
+  def statementAsString(statement: Statement, model: Model, preffix: Boolean): String = {
     val resource = try {
-      statement.getResource().toString()
+      val uri = statement.getResource.toString
+      val preffixUri = statement.getResource.getNameSpace
+      val preffixNS = model.getNsURIPrefix(statement.getResource.getNameSpace)
+      val suffix = statement.getResource.getLocalName
+      if (preffix && preffixUri != null)
+        preffixNS + ":" + suffix
+      else uri
     } catch {
       case e: ResourceRequiredException => null
     }
     if (resource == null) {
       try {
-        statement.getLiteral().toString()
+        if (preffix)
+          statement.getLiteral().getValue().toString
+        else statement.getLiteral().toString
       } catch {
         case e: LiteralRequiredException => resource
       }

@@ -19,7 +19,8 @@ object ApplicationBuild extends Build {
     "org.rogach" %% "scallop" % "0.9.1" ,
     "org.scalatest" % "scalatest_2.10" % "1.9.1" % "test", 
     "com.typesafe" % "config" % "1.0.1",
-    "org.scalaj" %% "scalaj-collection" % "1.5"
+    "org.scalaj" %% "scalaj-collection" % "1.5",
+    "com.github.nscala-time" %% "nscala-time" % "0.6.0"
   )
 
 
