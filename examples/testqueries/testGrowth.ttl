@@ -1,0 +1,8 @@
+@prefix : <http://example.org#> .
+
+:x1 :value 1 .
+:x2 :value 3 .
+:x3 :value 9 .
+:x4 :value 54 .
+
+:list :values (:x1 :x2 :x3 :x4) .

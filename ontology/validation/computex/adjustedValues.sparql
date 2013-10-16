@@ -1,0 +1,42 @@
+# Adjusted values must match
+prefix country:      <http://data.webfoundation.org/webindex/v2013/country/> 
+prefix dataset:      <http://data.webfoundation.org/webindex/v2013/dataset/> 
+prefix indicator:    <http://data.webfoundation.org/webindex/v2013/indicator/> 
+prefix obs:          <http://data.webfoundation.org/webindex/v2013/observation/> 
+prefix organization: <http://data.webfoundation.org/webindex/v2013/organization> 
+
+prefix afn:			 <http://jena.hpl.hp.com/ARQ/function#>
+prefix cex:          <http://purl.org/weso/ontology/computex#> 
+prefix owl:          <http://www.w3.org/2002/07/owl#> 
+prefix qb:           <http://purl.org/linked-data/cube#>
+prefix rdf:          <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+prefix rdfs:         <http://www.w3.org/2000/01/rdf-schema#> 
+prefix wi-onto:      <http://data.webfoundation.org/webindex/ontology/> 
+prefix xml:          <http://www.w3.org/XML/1998/namespace> 
+prefix xsd:          <http://www.w3.org/2001/XMLSchema#> 
+
+CONSTRUCT {
+ _:error a cex:Error ;
+         cex:errorParam 
+		   [cex:name "obs" ; cex:value ?obs ] ,
+		   [cex:name "existingValue"; cex:value ?existingValue ],
+		   [cex:name "increm"; cex:value ?increm ],
+		   [cex:name "iValue"; cex:value ?iValue ] 
+		   ;
+         cex:msg "Adjusted value does not match" .
+} WHERE { 
+ SELECT * WHERE {
+ ?obs a qb:Observation ;
+      cex:computation 
+		    [ a cex:Adjust ;
+			  cex:observation ?iObs ;
+			  cex:increment ?increm ;
+			] .   
+ ?iObs cex:value ?iValue .
+ OPTIONAL {
+  ?obs cex:value ?existingValue .
+ }
+ BIND (?increm + ?iValue as ?incrementedValue)
+ FILTER( abs(?incrementedValue - ?existingValue) > 0.01)
+ }
+}

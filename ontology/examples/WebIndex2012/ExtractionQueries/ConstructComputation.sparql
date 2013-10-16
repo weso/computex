@@ -1,0 +1,42 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX qb: <http://purl.org/linked-data/cube#>
+PREFIX sdmx-concept:  <http://purl.org/linked-data/sdmx/2009/concept#>
+PREFIX sdmx-attribute: <http://purl.org/linked-data/sdmx/2009/attribute#>
+PREFIX wi-onto:  <http://data.webfoundation.org/webindex/ontology/>
+PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX cex: <http://purl.org/weso/ontology/computex#>
+PREFIX dcterms:  <http://purl.org/dc/terms/>
+PREFIX wi-org: <http://data.webfoundation.org/webindex/v2013/organization/>
+PREFIX wi-slice:  <http://data.webfoundation.org/webindex/v2013/slice/> 
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#> 
+PREFIX time: <http://www.w3.org/2006/time#>
+PREFIX computation: <http://data.webfoundation.org/webindex/v2013/computation/>
+
+CONSTRUCT {
+	?x rdf:type cex:ComputationFlow .
+	?x cex:steps _:l .
+	_:l rdf:first [ cex:query "copyRaw"] .
+	_:l rdf:rest _:0 .
+	_:0 rdf:first [ cex:query "MeanBetweenMissing" ] .
+	_:0 rdf:rest _:1 .
+	_:1 rdf:first [ cex:query "AvgGrowth2Missing" ] .
+	_:1 rdf:rest _:2 .
+	_:2 rdf:first [ cex:query "Filter"] .
+	_:2 rdf:rest _:3 .
+	_:3 rdf:first [ cex:query "zScores" ] .
+	_:3 rdf:rest _:4 .
+	_:4 rdf:first [ cex:query "Adjust"] .
+	_:4 rdf:rest _:5 .
+	_:5 rdf:first [ cex:query "WeightedSimple"] .
+	_:5 rdf:rest _:6 .
+	_:6 rdf:first [ cex:query "GroupClusters"] .
+	_:6 rdf:rest _:7 .
+	_:7 rdf:first [ cex:query "GroupSubindex" ] .
+	_:7 rdf:rest _:8 .
+	_:8 rdf:first [ cex:query "WeightedMean" ] .
+	_:8 rdf:rest _:9 .
+	_:9 rdf:first [ cex:query "Ranking"] .
+	_:9 rdf:rest rdf:nil .
+} WHERE {
+    BIND(URI("http://data.webfoundation.org/webindex/v2013/computation/Flow") AS ?x)
+}

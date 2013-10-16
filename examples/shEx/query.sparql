@@ -1,0 +1,47 @@
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX ex: <http://ex.example/#>
+SELECT ?s ?p ?o WHERE {
+  { ?s ?p ?o } MINUS {
+    { SELECT (?issue AS ?s) (ex:state AS ?p) (?o0 AS ?o) {
+      ?issue ex:state ?o0 . FILTER (?o0 = ex:unassigned || ?o0 = ex:assigned)
+      ?issue ex:reportedBy ?user .
+        ?user rdf:type  ?o1 FILTER (?o1 = foaf:Person)
+        ?user foaf:name ?o2 FILTER (isLiteral(?o2))
+        ?user foaf:mbox ?o3 FILTER (isIRI(?o3))
+    } }
+    UNION
+    { SELECT (?issue AS ?s) (ex:reportedBy AS ?p) (?user AS ?o) {
+      ?issue ex:state ?o0 . FILTER (?o0 = ex:unassigned || ?o0 = ex:assigned)
+      ?issue ex:reportedBy ?user .
+        ?user rdf:type  ?o1 FILTER (?o1 = foaf:Person)
+        ?user foaf:name ?o2 FILTER (isLiteral(?o2))
+        ?user foaf:mbox ?o3 FILTER (isIRI(?o3))
+    } }
+    UNION
+    { SELECT (?user AS ?s) (rdf:type AS ?p) (?o1 AS ?o) {
+      ?issue ex:state ?o0 . FILTER (?o0 = ex:unassigned || ?o0 = ex:assigned)
+      ?issue ex:reportedBy ?user .
+        ?user rdf:type  ?o1 FILTER (?o1 = foaf:Person)
+        ?user foaf:name ?o2 FILTER (isLiteral(?o2))
+        ?user foaf:mbox ?o3 FILTER (isIRI(?o3))
+    } }
+    UNION
+    { SELECT (?user AS ?s) (foaf:name AS ?p) (?o2 AS ?o) {
+      ?issue ex:state ?o0 . FILTER (?o0 = ex:unassigned || ?o0 = ex:assigned)
+      ?issue ex:reportedBy ?user .
+        ?user rdf:type  ?o1 FILTER (?o1 = foaf:Person)
+        ?user foaf:name ?o2 FILTER (isLiteral(?o2))
+        ?user foaf:mbox ?o3 FILTER (isIRI(?o3))
+    } }
+    UNION
+    { SELECT (?user AS ?s) (foaf:mbox AS ?p) (?o3 AS ?o) {
+      ?issue ex:state ?o0 . FILTER (?o0 = ex:unassigned || ?o0 = ex:assigned)
+      ?issue ex:reportedBy ?user .
+        ?user rdf:type  ?o1 FILTER (?o1 = foaf:Person)
+        ?user foaf:name ?o2 FILTER (isLiteral(?o2))
+        ?user foaf:mbox ?o3 FILTER (isIRI(?o3))
+     } 
+	}
+  }
+}

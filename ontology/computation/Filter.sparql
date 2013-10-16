@@ -13,17 +13,17 @@ prefix rdf:          <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 prefix rdfs:         <http://www.w3.org/2000/01/rdf-schema#> 
 prefix sdmx-code:  <http://purl.org/linked-data/sdmx/2009/code#> 
 prefix sdmx-concept: <http://purl.org/linked-data/sdmx/2009/concept#> 
-prefix wi-onto:      <http://data.webfoundation.org/webindex/ontology/> 
+prefix wf-onto:      <http://data.webfoundation.org/ontology/> 
 prefix xml:          <http://www.w3.org/XML/1998/namespace> 
 prefix xsd:          <http://www.w3.org/2001/XMLSchema#> 
 
-INSERT {
+CONSTRUCT {
  _:obs a qb:Observation ;
 	   ?dim ?valueDim ;
        cex:value ?value ;
        qb:dataSet ?dataSetToCopy ;
        cex:indicator ?indicator ;
-	   wi-onto:ref-year ?year ;
+	   wf-onto:ref-year ?year ;
 	   sdmx-concept:obsStatus cex:Imputed ;
 	   cex:computation [ a cex:Filter ;
 		                   cex:observation ?obsRaw 
@@ -44,10 +44,10 @@ INSERT {
  ?dataset qb:slice ?sliceFrom .
          
  ?sliceFrom cex:indicator ?indicator ;
-	        wi-onto:ref-year ?year ;
+	        wf-onto:ref-year ?year ;
 	        qb:observation ?obsRaw ;
 	       .
- ?sliceToCopy wi-onto:ref-year ?year .
+ ?sliceToCopy wf-onto:ref-year ?year .
 
  ?obsRaw cex:value ?value ;
          ?dim ?valueDim .

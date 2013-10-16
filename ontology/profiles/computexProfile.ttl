@@ -1,0 +1,86 @@
+# RDF Data Cube Profile
+
+@prefix cex: 			<http://purl.org/weso/ontology/computex#> .
+@prefix dcterms: 		<http://purl.org/dc/terms/> .
+@prefix qb: 			<http://purl.org/linked-data/cube#> .
+@prefix profileURI: 	<ontology/profiles/> .
+@prefix cexOntology: 	<ontology/> .
+@prefix cexURI: 		<ontology/validation/computex/> .
+@prefix cexURIExpand: 	<ontology/expansion/> .
+@prefix cexURICompute: 	<ontology/computation/> .
+
+cex:computex a cex:ValidationProfile ;
+   cex:name "Computex" ;
+   cex:ontologyBase cexOntology:computex.ttl ;
+   cex:import profileURI:cubeProfile.ttl ;
+   cex:computeSteps
+      ( 
+		[ cex:name "Copy Raw" ; 
+	 	  cex:uri cexURICompute:copyRaw.sparql 
+	 	]
+		[ cex:name "Mean Between Missing values" ; 
+	 	  cex:uri cexURICompute:MeanBetweenMissing.sparql 
+	 	]         
+    	[ cex:name "Average Growth of 2 values missing" ; 
+    	  cex:uri cexURICompute:AvgGrowth2Missing.sparql 
+    	]
+    	[ cex:name "Filter" ; 
+    	  cex:uri cexURICompute:Filter.sparql 
+    	]
+    	[ cex:name "zScores" ; 
+    	  cex:uri cexURICompute:zScores.sparql 
+    	]
+    	[ cex:name "Adjust" ; 
+    	  cex:uri cexURICompute:Adjust.sparql 
+    	]
+    	[ cex:name "WeightedMean" ; 
+    	  cex:uri cexURICompute:WeightedMean.sparql 
+    	]
+    	[ cex:name "Ranking" ; 
+    	  cex:uri cexURICompute:Ranking.sparql 
+    	]
+      ) ;        
+   cex:integrityQuery 
+	    [ cex:name "Adjusted computation must have a value" ;
+	      cex:uri	cexURI:adjustedValueExistsObs.sparql 
+	    ],  
+   	    [ cex:name "Adjusted values must match" ;
+	      cex:uri	cexURI:adjustedValues.sparql 
+	    ],
+	    [ cex:name "Average growth" ;
+	      cex:uri	cexURI:avgGrowthN.sparql 
+	    ],
+	    [ cex:name "Computation copy" ;
+	      cex:uri	cexURI:computationCopy.sparql 
+	    ],
+	    [ cex:name "Copy value exists" ;
+	      cex:uri	cexURI:copyValueExistsObs.sparql 
+	    ],
+	    [ cex:name "Mean values" ;
+	      cex:uri	cexURI:meanValueExistsObs.sparql 
+	    ],
+	    [ cex:name "Missing Observation has no values" ;
+	      cex:uri	cexURI:missingObsNoValues.sparql 
+	    ],
+	    [ cex:name "Normalized values" ;
+	      cex:uri	cexURI:normalizedValues.sparql 
+	    ],
+	    [ cex:name "observation must have only one value" ;
+	      cex:uri	cexURI:obs2values.sparql 
+	    ],
+	    [ cex:name "observation must have at least one value" ;
+	      cex:uri	cexURI:obsNoValue.sparql 
+	    ],
+	    [ cex:name "Ranking value must match" ;
+	      cex:uri	cexURI:ranking_2.sparql 
+	    ],
+	    [ cex:name "Weighted Mean" ;
+	      cex:uri	cexURI:weightedMean.sparql 
+	    ],
+	    [ cex:name "Weighted Values" ;
+	      cex:uri	cexURI:weightedValues.sparql 
+	    ],
+	    [ cex:name "Mean Values" ;
+	      cex:uri	cexURI:meanValues.sparql 
+	    ]
+   .

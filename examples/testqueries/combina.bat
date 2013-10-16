@@ -1,0 +1,1 @@
+rdfcat -out N3 ../example.ttl ../../ontology.ttl > combina.ttl

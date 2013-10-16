@@ -1,0 +1,322 @@
+header#banner {
+	margin: 0em;
+	background: #007bd7;
+	overflow: auto;
+	height: 118px;
+}
+
+header h1 {
+	margin-bottom: 0px;
+}
+
+header h1#title img {
+	margin: 0.4em;
+	height: 100px;
+	width: 100px
+}
+
+header a {
+	background: #007bd7;
+}
+
+header a:link {
+	color: white;
+}
+
+header a:visited {
+	color: white;
+}
+
+span.computex {
+	font-family: 'Advent Pro', sans-serif;
+	font-size: 2.3em;
+}
+
+span.validation {
+	font-family: 'Advent Pro', sans-serif;
+	color: #333;
+	font-size: 2.3em;
+	font-weight: 100;
+}
+
+#weso-link {
+	float: right;
+	width: 80px;
+	height: 80px;
+	margin: 18px 20px 0px 0px;
+	background-color: #fff;
+	border-radius: 40px;
+	text-align: center;
+	text-decoration: none;
+	padding-top: 30px;
+	color: #007bd7
+}
+
+.circle-link {
+	font-family: 'Raleway', sans-serif;
+	font-weight: 100;
+	text-align: center;
+}
+
+.circle-link {
+	font-family: 'Raleway', sans-serif;
+	font-weight: 100;
+	text-align: center;
+}
+
+.circle {
+	padding-top: 23px;
+}
+
+#uri {
+	padding-top: 30px;
+}
+
+#central-circle {
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+#frontforms > nav {
+	height: 100px;
+	width: 450px;
+	margin: 0px auto 0px auto;
+}
+
+#validate {
+	font-family: 'Bad Script', cursive;
+	float: left;
+	margin: 40px 20px 0px 0px;
+}
+
+#about-weso {
+	width: 800px;
+	margin: 0 auto;
+	padding-bottom: 30px;
+}
+
+ul#tabset_tabs li {
+	width: 80px;
+	height: 80px;
+	border-radius: 40px;
+	font-size: 1.2em;
+}
+
+ul#tabset_tabs li a:link,ul#tabset_tabs li a:visited {
+	border-radius: 0 5px 0 0;
+}
+
+ul#tabset_tabs.pills li {
+	border-radius: 5px;
+}
+
+ul#tabset_tabs.pills li a:link,ul#tabset_tabs.pills li a:visited {
+	border-radius: 5px;
+}
+
+.doc {
+	margin: 0 !important;
+}
+
+.doc h2 {
+	font-family: 'Advent Pro', sans-serif;
+	color: #007bd7;
+	font-size: 2em;
+	text-decoration: none;
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+header a#weso-logo {
+	float: left;
+	margin: 3px 30px 0px 20px;
+}
+
+header p#tagline {
+	margin: 5px 0 0 122px;
+	font-family: 'Advent Pro', sans-serif;
+	font-size: 0.8em;
+	width: 600px;
+}
+
+div#main {
+	min-height: 100%;
+}
+
+footer {
+	padding-top: 20px;
+	height: 130px;
+	font-size: 0.8em;
+}
+
+footer p {
+	font-size: 1.15em;
+	text-align: center;
+	color: #555;
+	background-color: white;
+}
+
+form {
+	width: 800px;
+	margin: 0 auto;
+}
+
+#frontforms {
+	margin: 0em;
+	background-color: #eee;
+	padding-top: 15px;
+}
+
+#frontforms label {
+	background: transparent;
+}
+
+.instructions:first-child {
+	border-radius: 0 5px 0 0;
+}
+
+.instructions {
+	padding: 0.5em 4em !important;
+}
+
+.instructions label,.instructions input,.instructions textarea,.instructions select
+	{
+	display: inline;
+	padding: 0;
+	margin: 0;
+	vertical-align: middle;
+}
+
+.instructions input#uri {
+	margin: 0 auto;
+	width: 100%;
+	max-width: none;
+	max-height: none;
+	background: #ffffff;
+}
+
+.instructions textarea {
+	margin: 0 auto;
+	width: 100%;
+	max-width: none;
+	max-height: none;
+	background: #ffffff;
+}
+
+p.submit_button {
+	padding: 0;
+	border-radius: 0 0 5px 5px;
+}
+
+.submit_button input {
+	width: 100px;
+	height: 100px;
+	border-radius: 50px;
+	background: white!imporant;
+	border: none;
+	margin-bottom: 1em;
+	margin-top: 1em;
+	font-family: 'Bad Script', cursive;
+	font-weight: 100;
+	text-align: center;
+	padding: 0px;
+}
+
+div#results_container {
+	padding-top: 0;
+}
+
+div#result {
+	padding: 0;
+}
+
+.msg_err {
+	padding-bottom: 1em !important;
+}
+
+.msg_err re {
+	line-height: 0;
+	margin-bottom: 0;
+}
+
+code {
+	background-color: #F9F9F9;
+	color: black;
+	line-height: 1.1em;
+	padding: 1em;
+	display: block;
+	margin: 0 !important;
+	font-size: 14px;
+}
+
+.query pre.hide {
+	display: none !important;
+}
+
+table {
+	width: 100%;
+	border-radius: 5px;
+}
+
+table th {
+	font-size: 0.875em !important;
+}
+
+h3.valid {
+	color: #55B05A !important;
+	background-color: white !important;
+}
+
+.asterisk {
+	color: #FF9900;
+	font-weight: bold;
+}
+
+.disclaimer {
+	margin-top: 0.5em;
+}
+
+#results_container #earl {
+	padding: 0;
+}
+
+#earl {
+	padding: 1.5em 2em;
+}
+
+#earl h2 {
+	margin-top: 1em;
+	margin-bottom: 0.5em;
+}
+
+#earl td {
+	min-width: 33%;
+	max-width: 33%;
+	width: 33%;
+	line-brak: break-word;
+	border: 2px solid #007bd7;
+}
+
+#earl td a {
+	color: #007bd7;
+}
+
+div#frontforms form {
+	font-size: 1.5em;
+}
+ 
+div#frontforms input {
+	background: #ffffff;
+}
+
+div#frontforms input[type=text], div#frontforms input[type=file], div#frontforms textarea {
+	margin-top: 10px;
+}
+
+div#frontforms select {
+	margin-top: 10px;
+}
+
+div#frontforms input.button {
+	background: #007bd7;
+}

@@ -1,0 +1,10 @@
+@(message: es.weso.computex.entities.CMessage)(
+  implicit flash:Flash
+ )
+
+@import es.weso.computex.entities.CMessage
+@import es.weso.computex.entities.CMessage._
+
+@main(message) {
+	@views.html.file.defaultFile(message)
+}

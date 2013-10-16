@@ -13,21 +13,23 @@ prefix rdf:          <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 prefix rdfs:         <http://www.w3.org/2000/01/rdf-schema#> 
 prefix sdmx-code:  <http://purl.org/linked-data/sdmx/2009/code#> 
 prefix sdmx-concept: <http://purl.org/linked-data/sdmx/2009/concept#> 
-prefix wi-onto:      <http://data.webfoundation.org/webindex/ontology/> 
+prefix wf-onto:      <http://data.webfoundation.org/ontology/> 
 prefix xml:          <http://www.w3.org/XML/1998/namespace> 
 prefix xsd:          <http://www.w3.org/2001/XMLSchema#> 
 
-INSERT {
+CONSTRUCT {
  _:obs a qb:Observation ;
        cex:value ?weightedMean ;
        qb:dataSet ?dataSetToCopy ;
        cex:indicator ?component ;
-       wi-onto:ref-year ?year ;
+       wf-onto:ref-year ?year ;
 	   ?dim ?valueDim ;
 	   sdmx-concept:obsStatus cex:Grouped ;
 	   qb:dataset ?dataSetToCopy ;
-	   cex:computation [ a cex:WeightedMean ;
-						   cex:component ?lsObs ] ;
+	   cex:computation 
+	      [ a cex:WeightedMean ;
+		    cex:weightSchema ?weightSchema ;
+		  ] ;
 	.
  ?sliceToCopy qb:observation _:obs .
 
@@ -45,10 +47,9 @@ INSERT {
 	 .      
 	   
  ?sliceToCopy cex:indicator ?component ;
-              wi-onto:ref-year ?year .
+              wf-onto:ref-year ?year .
 
  { SELECT (SUM(?product) as ?weightedMean) 
-          (GROUP_CONCAT(?obs) as ?lsObs) 
           ?dataset 
           ?component 
           ?dim
@@ -56,7 +57,10 @@ INSERT {
           WHERE {
     
     ?component cex:element ?element .
-    ?weightSchema cex:weight [ cex:element ?element ; cex:value ?weight ] .
+    ?weightSchema cex:weight [ 
+	    cex:element ?element ; 
+	    cex:value ?weight 
+    ] .
  
     ?dataset qb:slice ?sliceFrom .
  
@@ -68,7 +72,7 @@ INSERT {
 
     BIND(?value * ?weight as ?product)
          
-  } GROUP BY ?dataset ?component ?dim ?valueDim ?area
+  } GROUP BY ?dataset ?component ?dim ?valueDim 
  }
 
 

@@ -1,0 +1,11 @@
+/* Humans */
+  Web Developer: César Luis Alvargonzález
+  From: Oviedo, Asturias, Spain
+  
+  Web Developer: Jose Emilio Labra Gayo
+  From: Oviedo, Asturias, Spain
+
+/* SITE */
+  Standards: HTML5, CSS3
+  Components: Scala, Play Framework!, jQuery
+  Software: Scala IDE, Gedit, Git

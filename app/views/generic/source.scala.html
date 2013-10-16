@@ -1,0 +1,21 @@
+@(message: es.weso.computex.entities.CMessage)(implicit flash:Flash)
+
+@import es.weso.computex.entities._
+@import es.weso.computex.entities.CMessage._
+@import scala.io.Source._
+@import scala.io.Codec._
+
+@if(message.showSource){
+		<div id="source">
+		<h3>RDF Model validated</h3>
+		<p>Source:</p>
+		<pre>
+			<code class="prettyprint lang-sparql">
+  			@for(line <- message.modelAsString.split("\n")){
+				@line
+			} 
+			</code>
+		</pre>
+		<p class="backtop"><a href="#jumpbar">↑ Top</a></p>
+	</div>
+}

@@ -1,0 +1,50 @@
+\frame{\titlepage}
+
+\begin{frame}
+\frametitle{Introduction}
+\begin{itemize}
+\item Validation of RDF using SPARQL queries
+\item Use case: Data Portal of TheWebIndex: \url{http://thewebindex.org}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Example of input data}
+
+\begin{lstlisting}[style=SPARQL]
+obs:obsM23 a qb:Observation ;
+ cex:computation [ a cex:Z-Score ; 
+      cex:observation obs:obsA23 ; cex:slice slice:sliceA09 ; ] ;
+ cex:value 0.56 ;
+ cex:md5-checksum "2917835203..." ;
+ cex:indicator indicator:A ;
+ cex:concept country:ESP ;
+ qb:dataSet dataset:A-Normalized ;
+ # ... other declarations omitted for brevity
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Source code}
+ 
+\begin{lstlisting}[style=SPARQL,caption=SPARQL query]
+SELECT * WHERE {
+ ?x a ?y .
+}
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Conclusions}
+\begin{itemize}
+\item SPARQL queries can validate RDF
+\item SPARQL is familiar to RDF developers
+\item Computex validation service: \url{http://computex.herokuapp.com}
+\end{itemize}
+\end{frame}
+ 
+\begin{frame}
+\frametitle{Table of Contents}
+\tableofcontents
+\end{frame}

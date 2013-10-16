@@ -1,0 +1,67 @@
+@prefix wi-people: <http://data.webfoundation.org/webindex/people/> .
+@prefix indicator: <http://data.webfoundation.org/webindex/v2013/indicator/> .
+@prefix sdmxConcept: <http://purl.org/linked-data/sdmx/2009/concept#> .
+@prefix sdmxAttribute: <http://purl.org/linked-data/sdmx/2009/attribute#> .
+@prefix cex:   <http://purl.org/weso/ontology/computex#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix obs:   <http://data.webfoundation.org/webindex/v2013/observation/> .
+@prefix time:  <http://www.w3.org/2006/time#> .
+@prefix sdmxSubject: <http://purl.org/linked-data/sdmx/2009/subject#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix wi-org: <http://data.webfoundation.org/webindex/organization/> .
+@prefix sdmxCode: <http://purl.org/linked-data/sdmx/2009/code#> .
+@prefix webindex: <http://data.webfoundation.org/webindex/v2013/> .
+@prefix geo:   <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix qb:    <http://purl.org/linked-data/cube#> .
+@prefix wi-onto: <http://data.webfoundation.org/webindex/ontology/> .
+@prefix country: <http://data.webfoundation.org/webindex/v2013/country/> .
+@prefix dataset: <http://data.webfoundation.org/webindex/v2013/dataset/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix computation: <http://data.webfoundation.org/webindex/v2013/computation/> .
+@prefix slice: <http://data.webfoundation.org/webindex/v2013/slice/> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix ranking: <http://data.webfoundation.org/webindex/v2013/ranking/> .
+
+dataset:I0-Raw  a     qb:DataSet ;
+        rdfs:label    "Dataset I0-Raw"@en ;
+        qb:slice      slice:I0Year0-Raw ;
+        qb:structure  wi-onto:DSD .
+
+slice:I0Year0-Raw  a       qb:Slice ;
+        wi-onto:ref-year   "Year0" ;
+        qb:observation     obs:I0Year0C0 ;
+        qb:sliceStructure  wi-onto:sliceByArea ;
+        cex:indicator      indicator:I0 .
+
+indicator:C0  a     wi-onto:Country ;
+        rdfs:label  "Country C0"@en .
+
+wi-onto:DSD  a        qb:DataStructureDefinition ;
+        qb:component  [ qb:measure  cex:value ] ;
+        qb:component  [ qb:dimension  cex:indicator ;
+                        qb:order      "3"^^xsd:int
+                      ] ;
+        qb:component  [ qb:dimension  wi-onto:ref-year ;
+                        qb:order      "2"^^xsd:int
+                      ] ;
+        qb:component  [ qb:dimension  wi-onto:ref-area ;
+                        qb:order      "1"^^xsd:int
+                      ] ;
+        qb:sliceKey   wi-onto:sliceByArea .
+
+wi-onto:sliceByArea  a        qb:SliceKey ;
+        qb:componentProperty  wi-onto:ref-year , cex:indicator .
+
+indicator:I0  a     wi-onto:SecondaryIndicator ;
+        rdfs:label  "Indicator I0"@en .
+
+obs:I0Year0C0  a          qb:Observation ;
+        wi-onto:ref-area  indicator:C0 ;
+        wi-onto:ref-year  "Year0" ;
+        qb:dataSet        dataset:I0-Raw ;
+        cex:indicator     indicator:I0 ;
+        cex:value         "0.70882285"^^xsd:float .
+        
+wi-onto:ref-year a qb:DimensionProperty .

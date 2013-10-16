@@ -1,0 +1,115 @@
+# RDF Data Cube Profile
+
+@prefix cex: 			<http://purl.org/weso/ontology/computex#> .
+@prefix dcterms: 		<http://purl.org/dc/terms/> .
+@prefix qb: 			<http://purl.org/linked-data/cube#> .
+@prefix cubeURI: 		<ontology/validation/cube/> .
+@prefix profileURI: 	<ontology/profiles/> .
+@prefix cexOntology: 	<ontology/> .
+@prefix cubeURIExpand: 	<ontology/expansion/cube/> .
+
+cex:cube a cex:ValidationProfile ;
+   cex:name 			"RDF Data Cube" ;
+   cex:ontologyBase 	cexOntology:cube.ttl ;
+   cex:expandSteps 
+	 	([ cex:name "Closure" ; 
+          cex:uri cubeURIExpand:closure.ru  
+         ]
+	 	 [ cex:name "Flatten" ; 
+	 	   cex:uri cubeURIExpand:flatten.ru 
+	 	 ] 
+        ) ;
+   # Integrity queries from RDF Data Cube
+   cex:integrityQuery 
+	    [ cex:name "IC-1. Unique DataSet (Q1a)" ;
+	      cex:uri	cubeURI:q1a-integrity.sparql 
+	    ] ;
+   cex:integrityQuery 
+	    [ cex:name "IC-1. Unique DataSet (Q1b)" ;
+	      cex:uri	cubeURI:q1b-integrity.sparql 
+	    ] ;
+	cex:integrityQuery 
+	    [ cex:name "IC-2. Unique DSD (Q2a)" ;
+	      cex:uri	cubeURI:q2a-integrity.sparql 
+	    ] ;
+	cex:integrityQuery 
+	    [ cex:name "IC-2. Unique DSD (Q2b)" ;
+	      cex:uri	cubeURI:q2b-integrity.sparql 
+	    ] ;
+	cex:integrityQuery 
+	    [ cex:name "IC-3. DSD includes measure (Q3)" ;
+	      cex:uri	cubeURI:q3-integrity.sparql 
+	    ] ;
+	cex:integrityQuery 
+	    [ cex:name "IC-4. Dimensions have range (Q4)" ;
+	      cex:uri	cubeURI:q4-integrity.sparql 
+	    ] ;
+	cex:integrityQuery 
+	    [ cex:name "IC-5. Concept dimensions have code lists (Q5)" ;
+	      cex:uri	cubeURI:q5-integrity.sparql 
+	    ] ;
+	cex:integrityQuery 
+	    [ cex:name "IC-6. Only attributes may be optional (Q6)" ;
+	      cex:uri	cubeURI:q6-integrity.sparql 
+	    ] ;
+	cex:integrityQuery 
+	    [ cex:name "IC-7. Slice Keys must be declared (Q7)" ;
+	      cex:uri	cubeURI:q7-integrity.sparql 
+	    ] ;
+	cex:integrityQuery 
+	    [ cex:name "IC-8. Slice Keys consistent with DSD (Q8)" ;
+	      cex:uri	cubeURI:q8-integrity.sparql 
+	    ] ;
+	cex:integrityQuery 
+	    [ cex:name "IC-9. IC-9. Unique slice structure (Q9a)" ;
+	      cex:uri	cubeURI:q9a-integrity.sparql 
+	    ] ;
+	cex:integrityQuery 
+	    [ cex:name "IC-9. IC-9. Unique slice structure (Q9b)" ;
+	      cex:uri	cubeURI:q9b-integrity.sparql 
+	    ] ;
+	cex:integrityQuery 
+	    [ cex:name "IC-10. Slice dimensions complete (Q10)" ;
+	      cex:uri	cubeURI:q10-integrity.sparql 
+	    ] ;
+	cex:integrityQuery 
+	    [ cex:name "IC-11. All dimensions required (Q11)" ;
+	      cex:uri	cubeURI:q11-integrity.sparql 
+	    ] ;
+	cex:integrityQuery 
+	    [ cex:name "IC-12. No duplicate observations (Q12)" ;
+	      cex:uri	cubeURI:q12-integrity.sparql 
+	    ] ;
+	cex:integrityQuery 
+	    [ cex:name "IC-13. Required attributes (Q13)" ;
+	      cex:uri	cubeURI:q13-integrity.sparql 
+	    ] ;
+	cex:integrityQuery 
+	    [ cex:name "IC-14. All measures present (Q14)" ;
+	      cex:uri	cubeURI:q14-integrity.sparql 
+	    ] ;
+	cex:integrityQuery 
+	    [ cex:name "IC-15. Measure dimension consistent (Q15)" ;
+	      cex:uri	cubeURI:q15-integrity.sparql 
+	    ] ;
+	cex:integrityQuery 
+	    [ cex:name "IC-16. Single measure on measure dimension observation (Q16)" ;
+	      cex:uri	cubeURI:q16-integrity.sparql 
+	    ] ;
+	cex:integrityQuery 
+	    [ cex:name "IC-17. All measures present in measures dimension cube (Q17)" ;
+	      cex:uri	cubeURI:q17-integrity.sparql 
+	    ] ;
+	cex:integrityQuery 
+	    [ cex:name "IC-18. Consistent data set links (Q18)" ;
+	      cex:uri	cubeURI:q18-integrity.sparql 
+	    ] ;
+	cex:integrityQuery 
+	    [ cex:name "IC-19. Codes from code list (Q19a)" ;
+	      cex:uri	cubeURI:q19a-integrity.sparql 
+	    ] ;
+	cex:integrityQuery 
+	    [ cex:name "IC-19. Codes from code list (Q19b)" ;
+	      cex:uri	cubeURI:q19b-integrity.sparql 
+	    ] 
+   .

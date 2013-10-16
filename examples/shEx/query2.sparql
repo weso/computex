@@ -1,0 +1,63 @@
+PREFIX ex: <http://ex.example/#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+ASK {
+    # q2.sparql
+    { SELECT ?IssueShape {
+      ?IssueShape ?p ?o . 
+	  FILTER (?p = ex:state && (?o = ex:unassigned || ?o = ex:assigned))
+    } GROUP BY ?IssueShape 
+	  HAVING (COUNT(*)=1)}
+	  
+	# q3.sparql  
+    { SELECT ?IssueShape (?o AS ?UserShape) {
+      ?IssueShape ?p ?o . 
+	  FILTER (?p = ex:reportedBy && isIRI(?o))
+    } GROUP BY ?IssueShape ?o HAVING (COUNT(*)=1)}
+	
+	# q4.sparql
+    { SELECT ?UserShape {
+        { SELECT ?UserShape WHERE {
+            {
+                { SELECT ?UserShape {
+                  ?UserShape ?p ?o . 
+				  FILTER (?p = foaf:name && isLiteral(?o))
+                } GROUP BY ?UserShape HAVING (COUNT(*)=1)}
+            } UNION {
+                { SELECT ?UserShape {
+                  ?UserShape ?p ?o . 
+				  FILTER (?p = foaf:givenName && isLiteral(?o))
+                } GROUP BY ?UserShape HAVING (COUNT(*)=1)}
+                { SELECT ?UserShape {
+                  ?UserShape ?p ?o . 
+				  FILTER (?p = foaf:familyName && isLiteral(?o))
+                } GROUP BY ?UserShape HAVING (COUNT(*)=1)}
+            }
+        } GROUP BY ?UserShape HAVING (COUNT(*) = 1)}
+		{ SELECT ?UserShape {
+          ?UserShape ?p ?o . 
+		  FILTER (?p = foaf:mbox && isIRI(?o))
+        } GROUP BY ?UserShape HAVING (COUNT(*)=1)}
+    } GROUP BY ?UserShape HAVING (COUNT(*)=1)}
+	
+	# q5.sparql
+    { SELECT ?IssueShape {
+      ?IssueShape ?p ?o . 
+	  FILTER (?p = ex:reportedOn && datatype(?o) = xsd:dateTime)
+    } GROUP BY ?IssueShape HAVING (COUNT(*)=1)}
+	
+	# q6.sparql
+    { SELECT ?IssueShape {
+        { SELECT ?IssueShape (COUNT(*) AS ?IssueShape_c3) {
+          ?IssueShape ?p ?o . 
+		  FILTER (?p = ex:reproducedBy && isIRI(?o))
+        } GROUP BY ?IssueShape}
+        { SELECT ?IssueShape (COUNT(*) AS ?IssueShape_c4) {
+          ?IssueShape ?p ?o . 
+		  FILTER (?p = ex:reproducedOn && datatype(?o) = xsd:dateTime)
+        } GROUP BY ?IssueShape}
+        FILTER (?IssueShape_c3 = ?IssueShape_c4)
+    } GROUP BY ?IssueShape HAVING (COUNT(*)=0 || COUNT(*)=1)}
+	
+}

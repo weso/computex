@@ -1,0 +1,10 @@
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX ex: <http://ex.example/#>
+
+ex:Issue1 ex:state ex:unassigned ; ex:reportedBy ex:Bob , ex:Sue , ex:X.
+ex:Bob a foaf:Person ;
+    foaf:mbox <mailto:bob@example.org> ;
+    foaf:name "Bob" ; foaf:age 7 .
+ex:Sue a foaf:Person ;
+    foaf:mbox <mailto:sue@example.org> ;
+    foaf:name "Sue" .

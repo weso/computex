@@ -1,0 +1,29 @@
+#  If a dimension property has a qb:codeList, then the value of the dimension property on every observation must be in the code list
+#  Case of skos:ConceptScheme
+PREFIX rdf:            <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:           <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos:           <http://www.w3.org/2004/02/skos/core#>
+PREFIX qb:             <http://purl.org/linked-data/cube#>
+PREFIX xsd:            <http://www.w3.org/2001/XMLSchema#>
+PREFIX owl:            <http://www.w3.org/2002/07/owl#>
+PREFIX eg:             <http://example.com/abbrv-cube/>
+prefix cex: 		   <http://purl.org/weso/ontology/computex#> 
+
+CONSTRUCT {
+ _:error a cex:Error .
+ _:error cex:errorParam 
+	[cex:name "obs"; cex:value ?obs ]  ,
+	[cex:name "dim"; cex:value ?dim ]  ,
+	[cex:name "list"; cex:value ?list ]  ,
+	[cex:name "v"; cex:value ?v ]  
+    .
+ _:error cex:msg "If a dimension property has a qb:codeList, then the value of the dimension property on every observation must be in the code list. Case of skos:ConceptScheme" .
+}
+WHERE {
+    ?obs qb:dataSet/qb:structure/qb:component/qb:componentProperty ?dim .
+    ?dim a qb:DimensionProperty ;
+        qb:codeList ?list .
+    ?list a skos:ConceptScheme .
+    ?obs ?dim ?v .
+    FILTER NOT EXISTS { ?v skos:inScheme ?list }
+}

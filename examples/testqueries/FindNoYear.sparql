@@ -1,0 +1,29 @@
+# Find No year
+prefix country:      <http://data.webfoundation.org/webindex/v2013/country/> 
+prefix dataset:      <http://data.webfoundation.org/webindex/v2013/dataset/> 
+prefix indicator:    <http://data.webfoundation.org/webindex/v2013/indicator/> 
+prefix obs:          <http://data.webfoundation.org/webindex/v2013/observation/> 
+prefix organization: <http://data.webfoundation.org/webindex/v2013/organization> 
+
+prefix afn:			 <http://jena.hpl.hp.com/ARQ/function#>
+prefix cex:          <http://purl.org/weso/ontology/computex#> 
+prefix owl:          <http://www.w3.org/2002/07/owl#> 
+prefix qb:           <http://purl.org/linked-data/cube#>
+prefix rdf:          <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+prefix rdfs:         <http://www.w3.org/2000/01/rdf-schema#> 
+prefix sdmx-code:  <http://purl.org/linked-data/sdmx/2009/code#> 
+prefix sdmx-concept: <http://purl.org/linked-data/sdmx/2009/concept#> 
+prefix wi-onto:      <http://data.webfoundation.org/webindex/ontology/> 
+prefix xml:          <http://www.w3.org/XML/1998/namespace> 
+prefix xsd:          <http://www.w3.org/2001/XMLSchema#> 
+
+SELECT ?year ?obs1 ?value1 ?dataset ?indicator ?area WHERE {
+ ?obs1 a qb:Observation ;
+       qb:dataSet ?dataset ;
+       cex:indicator ?indicator ;
+       wi-onto:ref-area ?area ;
+       wi-onto:ref-year ?year ;
+       cex:value ?value1 .
+ OPTIONAL { ?obs1 wi-onto:ref-year ?year . }  
+ 
+} ORDER BY ?year ?dataset ?indicator ?area ?year
