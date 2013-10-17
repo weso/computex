@@ -19,18 +19,36 @@ object Parser {
 
   def parse(query: CQuery, model: Model, preffix: Boolean = false): 
    CIntegrityQuery = {
-    val iQuery = CIntegrityQuery(query, 
-    		extractMessage(query.query),
-            parseErrors(model))
+    CIntegrityQuery(query, 
+        			extractMessage(query.query),
+                    parseErrors(model,preffix))
+  }
 
-    def extractMessage(query: Query) = {
+  private def extractMessage(query: Query) = {
       val constructTemplate = query.getConstructTemplate()
       val lastTriple = constructTemplate.getTriples().toList.last.asTriple()
       val literal = lastTriple.getMatchObject().getLiteral()
       literal.getValue().toString()
     }
 
-   def parseErrors(model: Model): List[ErrorMessage] = {
+  private def extractParams(model: Model, preffix: Boolean): Array[CParam] = {
+      val computexParam: Property = model.getProperty("http://purl.org/weso/ontology/computex#errorParam")
+      val computexName = model.getProperty("http://purl.org/weso/ontology/computex#name")
+      val computexValue = model.getProperty("http://purl.org/weso/ontology/computex#value")
+      val seq: Seq[RDFNode] = model.listObjectsOfProperty(computexParam).toList
+      println(model.getNsURIPrefix("http://data.webfoundation.org/webindex/ontology/"))
+      for {
+        next <- seq.toArray
+        node = next.asResource()
+        foo = model.listStatements(node, computexName, null).nextStatement()
+        name = statementAsString(model.listStatements(node, computexName, null).nextStatement(), model, preffix)
+        value = statementAsString(model.listStatements(node, computexValue, null).nextStatement(), model, preffix)
+      } yield {
+        CParam(name, value)
+      }
+    }
+
+ private def parseErrors(model: Model, preffix: Boolean): List[ErrorMessage] = {
     val computexError: Property = model.getProperty("http://purl.org/weso/ontology/computex#Error")
     val computexMsg: Property = model.getProperty("http://purl.org/weso/ontology/computex#msg")
 
@@ -50,29 +68,10 @@ object Parser {
         innerIteratorMsg.next().asLiteral().toString()
       } else ""
         
-      val params = extractParams(subModel)
+      val params = extractParams(subModel,preffix)
       errors += ErrorMessage(params, new CModel(subModel))
     }
     errors.toList
    }
-
-    def extractParams(model: Model): Array[CParam] = {
-      val computexParam: Property = model.getProperty("http://purl.org/weso/ontology/computex#errorParam")
-      val computexName = model.getProperty("http://purl.org/weso/ontology/computex#name")
-      val computexValue = model.getProperty("http://purl.org/weso/ontology/computex#value")
-      val seq: Seq[RDFNode] = model.listObjectsOfProperty(computexParam).toList
-      println(model.getNsURIPrefix("http://data.webfoundation.org/webindex/ontology/"))
-      for {
-        next <- seq.toArray
-        node = next.asResource()
-        foo = model.listStatements(node, computexName, null).nextStatement()
-        name = statementAsString(model.listStatements(node, computexName, null).nextStatement(), model, preffix)
-        value = statementAsString(model.listStatements(node, computexValue, null).nextStatement(), model, preffix)
-      } yield {
-        CParam(name, value)
-      }
-    }
-    iQuery
-  }
 
 }

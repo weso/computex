@@ -84,4 +84,5 @@ case class CMessage(
  def showSource 	= options.showSource
  def expand	 		= options.expand
  def verbose 		= options.verbose
+ def preffix		= options.preffix
 }

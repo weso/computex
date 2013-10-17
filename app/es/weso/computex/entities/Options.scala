@@ -9,7 +9,7 @@ case class Options(
     val verbose: 		Boolean = false,
     val showSource:		Boolean = false,
     val expand:			Boolean = true,
- //   val imports:		Boolean = true,
-    val prefix:			Boolean = true
+    val imports:		Boolean = true,
+    val preffix:		Boolean = true
     )
 
