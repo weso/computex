@@ -12,5 +12,8 @@ POST    /file	               		controllers.FileUploadController.byFileUploadPOST
 GET		/earl/:name					controllers.EARLController.getEARL(name)
 GET     /about	               		controllers.Application.about
 
+GET 	/prefixes/sparql			controllers.Prefixes.sparql
+GET 	/prefixes/turtle			controllers.Prefixes.turtle
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
