@@ -20,7 +20,10 @@ object EARLController extends Controller {
   val XTurtle = Accepting("application/x-turtle")
   
   def getEARL(name: String) = Action(parse.anyContent) {
-    implicit request =>
+    ???
+  }
+  
+  /*  implicit request =>
       println(request.accept)
       render {
         case PlainText() => downloadEARL(name)
@@ -30,15 +33,14 @@ object EARLController extends Controller {
       }
   }
 
-  private def downloadEARL(name: String): SimpleResult[Array[Byte]] = {
+  private def downloadEARL(name: String): SimpleResult = {
     Ok.sendFile(content = new File(s"public/earls/${name}"), fileName = _ => name)
   }
 
   private def displayEARL(name: String)(implicit request: RequestHeader): SimpleResult[play.api.templates.Html] = {
     val model = ModelFactory.createDefaultModel
     model.read(s"file:public/earls/${name}", "", JenaUtils.TTL)
-    ??? 
-    // val message = CMessage(ByFile,MsgOk,Some(name))
-    // Ok(views.html.earl.defaultEARL(model, message))
-  }
+    val message = CMessage(ByFile,MsgOk,Some(name))
+    Ok(views.html.earl.defaultEARL(model, message))
+  } */
 }
