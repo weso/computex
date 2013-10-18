@@ -1,282 +1,302 @@
-@prefix indicator: <http://data.webfoundation.org/webindex/v2013/indicator/> .
+@prefix odb-dataset: <http://data.webfoundation.org/odb/v2013/dataset/> .
+@prefix wi-obs: <http://data.webfoundation.org/webindex/v2013/observation/> .
 @prefix wf-onto: <http://data.webfoundation.org/ontology/> .
 @prefix test:  <http://data.webfoundation.org/test/v2013/> .
+@prefix wi-ranking: <http://data.webfoundation.org/webindex/v2013/ranking/> .
 @prefix sdmxConcept: <http://purl.org/linked-data/sdmx/2009/concept#> .
 @prefix sdmxAttribute: <http://purl.org/linked-data/sdmx/2009/attribute#> .
 @prefix cex:   <http://purl.org/weso/ontology/computex#> .
+@prefix wi-slice: <http://data.webfoundation.org/webindex/v2013/slice/> .
+@prefix odb-obs: <http://data.webfoundation.org/odb/v2013/observation/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix obs:   <http://data.webfoundation.org/webindex/v2013/observation/> .
+@prefix wi-computation: <http://data.webfoundation.org/webindex/v2013/computation/> .
 @prefix time:  <http://www.w3.org/2006/time#> .
-@prefix weightSchema: <http://data.webfoundation.org/webindex/v2013/weightSchema/> .
 @prefix sdmxSubject: <http://purl.org/linked-data/sdmx/2009/subject#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix wi-country: <http://data.webfoundation.org/webindex/v2013/country/> .
+@prefix wi-indicator: <http://data.webfoundation.org/webindex/v2013/indicator/> .
+@prefix odb-country: <http://data.webfoundation.org/odb/v2013/country/> .
 @prefix sdmxCode: <http://purl.org/linked-data/sdmx/2009/code#> .
+@prefix wi-index: <http://data.webfoundation.org/webindex/v2013/index/> .
+@prefix wi-weightSchema: <http://data.webfoundation.org/webindex/v2013/weightSchema/> .
 @prefix webindex: <http://data.webfoundation.org/webindex/v2013/> .
-@prefix index: <http://data.webfoundation.org/webindex/v2013/index/> .
 @prefix geo:   <http://www.w3.org/2003/01/geo/wgs84_pos#> .
 @prefix wf-people: <http://data.webfoundation.org/people/> .
 @prefix qb:    <http://purl.org/linked-data/cube#> .
-@prefix country: <http://data.webfoundation.org/webindex/v2013/country/> .
+@prefix odb-ranking: <http://data.webfoundation.org/odb/v2013/ranking/> .
+@prefix odb-index: <http://data.webfoundation.org/odb/v2013/index/> .
+@prefix odb-computation: <http://data.webfoundation.org/odb/v2013/computation/> .
+@prefix odb-slice: <http://data.webfoundation.org/odb/v2013/slice/> .
 @prefix wf-org: <http://data.webfoundation.org/organization/> .
-@prefix dataset: <http://data.webfoundation.org/webindex/v2013/dataset/> .
-@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix odb-indicator: <http://data.webfoundation.org/odb/v2013/indicator/> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
-@prefix slice: <http://data.webfoundation.org/webindex/v2013/slice/> .
-@prefix computation: <http://data.webfoundation.org/webindex/v2013/computation/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix wi-dataset: <http://data.webfoundation.org/webindex/v2013/dataset/> .
+@prefix odb-weightSchema: <http://data.webfoundation.org/odb/v2013/weightSchema/> .
 @prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
-@prefix ranking: <http://data.webfoundation.org/webindex/v2013/ranking/> .
 @prefix odb:   <http://data.webfoundation.org/odb/v2013/> .
 
-slice:composite  a         qb:Slice ;
+wi-slice:composite  a      qb:Slice ;
         wf-onto:ref-year   "Year1" ;
         qb:observation     [ a                      qb:Observation ;
-                             wf-onto:ref-area       indicator:C2 ;
+                             wf-onto:ref-area       wi-indicator:C2 ;
                              wf-onto:ref-year       "Year1" ;
-                             qb:dataSet             dataset:Composite ;
-                             qb:dataset             dataset:Composite ;
+                             qb:dataSet             wi-dataset:Composite ;
+                             qb:dataset             wi-dataset:Composite ;
                              sdmxConcept:obsStatus  cex:Grouped ;
                              cex:computation        [ a                 cex:WeightedMean ;
-                                                      cex:weightSchema  weightSchema:indicatorWeights
+                                                      cex:weightSchema  wi-weightSchema:indicatorWeights
                                                     ] ;
-                             cex:indicator          index:index ;
-                             cex:value              7.78594379352878e0
+                             cex:indicator          wi-index:index ;
+                             cex:value              8.103810095663862e0
                            ] ;
         qb:observation     [ a                      qb:Observation ;
-                             wf-onto:ref-area       indicator:C3 ;
+                             wf-onto:ref-area       wi-indicator:C3 ;
                              wf-onto:ref-year       "Year1" ;
-                             qb:dataSet             dataset:Composite ;
-                             qb:dataset             dataset:Composite ;
+                             qb:dataSet             wi-dataset:Composite ;
+                             qb:dataset             wi-dataset:Composite ;
                              sdmxConcept:obsStatus  cex:Grouped ;
                              cex:computation        [ a                 cex:WeightedMean ;
-                                                      cex:weightSchema  weightSchema:indicatorWeights
+                                                      cex:weightSchema  wi-weightSchema:indicatorWeights
                                                     ] ;
-                             cex:indicator          index:index ;
-                             cex:value              7.810386069647674e0
+                             cex:indicator          wi-index:index ;
+                             cex:value              8.430378020457034e0
                            ] ;
         qb:observation     [ a                      qb:Observation ;
-                             wf-onto:ref-area       indicator:C0 ;
+                             wf-onto:ref-area       wi-indicator:C0 ;
                              wf-onto:ref-year       "Year1" ;
-                             qb:dataSet             dataset:Composite ;
-                             qb:dataset             dataset:Composite ;
+                             qb:dataSet             wi-dataset:Composite ;
+                             qb:dataset             wi-dataset:Composite ;
                              sdmxConcept:obsStatus  cex:Grouped ;
                              cex:computation        [ a                 cex:WeightedMean ;
-                                                      cex:weightSchema  weightSchema:indicatorWeights
+                                                      cex:weightSchema  wi-weightSchema:indicatorWeights
                                                     ] ;
-                             cex:indicator          index:index ;
-                             cex:value              8.87730867202404e0
+                             cex:indicator          wi-index:index ;
+                             cex:value              8.009302396827664e0
                            ] ;
         qb:observation     [ a                      qb:Observation ;
-                             wf-onto:ref-area       indicator:C1 ;
+                             wf-onto:ref-area       wi-indicator:C1 ;
                              wf-onto:ref-year       "Year1" ;
-                             qb:dataSet             dataset:Composite ;
-                             qb:dataset             dataset:Composite ;
+                             qb:dataSet             wi-dataset:Composite ;
+                             qb:dataset             wi-dataset:Composite ;
                              sdmxConcept:obsStatus  cex:Grouped ;
                              cex:computation        [ a                 cex:WeightedMean ;
-                                                      cex:weightSchema  weightSchema:indicatorWeights
+                                                      cex:weightSchema  wi-weightSchema:indicatorWeights
                                                     ] ;
-                             cex:indicator          index:index ;
-                             cex:value              7.526362086836194e0
+                             cex:indicator          wi-index:index ;
+                             cex:value              7.456511095394534e0
                            ] ;
         qb:sliceStructure  wf-onto:sliceByArea ;
-        cex:indicator      index:index .
+        cex:indicator      wi-index:index .
 
-obs:I1Year0C2  a          qb:Observation ;
-        wf-onto:ref-area  indicator:C2 ;
+wi-obs:I1Year0C2  a       qb:Observation ;
+        wf-onto:ref-area  wi-indicator:C2 ;
         wf-onto:ref-year  "Year0" ;
-        qb:dataSet        dataset:I1-Raw ;
-        cex:indicator     indicator:I1 ;
-        cex:value         "0.4990278"^^xsd:float .
+        qb:dataSet        wi-dataset:I1-Raw ;
+        cex:indicator     wi-indicator:I1 ;
+        cex:value         "0.4110239"^^xsd:float .
 
-slice:I2Year0-Imputed
+wi-slice:I2Year0-Imputed
         a                  qb:Slice ;
         wf-onto:ref-year   "Year0" ;
         qb:observation     _:b0 , _:b1 , _:b2 , _:b3 ;
         qb:sliceStructure  wf-onto:sliceByArea ;
-        cex:indicator      indicator:I2 .
+        cex:indicator      wi-indicator:I2 .
 
-slice:I1Year0-Raw  a       qb:Slice ;
+wi-slice:I1Year0-Raw  a    qb:Slice ;
         wf-onto:ref-year   "Year0" ;
-        qb:observation     obs:I1Year0C0 , obs:I1Year0C1 , obs:I1Year0C2 , obs:I1Year0C3 ;
+        qb:observation     wi-obs:I1Year0C0 , wi-obs:I1Year0C1 , wi-obs:I1Year0C2 , wi-obs:I1Year0C3 ;
         qb:sliceStructure  wf-onto:sliceByArea ;
-        cex:indicator      indicator:I1 .
+        cex:indicator      wi-indicator:I1 .
 
-obs:I1Year1C2  a          qb:Observation ;
-        wf-onto:ref-area  indicator:C2 ;
+wi-obs:I1Year1C2  a       qb:Observation ;
+        wf-onto:ref-area  wi-indicator:C2 ;
         wf-onto:ref-year  "Year1" ;
-        qb:dataSet        dataset:I1-Raw ;
-        cex:indicator     indicator:I1 ;
-        cex:value         "0.40681046"^^xsd:float .
+        qb:dataSet        wi-dataset:I1-Raw ;
+        cex:indicator     wi-indicator:I1 ;
+        cex:value         "0.6621437"^^xsd:float .
 
-indicator:C0  a     wf-onto:Country ;
+_:b4    a                      qb:Observation ;
+        wf-onto:ref-area       wi-indicator:C1 ;
+        wf-onto:ref-year       "Year0" ;
+        qb:dataSet             wi-dataset:I0-Imputed ;
+        sdmxConcept:obsStatus  cex:Imputed ;
+        cex:computation        [ a                cex:Copy ;
+                                 cex:observation  wi-obs:I0Year0C1
+                               ] ;
+        cex:indicator          wi-indicator:I0 ;
+        cex:value              "0.16059601"^^xsd:float .
+
+_:b5    a                      qb:Observation ;
+        wf-onto:ref-area       wi-indicator:C3 ;
+        wf-onto:ref-year       "Year1" ;
+        qb:dataSet             wi-dataset:I0-Normalized ;
+        sdmxConcept:obsStatus  cex:Normalized ;
+        cex:computation        [ a                cex:Normalize ;
+                                 cex:observation  _:b6
+                               ] ;
+        cex:indicator          wi-indicator:I0 ;
+        cex:value              0.19562662758543758e0 .
+
+wi-indicator:C0  a  wf-onto:Country ;
         rdfs:label  "Country C0"@en .
 
-slice:I0Year0-Normalized
+wi-slice:I0Year0-Normalized
         a                  qb:Slice ;
         wf-onto:ref-year   "Year0" ;
         qb:observation     [ a                      qb:Observation ;
-                             wf-onto:ref-area       indicator:C0 ;
+                             wf-onto:ref-area       wi-indicator:C0 ;
                              wf-onto:ref-year       "Year0" ;
-                             qb:dataSet             dataset:I0-Normalized ;
-                             sdmxConcept:obsStatus  cex:Normalized ;
-                             cex:computation        [ a                cex:Normalize ;
-                                                      cex:observation  _:b4
-                                                    ] ;
-                             cex:indicator          indicator:I0 ;
-                             cex:value              1.0878376080542398e0
-                           ] ;
-        qb:observation     [ a                      qb:Observation ;
-                             wf-onto:ref-area       indicator:C1 ;
-                             wf-onto:ref-year       "Year0" ;
-                             qb:dataSet             dataset:I0-Normalized ;
-                             sdmxConcept:obsStatus  cex:Normalized ;
-                             cex:computation        [ a                cex:Normalize ;
-                                                      cex:observation  _:b5
-                                                    ] ;
-                             cex:indicator          indicator:I0 ;
-                             cex:value              -0.9667426887555652e0
-                           ] ;
-        qb:observation     [ a                      qb:Observation ;
-                             wf-onto:ref-area       indicator:C2 ;
-                             wf-onto:ref-year       "Year0" ;
-                             qb:dataSet             dataset:I0-Normalized ;
-                             sdmxConcept:obsStatus  cex:Normalized ;
-                             cex:computation        [ a                cex:Normalize ;
-                                                      cex:observation  _:b6
-                                                    ] ;
-                             cex:indicator          indicator:I0 ;
-                             cex:value              0.6007718387018055e0
-                           ] ;
-        qb:observation     [ a                      qb:Observation ;
-                             wf-onto:ref-area       indicator:C3 ;
-                             wf-onto:ref-year       "Year0" ;
-                             qb:dataSet             dataset:I0-Normalized ;
+                             qb:dataSet             wi-dataset:I0-Normalized ;
                              sdmxConcept:obsStatus  cex:Normalized ;
                              cex:computation        [ a                cex:Normalize ;
                                                       cex:observation  _:b7
                                                     ] ;
-                             cex:indicator          indicator:I0 ;
-                             cex:value              -0.7218663933890836e0
+                             cex:indicator          wi-indicator:I0 ;
+                             cex:value              1.467259231249406e0
+                           ] ;
+        qb:observation     [ a                      qb:Observation ;
+                             wf-onto:ref-area       wi-indicator:C1 ;
+                             wf-onto:ref-year       "Year0" ;
+                             qb:dataSet             wi-dataset:I0-Normalized ;
+                             sdmxConcept:obsStatus  cex:Normalized ;
+                             cex:computation        [ a                cex:Normalize ;
+                                                      cex:observation  _:b4
+                                                    ] ;
+                             cex:indicator          wi-indicator:I0 ;
+                             cex:value              -0.7280342654219973e0
+                           ] ;
+        qb:observation     [ a                      qb:Observation ;
+                             wf-onto:ref-area       wi-indicator:C2 ;
+                             wf-onto:ref-year       "Year0" ;
+                             qb:dataSet             wi-dataset:I0-Normalized ;
+                             sdmxConcept:obsStatus  cex:Normalized ;
+                             cex:computation        [ a                cex:Normalize ;
+                                                      cex:observation  _:b8
+                                                    ] ;
+                             cex:indicator          wi-indicator:I0 ;
+                             cex:value              -0.517750704326232e0
+                           ] ;
+        qb:observation     [ a                      qb:Observation ;
+                             wf-onto:ref-area       wi-indicator:C3 ;
+                             wf-onto:ref-year       "Year0" ;
+                             qb:dataSet             wi-dataset:I0-Normalized ;
+                             sdmxConcept:obsStatus  cex:Normalized ;
+                             cex:computation        [ a                cex:Normalize ;
+                                                      cex:observation  _:b9
+                                                    ] ;
+                             cex:indicator          wi-indicator:I0 ;
+                             cex:value              -0.22147405885553226e0
                            ] ;
         qb:sliceStructure  wf-onto:sliceByArea ;
-        cex:indicator      indicator:I0 .
+        cex:indicator      wi-indicator:I0 .
 
-obs:I2Year0C0  a          qb:Observation ;
-        wf-onto:ref-area  indicator:C0 ;
+wi-obs:I2Year0C0  a       qb:Observation ;
+        wf-onto:ref-area  wi-indicator:C0 ;
         wf-onto:ref-year  "Year0" ;
-        qb:dataSet        dataset:I2-Raw ;
-        cex:indicator     indicator:I2 ;
-        cex:value         "0.5512469"^^xsd:float .
+        qb:dataSet        wi-dataset:I2-Raw ;
+        cex:indicator     wi-indicator:I2 ;
+        cex:value         "0.36544675"^^xsd:float .
 
-dataset:Composite  a     qb:DataSet ;
+wi-dataset:Composite  a  qb:DataSet ;
         rdfs:label       "Dataset Composite"@en ;
-        qb:slice         slice:composite ;
+        qb:slice         wi-slice:composite ;
         qb:structure     wf-onto:DSD ;
         cex:computation  [ a                 cex:WeightedMean ;
-                           cex:component     index:index ;
-                           cex:dataSet       dataset:Adjusted ;
+                           cex:component     wi-index:index ;
+                           cex:dataSet       wi-dataset:Adjusted ;
                            cex:dimension     wf-onto:ref-area ;
-                           cex:weightSchema  weightSchema:indicatorWeights
+                           cex:weightSchema  wi-weightSchema:indicatorWeights
                          ] .
 
-slice:I1Year1-Normalized
+wi-slice:I1Year1-Normalized
         a                  qb:Slice ;
         wf-onto:ref-year   "Year1" ;
-        qb:observation     _:b8 , _:b9 , _:b10 , _:b11 ;
+        qb:observation     _:b10 , _:b11 , _:b12 , _:b13 ;
         qb:sliceStructure  wf-onto:sliceByArea ;
-        cex:indicator      indicator:I1 .
+        cex:indicator      wi-indicator:I1 .
 
-obs:I2Year1C0  a          qb:Observation ;
-        wf-onto:ref-area  indicator:C0 ;
+wi-obs:I2Year1C0  a       qb:Observation ;
+        wf-onto:ref-area  wi-indicator:C0 ;
         wf-onto:ref-year  "Year1" ;
-        qb:dataSet        dataset:I2-Raw ;
-        cex:indicator     indicator:I2 ;
-        cex:value         "0.95516044"^^xsd:float .
-
-_:b12   a                      qb:Observation ;
-        wf-onto:ref-area       indicator:C2 ;
-        wf-onto:ref-year       "Year1" ;
-        qb:dataSet             dataset:I0-Normalized ;
-        sdmxConcept:obsStatus  cex:Normalized ;
-        cex:computation        [ a                cex:Normalize ;
-                                 cex:observation  _:b13
-                               ] ;
-        cex:indicator          indicator:I0 ;
-        cex:value              0.9045157132014737e0 .
+        qb:dataSet        wi-dataset:I2-Raw ;
+        cex:indicator     wi-indicator:I2 ;
+        cex:value         "0.23731917"^^xsd:float .
 
 _:b14   a                      qb:Observation ;
-        wf-onto:ref-area       indicator:C2 ;
-        wf-onto:ref-year       "Year0" ;
-        qb:dataSet             dataset:I1-Imputed ;
+        wf-onto:ref-area       wi-indicator:C0 ;
+        wf-onto:ref-year       "Year1" ;
+        qb:dataSet             wi-dataset:I2-Imputed ;
         sdmxConcept:obsStatus  cex:Imputed ;
         cex:computation        [ a                cex:Copy ;
-                                 cex:observation  obs:I1Year0C2
+                                 cex:observation  wi-obs:I2Year1C0
                                ] ;
-        cex:indicator          indicator:I1 ;
-        cex:value              "0.4990278"^^xsd:float .
+        cex:indicator          wi-indicator:I2 ;
+        cex:value              "0.23731917"^^xsd:float .
 
-slice:I0Year0-Raw  a       qb:Slice ;
+wi-slice:I0Year0-Raw  a    qb:Slice ;
         wf-onto:ref-year   "Year0" ;
-        qb:observation     obs:I0Year0C0 , obs:I0Year0C1 , obs:I0Year0C2 , obs:I0Year0C3 ;
+        qb:observation     wi-obs:I0Year0C0 , wi-obs:I0Year0C1 , wi-obs:I0Year0C2 , wi-obs:I0Year0C3 ;
         qb:sliceStructure  wf-onto:sliceByArea ;
-        cex:indicator      indicator:I0 .
-
-_:b3    a                      qb:Observation ;
-        wf-onto:ref-area       indicator:C3 ;
-        wf-onto:ref-year       "Year0" ;
-        qb:dataSet             dataset:I2-Imputed ;
-        sdmxConcept:obsStatus  cex:Imputed ;
-        cex:computation        [ a                cex:Copy ;
-                                 cex:observation  obs:I2Year0C3
-                               ] ;
-        cex:indicator          indicator:I2 ;
-        cex:value              "0.087848306"^^xsd:float .
+        cex:indicator      wi-indicator:I0 .
 
 _:b15   a                      qb:Observation ;
-        wf-onto:ref-area       indicator:C1 ;
+        wf-onto:ref-area       wi-indicator:C1 ;
         wf-onto:ref-year       "Year1" ;
-        qb:dataSet             dataset:I2-Normalized ;
-        sdmxConcept:obsStatus  cex:Normalized ;
-        cex:computation        [ a                cex:Normalize ;
-                                 cex:observation  _:b16
+        qb:dataSet             wi-dataset:I0-Imputed ;
+        sdmxConcept:obsStatus  cex:Imputed ;
+        cex:computation        [ a                cex:Copy ;
+                                 cex:observation  wi-obs:I0Year1C1
                                ] ;
-        cex:indicator          indicator:I2 ;
-        cex:value              -1.2655160354296873e0 .
+        cex:indicator          wi-indicator:I0 ;
+        cex:value              "0.26453406"^^xsd:float .
+
+_:b16   a                      qb:Observation ;
+        wf-onto:ref-area       wi-indicator:C3 ;
+        wf-onto:ref-year       "Year1" ;
+        qb:dataSet             wi-dataset:I1-Imputed ;
+        sdmxConcept:obsStatus  cex:Imputed ;
+        cex:computation        [ a                cex:Copy ;
+                                 cex:observation  wi-obs:I1Year1C3
+                               ] ;
+        cex:indicator          wi-indicator:I1 ;
+        cex:value              "0.70439255"^^xsd:float .
 
 cex:indicator  rdfs:range  wf-onto:Indicator .
 
-dataset:I0-Raw  a     qb:DataSet ;
+wi-dataset:I0-Raw  a  qb:DataSet ;
         rdfs:label    "Dataset I0-Raw"@en ;
-        qb:slice      slice:I0Year0-Raw , slice:I0Year1-Raw ;
+        qb:slice      wi-slice:I0Year0-Raw , wi-slice:I0Year1-Raw ;
         qb:structure  wf-onto:DSD .
 
-slice:I1Year1-Raw  a       qb:Slice ;
+wi-slice:I1Year1-Raw  a    qb:Slice ;
         wf-onto:ref-year   "Year1" ;
-        qb:observation     obs:I1Year1C0 , obs:I1Year1C1 , obs:I1Year1C2 , obs:I1Year1C3 ;
+        qb:observation     wi-obs:I1Year1C0 , wi-obs:I1Year1C1 , wi-obs:I1Year1C2 , wi-obs:I1Year1C3 ;
         qb:sliceStructure  wf-onto:sliceByArea ;
-        cex:indicator      indicator:I1 .
+        cex:indicator      wi-indicator:I1 .
 
 _:b17   a                      qb:Observation ;
-        wf-onto:ref-area       indicator:C3 ;
+        wf-onto:ref-area       wi-indicator:C0 ;
         wf-onto:ref-year       "Year1" ;
-        qb:dataSet             dataset:I0-Imputed ;
-        sdmxConcept:obsStatus  cex:Imputed ;
-        cex:computation        [ a                cex:Copy ;
-                                 cex:observation  obs:I0Year1C3
+        qb:dataSet             wi-dataset:I0-Normalized ;
+        sdmxConcept:obsStatus  cex:Normalized ;
+        cex:computation        [ a                cex:Normalize ;
+                                 cex:observation  _:b18
                                ] ;
-        cex:indicator          indicator:I0 ;
-        cex:value              "0.14384544"^^xsd:float .
+        cex:indicator          wi-indicator:I0 ;
+        cex:value              0.259624034169234e0 .
 
-_:b18   a                      qb:Observation ;
-        wf-onto:ref-area       indicator:C2 ;
-        wf-onto:ref-year       "Year1" ;
-        qb:dataSet             dataset:I1-Imputed ;
+_:b19   a                      qb:Observation ;
+        wf-onto:ref-area       wi-indicator:C0 ;
+        wf-onto:ref-year       "Year0" ;
+        qb:dataSet             wi-dataset:I1-Imputed ;
         sdmxConcept:obsStatus  cex:Imputed ;
         cex:computation        [ a                cex:Copy ;
-                                 cex:observation  obs:I1Year1C2
+                                 cex:observation  wi-obs:I1Year0C0
                                ] ;
-        cex:indicator          indicator:I1 ;
-        cex:value              "0.40681046"^^xsd:float .
+        cex:indicator          wi-indicator:I1 ;
+        cex:value              "0.5353505"^^xsd:float .
 
 wf-onto:DSD  a        qb:DataStructureDefinition ;
         qb:component  [ qb:dimension  wf-onto:ref-area ;
@@ -291,979 +311,971 @@ wf-onto:DSD  a        qb:DataStructureDefinition ;
         qb:component  [ qb:measure  cex:value ] ;
         qb:sliceKey   wf-onto:sliceByArea .
 
-indicator:C3  a     wf-onto:Country ;
+wi-indicator:C3  a  wf-onto:Country ;
         rdfs:label  "Country C3"@en .
 
-index:index  a       cex:index ;
-        cex:element  indicator:I0 , indicator:I1 , indicator:I2 .
+wi-index:index  a    cex:index ;
+        cex:element  wi-indicator:I0 , wi-indicator:I1 , wi-indicator:I2 .
 
-obs:I0Year0C2  a          qb:Observation ;
-        wf-onto:ref-area  indicator:C2 ;
+wi-obs:I0Year0C2  a       qb:Observation ;
+        wf-onto:ref-area  wi-indicator:C2 ;
         wf-onto:ref-year  "Year0" ;
-        qb:dataSet        dataset:I0-Raw ;
-        cex:indicator     indicator:I0 ;
-        cex:value         "0.72160596"^^xsd:float .
+        qb:dataSet        wi-dataset:I0-Raw ;
+        cex:indicator     wi-indicator:I0 ;
+        cex:value         "0.22244722"^^xsd:float .
 
-obs:I2Year0C3  a          qb:Observation ;
-        wf-onto:ref-area  indicator:C3 ;
+wi-obs:I2Year0C3  a       qb:Observation ;
+        wf-onto:ref-area  wi-indicator:C3 ;
         wf-onto:ref-year  "Year0" ;
-        qb:dataSet        dataset:I2-Raw ;
-        cex:indicator     indicator:I2 ;
-        cex:value         "0.087848306"^^xsd:float .
+        qb:dataSet        wi-dataset:I2-Raw ;
+        cex:indicator     wi-indicator:I2 ;
+        cex:value         "0.8581646"^^xsd:float .
 
-dataset:I1-Imputed  a    qb:DataSet ;
+wi-dataset:I1-Imputed
+        a                qb:DataSet ;
         rdfs:label       "Dataset I1-Imputed"@en ;
-        qb:slice         slice:I1Year0-Imputed , slice:I1Year1-Imputed ;
+        qb:slice         wi-slice:I1Year0-Imputed , wi-slice:I1Year1-Imputed ;
         qb:structure     wf-onto:DSD ;
         cex:computation  [ a            cex:ImputeDataSet ;
-                           cex:dataSet  dataset:I1-Raw ;
+                           cex:dataSet  wi-dataset:I1-Raw ;
                            cex:method   cex:CopyRaw , cex:AvgGrowth2Missing , cex:MeanBetweenMissing
                          ] .
 
-slice:I0Year1-Normalized
+wi-slice:I0Year1-Normalized
         a                  qb:Slice ;
         wf-onto:ref-year   "Year1" ;
-        qb:observation     _:b19 , _:b20 , _:b12 , _:b21 ;
+        qb:observation     _:b17 , _:b20 , _:b21 , _:b5 ;
         qb:sliceStructure  wf-onto:sliceByArea ;
-        cex:indicator      indicator:I0 .
+        cex:indicator      wi-indicator:I0 .
 
-slice:I0Year1-Imputed
+wi-slice:I0Year1-Imputed
         a                  qb:Slice ;
         wf-onto:ref-year   "Year1" ;
-        qb:observation     _:b22 , _:b23 , _:b13 , _:b17 ;
+        qb:observation     _:b18 , _:b15 , _:b22 , _:b6 ;
         qb:sliceStructure  wf-onto:sliceByArea ;
-        cex:indicator      indicator:I0 .
+        cex:indicator      wi-indicator:I0 .
 
-_:b4    a                      qb:Observation ;
-        wf-onto:ref-area       indicator:C0 ;
+wi-obs:I2Year1C3  a       qb:Observation ;
+        wf-onto:ref-area  wi-indicator:C3 ;
+        wf-onto:ref-year  "Year1" ;
+        qb:dataSet        wi-dataset:I2-Raw ;
+        cex:indicator     wi-indicator:I2 ;
+        cex:value         "0.5456316"^^xsd:float .
+
+wi-obs:I0Year1C2  a       qb:Observation ;
+        wf-onto:ref-area  wi-indicator:C2 ;
+        wf-onto:ref-year  "Year1" ;
+        qb:dataSet        wi-dataset:I0-Raw ;
+        cex:indicator     wi-indicator:I0 ;
+        cex:value         "0.9715178"^^xsd:float .
+
+_:b11   a                      qb:Observation ;
+        wf-onto:ref-area       wi-indicator:C1 ;
+        wf-onto:ref-year       "Year1" ;
+        qb:dataSet             wi-dataset:I1-Normalized ;
+        sdmxConcept:obsStatus  cex:Normalized ;
+        cex:computation        [ a                cex:Normalize ;
+                                 cex:observation  _:b23
+                               ] ;
+        cex:indicator          wi-indicator:I1 ;
+        cex:value              -1.467071465880909e0 .
+
+_:b1    a                      qb:Observation ;
+        wf-onto:ref-area       wi-indicator:C1 ;
         wf-onto:ref-year       "Year0" ;
-        qb:dataSet             dataset:I0-Imputed ;
+        qb:dataSet             wi-dataset:I2-Imputed ;
         sdmxConcept:obsStatus  cex:Imputed ;
         cex:computation        [ a                cex:Copy ;
-                                 cex:observation  obs:I0Year0C0
+                                 cex:observation  wi-obs:I2Year0C1
                                ] ;
-        cex:indicator          indicator:I0 ;
-        cex:value              "0.88085157"^^xsd:float .
+        cex:indicator          wi-indicator:I2 ;
+        cex:value              "0.53519875"^^xsd:float .
 
-obs:I2Year1C3  a          qb:Observation ;
-        wf-onto:ref-area  indicator:C3 ;
-        wf-onto:ref-year  "Year1" ;
-        qb:dataSet        dataset:I2-Raw ;
-        cex:indicator     indicator:I2 ;
-        cex:value         "0.5768988"^^xsd:float .
-
-obs:I0Year1C2  a          qb:Observation ;
-        wf-onto:ref-area  indicator:C2 ;
-        wf-onto:ref-year  "Year1" ;
-        qb:dataSet        dataset:I0-Raw ;
-        cex:indicator     indicator:I0 ;
-        cex:value         "0.9303251"^^xsd:float .
-
-obs:I1Year0C0  a          qb:Observation ;
-        wf-onto:ref-area  indicator:C0 ;
+wi-obs:I1Year0C0  a       qb:Observation ;
+        wf-onto:ref-area  wi-indicator:C0 ;
         wf-onto:ref-year  "Year0" ;
-        qb:dataSet        dataset:I1-Raw ;
-        cex:indicator     indicator:I1 ;
-        cex:value         "0.43794364"^^xsd:float .
+        qb:dataSet        wi-dataset:I1-Raw ;
+        cex:indicator     wi-indicator:I1 ;
+        cex:value         "0.5353505"^^xsd:float .
 
-dataset:I2-Normalized
+wi-dataset:I2-Normalized
         a                qb:DataSet ;
         rdfs:label       "Dataset I2-Normalized"@en ;
-        qb:slice         slice:I2Year0-Normalized , slice:I2Year1-Normalized ;
+        qb:slice         wi-slice:I2Year0-Normalized , wi-slice:I2Year1-Normalized ;
         qb:structure     wf-onto:DSD ;
         cex:computation  [ a            cex:NormalizeDataSet ;
-                           cex:dataSet  dataset:I2-Imputed
+                           cex:dataSet  wi-dataset:I2-Imputed
                          ] .
 
-indicator:I1  a      wf-onto:SecondaryIndicator ;
+wi-indicator:I1  a   wf-onto:SecondaryIndicator ;
         rdfs:label   "Indicator I1"@en ;
         cex:highLow  cex:High .
 
-obs:I1Year1C0  a          qb:Observation ;
-        wf-onto:ref-area  indicator:C0 ;
+wi-obs:I1Year1C0  a       qb:Observation ;
+        wf-onto:ref-area  wi-indicator:C0 ;
         wf-onto:ref-year  "Year1" ;
-        qb:dataSet        dataset:I1-Raw ;
-        cex:indicator     indicator:I1 ;
-        cex:value         "0.84624046"^^xsd:float .
+        qb:dataSet        wi-dataset:I1-Raw ;
+        cex:indicator     wi-indicator:I1 ;
+        cex:value         "0.65176606"^^xsd:float .
 
-_:b11   a                      qb:Observation ;
-        wf-onto:ref-area       indicator:C3 ;
-        wf-onto:ref-year       "Year1" ;
-        qb:dataSet             dataset:I1-Normalized ;
-        sdmxConcept:obsStatus  cex:Normalized ;
-        cex:computation        [ a                cex:Normalize ;
-                                 cex:observation  _:b24
-                               ] ;
-        cex:indicator          indicator:I1 ;
-        cex:value              0.16999913644062775e0 .
-
-dataset:I1-Raw  a     qb:DataSet ;
-        rdfs:label    "Dataset I1-Raw"@en ;
-        qb:slice      slice:I1Year0-Raw , slice:I1Year1-Raw ;
-        qb:structure  wf-onto:DSD .
-
-_:b22   a                      qb:Observation ;
-        wf-onto:ref-area       indicator:C0 ;
-        wf-onto:ref-year       "Year1" ;
-        qb:dataSet             dataset:I0-Imputed ;
+_:b8    a                      qb:Observation ;
+        wf-onto:ref-area       wi-indicator:C2 ;
+        wf-onto:ref-year       "Year0" ;
+        qb:dataSet             wi-dataset:I0-Imputed ;
         sdmxConcept:obsStatus  cex:Imputed ;
         cex:computation        [ a                cex:Copy ;
-                                 cex:observation  obs:I0Year1C0
+                                 cex:observation  wi-obs:I0Year0C2
                                ] ;
-        cex:indicator          indicator:I0 ;
-        cex:value              "0.8959326"^^xsd:float .
+        cex:indicator          wi-indicator:I0 ;
+        cex:value              "0.22244722"^^xsd:float .
 
-slice:I1Year1-Adjusted
+_:b24   a                      qb:Observation ;
+        wf-onto:ref-area       wi-indicator:C0 ;
+        wf-onto:ref-year       "Year1" ;
+        qb:dataSet             wi-dataset:I1-Imputed ;
+        sdmxConcept:obsStatus  cex:Imputed ;
+        cex:computation        [ a                cex:Copy ;
+                                 cex:observation  wi-obs:I1Year1C0
+                               ] ;
+        cex:indicator          wi-indicator:I1 ;
+        cex:value              "0.65176606"^^xsd:float .
+
+wi-dataset:I1-Raw  a  qb:DataSet ;
+        rdfs:label    "Dataset I1-Raw"@en ;
+        qb:slice      wi-slice:I1Year0-Raw , wi-slice:I1Year1-Raw ;
+        qb:structure  wf-onto:DSD .
+
+wi-slice:I1Year1-Adjusted
         a                  qb:Slice ;
         wf-onto:ref-year   "Year1" ;
         qb:observation     [ a                      qb:Observation ;
-                             wf-onto:ref-area       indicator:C0 ;
+                             wf-onto:ref-area       wi-indicator:C0 ;
                              wf-onto:ref-year       "Year1" ;
-                             qb:dataSet             dataset:Adjusted ;
-                             sdmxConcept:obsStatus  cex:Adjusted ;
-                             cex:computation        [ a                cex:Adjust ;
-                                                      cex:increment    "8"^^xsd:int ;
-                                                      cex:observation  _:b8
-                                                    ] ;
-                             cex:indicator          indicator:I1 ;
-                             cex:value              8.64257105813558e0
-                           ] ;
-        qb:observation     [ a                      qb:Observation ;
-                             wf-onto:ref-area       indicator:C1 ;
-                             wf-onto:ref-year       "Year1" ;
-                             qb:dataSet             dataset:Adjusted ;
-                             sdmxConcept:obsStatus  cex:Adjusted ;
-                             cex:computation        [ a                cex:Adjust ;
-                                                      cex:increment    "8"^^xsd:int ;
-                                                      cex:observation  _:b9
-                                                    ] ;
-                             cex:indicator          indicator:I1 ;
-                             cex:value              8.649192262214974e0
-                           ] ;
-        qb:observation     [ a                      qb:Observation ;
-                             wf-onto:ref-area       indicator:C2 ;
-                             wf-onto:ref-year       "Year1" ;
-                             qb:dataSet             dataset:Adjusted ;
+                             qb:dataSet             wi-dataset:Adjusted ;
                              sdmxConcept:obsStatus  cex:Adjusted ;
                              cex:computation        [ a                cex:Adjust ;
                                                       cex:increment    "8"^^xsd:int ;
                                                       cex:observation  _:b10
                                                     ] ;
-                             cex:indicator          indicator:I1 ;
-                             cex:value              6.538236686907906e0
+                             cex:indicator          wi-indicator:I1 ;
+                             cex:value              8.296746290492168e0
                            ] ;
         qb:observation     [ a                      qb:Observation ;
-                             wf-onto:ref-area       indicator:C3 ;
+                             wf-onto:ref-area       wi-indicator:C1 ;
                              wf-onto:ref-year       "Year1" ;
-                             qb:dataSet             dataset:Adjusted ;
+                             qb:dataSet             wi-dataset:Adjusted ;
                              sdmxConcept:obsStatus  cex:Adjusted ;
                              cex:computation        [ a                cex:Adjust ;
                                                       cex:increment    "8"^^xsd:int ;
                                                       cex:observation  _:b11
                                                     ] ;
-                             cex:indicator          indicator:I1 ;
-                             cex:value              8.169999136440628e0
-                           ] ;
-        qb:sliceStructure  wf-onto:sliceByArea ;
-        cex:indicator      indicator:I1 .
-
-_:b25   a                      qb:Observation ;
-        wf-onto:ref-area       indicator:C3 ;
-        wf-onto:ref-year       "Year0" ;
-        qb:dataSet             dataset:I1-Imputed ;
-        sdmxConcept:obsStatus  cex:Imputed ;
-        cex:computation        [ a                cex:Copy ;
-                                 cex:observation  obs:I1Year0C3
-                               ] ;
-        cex:indicator          indicator:I1 ;
-        cex:value              "0.014630377"^^xsd:float .
-
-slice:I1Year1-Imputed
-        a                  qb:Slice ;
-        wf-onto:ref-year   "Year1" ;
-        qb:observation     _:b26 , _:b27 , _:b18 , _:b24 ;
-        qb:sliceStructure  wf-onto:sliceByArea ;
-        cex:indicator      indicator:I1 .
-
-dataset:I0-Imputed  a    qb:DataSet ;
-        rdfs:label       "Dataset I0-Imputed"@en ;
-        qb:slice         slice:I0Year0-Imputed , slice:I0Year1-Imputed ;
-        qb:structure     wf-onto:DSD ;
-        cex:computation  [ a            cex:ImputeDataSet ;
-                           cex:dataSet  dataset:I0-Raw ;
-                           cex:method   cex:CopyRaw , cex:AvgGrowth2Missing , cex:MeanBetweenMissing
-                         ] .
-
-_:b28   a                      qb:Observation ;
-        wf-onto:ref-area       indicator:C3 ;
-        wf-onto:ref-year       "Year1" ;
-        qb:dataSet             dataset:I2-Imputed ;
-        sdmxConcept:obsStatus  cex:Imputed ;
-        cex:computation        [ a                cex:Copy ;
-                                 cex:observation  obs:I2Year1C3
-                               ] ;
-        cex:indicator          indicator:I2 ;
-        cex:value              "0.5768988"^^xsd:float .
-
-wf-onto:ref-area  rdfs:range  wf-onto:Area .
-
-slice:I2Year0-Raw  a       qb:Slice ;
-        wf-onto:ref-year   "Year0" ;
-        qb:observation     obs:I2Year0C0 , obs:I2Year0C1 , obs:I2Year0C2 , obs:I2Year0C3 ;
-        qb:sliceStructure  wf-onto:sliceByArea ;
-        cex:indicator      indicator:I2 .
-
-_:b29   a                      qb:Observation ;
-        wf-onto:ref-area       indicator:C2 ;
-        wf-onto:ref-year       "Year1" ;
-        qb:dataSet             dataset:I2-Normalized ;
-        sdmxConcept:obsStatus  cex:Normalized ;
-        cex:computation        [ a                cex:Normalize ;
-                                 cex:observation  _:b30
-                               ] ;
-        cex:indicator          indicator:I2 ;
-        cex:value              -0.08492171564063793e0 .
-
-obs:I1Year0C3  a          qb:Observation ;
-        wf-onto:ref-area  indicator:C3 ;
-        wf-onto:ref-year  "Year0" ;
-        qb:dataSet        dataset:I1-Raw ;
-        cex:indicator     indicator:I1 ;
-        cex:value         "0.014630377"^^xsd:float .
-
-_:b8    a                      qb:Observation ;
-        wf-onto:ref-area       indicator:C0 ;
-        wf-onto:ref-year       "Year1" ;
-        qb:dataSet             dataset:I1-Normalized ;
-        sdmxConcept:obsStatus  cex:Normalized ;
-        cex:computation        [ a                cex:Normalize ;
-                                 cex:observation  _:b26
-                               ] ;
-        cex:indicator          indicator:I1 ;
-        cex:value              0.642571058135581e0 .
-
-dataset:I0-Normalized
-        a                qb:DataSet ;
-        rdfs:label       "Dataset I0-Normalized"@en ;
-        qb:slice         slice:I0Year0-Normalized , slice:I0Year1-Normalized ;
-        qb:structure     wf-onto:DSD ;
-        cex:computation  [ a            cex:NormalizeDataSet ;
-                           cex:dataSet  dataset:I0-Imputed
-                         ] .
-
-obs:I1Year1C3  a          qb:Observation ;
-        wf-onto:ref-area  indicator:C3 ;
-        wf-onto:ref-year  "Year1" ;
-        qb:dataSet        dataset:I1-Raw ;
-        cex:indicator     indicator:I1 ;
-        cex:value         "0.74755734"^^xsd:float .
-
-_:b0    a                      qb:Observation ;
-        wf-onto:ref-area       indicator:C0 ;
-        wf-onto:ref-year       "Year0" ;
-        qb:dataSet             dataset:I2-Imputed ;
-        sdmxConcept:obsStatus  cex:Imputed ;
-        cex:computation        [ a                cex:Copy ;
-                                 cex:observation  obs:I2Year0C0
-                               ] ;
-        cex:indicator          indicator:I2 ;
-        cex:value              "0.5512469"^^xsd:float .
-
-indicator:C1  a     wf-onto:Country ;
-        rdfs:label  "Country C1"@en .
-
-slice:I2Year1-Imputed
-        a                  qb:Slice ;
-        wf-onto:ref-year   "Year1" ;
-        qb:observation     _:b31 , _:b16 , _:b30 , _:b28 ;
-        qb:sliceStructure  wf-onto:sliceByArea ;
-        cex:indicator      indicator:I2 .
-
-obs:I2Year0C1  a          qb:Observation ;
-        wf-onto:ref-area  indicator:C1 ;
-        wf-onto:ref-year  "Year0" ;
-        qb:dataSet        dataset:I2-Raw ;
-        cex:indicator     indicator:I2 ;
-        cex:value         "0.63093907"^^xsd:float .
-
-obs:I0Year0C0  a          qb:Observation ;
-        wf-onto:ref-area  indicator:C0 ;
-        wf-onto:ref-year  "Year0" ;
-        qb:dataSet        dataset:I0-Raw ;
-        cex:indicator     indicator:I0 ;
-        cex:value         "0.88085157"^^xsd:float .
-
-obs:I2Year1C1  a          qb:Observation ;
-        wf-onto:ref-area  indicator:C1 ;
-        wf-onto:ref-year  "Year1" ;
-        qb:dataSet        dataset:I2-Raw ;
-        cex:indicator     indicator:I2 ;
-        cex:value         "0.016330421"^^xsd:float .
-
-_:b5    a                      qb:Observation ;
-        wf-onto:ref-area       indicator:C1 ;
-        wf-onto:ref-year       "Year0" ;
-        qb:dataSet             dataset:I0-Imputed ;
-        sdmxConcept:obsStatus  cex:Imputed ;
-        cex:computation        [ a                cex:Copy ;
-                                 cex:observation  obs:I0Year0C1
-                               ] ;
-        cex:indicator          indicator:I0 ;
-        cex:value              "0.20910883"^^xsd:float .
-
-wf-onto:ref-year  rdfs:range  wf-onto:Year .
-
-obs:I0Year1C0  a          qb:Observation ;
-        wf-onto:ref-area  indicator:C0 ;
-        wf-onto:ref-year  "Year1" ;
-        qb:dataSet        dataset:I0-Raw ;
-        cex:indicator     indicator:I0 ;
-        cex:value         "0.8959326"^^xsd:float .
-
-_:b21   a                      qb:Observation ;
-        wf-onto:ref-area       indicator:C3 ;
-        wf-onto:ref-year       "Year1" ;
-        qb:dataSet             dataset:I0-Normalized ;
-        sdmxConcept:obsStatus  cex:Normalized ;
-        cex:computation        [ a                cex:Normalize ;
-                                 cex:observation  _:b17
-                               ] ;
-        cex:indicator          indicator:I0 ;
-        cex:value              -0.9244604473733369e0 .
-
-dataset:Adjusted  a      qb:DataSet ;
-        rdfs:label       "Dataset Adjusted"@en ;
-        qb:slice         slice:I0Year1-Adjusted , slice:I1Year1-Adjusted , slice:I2Year1-Adjusted ;
-        qb:structure     wf-onto:DSD ;
-        cex:computation  [ a              cex:AdjustDataSet ;
-                           cex:dataSet    dataset:I0-Normalized , dataset:I1-Normalized , dataset:I2-Normalized ;
-                           cex:dimension  wf-onto:ref-year ;
-                           cex:increment  "8"^^xsd:int ;
-                           cex:value      "Year1"
-                         ] .
-
-_:b31   a                      qb:Observation ;
-        wf-onto:ref-area       indicator:C0 ;
-        wf-onto:ref-year       "Year1" ;
-        qb:dataSet             dataset:I2-Imputed ;
-        sdmxConcept:obsStatus  cex:Imputed ;
-        cex:computation        [ a                cex:Copy ;
-                                 cex:observation  obs:I2Year1C0
-                               ] ;
-        cex:indicator          indicator:I2 ;
-        cex:value              "0.95516044"^^xsd:float .
-
-slice:I2Year1-Raw  a       qb:Slice ;
-        wf-onto:ref-year   "Year1" ;
-        qb:observation     obs:I2Year1C0 , obs:I2Year1C1 , obs:I2Year1C2 , obs:I2Year1C3 ;
-        qb:sliceStructure  wf-onto:sliceByArea ;
-        cex:indicator      indicator:I2 .
-
-dataset:Ranking  a       qb:DataSet ;
-        rdfs:label       "Dataset Ranking"@en ;
-        qb:slice         slice:ranking ;
-        qb:structure     wf-onto:DSD ;
-        cex:computation  [ a              cex:Ranking ;
-                           cex:dimension  wf-onto:ref-area ;
-                           cex:slice      slice:composite
-                         ] .
-
-_:b23   a                      qb:Observation ;
-        wf-onto:ref-area       indicator:C1 ;
-        wf-onto:ref-year       "Year1" ;
-        qb:dataSet             dataset:I0-Imputed ;
-        sdmxConcept:obsStatus  cex:Imputed ;
-        cex:computation        [ a                cex:Copy ;
-                                 cex:observation  obs:I0Year1C1
-                               ] ;
-        cex:indicator          indicator:I0 ;
-        cex:value              "0.19539076"^^xsd:float .
-
-_:b24   a                      qb:Observation ;
-        wf-onto:ref-area       indicator:C3 ;
-        wf-onto:ref-year       "Year1" ;
-        qb:dataSet             dataset:I1-Imputed ;
-        sdmxConcept:obsStatus  cex:Imputed ;
-        cex:computation        [ a                cex:Copy ;
-                                 cex:observation  obs:I1Year1C3
-                               ] ;
-        cex:indicator          indicator:I1 ;
-        cex:value              "0.74755734"^^xsd:float .
-
-dataset:I1-Normalized
-        a                qb:DataSet ;
-        rdfs:label       "Dataset I1-Normalized"@en ;
-        qb:slice         slice:I1Year0-Normalized , slice:I1Year1-Normalized ;
-        qb:structure     wf-onto:DSD ;
-        cex:computation  [ a            cex:NormalizeDataSet ;
-                           cex:dataSet  dataset:I1-Imputed
-                         ] .
-
-obs:I0Year0C3  a          qb:Observation ;
-        wf-onto:ref-area  indicator:C3 ;
-        wf-onto:ref-year  "Year0" ;
-        qb:dataSet        dataset:I0-Raw ;
-        cex:indicator     indicator:I0 ;
-        cex:value         "0.28917086"^^xsd:float .
-
-weightSchema:indicatorWeights
-        a           cex:WeightSchema ;
-        cex:weight  [ a              cex:Weight ;
-                      cex:dimension  cex:indicator ;
-                      cex:element    indicator:I0 ;
-                      cex:value      "0.33333334"^^xsd:float
-                    ] ;
-        cex:weight  [ a              cex:Weight ;
-                      cex:dimension  cex:indicator ;
-                      cex:element    indicator:I1 ;
-                      cex:value      "0.33333334"^^xsd:float
-                    ] ;
-        cex:weight  [ a              cex:Weight ;
-                      cex:dimension  cex:indicator ;
-                      cex:element    indicator:I2 ;
-                      cex:value      "0.33333334"^^xsd:float
-                    ] .
-
-_:b19   a                      qb:Observation ;
-        wf-onto:ref-area       indicator:C0 ;
-        wf-onto:ref-year       "Year1" ;
-        qb:dataSet             dataset:I0-Normalized ;
-        sdmxConcept:obsStatus  cex:Normalized ;
-        cex:computation        [ a                cex:Normalize ;
-                                 cex:observation  _:b22
-                               ] ;
-        cex:indicator          indicator:I0 ;
-        cex:value              0.8245352347458119e0 .
-
-obs:I0Year1C3  a          qb:Observation ;
-        wf-onto:ref-area  indicator:C3 ;
-        wf-onto:ref-year  "Year1" ;
-        qb:dataSet        dataset:I0-Raw ;
-        cex:indicator     indicator:I0 ;
-        cex:value         "0.14384544"^^xsd:float .
-
-_:b32   a                      qb:Observation ;
-        wf-onto:ref-area       indicator:C0 ;
-        wf-onto:ref-year       "Year0" ;
-        qb:dataSet             dataset:I1-Imputed ;
-        sdmxConcept:obsStatus  cex:Imputed ;
-        cex:computation        [ a                cex:Copy ;
-                                 cex:observation  obs:I1Year0C0
-                               ] ;
-        cex:indicator          indicator:I1 ;
-        cex:value              "0.43794364"^^xsd:float .
-
-dataset:I2-Imputed  a    qb:DataSet ;
-        rdfs:label       "Dataset I2-Imputed"@en ;
-        qb:slice         slice:I2Year0-Imputed , slice:I2Year1-Imputed ;
-        qb:structure     wf-onto:DSD ;
-        cex:computation  [ a            cex:ImputeDataSet ;
-                           cex:dataSet  dataset:I2-Raw ;
-                           cex:method   cex:CopyRaw , cex:AvgGrowth2Missing , cex:MeanBetweenMissing
-                         ] .
-
-obs:I1Year0C1  a          qb:Observation ;
-        wf-onto:ref-area  indicator:C1 ;
-        wf-onto:ref-year  "Year0" ;
-        qb:dataSet        dataset:I1-Raw ;
-        cex:indicator     indicator:I1 ;
-        cex:value         "0.016323686"^^xsd:float .
-
-indicator:I2  a      wf-onto:SecondaryIndicator ;
-        rdfs:label   "Indicator I2"@en ;
-        cex:highLow  cex:High .
-
-_:b9    a                      qb:Observation ;
-        wf-onto:ref-area       indicator:C1 ;
-        wf-onto:ref-year       "Year1" ;
-        qb:dataSet             dataset:I1-Normalized ;
-        sdmxConcept:obsStatus  cex:Normalized ;
-        cex:computation        [ a                cex:Normalize ;
-                                 cex:observation  _:b27
-                               ] ;
-        cex:indicator          indicator:I1 ;
-        cex:value              0.6491922622149743e0 .
-
-obs:I1Year1C1  a          qb:Observation ;
-        wf-onto:ref-area  indicator:C1 ;
-        wf-onto:ref-year  "Year1" ;
-        qb:dataSet        dataset:I1-Raw ;
-        cex:indicator     indicator:I1 ;
-        cex:value         "0.8476231"^^xsd:float .
-
-_:b1    a                      qb:Observation ;
-        wf-onto:ref-area       indicator:C1 ;
-        wf-onto:ref-year       "Year0" ;
-        qb:dataSet             dataset:I2-Imputed ;
-        sdmxConcept:obsStatus  cex:Imputed ;
-        cex:computation        [ a                cex:Copy ;
-                                 cex:observation  obs:I2Year0C1
-                               ] ;
-        cex:indicator          indicator:I2 ;
-        cex:value              "0.63093907"^^xsd:float .
-
-_:b6    a                      qb:Observation ;
-        wf-onto:ref-area       indicator:C2 ;
-        wf-onto:ref-year       "Year0" ;
-        qb:dataSet             dataset:I0-Imputed ;
-        sdmxConcept:obsStatus  cex:Imputed ;
-        cex:computation        [ a                cex:Copy ;
-                                 cex:observation  obs:I0Year0C2
-                               ] ;
-        cex:indicator          indicator:I0 ;
-        cex:value              "0.72160596"^^xsd:float .
-
-_:b26   a                      qb:Observation ;
-        wf-onto:ref-area       indicator:C0 ;
-        wf-onto:ref-year       "Year1" ;
-        qb:dataSet             dataset:I1-Imputed ;
-        sdmxConcept:obsStatus  cex:Imputed ;
-        cex:computation        [ a                cex:Copy ;
-                                 cex:observation  obs:I1Year1C0
-                               ] ;
-        cex:indicator          indicator:I1 ;
-        cex:value              "0.84624046"^^xsd:float .
-
-_:b16   a                      qb:Observation ;
-        wf-onto:ref-area       indicator:C1 ;
-        wf-onto:ref-year       "Year1" ;
-        qb:dataSet             dataset:I2-Imputed ;
-        sdmxConcept:obsStatus  cex:Imputed ;
-        cex:computation        [ a                cex:Copy ;
-                                 cex:observation  obs:I2Year1C1
-                               ] ;
-        cex:indicator          indicator:I2 ;
-        cex:value              "0.016330421"^^xsd:float .
-
-_:b33   a                      qb:Observation ;
-        wf-onto:ref-area       indicator:C3 ;
-        wf-onto:ref-year       "Year1" ;
-        qb:dataSet             dataset:I2-Normalized ;
-        sdmxConcept:obsStatus  cex:Normalized ;
-        cex:computation        [ a                cex:Normalize ;
-                                 cex:observation  _:b28
-                               ] ;
-        cex:indicator          indicator:I2 ;
-        cex:value              0.18561882157281986e0 .
-
-slice:I0Year1-Adjusted
-        a                  qb:Slice ;
-        wf-onto:ref-year   "Year1" ;
-        qb:observation     [ a                      qb:Observation ;
-                             wf-onto:ref-area       indicator:C0 ;
-                             wf-onto:ref-year       "Year1" ;
-                             qb:dataSet             dataset:Adjusted ;
-                             sdmxConcept:obsStatus  cex:Adjusted ;
-                             cex:computation        [ a                cex:Adjust ;
-                                                      cex:increment    "8"^^xsd:int ;
-                                                      cex:observation  _:b19
-                                                    ] ;
-                             cex:indicator          indicator:I0 ;
-                             cex:value              8.824535234745811e0
+                             cex:indicator          wi-indicator:I1 ;
+                             cex:value              6.532928534119091e0
                            ] ;
         qb:observation     [ a                      qb:Observation ;
-                             wf-onto:ref-area       indicator:C1 ;
+                             wf-onto:ref-area       wi-indicator:C2 ;
                              wf-onto:ref-year       "Year1" ;
-                             qb:dataSet             dataset:Adjusted ;
-                             sdmxConcept:obsStatus  cex:Adjusted ;
-                             cex:computation        [ a                cex:Adjust ;
-                                                      cex:increment    "8"^^xsd:int ;
-                                                      cex:observation  _:b20
-                                                    ] ;
-                             cex:indicator          indicator:I0 ;
-                             cex:value              7.195409360814106e0
-                           ] ;
-        qb:observation     [ a                      qb:Observation ;
-                             wf-onto:ref-area       indicator:C2 ;
-                             wf-onto:ref-year       "Year1" ;
-                             qb:dataSet             dataset:Adjusted ;
+                             qb:dataSet             wi-dataset:Adjusted ;
                              sdmxConcept:obsStatus  cex:Adjusted ;
                              cex:computation        [ a                cex:Adjust ;
                                                       cex:increment    "8"^^xsd:int ;
                                                       cex:observation  _:b12
                                                     ] ;
-                             cex:indicator          indicator:I0 ;
-                             cex:value              8.904515713201473e0
+                             cex:indicator          wi-indicator:I1 ;
+                             cex:value              8.39175880133297e0
                            ] ;
         qb:observation     [ a                      qb:Observation ;
-                             wf-onto:ref-area       indicator:C3 ;
+                             wf-onto:ref-area       wi-indicator:C3 ;
                              wf-onto:ref-year       "Year1" ;
-                             qb:dataSet             dataset:Adjusted ;
+                             qb:dataSet             wi-dataset:Adjusted ;
+                             sdmxConcept:obsStatus  cex:Adjusted ;
+                             cex:computation        [ a                cex:Adjust ;
+                                                      cex:increment    "8"^^xsd:int ;
+                                                      cex:observation  _:b13
+                                                    ] ;
+                             cex:indicator          wi-indicator:I1 ;
+                             cex:value              8.77856801118636e0
+                           ] ;
+        qb:sliceStructure  wf-onto:sliceByArea ;
+        cex:indicator      wi-indicator:I1 .
+
+_:b25   a                      qb:Observation ;
+        wf-onto:ref-area       wi-indicator:C1 ;
+        wf-onto:ref-year       "Year1" ;
+        qb:dataSet             wi-dataset:I2-Imputed ;
+        sdmxConcept:obsStatus  cex:Imputed ;
+        cex:computation        [ a                cex:Copy ;
+                                 cex:observation  wi-obs:I2Year1C1
+                               ] ;
+        cex:indicator          wi-indicator:I2 ;
+        cex:value              "0.88426363"^^xsd:float .
+
+wi-slice:I1Year1-Imputed
+        a                  qb:Slice ;
+        wf-onto:ref-year   "Year1" ;
+        qb:observation     _:b24 , _:b23 , _:b26 , _:b16 ;
+        qb:sliceStructure  wf-onto:sliceByArea ;
+        cex:indicator      wi-indicator:I1 .
+
+_:b27   a                      qb:Observation ;
+        wf-onto:ref-area       wi-indicator:C3 ;
+        wf-onto:ref-year       "Year1" ;
+        qb:dataSet             wi-dataset:I2-Normalized ;
+        sdmxConcept:obsStatus  cex:Normalized ;
+        cex:computation        [ a                cex:Normalize ;
+                                 cex:observation  _:b28
+                               ] ;
+        cex:indicator          wi-indicator:I2 ;
+        cex:value              0.31693866886479466e0 .
+
+wi-dataset:I0-Imputed
+        a                qb:DataSet ;
+        rdfs:label       "Dataset I0-Imputed"@en ;
+        qb:slice         wi-slice:I0Year0-Imputed , wi-slice:I0Year1-Imputed ;
+        qb:structure     wf-onto:DSD ;
+        cex:computation  [ a            cex:ImputeDataSet ;
+                           cex:dataSet  wi-dataset:I0-Raw ;
+                           cex:method   cex:CopyRaw , cex:AvgGrowth2Missing , cex:MeanBetweenMissing
+                         ] .
+
+wf-onto:ref-area  rdfs:range  wf-onto:Area .
+
+_:b22   a                      qb:Observation ;
+        wf-onto:ref-area       wi-indicator:C2 ;
+        wf-onto:ref-year       "Year1" ;
+        qb:dataSet             wi-dataset:I0-Imputed ;
+        sdmxConcept:obsStatus  cex:Imputed ;
+        cex:computation        [ a                cex:Copy ;
+                                 cex:observation  wi-obs:I0Year1C2
+                               ] ;
+        cex:indicator          wi-indicator:I0 ;
+        cex:value              "0.9715178"^^xsd:float .
+
+wi-slice:I2Year0-Raw  a    qb:Slice ;
+        wf-onto:ref-year   "Year0" ;
+        qb:observation     wi-obs:I2Year0C0 , wi-obs:I2Year0C1 , wi-obs:I2Year0C2 , wi-obs:I2Year0C3 ;
+        qb:sliceStructure  wf-onto:sliceByArea ;
+        cex:indicator      wi-indicator:I2 .
+
+wi-obs:I1Year0C3  a       qb:Observation ;
+        wf-onto:ref-area  wi-indicator:C3 ;
+        wf-onto:ref-year  "Year0" ;
+        qb:dataSet        wi-dataset:I1-Raw ;
+        cex:indicator     wi-indicator:I1 ;
+        cex:value         "0.24031937"^^xsd:float .
+
+wi-dataset:I0-Normalized
+        a                qb:DataSet ;
+        rdfs:label       "Dataset I0-Normalized"@en ;
+        qb:slice         wi-slice:I0Year0-Normalized , wi-slice:I0Year1-Normalized ;
+        qb:structure     wf-onto:DSD ;
+        cex:computation  [ a            cex:NormalizeDataSet ;
+                           cex:dataSet  wi-dataset:I0-Imputed
+                         ] .
+
+wi-obs:I1Year1C3  a       qb:Observation ;
+        wf-onto:ref-area  wi-indicator:C3 ;
+        wf-onto:ref-year  "Year1" ;
+        qb:dataSet        wi-dataset:I1-Raw ;
+        cex:indicator     wi-indicator:I1 ;
+        cex:value         "0.70439255"^^xsd:float .
+
+_:b20   a                      qb:Observation ;
+        wf-onto:ref-area       wi-indicator:C1 ;
+        wf-onto:ref-year       "Year1" ;
+        qb:dataSet             wi-dataset:I0-Normalized ;
+        sdmxConcept:obsStatus  cex:Normalized ;
+        cex:computation        [ a                cex:Normalize ;
+                                 cex:observation  _:b15
+                               ] ;
+        cex:indicator          wi-indicator:I0 ;
+        cex:value              -1.4088745021099132e0 .
+
+_:b29   a                      qb:Observation ;
+        wf-onto:ref-area       wi-indicator:C1 ;
+        wf-onto:ref-year       "Year0" ;
+        qb:dataSet             wi-dataset:I1-Imputed ;
+        sdmxConcept:obsStatus  cex:Imputed ;
+        cex:computation        [ a                cex:Copy ;
+                                 cex:observation  wi-obs:I1Year0C1
+                               ] ;
+        cex:indicator          wi-indicator:I1 ;
+        cex:value              "0.9995246"^^xsd:float .
+
+wi-indicator:C1  a  wf-onto:Country ;
+        rdfs:label  "Country C1"@en .
+
+wi-slice:I2Year1-Imputed
+        a                  qb:Slice ;
+        wf-onto:ref-year   "Year1" ;
+        qb:observation     _:b14 , _:b25 , _:b30 , _:b28 ;
+        qb:sliceStructure  wf-onto:sliceByArea ;
+        cex:indicator      wi-indicator:I2 .
+
+wi-obs:I2Year0C1  a       qb:Observation ;
+        wf-onto:ref-area  wi-indicator:C1 ;
+        wf-onto:ref-year  "Year0" ;
+        qb:dataSet        wi-dataset:I2-Raw ;
+        cex:indicator     wi-indicator:I2 ;
+        cex:value         "0.53519875"^^xsd:float .
+
+wi-obs:I0Year0C0  a       qb:Observation ;
+        wf-onto:ref-area  wi-indicator:C0 ;
+        wf-onto:ref-year  "Year0" ;
+        qb:dataSet        wi-dataset:I0-Raw ;
+        cex:indicator     wi-indicator:I0 ;
+        cex:value         "0.8063029"^^xsd:float .
+
+_:b12   a                      qb:Observation ;
+        wf-onto:ref-area       wi-indicator:C2 ;
+        wf-onto:ref-year       "Year1" ;
+        qb:dataSet             wi-dataset:I1-Normalized ;
+        sdmxConcept:obsStatus  cex:Normalized ;
+        cex:computation        [ a                cex:Normalize ;
+                                 cex:observation  _:b26
+                               ] ;
+        cex:indicator          wi-indicator:I1 ;
+        cex:value              0.3917588013329686e0 .
+
+wi-obs:I2Year1C1  a       qb:Observation ;
+        wf-onto:ref-area  wi-indicator:C1 ;
+        wf-onto:ref-year  "Year1" ;
+        qb:dataSet        wi-dataset:I2-Raw ;
+        cex:indicator     wi-indicator:I2 ;
+        cex:value         "0.88426363"^^xsd:float .
+
+wf-onto:ref-year  rdfs:range  wf-onto:Year .
+
+wi-obs:I0Year1C0  a       qb:Observation ;
+        wf-onto:ref-area  wi-indicator:C0 ;
+        wf-onto:ref-year  "Year1" ;
+        qb:dataSet        wi-dataset:I0-Raw ;
+        cex:indicator     wi-indicator:I0 ;
+        cex:value         "0.76383656"^^xsd:float .
+
+_:b2    a                      qb:Observation ;
+        wf-onto:ref-area       wi-indicator:C2 ;
+        wf-onto:ref-year       "Year0" ;
+        qb:dataSet             wi-dataset:I2-Imputed ;
+        sdmxConcept:obsStatus  cex:Imputed ;
+        cex:computation        [ a                cex:Copy ;
+                                 cex:observation  wi-obs:I2Year0C2
+                               ] ;
+        cex:indicator          wi-indicator:I2 ;
+        cex:value              "0.08944774"^^xsd:float .
+
+_:b31   a                      qb:Observation ;
+        wf-onto:ref-area       wi-indicator:C0 ;
+        wf-onto:ref-year       "Year1" ;
+        qb:dataSet             wi-dataset:I2-Normalized ;
+        sdmxConcept:obsStatus  cex:Normalized ;
+        cex:computation        [ a                cex:Normalize ;
+                                 cex:observation  _:b14
+                               ] ;
+        cex:indicator          wi-indicator:I2 ;
+        cex:value              -0.5284638502658209e0 .
+
+_:b9    a                      qb:Observation ;
+        wf-onto:ref-area       wi-indicator:C3 ;
+        wf-onto:ref-year       "Year0" ;
+        qb:dataSet             wi-dataset:I0-Imputed ;
+        sdmxConcept:obsStatus  cex:Imputed ;
+        cex:computation        [ a                cex:Copy ;
+                                 cex:observation  wi-obs:I0Year0C3
+                               ] ;
+        cex:indicator          wi-indicator:I0 ;
+        cex:value              "0.30959177"^^xsd:float .
+
+wi-dataset:Adjusted  a   qb:DataSet ;
+        rdfs:label       "Dataset Adjusted"@en ;
+        qb:slice         wi-slice:I0Year1-Adjusted , wi-slice:I1Year1-Adjusted , wi-slice:I2Year1-Adjusted ;
+        qb:structure     wf-onto:DSD ;
+        cex:computation  [ a              cex:AdjustDataSet ;
+                           cex:dataSet    wi-dataset:I0-Normalized , wi-dataset:I1-Normalized , wi-dataset:I2-Normalized ;
+                           cex:dimension  wf-onto:ref-year ;
+                           cex:increment  "8"^^xsd:int ;
+                           cex:value      "Year1"
+                         ] .
+
+_:b23   a                      qb:Observation ;
+        wf-onto:ref-area       wi-indicator:C1 ;
+        wf-onto:ref-year       "Year1" ;
+        qb:dataSet             wi-dataset:I1-Imputed ;
+        sdmxConcept:obsStatus  cex:Imputed ;
+        cex:computation        [ a                cex:Copy ;
+                                 cex:observation  wi-obs:I1Year1C1
+                               ] ;
+        cex:indicator          wi-indicator:I1 ;
+        cex:value              "0.45911485"^^xsd:float .
+
+wi-slice:I2Year1-Raw  a    qb:Slice ;
+        wf-onto:ref-year   "Year1" ;
+        qb:observation     wi-obs:I2Year1C0 , wi-obs:I2Year1C1 , wi-obs:I2Year1C2 , wi-obs:I2Year1C3 ;
+        qb:sliceStructure  wf-onto:sliceByArea ;
+        cex:indicator      wi-indicator:I2 .
+
+wi-dataset:Ranking  a    qb:DataSet ;
+        rdfs:label       "Dataset Ranking"@en ;
+        qb:slice         wi-slice:ranking ;
+        qb:structure     wf-onto:DSD ;
+        cex:computation  [ a              cex:Ranking ;
+                           cex:dimension  wf-onto:ref-area ;
+                           cex:slice      wi-slice:composite
+                         ] .
+
+_:b30   a                      qb:Observation ;
+        wf-onto:ref-area       wi-indicator:C2 ;
+        wf-onto:ref-year       "Year1" ;
+        qb:dataSet             wi-dataset:I2-Imputed ;
+        sdmxConcept:obsStatus  cex:Imputed ;
+        cex:computation        [ a                cex:Copy ;
+                                 cex:observation  wi-obs:I2Year1C2
+                               ] ;
+        cex:indicator          wi-indicator:I2 ;
+        cex:value              "0.052970767"^^xsd:float .
+
+wi-dataset:I1-Normalized
+        a                qb:DataSet ;
+        rdfs:label       "Dataset I1-Normalized"@en ;
+        qb:slice         wi-slice:I1Year0-Normalized , wi-slice:I1Year1-Normalized ;
+        qb:structure     wf-onto:DSD ;
+        cex:computation  [ a            cex:NormalizeDataSet ;
+                           cex:dataSet  wi-dataset:I1-Imputed
+                         ] .
+
+wi-obs:I0Year0C3  a       qb:Observation ;
+        wf-onto:ref-area  wi-indicator:C3 ;
+        wf-onto:ref-year  "Year0" ;
+        qb:dataSet        wi-dataset:I0-Raw ;
+        cex:indicator     wi-indicator:I0 ;
+        cex:value         "0.30959177"^^xsd:float .
+
+wi-weightSchema:indicatorWeights
+        a           cex:WeightSchema ;
+        cex:weight  [ a              cex:Weight ;
+                      cex:dimension  cex:indicator ;
+                      cex:element    wi-indicator:I0 ;
+                      cex:value      "0.33333334"^^xsd:float
+                    ] ;
+        cex:weight  [ a              cex:Weight ;
+                      cex:dimension  cex:indicator ;
+                      cex:element    wi-indicator:I1 ;
+                      cex:value      "0.33333334"^^xsd:float
+                    ] ;
+        cex:weight  [ a              cex:Weight ;
+                      cex:dimension  cex:indicator ;
+                      cex:element    wi-indicator:I2 ;
+                      cex:value      "0.33333334"^^xsd:float
+                    ] .
+
+wi-obs:I0Year1C3  a       qb:Observation ;
+        wf-onto:ref-area  wi-indicator:C3 ;
+        wf-onto:ref-year  "Year1" ;
+        qb:dataSet        wi-dataset:I0-Raw ;
+        cex:indicator     wi-indicator:I0 ;
+        cex:value         "0.7446852"^^xsd:float .
+
+wi-dataset:I2-Imputed
+        a                qb:DataSet ;
+        rdfs:label       "Dataset I2-Imputed"@en ;
+        qb:slice         wi-slice:I2Year0-Imputed , wi-slice:I2Year1-Imputed ;
+        qb:structure     wf-onto:DSD ;
+        cex:computation  [ a            cex:ImputeDataSet ;
+                           cex:dataSet  wi-dataset:I2-Raw ;
+                           cex:method   cex:CopyRaw , cex:AvgGrowth2Missing , cex:MeanBetweenMissing
+                         ] .
+
+wi-obs:I1Year0C1  a       qb:Observation ;
+        wf-onto:ref-area  wi-indicator:C1 ;
+        wf-onto:ref-year  "Year0" ;
+        qb:dataSet        wi-dataset:I1-Raw ;
+        cex:indicator     wi-indicator:I1 ;
+        cex:value         "0.9995246"^^xsd:float .
+
+wi-indicator:I2  a   wf-onto:SecondaryIndicator ;
+        rdfs:label   "Indicator I2"@en ;
+        cex:highLow  cex:High .
+
+wi-obs:I1Year1C1  a       qb:Observation ;
+        wf-onto:ref-area  wi-indicator:C1 ;
+        wf-onto:ref-year  "Year1" ;
+        qb:dataSet        wi-dataset:I1-Raw ;
+        cex:indicator     wi-indicator:I1 ;
+        cex:value         "0.45911485"^^xsd:float .
+
+_:b21   a                      qb:Observation ;
+        wf-onto:ref-area       wi-indicator:C2 ;
+        wf-onto:ref-year       "Year1" ;
+        qb:dataSet             wi-dataset:I0-Normalized ;
+        sdmxConcept:obsStatus  cex:Normalized ;
+        cex:computation        [ a                cex:Normalize ;
+                                 cex:observation  _:b22
+                               ] ;
+        cex:indicator          wi-indicator:I0 ;
+        cex:value              0.9536238403552416e0 .
+
+_:b32   a                      qb:Observation ;
+        wf-onto:ref-area       wi-indicator:C2 ;
+        wf-onto:ref-year       "Year0" ;
+        qb:dataSet             wi-dataset:I1-Imputed ;
+        sdmxConcept:obsStatus  cex:Imputed ;
+        cex:computation        [ a                cex:Copy ;
+                                 cex:observation  wi-obs:I1Year0C2
+                               ] ;
+        cex:indicator          wi-indicator:I1 ;
+        cex:value              "0.4110239"^^xsd:float .
+
+_:b3    a                      qb:Observation ;
+        wf-onto:ref-area       wi-indicator:C3 ;
+        wf-onto:ref-year       "Year0" ;
+        qb:dataSet             wi-dataset:I2-Imputed ;
+        sdmxConcept:obsStatus  cex:Imputed ;
+        cex:computation        [ a                cex:Copy ;
+                                 cex:observation  wi-obs:I2Year0C3
+                               ] ;
+        cex:indicator          wi-indicator:I2 ;
+        cex:value              "0.8581646"^^xsd:float .
+
+_:b33   a                      qb:Observation ;
+        wf-onto:ref-area       wi-indicator:C1 ;
+        wf-onto:ref-year       "Year1" ;
+        qb:dataSet             wi-dataset:I2-Normalized ;
+        sdmxConcept:obsStatus  cex:Normalized ;
+        cex:computation        [ a                cex:Normalize ;
+                                 cex:observation  _:b25
+                               ] ;
+        cex:indicator          wi-indicator:I2 ;
+        cex:value              1.2454785875104035e0 .
+
+_:b6    a                      qb:Observation ;
+        wf-onto:ref-area       wi-indicator:C3 ;
+        wf-onto:ref-year       "Year1" ;
+        qb:dataSet             wi-dataset:I0-Imputed ;
+        sdmxConcept:obsStatus  cex:Imputed ;
+        cex:computation        [ a                cex:Copy ;
+                                 cex:observation  wi-obs:I0Year1C3
+                               ] ;
+        cex:indicator          wi-indicator:I0 ;
+        cex:value              "0.7446852"^^xsd:float .
+
+_:b26   a                      qb:Observation ;
+        wf-onto:ref-area       wi-indicator:C2 ;
+        wf-onto:ref-year       "Year1" ;
+        qb:dataSet             wi-dataset:I1-Imputed ;
+        sdmxConcept:obsStatus  cex:Imputed ;
+        cex:computation        [ a                cex:Copy ;
+                                 cex:observation  wi-obs:I1Year1C2
+                               ] ;
+        cex:indicator          wi-indicator:I1 ;
+        cex:value              "0.6621437"^^xsd:float .
+
+wi-slice:I0Year1-Adjusted
+        a                  qb:Slice ;
+        wf-onto:ref-year   "Year1" ;
+        qb:observation     [ a                      qb:Observation ;
+                             wf-onto:ref-area       wi-indicator:C0 ;
+                             wf-onto:ref-year       "Year1" ;
+                             qb:dataSet             wi-dataset:Adjusted ;
+                             sdmxConcept:obsStatus  cex:Adjusted ;
+                             cex:computation        [ a                cex:Adjust ;
+                                                      cex:increment    "8"^^xsd:int ;
+                                                      cex:observation  _:b17
+                                                    ] ;
+                             cex:indicator          wi-indicator:I0 ;
+                             cex:value              8.259624034169233e0
+                           ] ;
+        qb:observation     [ a                      qb:Observation ;
+                             wf-onto:ref-area       wi-indicator:C1 ;
+                             wf-onto:ref-year       "Year1" ;
+                             qb:dataSet             wi-dataset:Adjusted ;
+                             sdmxConcept:obsStatus  cex:Adjusted ;
+                             cex:computation        [ a                cex:Adjust ;
+                                                      cex:increment    "8"^^xsd:int ;
+                                                      cex:observation  _:b20
+                                                    ] ;
+                             cex:indicator          wi-indicator:I0 ;
+                             cex:value              6.591125497890086e0
+                           ] ;
+        qb:observation     [ a                      qb:Observation ;
+                             wf-onto:ref-area       wi-indicator:C2 ;
+                             wf-onto:ref-year       "Year1" ;
+                             qb:dataSet             wi-dataset:Adjusted ;
                              sdmxConcept:obsStatus  cex:Adjusted ;
                              cex:computation        [ a                cex:Adjust ;
                                                       cex:increment    "8"^^xsd:int ;
                                                       cex:observation  _:b21
                                                     ] ;
-                             cex:indicator          indicator:I0 ;
-                             cex:value              7.075539552626664e0
+                             cex:indicator          wi-indicator:I0 ;
+                             cex:value              8.953623840355242e0
+                           ] ;
+        qb:observation     [ a                      qb:Observation ;
+                             wf-onto:ref-area       wi-indicator:C3 ;
+                             wf-onto:ref-year       "Year1" ;
+                             qb:dataSet             wi-dataset:Adjusted ;
+                             sdmxConcept:obsStatus  cex:Adjusted ;
+                             cex:computation        [ a                cex:Adjust ;
+                                                      cex:increment    "8"^^xsd:int ;
+                                                      cex:observation  _:b5
+                                                    ] ;
+                             cex:indicator          wi-indicator:I0 ;
+                             cex:value              8.195626627585437e0
                            ] ;
         qb:sliceStructure  wf-onto:sliceByArea ;
-        cex:indicator      indicator:I0 .
+        cex:indicator      wi-indicator:I0 .
 
-slice:I2Year0-Normalized
+wi-slice:I2Year0-Normalized
         a                  qb:Slice ;
         wf-onto:ref-year   "Year0" ;
         qb:observation     [ a                      qb:Observation ;
-                             wf-onto:ref-area       indicator:C0 ;
+                             wf-onto:ref-area       wi-indicator:C0 ;
                              wf-onto:ref-year       "Year0" ;
-                             qb:dataSet             dataset:I2-Normalized ;
+                             qb:dataSet             wi-dataset:I2-Normalized ;
                              sdmxConcept:obsStatus  cex:Normalized ;
                              cex:computation        [ a                cex:Normalize ;
                                                       cex:observation  _:b0
                                                     ] ;
-                             cex:indicator          indicator:I2 ;
-                             cex:value              0.7066484010758358e0
+                             cex:indicator          wi-indicator:I2 ;
+                             cex:value              -0.3003592168862942e0
                            ] ;
         qb:observation     [ a                      qb:Observation ;
-                             wf-onto:ref-area       indicator:C1 ;
+                             wf-onto:ref-area       wi-indicator:C1 ;
                              wf-onto:ref-year       "Year0" ;
-                             qb:dataSet             dataset:I2-Normalized ;
+                             qb:dataSet             wi-dataset:I2-Normalized ;
                              sdmxConcept:obsStatus  cex:Normalized ;
                              cex:computation        [ a                cex:Normalize ;
                                                       cex:observation  _:b1
                                                     ] ;
-                             cex:indicator          indicator:I2 ;
-                             cex:value              1.0002630157874886e0
+                             cex:indicator          wi-indicator:I2 ;
+                             cex:value              0.2273554670317846e0
                            ] ;
         qb:observation     [ a                      qb:Observation ;
-                             wf-onto:ref-area       indicator:C2 ;
+                             wf-onto:ref-area       wi-indicator:C2 ;
                              wf-onto:ref-year       "Year0" ;
-                             qb:dataSet             dataset:I2-Normalized ;
+                             qb:dataSet             wi-dataset:I2-Normalized ;
                              sdmxConcept:obsStatus  cex:Normalized ;
                              cex:computation        [ a                cex:Normalize ;
                                                       cex:observation  _:b2
                                                     ] ;
-                             cex:indicator          indicator:I2 ;
-                             cex:value              -0.7062329085929396e0
+                             cex:indicator          wi-indicator:I2 ;
+                             cex:value              -1.1583681275647377e0
                            ] ;
         qb:observation     [ a                      qb:Observation ;
-                             wf-onto:ref-area       indicator:C3 ;
+                             wf-onto:ref-area       wi-indicator:C3 ;
                              wf-onto:ref-year       "Year0" ;
-                             qb:dataSet             dataset:I2-Normalized ;
+                             qb:dataSet             wi-dataset:I2-Normalized ;
                              sdmxConcept:obsStatus  cex:Normalized ;
                              cex:computation        [ a                cex:Normalize ;
                                                       cex:observation  _:b3
                                                     ] ;
-                             cex:indicator          indicator:I2 ;
-                             cex:value              -1.0006782886654784e0
+                             cex:indicator          wi-indicator:I2 ;
+                             cex:value              1.2313720627145366e0
                            ] ;
         qb:sliceStructure  wf-onto:sliceByArea ;
-        cex:indicator      indicator:I2 .
+        cex:indicator      wi-indicator:I2 .
 
-_:b13   a                      qb:Observation ;
-        wf-onto:ref-area       indicator:C2 ;
-        wf-onto:ref-year       "Year1" ;
-        qb:dataSet             dataset:I0-Imputed ;
+_:b7    a                      qb:Observation ;
+        wf-onto:ref-area       wi-indicator:C0 ;
+        wf-onto:ref-year       "Year0" ;
+        qb:dataSet             wi-dataset:I0-Imputed ;
         sdmxConcept:obsStatus  cex:Imputed ;
         cex:computation        [ a                cex:Copy ;
-                                 cex:observation  obs:I0Year1C2
+                                 cex:observation  wi-obs:I0Year0C0
                                ] ;
-        cex:indicator          indicator:I0 ;
-        cex:value              "0.9303251"^^xsd:float .
+        cex:indicator          wi-indicator:I0 ;
+        cex:value              "0.8063029"^^xsd:float .
 
-slice:I0Year0-Imputed
+wi-slice:I0Year0-Imputed
         a                  qb:Slice ;
         wf-onto:ref-year   "Year0" ;
-        qb:observation     _:b4 , _:b5 , _:b6 , _:b7 ;
+        qb:observation     _:b7 , _:b4 , _:b8 , _:b9 ;
         qb:sliceStructure  wf-onto:sliceByArea ;
-        cex:indicator      indicator:I0 .
+        cex:indicator      wi-indicator:I0 .
 
-indicator:C2  a     wf-onto:Country ;
+wi-indicator:C2  a  wf-onto:Country ;
         rdfs:label  "Country C2"@en .
 
-slice:I0Year1-Raw  a       qb:Slice ;
+wi-slice:I0Year1-Raw  a    qb:Slice ;
         wf-onto:ref-year   "Year1" ;
-        qb:observation     obs:I0Year1C0 , obs:I0Year1C1 , obs:I0Year1C2 , obs:I0Year1C3 ;
+        qb:observation     wi-obs:I0Year1C0 , wi-obs:I0Year1C1 , wi-obs:I0Year1C2 , wi-obs:I0Year1C3 ;
         qb:sliceStructure  wf-onto:sliceByArea ;
-        cex:indicator      indicator:I0 .
+        cex:indicator      wi-indicator:I0 .
 
-obs:I2Year0C2  a          qb:Observation ;
-        wf-onto:ref-area  indicator:C2 ;
+wi-obs:I2Year0C2  a       qb:Observation ;
+        wf-onto:ref-area  wi-indicator:C2 ;
         wf-onto:ref-year  "Year0" ;
-        qb:dataSet        dataset:I2-Raw ;
-        cex:indicator     indicator:I2 ;
-        cex:value         "0.16776597"^^xsd:float .
+        qb:dataSet        wi-dataset:I2-Raw ;
+        cex:indicator     wi-indicator:I2 ;
+        cex:value         "0.08944774"^^xsd:float .
 
-obs:I0Year0C1  a          qb:Observation ;
-        wf-onto:ref-area  indicator:C1 ;
+wi-obs:I0Year0C1  a       qb:Observation ;
+        wf-onto:ref-area  wi-indicator:C1 ;
         wf-onto:ref-year  "Year0" ;
-        qb:dataSet        dataset:I0-Raw ;
-        cex:indicator     indicator:I0 ;
-        cex:value         "0.20910883"^^xsd:float .
+        qb:dataSet        wi-dataset:I0-Raw ;
+        cex:indicator     wi-indicator:I0 ;
+        cex:value         "0.16059601"^^xsd:float .
 
-slice:ranking  a           qb:Slice ;
+wi-slice:ranking  a        qb:Slice ;
         wf-onto:ref-year   "Year1" ;
         qb:observation     [ a                 qb:Observation ;
-                             wf-onto:ref-area  indicator:C2 ;
+                             wf-onto:ref-area  wi-indicator:C2 ;
                              wf-onto:ref-year  "Year1" ;
-                             qb:dataSet        dataset:Ranking ;
+                             qb:dataSet        wi-dataset:Ranking ;
                              cex:computation   [ a              cex:Rank ;
                                                  cex:dimension  wf-onto:ref-area ;
-                                                 cex:slice      slice:composite
-                                               ] ;
-                             cex:value         3
-                           ] ;
-        qb:observation     [ a                 qb:Observation ;
-                             wf-onto:ref-area  indicator:C3 ;
-                             wf-onto:ref-year  "Year1" ;
-                             qb:dataSet        dataset:Ranking ;
-                             cex:computation   [ a              cex:Rank ;
-                                                 cex:dimension  wf-onto:ref-area ;
-                                                 cex:slice      slice:composite
+                                                 cex:slice      wi-slice:composite
                                                ] ;
                              cex:value         2
                            ] ;
         qb:observation     [ a                 qb:Observation ;
-                             wf-onto:ref-area  indicator:C0 ;
+                             wf-onto:ref-area  wi-indicator:C3 ;
                              wf-onto:ref-year  "Year1" ;
-                             qb:dataSet        dataset:Ranking ;
+                             qb:dataSet        wi-dataset:Ranking ;
                              cex:computation   [ a              cex:Rank ;
                                                  cex:dimension  wf-onto:ref-area ;
-                                                 cex:slice      slice:composite
+                                                 cex:slice      wi-slice:composite
                                                ] ;
                              cex:value         1
                            ] ;
         qb:observation     [ a                 qb:Observation ;
-                             wf-onto:ref-area  indicator:C1 ;
+                             wf-onto:ref-area  wi-indicator:C0 ;
                              wf-onto:ref-year  "Year1" ;
-                             qb:dataSet        dataset:Ranking ;
+                             qb:dataSet        wi-dataset:Ranking ;
                              cex:computation   [ a              cex:Rank ;
                                                  cex:dimension  wf-onto:ref-area ;
-                                                 cex:slice      slice:composite
+                                                 cex:slice      wi-slice:composite
+                                               ] ;
+                             cex:value         3
+                           ] ;
+        qb:observation     [ a                 qb:Observation ;
+                             wf-onto:ref-area  wi-indicator:C1 ;
+                             wf-onto:ref-year  "Year1" ;
+                             qb:dataSet        wi-dataset:Ranking ;
+                             cex:computation   [ a              cex:Rank ;
+                                                 cex:dimension  wf-onto:ref-area ;
+                                                 cex:slice      wi-slice:composite
                                                ] ;
                              cex:value         4
                            ] ;
         qb:sliceStructure  wf-onto:sliceByArea ;
-        cex:indicator      index:index .
+        cex:indicator      wi-index:index .
 
 wf-onto:sliceByArea  a        qb:SliceKey ;
         qb:componentProperty  cex:indicator , wf-onto:ref-year .
 
-obs:I2Year1C2  a          qb:Observation ;
-        wf-onto:ref-area  indicator:C2 ;
+wi-obs:I2Year1C2  a       qb:Observation ;
+        wf-onto:ref-area  wi-indicator:C2 ;
         wf-onto:ref-year  "Year1" ;
-        qb:dataSet        dataset:I2-Raw ;
-        cex:indicator     indicator:I2 ;
-        cex:value         "0.47238994"^^xsd:float .
+        qb:dataSet        wi-dataset:I2-Raw ;
+        cex:indicator     wi-indicator:I2 ;
+        cex:value         "0.052970767"^^xsd:float .
 
-obs:I0Year1C1  a          qb:Observation ;
-        wf-onto:ref-area  indicator:C1 ;
+wi-obs:I0Year1C1  a       qb:Observation ;
+        wf-onto:ref-area  wi-indicator:C1 ;
         wf-onto:ref-year  "Year1" ;
-        qb:dataSet        dataset:I0-Raw ;
-        cex:indicator     indicator:I0 ;
-        cex:value         "0.19539076"^^xsd:float .
+        qb:dataSet        wi-dataset:I0-Raw ;
+        cex:indicator     wi-indicator:I0 ;
+        cex:value         "0.26453406"^^xsd:float .
 
-_:b20   a                      qb:Observation ;
-        wf-onto:ref-area       indicator:C1 ;
+_:b13   a                      qb:Observation ;
+        wf-onto:ref-area       wi-indicator:C3 ;
         wf-onto:ref-year       "Year1" ;
-        qb:dataSet             dataset:I0-Normalized ;
+        qb:dataSet             wi-dataset:I1-Normalized ;
         sdmxConcept:obsStatus  cex:Normalized ;
         cex:computation        [ a                cex:Normalize ;
-                                 cex:observation  _:b23
+                                 cex:observation  _:b16
                                ] ;
-        cex:indicator          indicator:I0 ;
-        cex:value              -0.804590639185894e0 .
+        cex:indicator          wi-indicator:I1 ;
+        cex:value              0.7785680111863609e0 .
 
-_:b34   a                      qb:Observation ;
-        wf-onto:ref-area       indicator:C1 ;
-        wf-onto:ref-year       "Year0" ;
-        qb:dataSet             dataset:I1-Imputed ;
-        sdmxConcept:obsStatus  cex:Imputed ;
-        cex:computation        [ a                cex:Copy ;
-                                 cex:observation  obs:I1Year0C1
-                               ] ;
-        cex:indicator          indicator:I1 ;
-        cex:value              "0.016323686"^^xsd:float .
-
-slice:I2Year1-Adjusted
+wi-slice:I2Year1-Adjusted
         a                  qb:Slice ;
         wf-onto:ref-year   "Year1" ;
         qb:observation     [ a                      qb:Observation ;
-                             wf-onto:ref-area       indicator:C0 ;
+                             wf-onto:ref-area       wi-indicator:C0 ;
                              wf-onto:ref-year       "Year1" ;
-                             qb:dataSet             dataset:Adjusted ;
+                             qb:dataSet             wi-dataset:Adjusted ;
                              sdmxConcept:obsStatus  cex:Adjusted ;
                              cex:computation        [ a                cex:Adjust ;
                                                       cex:increment    "8"^^xsd:int ;
-                                                      cex:observation  _:b35
+                                                      cex:observation  _:b31
                                                     ] ;
-                             cex:indicator          indicator:I2 ;
-                             cex:value              9.164818929497505e0
+                             cex:indicator          wi-indicator:I2 ;
+                             cex:value              7.471536149734179e0
                            ] ;
         qb:observation     [ a                      qb:Observation ;
-                             wf-onto:ref-area       indicator:C1 ;
+                             wf-onto:ref-area       wi-indicator:C1 ;
                              wf-onto:ref-year       "Year1" ;
-                             qb:dataSet             dataset:Adjusted ;
-                             sdmxConcept:obsStatus  cex:Adjusted ;
-                             cex:computation        [ a                cex:Adjust ;
-                                                      cex:increment    "8"^^xsd:int ;
-                                                      cex:observation  _:b15
-                                                    ] ;
-                             cex:indicator          indicator:I2 ;
-                             cex:value              6.7344839645703125e0
-                           ] ;
-        qb:observation     [ a                      qb:Observation ;
-                             wf-onto:ref-area       indicator:C2 ;
-                             wf-onto:ref-year       "Year1" ;
-                             qb:dataSet             dataset:Adjusted ;
-                             sdmxConcept:obsStatus  cex:Adjusted ;
-                             cex:computation        [ a                cex:Adjust ;
-                                                      cex:increment    "8"^^xsd:int ;
-                                                      cex:observation  _:b29
-                                                    ] ;
-                             cex:indicator          indicator:I2 ;
-                             cex:value              7.915078284359362e0
-                           ] ;
-        qb:observation     [ a                      qb:Observation ;
-                             wf-onto:ref-area       indicator:C3 ;
-                             wf-onto:ref-year       "Year1" ;
-                             qb:dataSet             dataset:Adjusted ;
+                             qb:dataSet             wi-dataset:Adjusted ;
                              sdmxConcept:obsStatus  cex:Adjusted ;
                              cex:computation        [ a                cex:Adjust ;
                                                       cex:increment    "8"^^xsd:int ;
                                                       cex:observation  _:b33
                                                     ] ;
-                             cex:indicator          indicator:I2 ;
-                             cex:value              8.18561882157282e0
+                             cex:indicator          wi-indicator:I2 ;
+                             cex:value              9.245478587510403e0
+                           ] ;
+        qb:observation     [ a                      qb:Observation ;
+                             wf-onto:ref-area       wi-indicator:C2 ;
+                             wf-onto:ref-year       "Year1" ;
+                             qb:dataSet             wi-dataset:Adjusted ;
+                             sdmxConcept:obsStatus  cex:Adjusted ;
+                             cex:computation        [ a                cex:Adjust ;
+                                                      cex:increment    "8"^^xsd:int ;
+                                                      cex:observation  _:b34
+                                                    ] ;
+                             cex:indicator          wi-indicator:I2 ;
+                             cex:value              6.9660469207663125e0
+                           ] ;
+        qb:observation     [ a                      qb:Observation ;
+                             wf-onto:ref-area       wi-indicator:C3 ;
+                             wf-onto:ref-year       "Year1" ;
+                             qb:dataSet             wi-dataset:Adjusted ;
+                             sdmxConcept:obsStatus  cex:Adjusted ;
+                             cex:computation        [ a                cex:Adjust ;
+                                                      cex:increment    "8"^^xsd:int ;
+                                                      cex:observation  _:b27
+                                                    ] ;
+                             cex:indicator          wi-indicator:I2 ;
+                             cex:value              8.316938668864795e0
                            ] ;
         qb:sliceStructure  wf-onto:sliceByArea ;
-        cex:indicator      indicator:I2 .
+        cex:indicator      wi-indicator:I2 .
 
-indicator:I0  a      wf-onto:SecondaryIndicator ;
+wi-indicator:I0  a   wf-onto:SecondaryIndicator ;
         rdfs:label   "Indicator I0"@en ;
         cex:highLow  cex:High .
 
-_:b10   a                      qb:Observation ;
-        wf-onto:ref-area       indicator:C2 ;
+_:b18   a                      qb:Observation ;
+        wf-onto:ref-area       wi-indicator:C0 ;
         wf-onto:ref-year       "Year1" ;
-        qb:dataSet             dataset:I1-Normalized ;
-        sdmxConcept:obsStatus  cex:Normalized ;
-        cex:computation        [ a                cex:Normalize ;
-                                 cex:observation  _:b18
-                               ] ;
-        cex:indicator          indicator:I1 ;
-        cex:value              -1.4617633130920944e0 .
-
-_:b2    a                      qb:Observation ;
-        wf-onto:ref-area       indicator:C2 ;
-        wf-onto:ref-year       "Year0" ;
-        qb:dataSet             dataset:I2-Imputed ;
+        qb:dataSet             wi-dataset:I0-Imputed ;
         sdmxConcept:obsStatus  cex:Imputed ;
         cex:computation        [ a                cex:Copy ;
-                                 cex:observation  obs:I2Year0C2
+                                 cex:observation  wi-obs:I0Year1C0
                                ] ;
-        cex:indicator          indicator:I2 ;
-        cex:value              "0.16776597"^^xsd:float .
+        cex:indicator          wi-indicator:I0 ;
+        cex:value              "0.76383656"^^xsd:float .
 
 _:b35   a                      qb:Observation ;
-        wf-onto:ref-area       indicator:C0 ;
-        wf-onto:ref-year       "Year1" ;
-        qb:dataSet             dataset:I2-Normalized ;
-        sdmxConcept:obsStatus  cex:Normalized ;
-        cex:computation        [ a                cex:Normalize ;
-                                 cex:observation  _:b31
+        wf-onto:ref-area       wi-indicator:C3 ;
+        wf-onto:ref-year       "Year0" ;
+        qb:dataSet             wi-dataset:I1-Imputed ;
+        sdmxConcept:obsStatus  cex:Imputed ;
+        cex:computation        [ a                cex:Copy ;
+                                 cex:observation  wi-obs:I1Year0C3
                                ] ;
-        cex:indicator          indicator:I2 ;
-        cex:value              1.1648189294975053e0 .
+        cex:indicator          wi-indicator:I1 ;
+        cex:value              "0.24031937"^^xsd:float .
 
-slice:I1Year0-Imputed
+wi-slice:I1Year0-Imputed
         a                  qb:Slice ;
         wf-onto:ref-year   "Year0" ;
-        qb:observation     _:b32 , _:b34 , _:b14 , _:b25 ;
+        qb:observation     _:b19 , _:b29 , _:b32 , _:b35 ;
         qb:sliceStructure  wf-onto:sliceByArea ;
-        cex:indicator      indicator:I1 .
+        cex:indicator      wi-indicator:I1 .
 
-slice:I1Year0-Normalized
+wi-slice:I1Year0-Normalized
         a                  qb:Slice ;
         wf-onto:ref-year   "Year0" ;
         qb:observation     [ a                      qb:Observation ;
-                             wf-onto:ref-area       indicator:C0 ;
+                             wf-onto:ref-area       wi-indicator:C0 ;
                              wf-onto:ref-year       "Year0" ;
-                             qb:dataSet             dataset:I1-Normalized ;
+                             qb:dataSet             wi-dataset:I1-Normalized ;
+                             sdmxConcept:obsStatus  cex:Normalized ;
+                             cex:computation        [ a                cex:Normalize ;
+                                                      cex:observation  _:b19
+                                                    ] ;
+                             cex:indicator          wi-indicator:I1 ;
+                             cex:value              -0.034442483984084844e0
+                           ] ;
+        qb:observation     [ a                      qb:Observation ;
+                             wf-onto:ref-area       wi-indicator:C1 ;
+                             wf-onto:ref-year       "Year0" ;
+                             qb:dataSet             wi-dataset:I1-Normalized ;
+                             sdmxConcept:obsStatus  cex:Normalized ;
+                             cex:computation        [ a                cex:Normalize ;
+                                                      cex:observation  _:b29
+                                                    ] ;
+                             cex:indicator          wi-indicator:I1 ;
+                             cex:value              1.392478040281506e0
+                           ] ;
+        qb:observation     [ a                      qb:Observation ;
+                             wf-onto:ref-area       wi-indicator:C2 ;
+                             wf-onto:ref-year       "Year0" ;
+                             qb:dataSet             wi-dataset:I1-Normalized ;
                              sdmxConcept:obsStatus  cex:Normalized ;
                              cex:computation        [ a                cex:Normalize ;
                                                       cex:observation  _:b32
                                                     ] ;
-                             cex:indicator          indicator:I1 ;
-                             cex:value              0.7458644082398063e0
+                             cex:indicator          wi-indicator:I1 ;
+                             cex:value              -0.41663563400105164e0
                            ] ;
         qb:observation     [ a                      qb:Observation ;
-                             wf-onto:ref-area       indicator:C1 ;
+                             wf-onto:ref-area       wi-indicator:C3 ;
                              wf-onto:ref-year       "Year0" ;
-                             qb:dataSet             dataset:I1-Normalized ;
+                             qb:dataSet             wi-dataset:I1-Normalized ;
                              sdmxConcept:obsStatus  cex:Normalized ;
                              cex:computation        [ a                cex:Normalize ;
-                                                      cex:observation  _:b34
+                                                      cex:observation  _:b35
                                                     ] ;
-                             cex:indicator          indicator:I1 ;
-                             cex:value              -0.8588900355846646e0
-                           ] ;
-        qb:observation     [ a                      qb:Observation ;
-                             wf-onto:ref-area       indicator:C2 ;
-                             wf-onto:ref-year       "Year0" ;
-                             qb:dataSet             dataset:I1-Normalized ;
-                             sdmxConcept:obsStatus  cex:Normalized ;
-                             cex:computation        [ a                cex:Normalize ;
-                                                      cex:observation  _:b14
-                                                    ] ;
-                             cex:indicator          indicator:I1 ;
-                             cex:value              0.9783606145526617e0
-                           ] ;
-        qb:observation     [ a                      qb:Observation ;
-                             wf-onto:ref-area       indicator:C3 ;
-                             wf-onto:ref-year       "Year0" ;
-                             qb:dataSet             dataset:I1-Normalized ;
-                             sdmxConcept:obsStatus  cex:Normalized ;
-                             cex:computation        [ a                cex:Normalize ;
-                                                      cex:observation  _:b25
-                                                    ] ;
-                             cex:indicator          indicator:I1 ;
-                             cex:value              -0.8653350439240581e0
+                             cex:indicator          wi-indicator:I1 ;
+                             cex:value              -0.9413995558343353e0
                            ] ;
         qb:sliceStructure  wf-onto:sliceByArea ;
-        cex:indicator      indicator:I1 .
+        cex:indicator      wi-indicator:I1 .
 
-slice:I2Year1-Normalized
+wi-slice:I2Year1-Normalized
         a                  qb:Slice ;
         wf-onto:ref-year   "Year1" ;
-        qb:observation     _:b35 , _:b15 , _:b29 , _:b33 ;
+        qb:observation     _:b31 , _:b33 , _:b34 , _:b27 ;
         qb:sliceStructure  wf-onto:sliceByArea ;
-        cex:indicator      indicator:I2 .
+        cex:indicator      wi-indicator:I2 .
 
-_:b7    a                      qb:Observation ;
-        wf-onto:ref-area       indicator:C3 ;
-        wf-onto:ref-year       "Year0" ;
-        qb:dataSet             dataset:I0-Imputed ;
-        sdmxConcept:obsStatus  cex:Imputed ;
-        cex:computation        [ a                cex:Copy ;
-                                 cex:observation  obs:I0Year0C3
-                               ] ;
-        cex:indicator          indicator:I0 ;
-        cex:value              "0.28917086"^^xsd:float .
-
-_:b27   a                      qb:Observation ;
-        wf-onto:ref-area       indicator:C1 ;
+_:b28   a                      qb:Observation ;
+        wf-onto:ref-area       wi-indicator:C3 ;
         wf-onto:ref-year       "Year1" ;
-        qb:dataSet             dataset:I1-Imputed ;
+        qb:dataSet             wi-dataset:I2-Imputed ;
         sdmxConcept:obsStatus  cex:Imputed ;
         cex:computation        [ a                cex:Copy ;
-                                 cex:observation  obs:I1Year1C1
+                                 cex:observation  wi-obs:I2Year1C3
                                ] ;
-        cex:indicator          indicator:I1 ;
-        cex:value              "0.8476231"^^xsd:float .
+        cex:indicator          wi-indicator:I2 ;
+        cex:value              "0.5456316"^^xsd:float .
 
-_:b30   a                      qb:Observation ;
-        wf-onto:ref-area       indicator:C2 ;
+_:b34   a                      qb:Observation ;
+        wf-onto:ref-area       wi-indicator:C2 ;
         wf-onto:ref-year       "Year1" ;
-        qb:dataSet             dataset:I2-Imputed ;
-        sdmxConcept:obsStatus  cex:Imputed ;
-        cex:computation        [ a                cex:Copy ;
-                                 cex:observation  obs:I2Year1C2
+        qb:dataSet             wi-dataset:I2-Normalized ;
+        sdmxConcept:obsStatus  cex:Normalized ;
+        cex:computation        [ a                cex:Normalize ;
+                                 cex:observation  _:b30
                                ] ;
-        cex:indicator          indicator:I2 ;
-        cex:value              "0.47238994"^^xsd:float .
+        cex:indicator          wi-indicator:I2 ;
+        cex:value              -1.0339530792336873e0 .
 
-dataset:I2-Raw  a     qb:DataSet ;
+wi-dataset:I2-Raw  a  qb:DataSet ;
         rdfs:label    "Dataset I2-Raw"@en ;
-        qb:slice      slice:I2Year0-Raw , slice:I2Year1-Raw ;
+        qb:slice      wi-slice:I2Year0-Raw , wi-slice:I2Year1-Raw ;
         qb:structure  wf-onto:DSD .
+
+_:b10   a                      qb:Observation ;
+        wf-onto:ref-area       wi-indicator:C0 ;
+        wf-onto:ref-year       "Year1" ;
+        qb:dataSet             wi-dataset:I1-Normalized ;
+        sdmxConcept:obsStatus  cex:Normalized ;
+        cex:computation        [ a                cex:Normalize ;
+                                 cex:observation  _:b24
+                               ] ;
+        cex:indicator          wi-indicator:I1 ;
+        cex:value              0.2967462904921682e0 .
+
+_:b0    a                      qb:Observation ;
+        wf-onto:ref-area       wi-indicator:C0 ;
+        wf-onto:ref-year       "Year0" ;
+        qb:dataSet             wi-dataset:I2-Imputed ;
+        sdmxConcept:obsStatus  cex:Imputed ;
+        cex:computation        [ a                cex:Copy ;
+                                 cex:observation  wi-obs:I2Year0C0
+                               ] ;
+        cex:indicator          wi-indicator:I2 ;
+        cex:value              "0.36544675"^^xsd:float .

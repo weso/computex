@@ -86,7 +86,7 @@ class ProfileSuite
     def findObservationsInSlice(sliceName:String, model:Model) : Int = {
     val queryStr = 
       s"""|PREFIX qb: <http://purl.org/linked-data/cube#>
-          |PREFIX slice: <${PREFIXES.slice}>
+          |PREFIX slice: <${PREFIXES.wi_slice}>
           |SELECT * WHERE 
           | { ?obs a qb:Observation . 
           |   slice:${sliceName} qb:observation ?obs .
