@@ -10,15 +10,24 @@ object PREFIXES {
   lazy val webindex 	= "http://data.webfoundation.org/webindex/v2013/"
   lazy val odb		 	= "http://data.webfoundation.org/odb/v2013/"
   lazy val test		 	= "http://data.webfoundation.org/test/v2013/"
-  lazy val computation	= webindex + "computation/"
-  lazy val dataset		= webindex + "dataset/"
-  lazy val index		= webindex + "index/"
-  lazy val indicator	= webindex + "indicator/"
-  lazy val country		= webindex + "country/"
-  lazy val obs			= webindex + "observation/"
-  lazy val ranking		= webindex + "ranking/"
-  lazy val slice		= webindex + "slice/"
-  lazy val weightSchema	= webindex + "weightSchema/"
+  lazy val wi_computation	= webindex + "computation/"
+  lazy val wi_dataset		= webindex + "dataset/"
+  lazy val wi_index			= webindex + "index/"
+  lazy val wi_indicator		= webindex + "indicator/"
+  lazy val wi_country		= webindex + "country/"
+  lazy val wi_obs			= webindex + "observation/"
+  lazy val wi_ranking		= webindex + "ranking/"
+  lazy val wi_slice			= webindex + "slice/"
+  lazy val wi_weightSchema	= webindex + "weightSchema/"
+  lazy val odb_computation	= odb + "computation/"
+  lazy val odb_dataset		= odb + "dataset/"
+  lazy val odb_index		= odb + "index/"
+  lazy val odb_indicator	= odb + "indicator/"
+  lazy val odb_country		= odb + "country/"
+  lazy val odb_obs			= odb + "observation/"
+  lazy val odb_ranking		= odb + "ranking/"
+  lazy val odb_slice		= odb + "slice/"
+  lazy val odb_weightSchema	= odb + "weightSchema/"
   lazy val cex			= "http://purl.org/weso/ontology/computex#"
   lazy val dcterms		= "http://purl.org/dc/terms/"
   lazy val geo			= "http://www.w3.org/2003/01/geo/wgs84_pos#"
@@ -41,16 +50,26 @@ object PREFIXES {
     	Map("webindex" 		-> webindex,
 		    "odb"			-> odb,
     	    "test"			-> test,
-    	    "computation" 	-> computation,
-		    "ranking" 		-> ranking,
-		    "indicator"		-> indicator,
-		    "country"		-> country,
-		    "dataset"		-> dataset,
-		    "obs"			-> obs, 
-		    "slice"			-> slice,
+    	    "wi-computation" 	-> wi_computation,
+		    "wi-ranking" 		-> wi_ranking,
+		    "wi-indicator"		-> wi_indicator,
+		    "wi-country"		-> wi_country,
+		    "wi-dataset"		-> wi_dataset,
+		    "wi-obs"			-> wi_obs, 
+		    "wi-slice"			-> wi_slice,
+		    "wi-index"			-> wi_index,
+		    "wi-weightSchema"	-> wi_weightSchema,
+    	    "odb-computation" 	-> odb_computation,
+		    "odb-ranking" 		-> odb_ranking,
+		    "odb-indicator"		-> odb_indicator,
+		    "odb-country"		-> odb_country,
+		    "odb-dataset"		-> odb_dataset,
+		    "odb-obs"			-> odb_obs, 
+		    "odb-slice"			-> odb_slice,
+		    "odb-index"			-> odb_index,
+		    "odb-weightSchema"	-> odb_weightSchema,
 		    "cex"			-> cex,
 		    "dcterms"		-> dcterms,
-		    "index"			-> index,
 		    "geo"			-> geo,
 		    "qb"			-> qb,
 		    "owl"			-> owl,
@@ -62,7 +81,6 @@ object PREFIXES {
 		    "sdmxSubject"	-> sdmxSubject,
 		    "skos"			-> skos,
 		    "time"			-> time,
-		    "weightSchema"	-> weightSchema,
 		    "wf-onto"		-> wf_onto,
 		    "wf-org"		-> wf_org,
 		    "wf-people"		-> wf_people,

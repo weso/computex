@@ -82,7 +82,7 @@ case class Generator(
    val cex_WeightSchema			= m.createProperty(PREFIXES.cex 	+ "WeightSchema")
    val cex_Weight				= m.createProperty(PREFIXES.cex 	+ "Weight")
 
-   val index_index				= m.createProperty(PREFIXES.index 	+ "index")
+   val index_index				= m.createProperty(PREFIXES.wi_index 	+ "index")
 
    val qb_attribute 			= m.createProperty(PREFIXES.qb 		+ "attribute")
    val qb_dataSet	 			= m.createProperty(PREFIXES.qb 		+ "dataSet")
@@ -105,7 +105,7 @@ case class Generator(
    val qbSliceKey				= m.createResource(PREFIXES.qb 		+ "SliceKey")
    val qbObservation			= m.createResource(PREFIXES.qb 		+ "Observation")
 
-   val indicatorWeights			= m.createResource(PREFIXES.weightSchema + "indicatorWeights")
+   val indicatorWeights			= m.createResource(PREFIXES.wi_weightSchema + "indicatorWeights")
 
    val wf_ontoDSD				= m.createResource(PREFIXES.wf_onto + "DSD")
    val sliceByArea 				= m.createResource(PREFIXES.wf_onto + "sliceByArea")
@@ -124,52 +124,52 @@ case class Generator(
    def literal(name: String) 	= m.createLiteral(name)
 
   private def indicator(name: String) : Resource = {
-    m.createResource(PREFIXES.indicator + name)
+    m.createResource(PREFIXES.wi_indicator + name)
   }
 
   private def dataSetRaw(name: String) : Resource = {
-    m.createResource(PREFIXES.dataset + name + "-Raw")
+    m.createResource(PREFIXES.wi_dataset + name + "-Raw")
   }
 
   private def dataSetImputed(name: String) : Resource = {
-    m.createResource(PREFIXES.dataset + name + "-Imputed")
+    m.createResource(PREFIXES.wi_dataset + name + "-Imputed")
   }
 
   private def dataSetNormalized(name: String) : Resource = {
-    m.createResource(PREFIXES.dataset + name + "-Normalized")
+    m.createResource(PREFIXES.wi_dataset + name + "-Normalized")
   }
 
   private def dataSetAdjusted : Resource = {
-    m.createResource(PREFIXES.dataset + "Adjusted")
+    m.createResource(PREFIXES.wi_dataset + "Adjusted")
   }
 
   private def dataSetComposite : Resource = {
-    m.createResource(PREFIXES.dataset + "Composite")
+    m.createResource(PREFIXES.wi_dataset + "Composite")
   }
 
   private def dataSetRanking : Resource = {
-    m.createResource(PREFIXES.dataset + "Ranking")
+    m.createResource(PREFIXES.wi_dataset + "Ranking")
   }
 
   private def country(name: String) : Resource = {
-    m.createResource(PREFIXES.indicator + name)
+    m.createResource(PREFIXES.wi_indicator + name)
   }
 
   private def observation(indicator: String, year: String, country: String) : Resource = {
-    m.createResource(PREFIXES.obs + indicator + year + country)
+    m.createResource(PREFIXES.wi_obs + indicator + year + country)
   }
 
 
   private def sliceIndicatorYear(indicator: String, year: String, kind: String) : Resource = {
-    m.createResource(PREFIXES.slice + indicator + year + "-" + kind)
+    m.createResource(PREFIXES.wi_slice + indicator + year + "-" + kind)
   }
 
   private def slice_composite : Resource = {
-    m.createResource(PREFIXES.slice + "composite")
+    m.createResource(PREFIXES.wi_slice + "composite")
   } 
 
   private def slice_ranking : Resource = {
-    m.createResource(PREFIXES.slice + "ranking")
+    m.createResource(PREFIXES.wi_slice + "ranking")
   } 
 
   lazy val indicatorNames: IndexedSeq[String] = {
