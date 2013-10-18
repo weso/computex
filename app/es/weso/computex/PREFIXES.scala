@@ -11,6 +11,7 @@ object PREFIXES {
   lazy val odb		 	= "http://data.webfoundation.org/odb/v2013/"
   lazy val test		 	= "http://data.webfoundation.org/test/v2013/"
   lazy val wi_computation	= webindex + "computation/"
+  lazy val wi_component		= webindex + "component/"
   lazy val wi_dataset		= webindex + "dataset/"
   lazy val wi_index			= webindex + "index/"
   lazy val wi_indicator		= webindex + "indicator/"
@@ -20,6 +21,7 @@ object PREFIXES {
   lazy val wi_slice			= webindex + "slice/"
   lazy val wi_weightSchema	= webindex + "weightSchema/"
   lazy val odb_computation	= odb + "computation/"
+  lazy val odb_component	= odb + "component/"
   lazy val odb_dataset		= odb + "dataset/"
   lazy val odb_index		= odb + "index/"
   lazy val odb_indicator	= odb + "indicator/"
@@ -47,19 +49,21 @@ object PREFIXES {
   lazy val xsd			= "http://www.w3.org/2001/XMLSchema#"
 
   private val cexMap : Map[String,String] = 
-    	Map("webindex" 		-> webindex,
-		    "odb"			-> odb,
-    	    "test"			-> test,
-    	    "wi-computation" 	-> wi_computation,
-		    "wi-ranking" 		-> wi_ranking,
-		    "wi-indicator"		-> wi_indicator,
+    	Map("webindex" 			-> webindex,
+		    "odb"				-> odb,
+    	    "test"				-> test,
 		    "wi-country"		-> wi_country,
+    	    "wi-computation" 	-> wi_computation,
+    	    "wi-component" 		-> wi_component,
+		    "wi-index"			-> wi_index,
+		    "wi-indicator"		-> wi_indicator,
 		    "wi-dataset"		-> wi_dataset,
 		    "wi-obs"			-> wi_obs, 
+		    "wi-ranking" 		-> wi_ranking,
 		    "wi-slice"			-> wi_slice,
-		    "wi-index"			-> wi_index,
 		    "wi-weightSchema"	-> wi_weightSchema,
     	    "odb-computation" 	-> odb_computation,
+    	    "odb-component" 	-> odb_component,
 		    "odb-ranking" 		-> odb_ranking,
 		    "odb-indicator"		-> odb_indicator,
 		    "odb-country"		-> odb_country,
