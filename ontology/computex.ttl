@@ -53,6 +53,10 @@ cex:indicator
 	rdfs:range cex:Indicator ;
 	.
 
+cex:RankingScore a owl:Class, rdfs:Class ;
+    rdfs:label "Ranking Score"@en ;
+	rdfs:subClassOf cex:Indicator ;
+	.
 	
 cex:High a skos:Concept; 
 	rdfs:label "High"@en; 
@@ -338,4 +342,5 @@ wf-onto:ref-dbpedia a owl:ObjectProperty, rdf:Property;
 	rdfs:comment "A mapping property to link an entity with a DBPedia resource"@en;
 	rdfs:range skos:Concept; 
 . 
+	
 	

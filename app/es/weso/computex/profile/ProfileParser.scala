@@ -62,7 +62,7 @@ case class ProfileParser(profile : Model) {
     seq.result
   }
 
-  
+/*  
   def expanders(resource : Resource): Seq[Expander] = {
     val seq = Vector.newBuilder[Expander]
     val iter = profile.listStatements(resource,cex_expandSteps,null) 
@@ -82,7 +82,7 @@ case class ProfileParser(profile : Model) {
     } 
     seq.result
   }
-
+*/
   def name(resource: Resource): String = {
     JenaUtils.getLiteral(resource, cex_name)
   }
@@ -123,10 +123,10 @@ case class ProfileParser(profile : Model) {
       val u    	= uri(r)
       val b 	= base(r)
       val vals 	= validators(r)
-      val exps 	= expanders(r)
+//      val exps 	= expanders(r)
       val comps = computeSteps(r)
       val imps 	= imports(r, new URI(r.getURI) +: visited)
-      seq += Profile(b,vals,exps,comps,imps,n,u)
+      seq += Profile(b,vals,comps,imps,n,u)
     }
     seq.result
   }
@@ -175,7 +175,7 @@ object ProfileParser {
       m.add(root,cex_import,uri)
     }
 
-    if (profile.expanders.length > 0) {
+/*    if (profile.expanders.length > 0) {
      // Generate RDF Collection list of expanders
      val lsNodes = Vector.newBuilder[RDFNode]    
      for (e <- profile.expanders) {
@@ -188,6 +188,7 @@ object ProfileParser {
      val listExpanders = m.createList(lsNodes.result.toArray)
      m.add(root,cex_expandSteps,listExpanders)
     }
+  */
     
     if (profile.computeSteps.length > 0) {
     // Generate RDF Collection list of computeSteps

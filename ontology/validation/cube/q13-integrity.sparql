@@ -16,8 +16,7 @@ CONSTRUCT {
 	[cex:name "attr"; cex:value ?attr ]  
 	.
  _:error cex:msg "Every observation must have a value for each non-optional attribute" .
-}
-WHERE {
+} WHERE {
     ?obs qb:dataSet/qb:structure/qb:component ?component .
     ?component qb:componentRequired "true"^^xsd:boolean ;
                qb:componentProperty ?attr .

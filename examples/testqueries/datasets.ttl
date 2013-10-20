@@ -1,0 +1,165 @@
+@prefix odb-dataset: <http://data.webfoundation.org/odb/v2013/dataset/> .
+@prefix wi-obs: <http://data.webfoundation.org/webindex/v2013/observation/> .
+@prefix wf-onto: <http://data.webfoundation.org/ontology/> .
+@prefix test:  <http://data.webfoundation.org/test/v2013/> .
+@prefix wi-ranking: <http://data.webfoundation.org/webindex/v2013/ranking/> .
+@prefix sdmxConcept: <http://purl.org/linked-data/sdmx/2009/concept#> .
+@prefix sdmxAttribute: <http://purl.org/linked-data/sdmx/2009/attribute#> .
+@prefix cex:   <http://purl.org/weso/ontology/computex#> .
+@prefix wi-slice: <http://data.webfoundation.org/webindex/v2013/slice/> .
+@prefix odb-obs: <http://data.webfoundation.org/odb/v2013/observation/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix time:  <http://www.w3.org/2006/time#> .
+@prefix wi-computation: <http://data.webfoundation.org/webindex/v2013/computation/> .
+@prefix sdmxSubject: <http://purl.org/linked-data/sdmx/2009/subject#> .
+@prefix wi-component: <http://data.webfoundation.org/webindex/v2013/component/> .
+@prefix dbpedia: <http://dbpedia.org/resource/> .
+@prefix wi-country: <http://data.webfoundation.org/webindex/v2013/country/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix wi-indicator: <http://data.webfoundation.org/webindex/v2013/indicator/> .
+@prefix sdmxCode: <http://purl.org/linked-data/sdmx/2009/code#> .
+@prefix odb-country: <http://data.webfoundation.org/odb/v2013/country/> .
+@prefix odb-component: <http://data.webfoundation.org/odb/v2013/component/> .
+@prefix wi-index: <http://data.webfoundation.org/webindex/v2013/index/> .
+@prefix wi-weightSchema: <http://data.webfoundation.org/webindex/v2013/weightSchema/> .
+@prefix webindex: <http://data.webfoundation.org/webindex/v2013/> .
+@prefix geo:   <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix wf-people: <http://data.webfoundation.org/people/> .
+@prefix qb:    <http://purl.org/linked-data/cube#> .
+@prefix odb-ranking: <http://data.webfoundation.org/odb/v2013/ranking/> .
+@prefix odb-index: <http://data.webfoundation.org/odb/v2013/index/> .
+@prefix odb-computation: <http://data.webfoundation.org/odb/v2013/computation/> .
+@prefix odb-slice: <http://data.webfoundation.org/odb/v2013/slice/> .
+@prefix wf-org: <http://data.webfoundation.org/organization/> .
+@prefix odb-indicator: <http://data.webfoundation.org/odb/v2013/indicator/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix wi-dataset: <http://data.webfoundation.org/webindex/v2013/dataset/> .
+@prefix odb-weightSchema: <http://data.webfoundation.org/odb/v2013/weightSchema/> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix odb:   <http://data.webfoundation.org/odb/v2013/> .
+
+[ a                          qb:DataSet ;
+  qb:slice                   [ a                  qb:Slice ;
+                               wf-onto:ref-year   2011 ;
+                               qb:sliceStructure  wf-onto:sliceByArea ;
+                               cex:indicator      wi-indicator:Q2
+                             ] ;
+  qb:structure               wf-onto:DSD ;
+  sdmxAttribute:unitMeasure  dbpedia:Year ;
+  cex:computation            [ a           cex:Imputed ;
+                               qb:dataSet  wi-dataset:Q2-Raw ;
+                               cex:method  cex:CopyRaw , cex:MeanBetweenMissing , cex:AvgGrowth2Missing
+                             ]
+] .
+
+[ a                          qb:DataSet ;
+  qb:slice                   [ a                  qb:Slice ;
+                               wf-onto:ref-year   2011 ;
+                               qb:sliceStructure  wf-onto:sliceByArea ;
+                               cex:indicator      wi-indicator:D
+                             ] ;
+  qb:slice                   [ a                  qb:Slice ;
+                               wf-onto:ref-year   2010 ;
+                               qb:sliceStructure  wf-onto:sliceByArea ;
+                               cex:indicator      wi-indicator:D
+                             ] ;
+  qb:slice                   [ a                  qb:Slice ;
+                               wf-onto:ref-year   2009 ;
+                               qb:sliceStructure  wf-onto:sliceByArea ;
+                               cex:indicator      wi-indicator:D
+                             ] ;
+  qb:structure               wf-onto:DSD ;
+  sdmxAttribute:unitMeasure  dbpedia:Year ;
+  cex:computation            [ a           cex:Imputed ;
+                               qb:dataSet  wi-dataset:D-Raw ;
+                               cex:method  cex:CopyRaw , cex:MeanBetweenMissing , cex:AvgGrowth2Missing
+                             ]
+] .
+
+[ a                          qb:DataSet ;
+  qb:slice                   [ a                  qb:Slice ;
+                               wf-onto:ref-year   2011 ;
+                               qb:sliceStructure  wf-onto:sliceByArea ;
+                               cex:indicator      wi-indicator:Q1
+                             ] ;
+  qb:structure               wf-onto:DSD ;
+  sdmxAttribute:unitMeasure  dbpedia:Year ;
+  cex:computation            [ a           cex:Imputed ;
+                               qb:dataSet  wi-dataset:Q1-Raw ;
+                               cex:method  cex:CopyRaw , cex:MeanBetweenMissing , cex:AvgGrowth2Missing
+                             ]
+] .
+
+[ a                          qb:DataSet ;
+  qb:slice                   [ a                  qb:Slice ;
+                               wf-onto:ref-year   2009 ;
+                               qb:sliceStructure  wf-onto:sliceByArea ;
+                               cex:indicator      wi-indicator:A
+                             ] ;
+  qb:slice                   [ a                  qb:Slice ;
+                               wf-onto:ref-year   2011 ;
+                               qb:sliceStructure  wf-onto:sliceByArea ;
+                               cex:indicator      wi-indicator:A
+                             ] ;
+  qb:slice                   [ a                  qb:Slice ;
+                               wf-onto:ref-year   2010 ;
+                               qb:sliceStructure  wf-onto:sliceByArea ;
+                               cex:indicator      wi-indicator:A
+                             ] ;
+  qb:structure               wf-onto:DSD ;
+  sdmxAttribute:unitMeasure  dbpedia:Year ;
+  cex:computation            [ a           cex:Imputed ;
+                               qb:dataSet  wi-dataset:A-Raw ;
+                               cex:method  cex:CopyRaw , cex:MeanBetweenMissing , cex:AvgGrowth2Missing
+                             ]
+] .
+
+[ a                          qb:DataSet ;
+  qb:slice                   [ a                  qb:Slice ;
+                               wf-onto:ref-year   2011 ;
+                               qb:sliceStructure  wf-onto:sliceByArea ;
+                               cex:indicator      wi-indicator:C
+                             ] ;
+  qb:slice                   [ a                  qb:Slice ;
+                               wf-onto:ref-year   2010 ;
+                               qb:sliceStructure  wf-onto:sliceByArea ;
+                               cex:indicator      wi-indicator:C
+                             ] ;
+  qb:slice                   [ a                  qb:Slice ;
+                               wf-onto:ref-year   2009 ;
+                               qb:sliceStructure  wf-onto:sliceByArea ;
+                               cex:indicator      wi-indicator:C
+                             ] ;
+  qb:structure               wf-onto:DSD ;
+  sdmxAttribute:unitMeasure  dbpedia:Year ;
+  cex:computation            [ a           cex:Imputed ;
+                               qb:dataSet  wi-dataset:C-Raw ;
+                               cex:method  cex:CopyRaw , cex:MeanBetweenMissing , cex:AvgGrowth2Missing
+                             ]
+] .
+
+[ a                          qb:DataSet ;
+  qb:slice                   [ a                  qb:Slice ;
+                               wf-onto:ref-year   2010 ;
+                               qb:sliceStructure  wf-onto:sliceByArea ;
+                               cex:indicator      wi-indicator:B
+                             ] ;
+  qb:slice                   [ a                  qb:Slice ;
+                               wf-onto:ref-year   2011 ;
+                               qb:sliceStructure  wf-onto:sliceByArea ;
+                               cex:indicator      wi-indicator:B
+                             ] ;
+  qb:slice                   [ a                  qb:Slice ;
+                               wf-onto:ref-year   2009 ;
+                               qb:sliceStructure  wf-onto:sliceByArea ;
+                               cex:indicator      wi-indicator:B
+                             ] ;
+  qb:structure               wf-onto:DSD ;
+  sdmxAttribute:unitMeasure  dbpedia:Year ;
+  cex:computation            [ a           cex:Imputed ;
+                               qb:dataSet  wi-dataset:B-Raw ;
+                               cex:method  cex:CopyRaw , cex:MeanBetweenMissing , cex:AvgGrowth2Missing
+                             ]
+] .

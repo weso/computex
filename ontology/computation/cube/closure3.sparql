@@ -1,0 +1,9 @@
+PREFIX rdf:            <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX qb:             <http://purl.org/linked-data/cube#>
+
+CONSTRUCT {
+    ?s rdf:type qb:Slice .
+} WHERE {
+    [] qb:slice ?s.
+}
+

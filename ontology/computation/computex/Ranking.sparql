@@ -1,4 +1,4 @@
-# Subindex mean
+# Ranking
 prefix country:      <http://data.webfoundation.org/webindex/v2013/country/> 
 prefix dataset:      <http://data.webfoundation.org/webindex/v2013/dataset/> 
 prefix indicator:    <http://data.webfoundation.org/webindex/v2013/indicator/> 
@@ -13,53 +13,55 @@ prefix rdf:          <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 prefix rdfs:         <http://www.w3.org/2000/01/rdf-schema#> 
 prefix sdmx-code:  <http://purl.org/linked-data/sdmx/2009/code#> 
 prefix sdmx-concept: <http://purl.org/linked-data/sdmx/2009/concept#> 
-prefix wi-onto:      <http://data.webfoundation.org/webindex/ontology/> 
+prefix wf-onto:      <http://data.webfoundation.org/ontology/> 
 prefix xml:          <http://www.w3.org/XML/1998/namespace> 
 prefix xsd:          <http://www.w3.org/2001/XMLSchema#> 
 
-INSERT {
- _:obs a qb:Observation ;
-       cex:value ?mean ;
-       qb:dataSet ?dataSetToCopy ;
-       cex:indicator ?component ;
-	   ?dimension ?valueDim ;
-	   sdmx-concept:obsStatus cex:Grouped ;
-	   qb:dataset ?dataSetToCopy ;
-	   cex:computation [ a cex:GroupMean ;
-		                   cex:observation ?obs ;
-						   cex:component ?lsObs ] ;
-	.
- ?sliceToCopy qb:observation _:obs .
+CONSTRUCT {
+ ?sliceToCopy qb:observation 
+   [ a qb:Observation; 
+     cex:computation 
+      [ a cex:Rank ;
+        cex:slice ?sliceToRank;
+        cex:dimension ?dim 
+      ] ;
+     qb:dataSet ?dataSetToCopy ;
+     wf-onto:ref-year ?year ;
+     cex:indicator ?component ; 
+     cex:value ?ranking ;
+     ?dim ?valueDim 
+   ] .
 } WHERE {
+
  ?dataSetToCopy a qb:DataSet ;
       cex:computation ?comp ;
       qb:slice ?sliceToCopy .
-      
- ?comp a cex:GroupMean  ;
-	   cex:dataSet ?dataset ;
-	   cex:component ?component ;
-	   cex:dimension ?dimension
-	   .
+
+ ?comp a cex:Ranking ;
+       cex:slice ?sliceToRank ;
+       cex:dimension ?dim
+	 .      
 	   
  ?sliceToCopy cex:indicator ?component .
+ 
+ ?sliceToRank qb:observation ?obsToRank ;
+              cex:indicator ?component ;
+              .
+ ?obsToRank ?dim ?valueDim ;
+            cex:indicator ?component ;
+            wf-onto:ref-year ?year ;
+            cex:value ?valueToRank .
+      
+ { SELECT (COUNT(*) as ?ranking) ?sliceToRank ?obsToRank ?valueToRank WHERE {
+     ?sliceToRank qb:observation ?obs ;
+         qb:observation ?obsToRank .
 
- { SELECT (AVG(?value) as ?mean) 
-          (GROUP_CONCAT(?obs) as ?lsObs) 
-          ?dataset 
-          ?component 
-          ?dimension 
-          ?valueDim WHERE {
-    
-    ?component cex:element ?element .
- 
-    ?dataset qb:slice ?sliceFrom .
- 
-    ?sliceFrom cex:indicator ?element ; 
-               qb:observation ?obs .
-    
-    ?obs cex:value ?value ;
-         ?dimension ?valueDim .
-         
-  } GROUP BY ?dataset ?component ?dimension ?valueDim
- }
+     ?obs cex:value ?value ;
+          .
+     ?obsToRank cex:value ?valueToRank ;
+          .
+     
+   FILTER( ?valueToRank <= ?value )
+  } GROUP BY ?obsToRank ?valueToRank ?sliceToRank 
+ }    
 }

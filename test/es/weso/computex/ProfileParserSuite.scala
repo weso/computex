@@ -51,14 +51,9 @@ class ProfileParserSuite
      profile.allValidators.length should be(37)
    }
 
-  it("Should obtain a list of expanders for RDF Data Cube profile") {
+  it("Should obtain a list of computeSteps for RDF Data Cube profile") {
      val profile = Profile.Cube
-     profile.expanders.length should be(2)
-   }
-
-  it("Should obtain a list of expanders for Computex profile") {
-     val profile = Profile.Computex
-     profile.expanders.length should be(0)
+     profile.computeSteps.length should be(10)
    }
 
   it("Should obtain a list of computeSteps for Computex profile") {
@@ -114,7 +109,7 @@ class ProfileParserSuite
      profile.validate(model) match {
        case (Passed(_),_) => info("Validates")
        case vr@(NotPassed(_),returnedModel) => 
-         // JenaUtils.model2File(returnedModel,"returned.ttl")
+         JenaUtils.model2File(returnedModel,"returned.ttl")
          // info("Error model:" + model2Str(model))
          fail("Does not validate " + VReport.show(vr._1, false))
      }
@@ -122,7 +117,7 @@ class ProfileParserSuite
 
    it("Should validate computex demo generated randomly with Computex profile") {
      val profile 	= Profile.Computex
-     val model 		= Generator(1,1,1).model
+     val model 		= Generator(2,1,1).model
      profile.validate(model) match {
        case (Passed(_),_) => info("Validates")
        case vr@(NotPassed(e),returnedModel) => 

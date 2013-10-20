@@ -15,9 +15,9 @@ CONSTRUCT {
 	[cex:name "dim"; cex:value ?dim ]  
 	.
  _:error cex:msg "Every observation must have a value for each declared dimension" .
-}
-WHERE {
+} WHERE {
     ?obs qb:dataSet/qb:structure/qb:component/qb:componentProperty ?dim .
-    ?dim a qb:DimensionProperty;
+	?obs qb:dataSet ?dataset .
+    ?dim a qb:DimensionProperty .
     FILTER NOT EXISTS { ?obs ?dim [] }
 }

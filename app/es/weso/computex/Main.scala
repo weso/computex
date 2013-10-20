@@ -49,8 +49,13 @@ class Opts(arguments: Array[String],
     val showModel  = toggle("show", 
     				prefix = "no-",
     				default = Some(false),
-    				descrYes = "show model validated", 
-        			descrNo = "don't show model validated")
+    				descrYes = "show models ", 
+        			descrNo = "don't show models")
+   val verbose    = toggle("verbose", 
+    				prefix = "no-",
+    				default = Some(false),
+    				descrYes = "Normal output", 
+        			descrNo = "Verbose output")
     val output  = opt[String]("out",
     				descr = "Output model to file")
     val report  = opt[String]("report",
@@ -88,10 +93,16 @@ object Main extends App {
            println("Not valid: ")
            println(vs.length + " validators passed")
            println(nvs.length + " validators didn't pass")
+           for ((v,m) <- nvs) {
+             println("Validator failed: " + v.name)
+             if (opts.verbose()) println("Model:" + JenaUtils.model2Str(m))
+           }
        }
-       if (opts.showModel()) {
-         showModel(opts.output.get,model,"TURTLE","Model")
-       }
+
+     if (opts.showModel())   {
+         showModel(opts.output.get,model,"TURTLE","Validated Model")
+     }
+
      } catch {
   	    case e: Exception => println("\nException:\n" + e.getLocalizedMessage())
   	 }

@@ -13,7 +13,7 @@ import java.io.IOException
 import java.io.File
 
 class CubeSuite extends FunSpec with SparqlSuite with ShouldMatchers {
-
+/*
   val conf : Config = ConfigFactory.load()
 
   val validationDir = conf.getString("validationDir")
@@ -23,9 +23,6 @@ class CubeSuite extends FunSpec with SparqlSuite with ShouldMatchers {
   val demoURI = conf.getString("demoURI")
   val demoAbbrURI = conf.getString("demoAbbrURI")
   val demoCubeUri = conf.getString("demoCubeURI")
-  val closureFile = conf.getString("closureFile")
-  val flattenFile = conf.getString("flattenFile")
-  val findStepsQuery 	= conf.getString("findStepsQuery") 
   
   
   val cex = Computex(ontologyURI,validationDir,computationDir,closureFile,flattenFile,findStepsQuery)
@@ -67,6 +64,6 @@ class CubeSuite extends FunSpec with SparqlSuite with ShouldMatchers {
     }
     
   }
-  
+ */ 
 
 }

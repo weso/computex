@@ -1,0 +1,14 @@
+PREFIX qb:             <http://purl.org/linked-data/cube#>
+
+# Dimension values on slices
+CONSTRUCT {
+    ?obs  ?comp ?value
+} WHERE {
+    ?spec    qb:componentProperty ?comp .
+    ?comp a  qb:DimensionProperty .
+    ?dataset qb:structure [qb:component ?spec];
+             qb:slice ?slice .
+    ?slice ?comp ?value;
+           qb:observation ?obs .
+}
+

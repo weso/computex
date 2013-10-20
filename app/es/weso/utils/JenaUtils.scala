@@ -21,6 +21,7 @@ import java.io.FileOutputStream
 import org.apache.jena.atlas.AtlasException
 import org.apache.jena.riot.RiotException
 import com.hp.hpl.jena.query.ResultSet
+import com.hp.hpl.jena.rdf.model.Literal
 
 sealed abstract class ParserReport[+A,+B] 
 
@@ -32,12 +33,15 @@ final case class NotParsed[B](error: B)
 
 object JenaUtils {
 
-  val RdfXML 		= "RDF/XML"
-  val RdfXMLAbbr 	= "RDF/XML-ABBREV"
-  val NTriple 		= "N-TRIPLE"
-  val Turtle 		= "TURTLE"
-  val TTL 			= "TTL"
-  val N3 			= "N3"
+  lazy val RdfXML 		= "RDF/XML"
+  lazy val RdfXMLAbbr 	= "RDF/XML-ABBREV"
+  lazy val NTriple 		= "N-TRIPLE"
+  lazy val Turtle 		= "TURTLE"
+  lazy val TTL 			= "TTL"
+  lazy val N3 			= "N3"
+
+  // In Jena selectors, null represents any node
+  lazy val any : RDFNode = null
 
   def extractModel(resource: Resource, model: Model): Model = {
     val nModel = ModelFactory.createDefaultModel()
@@ -293,5 +297,34 @@ object JenaUtils {
 		  syntax: String = Turtle) : Unit = {
     model.write(new FileOutputStream(fileName),syntax)
   }
+
+
+ def findProperty(m: Model, r:Resource, p: Property) : RDFNode = {
+   val iter = m.listStatements(r,p,any)
+   if (iter.hasNext) {
+     val node = iter.next.getObject
+     if (!iter.hasNext) node 
+     else throw 
+    	 	new Exception("findProperty: Resource " + r + " has more than one value for property " + p)
+   }
+   else
+     throw new Exception("findPropery: Resource " + r + " does not have value for property " + p)
+ }
+
+ def findProperty_asResource(m: Model, r:Resource, p : Property) : Resource = {
+   val v = findProperty(m,r,p)
+   if (v.isResource) v.asResource
+   else {
+     throw new Exception("findProperty_asResource: Resource " + r + " has value " + v + " for property " + p + " which is not a resource")
+   }
+ }
+
+ def findProperty_asLiteral(m: Model, r:Resource, p : Property) : Literal = {
+   val v = findProperty(m,r,p)
+   if (v.isLiteral) v.asLiteral
+   else {
+     throw new Exception("findProperty_asLiteral: Resource " + r + " has value " + v + " for property " + p + " which is not a literal")
+   }
+ }
 
 }

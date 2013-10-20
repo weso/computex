@@ -7,7 +7,7 @@ PREFIX owl:            <http://www.w3.org/2002/07/owl#>
 PREFIX eg:             <http://example.com/abbrv-cube/>
 prefix cex: 		   <http://purl.org/weso/ontology/computex#> 
 
-# Every DataSet has a unique associated DataStructureDefinition 
+# Every DSD must include a measure 
 
 CONSTRUCT {
  _:error a cex:Error .

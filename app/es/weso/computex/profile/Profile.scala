@@ -20,7 +20,7 @@ import com.hp.hpl.jena.rdf.model.ModelFactory
 case class Profile(
     val ontologyBase 	: URI,
     val validators		: Seq[Validator],
-    val expanders		: Seq[Expander],
+    // val expanders		: Seq[Expander],
     val computeSteps	: Seq[ComputeStep],
     val imports			: Seq[(URI,Profile)],
     val name			: String = "",
@@ -36,21 +36,18 @@ case class Profile(
    * Retrieves all the validators from the imported profiles
    */
   lazy val allValidators : Seq[Validator] = {
-    validators ++ imports.map(pair => pair._2.allValidators).flatten
+    validators ++ imports.map(pair => pair._2.allValidators).flatten 
   }
   
-  /*
-   * Retrieves all the expanders from the imported profiles
-   */
-  lazy val allExpanders : Seq[Expander] = {
-    expanders ++ imports.map(pair => pair._2.allExpanders).flatten
+  lazy val allComputeSteps : Seq[ComputeStep] = {
+    computeSteps ++ imports.map(pair => pair._2.allComputeSteps).flatten 
   }
 
   /**
    *  Expands a model using this profile
    */
   def expand(model:Model) : Model = {
-    allExpanders.foldLeft(model)(combineExpansion)
+    compute(model)
   }
 
   private def combineExpansion(model: Model, expander: Expander) : Model = {
@@ -66,7 +63,7 @@ case class Profile(
    *  Expands a model using this profile
    */
   def compute(model:Model) : Model = {
-    computeSteps.foldLeft(model)(combineComputation)
+    allComputeSteps.foldLeft(model)(combineComputation)
   }
 
   private def combineComputation(model: Model, computeStep: ComputeStep) : Model = {
@@ -125,7 +122,6 @@ case class Profile(
   override def toString : String = {
     "Profile. Name = " + name + " URI = " + uri + 
     "\nValidators:" + validators + 
-    "\nExpanders:" + expanders + 
     "\nComputeSteps:" + computeSteps + 
     "\nImports: " + imports
   }

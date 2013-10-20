@@ -1,0 +1,14 @@
+PREFIX qb:             <http://purl.org/linked-data/cube#>
+
+# Slice attachments
+CONSTRUCT {
+    ?obs  ?comp ?value
+} WHERE {
+    ?spec    qb:componentProperty ?comp;
+             qb:componentAttachment qb:Slice .
+    ?dataset qb:structure [qb:component ?spec];
+             qb:slice ?slice .
+    ?slice ?comp ?value;
+           qb:observation ?obs .
+}
+

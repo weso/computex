@@ -6,17 +6,41 @@
 @prefix cubeURI: 		<ontology/validation/cube/> .
 @prefix profileURI: 	<ontology/profiles/> .
 @prefix cexOntology: 	<ontology/> .
-@prefix cubeURIExpand: 	<ontology/expansion/cube/> .
+@prefix cubeURICompute: 	<ontology/computation/cube/> .
 
 cex:cube a cex:ValidationProfile ;
    cex:name 			"RDF Data Cube" ;
    cex:ontologyBase 	cexOntology:cube.ttl ;
-   cex:expandSteps 
-	 	([ cex:name "Closure" ; 
-          cex:uri cubeURIExpand:closure.ru  
+   cex:computeSteps 
+	 	([ cex:name "Closure 1" ; 
+           cex:uri cubeURICompute:closure1.sparql  
          ]
-	 	 [ cex:name "Flatten" ; 
-	 	   cex:uri cubeURIExpand:flatten.ru 
+         [ cex:name "Closure 2" ; 
+           cex:uri cubeURICompute:closure2.sparql  
+         ]
+         [ cex:name "Closure 3" ; 
+           cex:uri cubeURICompute:closure3.sparql  
+         ]
+         [ cex:name "Closure 4" ; 
+           cex:uri cubeURICompute:closure4.sparql  
+         ]
+         [ cex:name "Closure 5" ; 
+           cex:uri cubeURICompute:closure5.sparql  
+         ]
+         [ cex:name "Closure 6" ; 
+           cex:uri cubeURICompute:closure6.sparql  
+         ]
+         [ cex:name "Closure 7" ; 
+           cex:uri cubeURICompute:closure7.sparql  
+         ]
+	 	 [ cex:name "Flatten 1" ; 
+	 	   cex:uri cubeURICompute:flatten1.sparql 
+	 	 ] 
+	 	 [ cex:name "Flatten 2" ; 
+	 	   cex:uri cubeURICompute:flatten2.sparql 
+	 	 ] 
+	 	 [ cex:name "Flatten 3" ; 
+	 	   cex:uri cubeURICompute:flatten3.sparql 
 	 	 ] 
         ) ;
    # Integrity queries from RDF Data Cube

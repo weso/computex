@@ -67,7 +67,7 @@ wi-onto:DSD a qb:DataStructureDefinition;
     
     # The attributes
     qb:component [ qb:attribute sdmx-attribute:unitMeasure; 
-                   qb:componentRequired "true"^^xsd:boolean;
+                 #  qb:componentRequired "true"^^xsd:boolean;
                    qb:componentAttachment qb:DataSet; ] ;
     
     # slices

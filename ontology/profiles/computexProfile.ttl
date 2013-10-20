@@ -1,4 +1,4 @@
-# RDF Data Cube Profile
+# Computex Profile
 
 @prefix cex: 			<http://purl.org/weso/ontology/computex#> .
 @prefix dcterms: 		<http://purl.org/dc/terms/> .
@@ -6,8 +6,7 @@
 @prefix profileURI: 	<ontology/profiles/> .
 @prefix cexOntology: 	<ontology/> .
 @prefix cexURI: 		<ontology/validation/computex/> .
-@prefix cexURIExpand: 	<ontology/expansion/> .
-@prefix cexURICompute: 	<ontology/computation/> .
+@prefix cexURICompute: 	<ontology/computation/computex/> .
 
 cex:computex a cex:ValidationProfile ;
    cex:name "Computex" ;
