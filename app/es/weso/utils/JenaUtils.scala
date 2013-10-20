@@ -22,6 +22,11 @@ import org.apache.jena.atlas.AtlasException
 import org.apache.jena.riot.RiotException
 import com.hp.hpl.jena.query.ResultSet
 import com.hp.hpl.jena.rdf.model.Literal
+import es.weso.computex.PREFIXES
+import com.hp.hpl.jena.rdf.model.ResourceFactory
+// import scalaz.syntax.std.ToIndexedSeqOps
+import scala.collection.JavaConverters._
+
 
 sealed abstract class ParserReport[+A,+B] 
 
@@ -298,6 +303,9 @@ object JenaUtils {
     model.write(new FileOutputStream(fileName),syntax)
   }
 
+ def getValuesOfType(r: Resource, m: Model) : Set[Resource] = {
+  m.listResourcesWithProperty(PREFIXES.rdf_type,r).toSet.asScala.toSet
+ }
 
  def findProperty(m: Model, r:Resource, p: Property) : RDFNode = {
    val iter = m.listStatements(r,p,any)

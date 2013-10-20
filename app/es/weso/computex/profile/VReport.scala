@@ -41,6 +41,7 @@ package object VReport {
     								 		 // list of (validators,error models) that didn't pass
   ]
   
+  
  def show(
      vr: VReport, 
      verbose: Boolean = false) : String = {

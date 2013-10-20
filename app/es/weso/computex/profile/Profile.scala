@@ -20,7 +20,6 @@ import com.hp.hpl.jena.rdf.model.ModelFactory
 case class Profile(
     val ontologyBase 	: URI,
     val validators		: Seq[Validator],
-    // val expanders		: Seq[Expander],
     val computeSteps	: Seq[ComputeStep],
     val imports			: Seq[(URI,Profile)],
     val name			: String = "",

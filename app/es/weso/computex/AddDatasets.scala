@@ -50,7 +50,6 @@ class AddDatasetsOpts(arguments: Array[String],
 }
 
 object AddDatasets extends App {
-
  
  def addImputedDatasets(m:Model) : Model = {
    println("Adding imputed datasets")
@@ -87,7 +86,6 @@ object AddDatasets extends App {
    newModel
  }
  
-
  def addDatasets(m: Model) : Model = {
    addImputedDatasets(m)
  } 
