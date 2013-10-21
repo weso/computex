@@ -18,17 +18,16 @@ class AddDataSetsSuite extends FunSpec
   
   
   describe("AddDatasets") {
-   it("Should add 6 imputed datasets") {
+   it("Should add datasets") {
      val m = parseFromURI(demoMinUri, "", "TURTLE")
-     val datasets = AddDatasets.addDatasets(m)
-     val ds = getValuesOfType(PREFIXES.qb_DataSet, datasets)
-     ds.size should be(6)
+     AddDatasets.addDatasets(m)
+     val ds = getValuesOfType(PREFIXES.qb_DataSet, m)
+     ds.size should be(18)
    }
 
    it("Should compute imputed datasets and copy values") {
      val m = parseFromURI(demoMinUri, "", "TURTLE")
-     val datasets = AddDatasets.addDatasets(m)
-     m.add(datasets)
+     AddDatasets.addDatasets(m)
      
      val p = Profile.Computex
      val (expanded,computed) = p.compute(m)
@@ -38,9 +37,8 @@ class AddDataSetsSuite extends FunSpec
 
    it("Should compute imputed datasets and calculate mean between values") {
      val m = parseFromURI(demoMinUri, "", "TURTLE")
-     val datasets = AddDatasets.addDatasets(m)
-     m.add(datasets)
-     
+     AddDatasets.addDatasets(m)
+          
      val p = Profile.Computex
      val (expanded,computed) = p.compute(m)
      val ds = getValuesOfType(PREFIXES.cex_Mean, expanded)
@@ -50,13 +48,23 @@ class AddDataSetsSuite extends FunSpec
 
    it("Should compute imputed datasets and calculate average growth") {
      val m = parseFromURI(demoMinUri, "", "TURTLE")
-     val datasets = AddDatasets.addDatasets(m)
-     m.add(datasets)
-     
+     AddDatasets.addDatasets(m)
+          
      val p = Profile.Computex
      val (expanded,computed) = p.compute(m)
      val ds = getValuesOfType(PREFIXES.cex_AverageGrowth, expanded)
      ds.size should be(1)
+     model2File(expanded,"generated.ttl")
+   }
+
+   it("Should compute Normalized datasets and calculate zScores") {
+     val m = parseFromURI(demoMinUri, "", "TURTLE")
+     AddDatasets.addDatasets(m)
+          
+     val p = Profile.Computex
+     val (expanded,computed) = p.compute(m)
+     val ds = getValuesOfType(PREFIXES.cex_Normalize, expanded)
+     ds.size should be(56)
      model2File(expanded,"generated.ttl")
    }
 
