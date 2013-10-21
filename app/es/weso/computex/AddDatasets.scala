@@ -24,6 +24,7 @@ import com.hp.hpl.jena.rdf.model.Resource
 import com.hp.hpl.jena.rdf.model.Literal
 import com.hp.hpl.jena.rdf.model.Property
 import PREFIXES._
+import scala.collection.JavaConverters
 
 class AddDatasetsOpts(arguments: Array[String],
     onError: (Throwable, Scallop) => Nothing
@@ -88,33 +89,14 @@ object AddDatasets extends App {
  
  def addNormalizedDatasets(m:Model) : Model = {
    val newModel = ModelFactory.createDefaultModel()
-   val iter = m.listSubjectsWithProperty(rdf_type,qb_DataSet)
+   val datasetsIter = m.listSubjectsWithProperty(rdf_type,qb_DataSet)
    
-   while (iter.hasNext) {
-     val dataset = iter.nextResource()
-     val newDataSet = newModel.createResource()
-     newModel.add(newDataSet,rdf_type,qb_DataSet)
-     
-     val computation = newModel.createResource
-     newModel.add(computation,rdf_type,cex_ImputeDataSet)
-     newModel.add(computation,cex_method,cex_AvgGrowth2Missing)
-     newModel.add(computation,cex_method,cex_MeanBetweenMissing)
-     newModel.add(computation,cex_method,cex_CopyRaw)
-     newModel.add(computation,cex_dataSet,dataset)
-     
-     newModel.add(newDataSet,cex_computation,computation)
-     newModel.add(newDataSet,sdmxAttribute_unitMeasure,dbpedia_Year)
-     newModel.add(newDataSet,qb_structure,wf_onto_DSD)
-
-     val iterSlices = m.listStatements(dataset,qb_slice,null : RDFNode)
-     while (iterSlices.hasNext) {
-       val slice = iterSlices.next.getObject().asResource()
-       val newSlice = newModel.createResource()
-       newModel.add(newSlice,rdf_type,qb_Slice)
-       newModel.add(newSlice,cex_indicator,findProperty_asResource(m,slice,cex_indicator))
-       newModel.add(newSlice,wf_onto_ref_year,findProperty_asLiteral(m,slice,wf_onto_ref_year))
-       newModel.add(newSlice,qb_sliceStructure,wf_onto_sliceByArea)
-       newModel.add(newDataSet,qb_slice,newSlice)
+   while (datasetsIter.hasNext) {
+     val dataset = datasetsIter.nextResource()
+     val computation = findProperty_asResource(m,dataset,cex_computation)
+     val typeComputation = findProperty(m,computation,rdf_type)
+     if (typeComputation == cex_ImputeDataSet) {
+       println("Imputed found!")
      }
    }
    newModel.setNsPrefixes(PREFIXES.cexMapping)
@@ -123,7 +105,7 @@ object AddDatasets extends App {
 
  def addDatasets(m: Model) : Model = {
    addImputedDatasets(m)
-//   addNormalizedDatasets(m)
+   addNormalizedDatasets(m)
  } 
 
  override def main(args: Array[String]) {
