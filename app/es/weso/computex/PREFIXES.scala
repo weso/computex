@@ -138,9 +138,11 @@ object PREFIXES {
  lazy val cex_ImputeDataSet	= property("cex","ImputeDataSet")
  lazy val cex_Imputed	 	= property("cex","Imputed")
  lazy val cex_Indicator 	= property("cex","Indicator")
+ lazy val cex_Low			= property("cex","Low")
  lazy val cex_Mean			= property("cex","Mean")
  lazy val cex_MeanBetweenMissing = property("cex","MeanBetweenMissing")
- lazy val cex_Low			= property("cex","Low")
+ lazy val cex_Normalize		= property("cex","Normalize")
+ 
  lazy val cex_Ranking		= property("cex","Ranking")
  lazy val cex_WeightedMean	= property("cex","WeightedMean")
  lazy val cex_WeightSchema	= property("cex","WeightSchema")
