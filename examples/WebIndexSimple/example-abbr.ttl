@@ -355,6 +355,7 @@ country:CHL
 
 dataset:A-Raw
       a qb:DataSet ;
+	  cex:computation [a cex:Raw ] ;
       cex:md5-checksum "MD5..." ;
       dcterms:contributor wf-org:WESO ;
       dcterms:issued "2013-07-06" ;
@@ -370,6 +371,7 @@ dataset:A-Raw
 
 dataset:B-Raw
       a qb:DataSet ;
+	  cex:computation [a cex:Raw ] ;
       cex:md5-checksum "MD5..." ;
       dcterms:contributor wf-org:WESO ;
       dcterms:issued "2013-07-06" ;
@@ -385,6 +387,7 @@ dataset:B-Raw
 
 dataset:C-Raw
       a qb:DataSet ;
+	  cex:computation [a cex:Raw ] ;
       cex:md5-checksum "MD5..." ;
       dcterms:contributor wf-org:WESO ;
       dcterms:issued "2013-07-06" ;
@@ -400,6 +403,7 @@ dataset:C-Raw
 
 dataset:D-Raw
       a qb:DataSet ;
+	  cex:computation [a cex:Raw ] ;
       cex:md5-checksum "MD5..." ;
       dcterms:contributor wf-org:WESO ;
       dcterms:issued "2013-07-06" ;
@@ -415,6 +419,7 @@ dataset:D-Raw
 
 dataset:Q1-Raw
       a qb:DataSet ;
+	  cex:computation [a cex:Raw ] ;
       cex:md5-checksum "MD5..." ;
       dcterms:contributor wf-org:WESO ;
       dcterms:issued "2013-07-06" ;
@@ -430,6 +435,7 @@ dataset:Q1-Raw
 
 dataset:Q2-Raw
       a qb:DataSet ;
+	  cex:computation [a cex:Raw ] ;
       cex:md5-checksum "MD5..." ;
       dcterms:contributor wf-org:WESO ;
       dcterms:issued "2013-07-06" ;

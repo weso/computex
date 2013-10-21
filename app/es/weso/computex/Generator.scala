@@ -504,7 +504,7 @@ object Generator extends App {
 	  var outputModel = gen.model
 	  if (opts.doComputation()) {
 	    println("Applying computation steps to generated model...")
-	    val model = profile.compute(gen.model)
+	    val model = profile.expand(gen.model)
 	    outputModel = model
 	  }
 

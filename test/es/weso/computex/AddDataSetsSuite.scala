@@ -7,7 +7,7 @@ import com.typesafe.config.Config
 import es.weso.computex.profile.Profile
 import es.weso.computex.profile.Passed
 import es.weso.computex.profile.NotPassed
-import es.weso.utils.JenaUtils
+import es.weso.utils.JenaUtils._
 
 class AddDataSetsSuite extends FunSpec 
 	with ShouldMatchers 
@@ -19,20 +19,47 @@ class AddDataSetsSuite extends FunSpec
   
   describe("AddDatasets") {
    it("Should add 6 imputed datasets") {
-     val m = JenaUtils.parseFromURI(demoMinUri, "", "TURTLE")
+     val m = parseFromURI(demoMinUri, "", "TURTLE")
      val datasets = AddDatasets.addDatasets(m)
-     val ds = JenaUtils.getValuesOfType(PREFIXES.qb_DataSet, datasets)
+     val ds = getValuesOfType(PREFIXES.qb_DataSet, datasets)
      ds.size should be(6)
    }
 
-   it("Should compute imputed datasets") {
-     val m = JenaUtils.parseFromURI(demoMinUri, "", "TURTLE")
+   it("Should compute imputed datasets and copy values") {
+     val m = parseFromURI(demoMinUri, "", "TURTLE")
      val datasets = AddDatasets.addDatasets(m)
      m.add(datasets)
      
      val p = Profile.Computex
-     val computed = p.compute(m)
+     val (expanded,computed) = p.compute(m)
+     val ds = getValuesOfType(PREFIXES.cex_Copy, expanded)
+     ds.size should be(49)
    }
-}
+
+   it("Should compute imputed datasets and calculate mean between values") {
+     val m = parseFromURI(demoMinUri, "", "TURTLE")
+     val datasets = AddDatasets.addDatasets(m)
+     m.add(datasets)
+     
+     val p = Profile.Computex
+     val (expanded,computed) = p.compute(m)
+     val ds = getValuesOfType(PREFIXES.cex_Mean, expanded)
+     ds.size should be(6)
+     model2File(expanded,"generated.ttl")
+   }
+
+   it("Should compute imputed datasets and calculate average growth") {
+     val m = parseFromURI(demoMinUri, "", "TURTLE")
+     val datasets = AddDatasets.addDatasets(m)
+     m.add(datasets)
+     
+     val p = Profile.Computex
+     val (expanded,computed) = p.compute(m)
+     val ds = getValuesOfType(PREFIXES.cex_AverageGrowth, expanded)
+     ds.size should be(1)
+     model2File(expanded,"generated.ttl")
+   }
+
+  }
 
 }

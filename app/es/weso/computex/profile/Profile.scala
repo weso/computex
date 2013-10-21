@@ -44,9 +44,10 @@ case class Profile(
 
   /**
    *  Expands a model using this profile
+   *  It applies computation steps 
    */
   def expand(model:Model) : Model = {
-    compute(model)
+    compute(model)._1
   }
 
   private def combineExpansion(model: Model, expander: Expander) : Model = {
@@ -59,16 +60,20 @@ case class Profile(
   }
 
   /**
-   *  Expands a model using this profile
+   *  Compute a model using this profile. It returns
+   *  a pair of models: the expanded model and the computed model
    */
-  def compute(model:Model) : Model = {
-    allComputeSteps.foldLeft(model)(combineComputation)
+  def compute(model:Model) : Models = {
+    allComputeSteps.foldLeft(model,empty)(combineComputation)
   }
 
-  private def combineComputation(model: Model, computeStep: ComputeStep) : Model = {
-    val (newModel,constructed) = computeStep.compute(model) 
-    info("Computer step " + computeStep.name + " produced " + constructed.size + " triples")
-    newModel
+  type Models = (Model,Model)
+  def empty : Model = ModelFactory.createDefaultModel()
+  
+  private def combineComputation(models: Models, computeStep: ComputeStep) : Models = {
+    val (newModel,constructed) = computeStep.compute(models._1) 
+//    info("Computer step " + computeStep.name + " produced " + constructed.size + " triples")
+    (newModel,models._2.add(constructed))
   }
 
   private def info(msg : String) : Unit = {
