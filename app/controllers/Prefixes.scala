@@ -16,4 +16,7 @@ object Prefixes extends Controller {
     Ok(PREFIXES.prefixTemplateTurtle)
   }
 
+  def json = Action {
+    Ok(PREFIXES.prefixTemplateJSON).as("application/json")
+  }
 }
