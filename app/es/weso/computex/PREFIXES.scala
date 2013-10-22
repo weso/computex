@@ -123,6 +123,18 @@ object PREFIXES {
       }
       strBuilder.toString
     }
+
+    def prefixTemplateJSON(): String = {
+      val strBuilder = new StringBuilder
+      strBuilder.append("{ ")
+      val ls = 
+        for (p <- cexMap.toList.sortBy(_._1)) 
+          yield { "\"" + p._1 + "\":" + "\"" + p._2 + "\"" } 
+      
+      strBuilder.append(ls.mkString(",\n"))
+      strBuilder.append("}")
+      strBuilder.toString
+    }
     
  lazy val rdf_type 			= property("rdf","type")
  lazy val rdfs_label		= property("rdfs","label")
