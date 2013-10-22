@@ -122,6 +122,41 @@ object AddDatasets extends App {
    newModel
  }
 
+ def adjustedDatasets(m:Model) : Model = {
+   val newModel = ModelFactory.createDefaultModel()
+   val datasetsIter = m.listSubjectsWithProperty(rdf_type,qb_DataSet)
+   
+   while (datasetsIter.hasNext) {
+     val dataset = datasetsIter.nextResource()
+     val computation = findProperty_asResource(m,dataset,cex_computation)
+     val typeComputation = findProperty(m,computation,rdf_type)
+     if (typeComputation == cex_NormalizeDataSet) {
+       val newDataSet = newModel.createResource()
+       newModel.add(newDataSet,rdf_type,qb_DataSet)
+       
+       val computation = newModel.createResource
+       newModel.add(computation,rdf_type,cex_AdjustDataSet)
+       newModel.add(computation,cex_dataSet,dataset)
+       newModel.add(newDataSet,cex_computation,computation)
+       newModel.add(newDataSet,sdmxAttribute_unitMeasure,dbpedia_Year)
+       newModel.add(newDataSet,qb_structure,wf_onto_DSD)
+
+       val iterSlices = m.listStatements(dataset,qb_slice,null : RDFNode)
+       while (iterSlices.hasNext) {
+         val slice = iterSlices.next.getObject().asResource()
+         val newSlice = newModel.createResource()
+         newModel.add(newSlice,rdf_type,qb_Slice)
+         newModel.add(newSlice,cex_indicator,findProperty_asResource(m,slice,cex_indicator))
+         newModel.add(newSlice,wf_onto_ref_year,findProperty_asLiteral(m,slice,wf_onto_ref_year))
+         newModel.add(newSlice,qb_sliceStructure,wf_onto_sliceByArea)
+         newModel.add(newDataSet,qb_slice,newSlice)
+       }
+     }
+   }
+   newModel.setNsPrefixes(PREFIXES.cexMapping)
+   newModel
+ }
+
  def addDatasets(m: Model) : Model = {
    m.add(imputedDatasets(m))
    m.add(normalizedDatasets(m))

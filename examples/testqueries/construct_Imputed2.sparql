@@ -40,27 +40,13 @@ PREFIX wi-slice: <http://data.webfoundation.org/webindex/v2013/slice/>
 PREFIX wi-weightSchema: <http://data.webfoundation.org/webindex/v2013/weightSchema/> 
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
 
-CONSTRUCT {
- [ a qb:DataSet ;
-   cex:computation 
-    [ a cex:Imputed ;
-	  cex:method cex:MeanBetweenMissing ;
-	  cex:method cex:AvgGrowth2Missing ;
-	  cex:method cex:CopyRaw; 
-	  cex:dataSet ?dataset ;
-    ] ;
-   qb:structure wf-onto:DSD ; 
-   sdmxAttribute:unitMeasure dbpedia:Year ;   
-   qb:slice [ a qb:Slice; 
-              cex:indicator ?ind ; 
-			  wf-onto:ref-year ?year ;
-			  qb:sliceStructure ?sliceStructure
-			]
- ]
-} WHERE {
- ?dataset a qb:DataSet ;
+SELECT * WHERE {
+ ?dataset a qb:DataSet . 
+ { SELECT GROUP_CONCAT(slcsslices WHERE 
+ }
           qb:slice ?slice .
+		  
  ?slice cex:indicator ?ind ;
         wf-onto:ref-year ?year ;
-		qb:sliceStructure ?sliceStructure .
+        qb:sliceStructure ?sliceStructure .
 }

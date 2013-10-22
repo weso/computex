@@ -347,6 +347,31 @@ country:CHL
 	  geo:long -71.542969 ;
       .
 
+country:ARM
+	  cex:md5-checksum "MD5 of ESP" ;
+      dcterms:contributor wf-org:WESO ;
+      dcterms:issued "2012-06-12" ;
+      dcterms:publisher wf-org:WebFoundation ;
+      rdf:type wf-onto:Country ;
+	  rdfs:label "Armenia"@en ;
+	  rdfs:label "Armenia"@es ;
+	  wf-onto:has-iso-alpha2-code "AM" ;
+	  wf-onto:has-iso-alpha3-code "ARM" ;
+	  wf-onto:ref-dbpedia <http://dbpedia.org/resource/Armenia> ;
+      .
+
+region:Europe
+     rdfs:label "Europe" ;
+	 wf-onto:has-country country:ESP, country:FIN .
+	 
+region:Americas
+     rdfs:label "Americas" ;
+	 wf-onto:has-country country:CHL .
+
+region:Asia
+     rdfs:label "Asia" ;
+	 wf-onto:has-country country:ARM .
+	  
 #--------------------------------
 ## Datasets
 
