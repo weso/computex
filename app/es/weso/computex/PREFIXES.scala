@@ -18,6 +18,7 @@ object PREFIXES {
   lazy val wi_dataset		= webindex + "dataset/"
   lazy val wi_index			= webindex + "index/"
   lazy val wi_indicator		= webindex + "indicator/"
+  lazy val wi_region		= webindex + "region/"
   lazy val wi_country		= webindex + "country/"
   lazy val wi_obs			= webindex + "observation/"
   lazy val wi_ranking		= webindex + "ranking/"
@@ -28,6 +29,7 @@ object PREFIXES {
   lazy val odb_dataset		= odb + "dataset/"
   lazy val odb_index		= odb + "index/"
   lazy val odb_indicator	= odb + "indicator/"
+  lazy val odb_region		= odb + "region/"
   lazy val odb_country		= odb + "country/"
   lazy val odb_obs			= odb + "observation/"
   lazy val odb_ranking		= odb + "ranking/"
@@ -56,6 +58,7 @@ object PREFIXES {
     	Map("webindex" 			-> webindex,
 		    "odb"				-> odb,
     	    "test"				-> test,
+		    "wi-region"			-> wi_region,
 		    "wi-country"		-> wi_country,
     	    "wi-computation" 	-> wi_computation,
     	    "wi-component" 		-> wi_component,
@@ -70,6 +73,7 @@ object PREFIXES {
     	    "odb-component" 	-> odb_component,
 		    "odb-ranking" 		-> odb_ranking,
 		    "odb-indicator"		-> odb_indicator,
+		    "odb-region"		-> odb_region,
 		    "odb-country"		-> odb_country,
 		    "odb-dataset"		-> odb_dataset,
 		    "odb-obs"			-> odb_obs, 

@@ -1,4 +1,5 @@
 @prefix component: <http://data.webfoundation.org/webindex/v2013/component/> .
+@prefix region: <http://data.webfoundation.org/webindex/v2013/region/> .
 @prefix country: <http://data.webfoundation.org/webindex/v2013/country/> .
 @prefix dataset: <http://data.webfoundation.org/webindex/v2013/dataset/> .
 @prefix indicator: <http://data.webfoundation.org/webindex/v2013/indicator/> .
@@ -228,7 +229,7 @@ subindex:CDQ1 a cex:SubIndex ;
       .
 
 index:index
-	  a cex:index ;
+	  a cex:Index ;
 	  cex:element subindex:ABQ2, subindex:CDQ1 ;
 	  rdfs:label "Index with ABCDQ1Q2" ;
 	  .
