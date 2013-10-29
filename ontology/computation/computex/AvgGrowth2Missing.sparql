@@ -20,8 +20,9 @@ prefix xsd:          <http://www.w3.org/2001/XMLSchema#>
 CONSTRUCT {
  _:obs a qb:Observation ;
        cex:computation [ a cex:AverageGrowth ;
+	                       cex:reason "Average growth between two observations"@en ;
 		                   cex:observations ( ?obs2 ?obs1) ; 						   
-						 ] ;
+					   ] ;
 	   qb:dataSet ?dataSetToCopy ;
 	   cex:indicator ?indicator ;
        cex:value ?value ;

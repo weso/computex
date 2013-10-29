@@ -11,6 +11,7 @@ import scala.io.Source
 import es.weso.computex.profile.VReport._
 import es.weso.utils.JenaUtils
 import com.hp.hpl.jena.rdf.model.ModelFactory
+import org.slf4j.LoggerFactory
 /**
  * Contains a validation query. 
  * Validation queries have a name and a SPARQL CONSTRUCT query which constructs
@@ -27,6 +28,8 @@ case class Profile(
     ) {
 
 
+  val logger 		= LoggerFactory.getLogger("Application")
+  
   val modelBase : Model = {
     JenaUtils.parseFromURI(ontologyBase.toString)
   }
@@ -50,15 +53,6 @@ case class Profile(
     compute(model)._1
   }
 
-  private def combineExpansion(model: Model, expander: Expander) : Model = {
-    expander.expand(model) match {
-      case None => 
-        throw 
-        new Exception("Cannot expand model " + model + " with expander " + expander)
-      case Some(newModel) => newModel
-    }
-  }
-
   /**
    *  Compute a model using this profile. It returns
    *  a pair of models: the expanded model and the computed model
@@ -72,7 +66,7 @@ case class Profile(
   
   private def combineComputation(models: Models, computeStep: ComputeStep) : Models = {
     val (newModel,constructed) = computeStep.compute(models._1) 
-//    info("Computer step " + computeStep.name + " produced " + constructed.size + " triples")
+    logger.info("Computer step " + computeStep.name + " produced " + constructed.size + " triples")
     (newModel,models._2.add(constructed))
   }
 

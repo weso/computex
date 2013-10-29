@@ -20,8 +20,8 @@ prefix xsd:          <http://www.w3.org/2001/XMLSchema#>
 CONSTRUCT {
  _:obs a qb:Observation ;
        cex:computation [ a cex:Mean ;
-		                   cex:observation ?obs1 ;
-                           cex:observation ?obs3 ; 						   
+	                       cex:reason "Impute missing value as the mean of two observations"@en ;
+		                   cex:observations (?obs1 ?obs3)
 						 ] ;
        qb:dataSet ?dataSetToCopy ;
        cex:indicator ?indicator ;

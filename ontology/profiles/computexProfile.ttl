@@ -29,7 +29,19 @@ cex:computex a cex:ValidationProfile ;
     	[ cex:name "zScores" ; 
     	  cex:uri cexURICompute:zScores.sparql 
     	]
+    	[ cex:name "Cluster" ; 
+    	  cex:uri cexURICompute:Adjust.sparql 
+    	]
     	[ cex:name "Adjust" ; 
+    	  cex:uri cexURICompute:Adjust.sparql 
+    	]
+		[ cex:name "WeightedSimple" ; 
+    	  cex:uri cexURICompute:Adjust.sparql 
+    	]
+		[ cex:name "GroupClusters" ; 
+    	  cex:uri cexURICompute:Adjust.sparql 
+    	]
+		[ cex:name "GroupClusters" ; 
     	  cex:uri cexURICompute:Adjust.sparql 
     	]
     	[ cex:name "WeightedMean" ; 

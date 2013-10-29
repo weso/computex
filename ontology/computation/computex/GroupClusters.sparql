@@ -28,8 +28,8 @@ CONSTRUCT {
 	   sdmx-concept:obsStatus cex:Grouped ;
 	   qb:dataset ?dataSetToCopy ;
 	   cex:computation [ a cex:GroupMean ;
-		                   cex:observation ?obs ;
-						   cex:component ?lsObs ] 
+	                       cex:reason "Group clusters"@en ;
+		                   cex:component ?lsObs ] 
   ]
   
 } WHERE {

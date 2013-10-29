@@ -25,10 +25,10 @@ CONSTRUCT {
        wf-onto:ref-year ?year ;
 	   ?dim ?valueDim ;
 	   sdmx-concept:obsStatus cex:Grouped ;
-	   qb:dataset ?dataSetToCopy ;
 	   cex:computation 
 	      [ a cex:WeightedMean ;
 		    cex:weightSchema ?weightSchema ;
+			cex:observations ?lsObs ;
 		  ] ;
 	.
  ?sliceToCopy qb:observation _:obs .
@@ -48,8 +48,9 @@ CONSTRUCT {
 	   
  ?sliceToCopy cex:indicator ?component ;
               wf-onto:ref-year ?year .
-
+			  
  { SELECT (SUM(?product) as ?weightedMean) 
+          (GROUP_CONCAT(?obs) as ?lsObs)
           ?dataset 
           ?component 
           ?dim

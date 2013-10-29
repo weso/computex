@@ -27,6 +27,7 @@ CONSTRUCT {
 	   wf-onto:ref-year ?year ;
 	   sdmx-concept:obsStatus cex:Imputed ;
 	   cex:computation [ a cex:Copy ;
+	                       cex:reason "Copy the value of another observation"@en ;
 		                   cex:observation ?obsRaw 
 						 ] 
   ]

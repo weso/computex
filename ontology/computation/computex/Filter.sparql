@@ -26,20 +26,28 @@ CONSTRUCT {
 	   wf-onto:ref-year ?year ;
 	   sdmx-concept:obsStatus cex:Imputed ;
 	   cex:computation [ a cex:Filter ;
-		                   cex:observation ?obsRaw 
+		                   cex:observation ?obsRaw  ;
+						   cex:reason "Filter observations which hava a given dimension"@en ;
+						   cex:filter [
+ 						      a cex:FilterDefinition ;
+						      cex:dimension ?dim ;
+						      cex:value ?valueDim 
+						   ]
 						 ] ;
 	.
  ?sliceToCopy qb:observation _:obs .
 } WHERE {
  ?dataSetToCopy a qb:DataSet ;
 	  	  cex:computation [ a cex:FilterDataSet ;
+		                    cex:reason "Filter the values of a dataset"@en ;
 						    cex:dataSet ?dataset ;
-						    cex:filter [ a cex:FilterDefinition ;
-						                 cex:dimension ?dim ;
-						                 cex:value ?valueDim 
-						               ] 
+						    cex:filter ?filter 
 					      ] ;
           qb:slice ?sliceToCopy .
+
+ ?filter a cex:FilterDefinition ;
+		 cex:dimension ?dim ;
+		 cex:value ?valueDim  .
 
  ?dataset qb:slice ?sliceFrom .
          

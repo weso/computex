@@ -19,24 +19,25 @@ prefix xsd:          <http://www.w3.org/2001/XMLSchema#>
 
 CONSTRUCT {
  _:obs a qb:Observation ;
-       cex:value ?adjusted ;
+       cex:value ?value ;
        cex:indicator ?indicator ;
        qb:dataSet ?dataSetToCopy ;
 	   ?dim ?valueDim ;
 	   wf-onto:ref-area ?area ;
-	   sdmx-concept:obsStatus cex:Adjusted ;
-	   cex:computation [ a cex:Adjust ;
-		                   cex:observation ?obsRaw ;
-		                   cex:increment ?increm
+	   sdmx-concept:obsStatus cex:Cluster ;
+	   cex:computation [ a cex:Cluster ;
+	                       cex:reason "Cluster observations by the value of a given dimension"@en ;
+		                   cex:dimension ?dim ;
+		                   cex:dimensionValue ?valueDim ;
+						   cex:observation ?obsToCopy 
 						 ] ;
 	.
  ?sliceToCopy qb:observation _:obs .
 } WHERE {
 
  ?dataSetToCopy a qb:DataSet ;
-      cex:computation [ a cex:AdjustDataSet ;
+      cex:computation [ a cex:ClusterDataSets ;
 						cex:dataSet ?datasetFrom ;
-						cex:increment ?increm ;
 						cex:dimension ?dim ;
 						cex:value ?valueDim 
 					  ] ;
@@ -46,18 +47,15 @@ CONSTRUCT {
          
  ?sliceFrom cex:indicator ?indicator ;
 	        ?dim ?valueDim ;
-	        qb:observation ?obsRaw ;
+	        qb:observation ?obsToCopy ;
 	        .
  ?sliceToCopy ?dim ?valueDim ;
             cex:indicator ?indicator ;
-            wf-onto:ref-year ?year .
+            .
 
- ?obsRaw cex:value ?value ;
-         wf-onto:ref-year ?year ;
-         cex:indicator ?indicator ;
-         ?dim ?valueDim ;
-         wf-onto:ref-area ?area ;
-         .
-         
- BIND(?value + ?increm as ?adjusted)
+ ?obsToCopy cex:value ?value ;
+            cex:indicator ?indicator ;
+            ?dim ?valueDim ;
+            wf-onto:ref-area ?area ;
+            .
 }

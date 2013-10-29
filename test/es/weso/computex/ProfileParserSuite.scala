@@ -58,7 +58,7 @@ class ProfileParserSuite
 
   it("Should obtain a list of computeSteps for Computex profile") {
      val profile = Profile.Computex
-     profile.computeSteps.length should be(8)
+     profile.computeSteps.length should be(12)
    }
 
   it("Should validate demo of RDF Data Cube profile") {
@@ -103,9 +103,9 @@ class ProfileParserSuite
      }
    }
 
-  it("Should validate computex demo with Computex profile") {
+  ignore("Should validate computex demo with Computex profile") {
      val profile 	= Profile.Computex
-     val model 		= JenaUtils.parseFromURI(demoComputexAbbrURI)
+     val model 		= JenaUtils.parseFromURI(demoComputexURI)
      profile.validate(model) match {
        case (Passed(_),_) => info("Validates")
        case vr@(NotPassed(_),returnedModel) => 
@@ -115,10 +115,17 @@ class ProfileParserSuite
      }
    }
 
+  it("Should expand a generated model with Computex profile") {
+     val profile 	= Profile.Computex
+     val model 		= Generator(2,1,1).model
+     val expanded   = profile.expand(model)
+     expanded.sice should be(10)
+   }
+
    it("Should validate computex demo generated randomly with Computex profile") {
      val profile 	= Profile.Computex
      val model 		= Generator(2,1,1).model
-     profile.validate(model) match {
+     profile.validate(model,false) match {
        case (Passed(_),_) => info("Validates")
        case vr@(NotPassed(e),returnedModel) => 
          // JenaUtils.model2File(returnedModel,"returned.ttl")

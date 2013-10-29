@@ -28,7 +28,7 @@ CONSTRUCT {
 	   sdmx-concept:obsStatus cex:Grouped ;
 	   qb:dataset ?dataSetToCopy ;
 	   cex:computation [ a cex:GroupMean ;
-		                   cex:observation ?obs ;
+	                       cex:reason "Group subindexes"@en ;
 						   cex:component ?lsObs ] ;
   ]
 } WHERE {

@@ -20,12 +20,13 @@ prefix xsd:          <http://www.w3.org/2001/XMLSchema#>
 CONSTRUCT {
  _:obs a qb:Observation ;
        cex:value ?adjusted ;
-       cex:indicator ?indicator ;
        qb:dataSet ?dataSetToCopy ;
-	   ?dim ?valueDim ;
+       cex:indicator ?indicator ;
+	   wf-onto:ref-year ?year ;
 	   wf-onto:ref-area ?area ;
 	   sdmx-concept:obsStatus cex:Adjusted ;
 	   cex:computation [ a cex:Adjust ;
+	                       cex:reason "Adjust values by an increment"@en ;
 		                   cex:observation ?obsRaw ;
 		                   cex:increment ?increm
 						 ] ;
@@ -37,26 +38,21 @@ CONSTRUCT {
       cex:computation [ a cex:AdjustDataSet ;
 						cex:dataSet ?datasetFrom ;
 						cex:increment ?increm ;
-						cex:dimension ?dim ;
-						cex:value ?valueDim 
 					  ] ;
       qb:slice ?sliceToCopy .
 
  ?datasetFrom qb:slice ?sliceFrom .
          
  ?sliceFrom cex:indicator ?indicator ;
-	        ?dim ?valueDim ;
 	        qb:observation ?obsRaw ;
 	        .
  ?sliceToCopy ?dim ?valueDim ;
-            cex:indicator ?indicator ;
-            wf-onto:ref-year ?year .
+            cex:indicator ?indicator .
 
  ?obsRaw cex:value ?value ;
-         wf-onto:ref-year ?year ;
          cex:indicator ?indicator ;
-         ?dim ?valueDim ;
          wf-onto:ref-area ?area ;
+         wf-onto:ref-year ?year ;
          .
          
  BIND(?value + ?increm as ?adjusted)

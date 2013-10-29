@@ -21,7 +21,8 @@ CONSTRUCT {
  ?sliceToCopy qb:observation 
    [ a qb:Observation; 
      cex:computation 
-      [ a cex:Rank ;
+      [ a cex:Ranking ;
+	    cex:reason "Ranking of a value in a slice"@en ;
         cex:slice ?sliceToRank;
         cex:dimension ?dim 
       ] ;
@@ -37,7 +38,7 @@ CONSTRUCT {
       cex:computation ?comp ;
       qb:slice ?sliceToCopy .
 
- ?comp a cex:Ranking ;
+ ?comp a cex:RankingDataset ;
        cex:slice ?sliceToRank ;
        cex:dimension ?dim
 	 .      

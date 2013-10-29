@@ -146,6 +146,11 @@ cex:Normalized a cex:ObsStatus ;
 	rdfs:comment "Data values that have been normalized. Usually by z-scores"@en ;
 .
 
+cex:Cluster a cex:ObsStatus ;
+	rdfs:label "Cluster data"@en ;
+	rdfs:comment "Data values that have been clustered by the value of one dimension"@en ;
+.
+
 cex:Computed a cex:ObsStatus ;
 	rdfs:label "Computed data"@en ;
 	rdfs:comment "Data values that have been computed by some algorithm."@en ;
@@ -172,21 +177,16 @@ cex:Normalize a owl:Class, rdfs:Class ;
 cex:Mean a owl:Class, rdfs:Class ;
     rdfs:label "Mean of other observations"@en ;
     rdfs:subClassOf cex:Computation ;
+	# Attributes: 
+    # cex:observations: List of observations from which we calculate the mean
+	# cex:reason: Comment about the reason for that computation
 	.
 
-cex:AverageGrowth2 a owl:Class, rdfs:Class ;
-    rdfs:label "Impute a value as the average growth of 2 values"@en ;
+cex:AverageGrowth a owl:Class, rdfs:Class ;
+    rdfs:label "Impute a value as the average growth of a list of values"@en ;
     rdfs:subClassOf cex:Computation ;
-	.
-	
-cex:AverageGrowth3 a owl:Class, rdfs:Class ;
-    rdfs:label "Impute a value as the average growth of 3 values"@en ;
-    rdfs:subClassOf cex:Computation ;
-	.
-
-cex:AverageGrowth4 a owl:Class, rdfs:Class ;
-    rdfs:label "Impute a value as the average growth of 4 values"@en ;
-    rdfs:subClassOf cex:Computation ;
+	# Attributes: 
+    # cex:observations: List of observations from which we calculate the average growth
 	.
 	
 cex:Weight a owl:Class, rdfs:Class ;
@@ -197,6 +197,30 @@ cex:Weight a owl:Class, rdfs:Class ;
 cex:Copy a owl:Class, rdfs:Class ;
     rdfs:label "Value copied from other observation"@en ;
     rdfs:subClassOf cex:Computation ;
+	# Attributes: 
+    # cex:observation: Observation that has been copied
+	.
+
+cex:GroupMean a owl:Class, rdfs:Class ;
+    rdfs:label "Mean of a group of observations"@en ;
+    rdfs:subClassOf cex:Computation ;
+	# Attributes: 
+	# cex:component: List of observations
+	.
+
+cex:Filter a owl:Class, rdfs:Class ;
+    rdfs:label "Value copied from other observation"@en ;
+    rdfs:subClassOf cex:Computation ;
+	# Attributes: 
+    # cex:observation: Observation that has been copied in the filter
+	# cex:filter: Filter definition that has been employed
+	.
+	
+cex:FilterDefinition a owl:Class, rdfs:Class ;
+    rdfs:label "Filter definition"@en ;
+	# Attributes: 
+    # cex:dimension: Dimension to filter
+	# cex:value: Values admitted for that dimension
 	.
 
 cex:Raw a owl:Class, rdfs:Class ;
@@ -204,19 +228,53 @@ cex:Raw a owl:Class, rdfs:Class ;
     rdfs:subClassOf cex:Computation ;
 	.
 
-cex:Increment a owl:Class, rdfs:Class ;
-    rdfs:label "Increment a value by a fixed quantity"@en ;
+cex:Cluster a owl:Class, rdfs:Class ;
+    rdfs:label "Cluster a dataset by copying only the values of some dimension"@en ;
     rdfs:subClassOf cex:Computation ;
+	# Attributes: 
+	# cex:dimension: Dimension that has been taken
+	# cex:dimensionValue: Value in that dimension that has been copied
+    # cex:observation: Observation that has been copied	
+	.
+
+	
+cex:Adjust a owl:Class, rdfs:Class ;
+    rdfs:label "Adjust a value by adding a value"@en ;
+    rdfs:subClassOf cex:Computation ;
+	# Attributes: 
+    # cex:observation: Source observation 
+	# cex:increment: Increment amount
+	.
+
+cex:Weighted a owl:Class, rdfs:Class ;
+    rdfs:label "Weight value"@en ;
+    rdfs:subClassOf cex:Computation ;
+	# Attributes: 
+    # cex:reason Explanation of the computation
+	# cex:dimension Dimension to weight
+	# cex:element value of that dimension
+	# cex:observation: Observation to weight
+	# cex:weight: Weight
+	# cex:value: Original value
+	# cex:weightSchema: Weight schema employed
 	.
 
 cex:WeightedMean a owl:Class, rdfs:Class ;
     rdfs:label "Weighted mean using a weightSchema"@en ;
     rdfs:subClassOf cex:Computation ;
+	# Attributes: 
+    # cex:reason Explanation of the computation
+	# cex:weightSchema Weight schema employed 
+	# cex:observations: Observations weighted
 	.
 
 cex:Ranking a owl:Class, rdfs:Class ;
     rdfs:label "Ranking of a slice"@en ;
     rdfs:subClassOf cex:Computation ;
+	# Attributes: 
+    # cex:reason Explanation of the computation
+	# cex:slice Slice to create ranking
+	# cex:dimension: Dimension to rank
 	.
 	
 cex:ImputedSlice a owl:Class, rdfs:Class ;
@@ -264,83 +322,5 @@ cex:name a owl:DatatypeProperty ;
 # We omit definition of cex:value by now
 # It could be either ObjectProperty or DatatypeProperty, is it possible?
 
-#----------------------------------------------------
-# Definitions specific to TheWebIndex
-
-wf-onto:PrimaryIndicator a owl:Class, rdfs:Class;
-	rdfs:subClassOf cex:Indicator ;
-	rdfs:label "Primary Indicator"@en ;
-	rdfs:comment "Primary indicator is an indicator defined by the Webfoundation."@en;
-.
-
-wf-onto:SecondaryIndicator a owl:Class, rdfs:Class;
-	rdfs:subClassOf cex:Indicator ;
-	rdfs:label "Secondary Indicator"@en ;
-	rdfs:comment "This indicator is established by third parties such as ITU, UN, etc. Its observations are part of a component."@en;
-.
-
-wf-onto:ExternalIndicator a owl:Class, rdfs:Class;
-	rdfs:subClassOf cex:Indicator ;
-	rdfs:label "External Indicator"@en ;
-	rdfs:comment "This indicator is established by third parties such as Worldbank but its observations are not part of a component."@en;
-.
-
-wf-onto:ref-area 
-    a owl:FunctionalProperty ;
-    rdfs:domain wf-onto:Observation ;
-	rdfs:range wf-onto:Area	.
-
-
-wf-onto:ref-year 
-    a owl:DatatypeProperty, owl:FunctionalProperty ;
-    rdfs:domain wf-onto:Observation ;
-	rdfs:range xsd:integer ;
-	.
-
-#----------------------------------------------
-# Region and Country definitions
-
-wf-onto:Area a skos:Concept;
-    rdfs:label "Area"@en ;
-	rdfs:isDefinedBy <http://purl.org/weso/ontology/webindex> ;
-	skos:narrower wf-onto:Region ;
-	skos:narrower wf-onto:Country ;
-	.
-
-wf-onto:Region a skos:Concept, lg:Place;
-	rdfs:label "Region concept"@en; 
-	rdfs:comment "A region represents a set of countries."@en;
-	skos:narrower wf-onto:Country;
-.
-
-wf-onto:Country a skos:Concept, lg:Country;
-	skos:broader wf-onto:Region;
-	rdfs:label "Country concept"@en; 
-	rdfs:subClassOf wf-onto:Area ;
-.
-
-wf-onto:has-iso-alpha2-code a owl:DatatypeProperty, rdf:Property; 
-	rdfs:label "ISO-code-alpha 2 digit"@en; 
-	rdfs:comment "This property creates a link between a country and its ISO code (2 digit)"@en;
-	rdfs:subPropertyOf dcterms:identifier; 
-. 
-
-wf-onto:has-iso-alpha3-code a owl:DatatypeProperty, rdf:Property; 
-	rdfs:label "ISO-code-alpha 3 property"@en; 
-	rdfs:comment "This property creates a link between a country and its ISO code (3 digit)"@en;
-	rdfs:subPropertyOf dcterms:identifier; 
-. 
-
-wf-onto:has-country a owl:ObjectProperty, rdf:Property; 
-	rdfs:label "has Country property"@en; 
-	rdfs:comment "Creates a link between a region and a country."@en;
-	rdfs:range skos:Concept; 
-. 
-
-wf-onto:ref-dbpedia a owl:ObjectProperty, rdf:Property; 
-	rdfs:label "link to DBPedia resource"@en; 
-	rdfs:comment "A mapping property to link an entity with a DBPedia resource"@en;
-	rdfs:range skos:Concept; 
-. 
 	
 	

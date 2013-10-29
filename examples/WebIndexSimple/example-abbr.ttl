@@ -898,7 +898,7 @@ dataset:Composite
       .
 
 dataset:Rankings
-      cex:computation [ a cex:Ranking ;
+      cex:computation [ a cex:RankingDataset ;
                         cex:slice slice:AB-Mean, slice:Q2-Mean, slice:C-Mean, slice:DQ1-Mean, slice:ABQ2-Mean, slice:CDQ1-Mean, slice:Composite ;
                         cex:dimension wf-onto:ref-area 
 					  ] ;

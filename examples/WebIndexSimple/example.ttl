@@ -790,8 +790,8 @@ dataset:Q2-Normalized
 #--------------------------------
 ## SelectYear Dataset 
 
-dataset:SelectYear
-      cex:computation [ a cex:SelectDataSet ;
+dataset:ClusterYear
+      cex:computation [ a cex:ClusterDataSets ;
 						cex:dataSet dataset:A-Normalized, dataset:B-Normalized, dataset:C-Normalized, dataset:D-Normalized, dataset:Q1-Normalized, dataset:Q2-Normalized ;
 						cex:dimension wf-onto:ref-year ;
 						cex:value 2011 
@@ -803,7 +803,7 @@ dataset:SelectYear
       dcterms:title "Select"@en ;
       dcterms:subject sdmx-subject:2.5 ;      # Government finance, fiscal and public sector statistics
       rdf:type qb:DataSet ;
-      rdfs:label "Select"@en ;
+      rdfs:label "Cluster"@en ;
       rdfs:comment "Description of dataset Select"@en ;
       qb:structure wf-onto:DSD ;  
       sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
@@ -816,7 +816,7 @@ dataset:SelectYear
 
 dataset:Adjusted
       cex:computation [ a cex:AdjustDataSet ;
-						cex:dataSet dataset:SelectYear ;
+						cex:dataSet dataset:ClusterYear ;
 						cex:increment 8 ;
 					  ] ;
       cex:md5-checksum "MD5..." ;
@@ -920,7 +920,7 @@ dataset:Composite
       .
 
 dataset:Rankings
-      cex:computation [ a cex:Ranking ;
+      cex:computation [ a cex:RankingDataset ;
                         cex:slice slice:AB-Mean, slice:Q2-Mean, slice:C-Mean, slice:DQ1-Mean, slice:ABQ2-Mean, slice:CDQ1-Mean, slice:Composite ;
                         cex:dimension wf-onto:ref-area 
 					  ] ;
@@ -3546,7 +3546,7 @@ obs:CB11-I a wf-onto:Observation ;
 obs:CC11-I a wf-onto:Observation ;
 		 cex:md5-checksum "md5 for CC11" ;
 		 cex:computation [ a cex:AverageGrowth ;
-		                   cex:observations ( obs:CC10 obs:CC09) ; 						   
+		                   cex:observations ( obs:CC10 obs:CC09) ;
 						 ] ;
          cex:indicator indicator:C ;
 		 cex:value 10.6666 ;
