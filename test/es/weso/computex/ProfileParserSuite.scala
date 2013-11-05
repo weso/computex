@@ -119,7 +119,7 @@ class ProfileParserSuite
      val profile 	= Profile.Computex
      val model 		= Generator(2,1,1).model
      val expanded   = profile.expand(model)
-     expanded.sice should be(10)
+     expanded.size should be(10)
    }
 
    it("Should validate computex demo generated randomly with Computex profile") {
