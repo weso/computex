@@ -37,7 +37,9 @@ cex:Observation a owl:Class, rdfs:Class ;
              rdfs:comment "An observation" ;
 			 .
 
-	
+cex:md5-checksum a owl:DatatypeProperty ;
+    rdfs:label "MD5 Checksum" ;
+	.
 	
 #------------------------------------------
 # Indicators
