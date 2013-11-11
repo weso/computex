@@ -27,7 +27,8 @@ CONSTRUCT {
 	   sdmx-concept:obsStatus cex:Normalized ;
 	   cex:computation 
 		    [ a cex:Normalize ;
-			  cex:observation ?obs 
+			  cex:observation ?obs ;
+			  cex:slice ?slice 			  
 			] ;   
 			.
  ?sliceToCopy qb:observation _:obs .

@@ -1,0 +1,20 @@
+# rdfs9 rule from: http://www.w3.org/TR/2013/WD-rdf11-mt-20130723/#patterns-of-rdf-entailment-informative
+prefix rdf:          <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+prefix rdfs:         <http://www.w3.org/2000/01/rdf-schema#> 
+prefix cex:          <http://purl.org/weso/ontology/computex#> 
+
+
+CONSTRUCT {
+ _:error a cex:Error ;
+         cex:errorParam 
+		   [cex:name "xxx" ; cex:value ?xxx ] ,
+		   [cex:name "yyy" ; cex:value ?yyy ] ,
+		   [cex:name "zzz" ; cex:value ?zzz ] 
+		   ;
+         cex:msg "RDF Schema entailment error. rdfs9" .
+} 
+WHERE {
+ ?xxx rdfs:subClassOf ?yyy .
+ ?yyy rdfs:subClassOf ?zzz .
+ FILTER NOT EXISTS { ?xxx rdfs:subClassOf ?zzz . }
+}

@@ -51,7 +51,16 @@ class AddDatasetsOpts(arguments: Array[String],
 }
 
 object AddDatasets extends App {
- 
+
+ def hasComputation(m:Model, r:Resource, t:Resource) : Boolean = {
+   if (hasProperty(m,r,cex_computation)) {
+     val comp = findProperty_asResource(m,r,cex_computation)
+     val typeComp = findProperty_asResource(m,comp,rdf_type)
+     typeComp == t
+   } else
+      false
+ }
+  
  def imputedDatasets(m:Model) : Model = {
    val newModel = ModelFactory.createDefaultModel()
    val iter = m.listSubjectsWithProperty(rdf_type,qb_DataSet)
@@ -93,9 +102,11 @@ object AddDatasets extends App {
    
    while (datasetsIter.hasNext) {
      val dataset = datasetsIter.nextResource()
-     val computation = findProperty_asResource(m,dataset,cex_computation)
-     val typeComputation = findProperty(m,computation,rdf_type)
-     if (typeComputation == cex_ImputeDataSet) {
+     val localName = dataset.getLocalName()
+//     val computation = findProperty_asResource(m,dataset,cex_computation)
+//     val typeComputation = findProperty(m,computation,rdf_type)
+//     if (typeComputation == cex_ImputeDataSet) {
+     if (localName.contains("Imputed")) {
        val newDataSet = newModel.createResource()
        newModel.add(newDataSet,rdf_type,qb_DataSet)
        
@@ -157,8 +168,53 @@ object AddDatasets extends App {
    newModel
  }
 
+ def clusterDataset(m:Model) : Model = {
+   val newModel = ModelFactory.createDefaultModel()
+   val newDataSet = newModel.createResource(wi_dataset_ClusterIndicators)
+
+   newModel.add(newDataSet,rdf_type,qb_DataSet)
+   
+   val computation = newModel.createResource
+   newModel.add(computation,rdf_type,cex_ClusterDataSets)
+
+   // Collect normalized datasets
+   val iterDatasets = m.listSubjectsWithProperty(rdf_type,qb_DataSet)
+   while (iterDatasets.hasNext) {
+     val dataset = iterDatasets.nextResource
+     if (hasComputation(m,dataset,cex_NormalizeDataSet)) {
+       newModel.add(computation,cex_dataSet,dataset)
+     }
+   }
+   newModel.add(computation,cex_dimension,wf_onto_ref_year)
+   // TODO: Year should be a parameter
+   newModel.add(computation,cex_value,literalInt(2013))
+
+   newModel.add(newDataSet,sdmxAttribute_unitMeasure,dbpedia_Year)
+   newModel.add(newDataSet,qb_structure,wf_onto_DSD)
+   // Todo
+   newModel.setNsPrefixes(PREFIXES.cexMapping)
+   newModel
+ }
+
+ def indicatorsWeightedDataset(m:Model) : Model = {
+   val newModel = ModelFactory.createDefaultModel()
+   val newDataSet = newModel.createResource(wi_dataset_IndicatorsWeighted)
+
+   newModel.add(newDataSet,rdf_type,qb_DataSet)
+   
+   val computation = newModel.createResource
+   newModel.add(computation,rdf_type,cex_WeightedSimple)
+   newModel.add(computation,cex_dataSet,wi_dataset_ClusterIndicators)
+   newModel.add(newDataSet,cex_computation,computation)
+   newModel.add(newDataSet,sdmxAttribute_unitMeasure,dbpedia_Year)
+   newModel.add(newDataSet,qb_structure,wf_onto_DSD)
+   // Todo
+   newModel.setNsPrefixes(PREFIXES.cexMapping)
+   newModel
+ }
+
  def addDatasets(m: Model) : Model = {
-   m.add(imputedDatasets(m))
+//   m.add(imputedDatasets(m))
    m.add(normalizedDatasets(m))
  } 
 

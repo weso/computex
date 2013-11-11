@@ -5,7 +5,7 @@ prefix indicator:    <http://data.webfoundation.org/webindex/v2013/indicator/>
 prefix obs:          <http://data.webfoundation.org/webindex/v2013/observation/> 
 prefix organization: <http://data.webfoundation.org/webindex/v2013/organization> 
 
-prefix afn:			 <http://jena.hpl.hp.com/ARQ/function#>
+prefix afn:                         <http://jena.hpl.hp.com/ARQ/function#>
 prefix cex:          <http://purl.org/weso/ontology/computex#> 
 prefix owl:          <http://www.w3.org/2002/07/owl#> 
 prefix qb:           <http://purl.org/linked-data/cube#>
@@ -19,42 +19,42 @@ prefix xsd:          <http://www.w3.org/2001/XMLSchema#>
 
 CONSTRUCT {
  _:obs a qb:Observation ;
-	   ?dim ?valueDim ;
+           ?dim ?valueDim ;
        cex:value ?value ;
        qb:dataSet ?dataSetToCopy ;
        cex:indicator ?indicator ;
-	   wf-onto:ref-year ?year ;
-	   sdmx-concept:obsStatus cex:Imputed ;
-	   cex:computation [ a cex:Filter ;
-		                   cex:observation ?obsRaw  ;
-						   cex:reason "Filter observations which hava a given dimension"@en ;
-						   cex:filter [
- 						      a cex:FilterDefinition ;
-						      cex:dimension ?dim ;
-						      cex:value ?valueDim 
-						   ]
-						 ] ;
-	.
+           wf-onto:ref-year ?year ;
+           sdmx-concept:obsStatus cex:Imputed ;
+           cex:computation [ a cex:Filter ;
+                                   cex:observation ?obsRaw  ;
+                                                   cex:reason "Filter observations which hava a given dimension"@en ;
+                                                   cex:filter [
+                                                       a cex:FilterDefinition ;
+                                                      cex:dimension ?dim ;
+                                                      cex:value ?valueDim 
+                                                   ]
+                                                 ] ;
+        .
  ?sliceToCopy qb:observation _:obs .
 } WHERE {
  ?dataSetToCopy a qb:DataSet ;
-	  	  cex:computation [ a cex:FilterDataSet ;
-		                    cex:reason "Filter the values of a dataset"@en ;
-						    cex:dataSet ?dataset ;
-						    cex:filter ?filter 
-					      ] ;
+                    cex:computation [ a cex:FilterDataSet ;
+                                    cex:reason "Filter the values of a dataset"@en ;
+                                                    cex:dataSet ?dataset ;
+                                                    cex:filter ?filter 
+                                              ] ;
           qb:slice ?sliceToCopy .
 
  ?filter a cex:FilterDefinition ;
-		 cex:dimension ?dim ;
-		 cex:value ?valueDim  .
+                 cex:dimension ?dim ;
+                 cex:value ?valueDim  .
 
  ?dataset qb:slice ?sliceFrom .
          
  ?sliceFrom cex:indicator ?indicator ;
-	        wf-onto:ref-year ?year ;
-	        qb:observation ?obsRaw ;
-	       .
+                wf-onto:ref-year ?year ;
+                qb:observation ?obsRaw ;
+               .
  ?sliceToCopy wf-onto:ref-year ?year .
 
  ?obsRaw cex:value ?value ;

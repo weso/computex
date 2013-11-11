@@ -40,7 +40,7 @@ import java.io.FileOutputStream
  * an instance of $Notpassed with some info about 
  * the reason and the validator
  * 
- * This type is similar to $option where None could be Passed and Some(x) could be NotPassed(x) 
+ * This type is similar to $Either  
  */
 sealed abstract class ValidationReport[+A,+B] 
 

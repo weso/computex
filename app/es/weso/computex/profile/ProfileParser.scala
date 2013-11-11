@@ -87,8 +87,11 @@ case class ProfileParser(profile : Model) {
     JenaUtils.getLiteral(resource, cex_name)
   }
 
-  def base(resource: Resource): URI = {
-    JenaUtils.getObjectURI(resource, cex_ontologyBase)
+  def base(resource: Resource): Option[URI] = {
+    if (resource.getProperty(cex_ontologyBase) != null) {
+      Some(JenaUtils.getObjectURI(resource, cex_ontologyBase))
+    }
+    else None
   }
 
   def uri(resource: Resource): String = {
@@ -168,8 +171,15 @@ object ProfileParser {
   	
     m.add(root,rdf_type,cex_ValidationProfile)
     m.add(root,cex_name,profile.name)
-    val uriBase = m.createResource(profile.ontologyBase.toString)
-    m.add(root,cex_ontologyBase,uriBase)
+    profile.ontologyBase match {
+      case Some(base) => {
+        val uriBase = m.createResource(base.toString)
+        m.add(root,cex_ontologyBase,uriBase) 
+      }
+      case none => { // TODO: Should we add a default base?
+      }
+    }
+
     for (i <- profile.imports) {
       val uri = m.createResource(i._1.toString)
       m.add(root,cex_import,uri)

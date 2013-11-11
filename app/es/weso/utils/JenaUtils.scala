@@ -24,8 +24,12 @@ import com.hp.hpl.jena.query.ResultSet
 import com.hp.hpl.jena.rdf.model.Literal
 import es.weso.computex.PREFIXES
 import com.hp.hpl.jena.rdf.model.ResourceFactory
-// import scalaz.syntax.std.ToIndexedSeqOps
 import scala.collection.JavaConverters._
+import java.io.FileNotFoundException
+import scala.io.Source
+import com.hp.hpl.jena.rdf.model.SimpleSelector
+import com.hp.hpl.jena.datatypes.xsd.XSDDatatype
+import org.slf4j.LoggerFactory
 
 
 sealed abstract class ParserReport[+A,+B] 
@@ -37,6 +41,8 @@ final case class NotParsed[B](error: B)
 	extends ParserReport[Nothing,B]
 
 object JenaUtils {
+  
+  val logger 		= LoggerFactory.getLogger("Application")
 
   lazy val RdfXML 		= "RDF/XML"
   lazy val RdfXMLAbbr 	= "RDF/XML-ABBREV"
@@ -48,6 +54,8 @@ object JenaUtils {
   // In Jena selectors, null represents any node
   lazy val any : RDFNode = null
 
+  def emptyModel = ModelFactory.createDefaultModel
+  
   def extractModel(resource: Resource, model: Model): Model = {
     val nModel = ModelFactory.createDefaultModel()
 
@@ -119,6 +127,16 @@ object JenaUtils {
       case NotParsed(err) => 
         throw new Exception("Cannot parse from string: " + content + ". Error: " + err + ". Syntax: " + syntax)
     }
+  }
+
+  def modelFromPath(path: String,
+            		base: String = "", 
+            		syntax: String = Turtle): Model = {
+    val model = ModelFactory.createDefaultModel()
+    val inputStream = getClass.getClassLoader().getResourceAsStream(path)
+    if (inputStream == null)
+        throw new FileNotFoundException("File especified does not exist")
+    model.read(inputStream,base,syntax)
   }
 
   def uri2Model(
@@ -307,16 +325,47 @@ object JenaUtils {
   m.listResourcesWithProperty(PREFIXES.rdf_type,r).toSet.asScala.toSet
  }
 
+ def findSubject(m: Model, obj:Resource, p: Property) : RDFNode = {
+   val selector : SimpleSelector = new SimpleSelector(null,p,obj)
+   val iter = m.listStatements(selector)
+   if (iter.hasNext) {
+     val node = iter.next.getSubject
+     if (!iter.hasNext) node 
+     else throw 
+    	 	new Exception("findSubject: Resource " + obj + " has more than one subject for property " + p)
+   }
+   else
+     throw new Exception("findSubject: Resource " + obj + " does not have subject for property " + p)
+ }
+
+ def findSubject_asResource(m: Model, obj:Resource, p : Property) : Resource = {
+   val v = findSubject(m,obj,p)
+   if (v.isResource) v.asResource
+   else {
+     throw new Exception("findSubject_asResource: Object " + obj + " has value " + v + " for property " + p + " which is not a resource")
+   }
+ }
+
+ def hasProperty(m: Model, r:Resource, p: Property) : Boolean = {
+   val iter = m.listStatements(r,p,any)
+   iter.hasNext 
+ }
+
+ /**
+  * TODO: rename these methods to "findObject"
+  */
  def findProperty(m: Model, r:Resource, p: Property) : RDFNode = {
    val iter = m.listStatements(r,p,any)
    if (iter.hasNext) {
      val node = iter.next.getObject
      if (!iter.hasNext) node 
-     else throw 
-    	 	new Exception("findProperty: Resource " + r + " has more than one value for property " + p)
+     else {
+       logger.error("findProperty: Resource " + r + " has more than one value for property " + p)
+       node
+     }
    }
    else
-     throw new Exception("findPropery: Resource " + r + " does not have value for property " + p)
+     throw new Exception("findProperty: Resource " + r + " does not have value for property " + p)
  }
 
  def findProperty_asResource(m: Model, r:Resource, p : Property) : Resource = {
@@ -334,5 +383,27 @@ object JenaUtils {
      throw new Exception("findProperty_asLiteral: Resource " + r + " has value " + v + " for property " + p + " which is not a literal")
    }
  }
+ 
+ def readFileFromPath(path: String): String = {
+      val inputStream = getClass.getClassLoader().getResourceAsStream(path)
+      if (inputStream == null)
+        throw new FileNotFoundException("File especified does not exist")
+      Source.fromInputStream(inputStream).getLines.mkString("\n")
+ }
+
+  val literalTrue				= 
+    ResourceFactory.createTypedLiteral("true",XSDDatatype.XSDboolean)
+
+  def literalInt(i : Int) 		= 
+    ResourceFactory.createTypedLiteral(new Integer(i))
+  def literalFloat(n : Float) 	= 
+    ResourceFactory.createTypedLiteral(n.toString,XSDDatatype.XSDfloat)
+  def literalDouble(n : Double) 	= 
+    ResourceFactory.createTypedLiteral(n.toString,XSDDatatype.XSDdouble)
+
+  def literal(name: String) 	= 
+    ResourceFactory.createPlainLiteral(name)
+    
+
 
 }

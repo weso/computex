@@ -12,6 +12,8 @@ import es.weso.computex.profile.VReport._
 import es.weso.utils.JenaUtils
 import com.hp.hpl.jena.rdf.model.ModelFactory
 import org.slf4j.LoggerFactory
+import es.weso.utils.ComputeTools
+
 /**
  * Contains a validation query. 
  * Validation queries have a name and a SPARQL CONSTRUCT query which constructs
@@ -19,7 +21,7 @@ import org.slf4j.LoggerFactory
  * 
  */
 case class Profile(
-    val ontologyBase 	: URI,
+    val ontologyBase 	: Option[URI],
     val validators		: Seq[Validator],
     val computeSteps	: Seq[ComputeStep],
     val imports			: Seq[(URI,Profile)],
@@ -31,7 +33,10 @@ case class Profile(
   val logger 		= LoggerFactory.getLogger("Application")
   
   val modelBase : Model = {
-    JenaUtils.parseFromURI(ontologyBase.toString)
+    ontologyBase match {
+      case Some(base) => JenaUtils.parseFromURI(base.toString)
+      case None => ModelFactory.createDefaultModel()
+    }
   }
 
   /*
@@ -50,24 +55,47 @@ case class Profile(
    *  It applies computation steps 
    */
   def expand(model:Model) : Model = {
-    compute(model)._1
+    val merge   : (Model,Model) => Model = (m1, m2) => m1.add(m2)
+    val steps   : Seq[Model => Model] 	 = allComputeSteps.map(x => (m => x.step(m)))
+    val initial : Model 				 = model
+    ComputeTools.compute(steps, initial, merge)
   }
 
+  def expandStep(stepName: String, model:Model) : Model = {
+    allComputeSteps.find(c => c.name == stepName) match {
+      case Some(cstep) => {
+        val newModel = cstep.step(model)
+        println("Constructed model of size: " + newModel.size)
+        model.add(newModel)
+      }
+      case None => throw new Exception("expandStep. stepName " + stepName + " not found")
+    }
+  }
+
+  def expandDebug(model:Model) : Model = {
+    val merge   : (Model,Model) => Model = (m1, m2) => { 
+        println("Merging models. Size(M1) = " + m1.size + "Size(M2) = " + m2.size)
+        m1.add(m2)
+    }
+    val steps   : Seq[Model => Model] 	 = 
+      allComputeSteps.map(x => ((m : Model) => {
+         println("ComputeStep: " + x.name + " over a model with size: " + m.size)
+         x.step(m)
+      }))
+    val initial : Model 				 = model
+    ComputeTools.compute(steps, initial, merge)
+  }
   /**
    *  Compute a model using this profile. It returns
    *  a pair of models: the expanded model and the computed model
    */
-  def compute(model:Model) : Models = {
-    allComputeSteps.foldLeft(model,empty)(combineComputation)
-  }
-
-  type Models = (Model,Model)
-  def empty : Model = ModelFactory.createDefaultModel()
-  
-  private def combineComputation(models: Models, computeStep: ComputeStep) : Models = {
-    val (newModel,constructed) = computeStep.compute(models._1) 
-    logger.info("Computer step " + computeStep.name + " produced " + constructed.size + " triples")
-    (newModel,models._2.add(constructed))
+  def compute(model:Model) : (Model,Model) = {
+    val merge   : (Model,Model) => Model = (m1, m2) => m1.add(m2)
+    val steps   : Seq[Model => Model] 	 = allComputeSteps.map(x => (m => x.step(m)))
+    val initial : Model 				 = model
+    val (expanded, results) = ComputeTools.computeDebug(steps, initial, merge)
+    val resultsMerged = results.foldLeft(JenaUtils.emptyModel)(merge)
+    (expanded,resultsMerged)
   }
 
   private def info(msg : String) : Unit = {
@@ -144,6 +172,13 @@ object Profile {
     ProfileParser.fromModel(model)(0)
   }
   
+  def RDFSchema : Profile = {
+    val rdfSchemaProfile = ConfigUtils.getName(conf, "rdfSchemaProfile")
+    val contents 		= Source.fromFile(rdfSchemaProfile).mkString
+    val model			= parseFromString(contents)
+    ProfileParser.fromModel(model)(0)
+  }
+
   def getProfile(name: String): Option[Profile] = {
     name match {
       case "Cube" 			=> Some(Cube)

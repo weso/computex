@@ -13,6 +13,13 @@ import com.hp.hpl.jena.vocabulary.RDF
 import java.io.FileOutputStream
 import java.io.File
 import java.io.StringWriter
+import es.weso.computex.profile.Profile
+import es.weso.utils.JenaUtils
+import es.weso.computex.profile.Passed
+import es.weso.computex.profile.NotPassed
+import es.weso.computex.profile.VReport
+import es.weso.computex.PREFIXES._
+
 
 /*
  * The following tests could be declared in another Suite without the need for 
@@ -24,29 +31,26 @@ class ComputexSuite
 	with ShouldMatchers {
  
   val conf : Config 	= ConfigFactory.load()
-  val validationDir 	= conf.getString("validationDir") 
-  val testDataDir 		= conf.getString("testDataDir") 
-  val ontologyURI  		= conf.getString("ontologyURI") 
   val demoURI 			= conf.getString("demoURI")
+  val ontologyURI 		= conf.getString("ontologyURI")
   val demoAbbrURI 		= conf.getString("demoAbbrURI")
-  val closureFile 		= conf.getString("closureFile")
-  val flattenFile 		= conf.getString("flattenFile")
-  val findStepsQuery 	= conf.getString("findStepsQuery")
-  // val cex = Computex(ontologyURI,validationDir,computationDir,closureFile,flattenFile,findStepsQuery)
+  val cex = Profile.Computex
 
-  /*
   val queryErrorMsg : String = 
    """PREFIX cex: <http://purl.org/weso/ontology/computex#>
      |SELECT ?msg WHERE { 
      |?e a cex:Error ; cex:msg ?msg . 
      |}""".stripMargin
 
-  describe("No errors in demo data") {
-	val model = cex.loadData(ontologyURI,demoURI)
-    passDir(model,validationDir)
+  ignore("No errors in demo data") {
+	val model = JenaUtils.parseFromURI(demoURI)
+	val onto  = JenaUtils.parseFromURI(ontologyURI)
+	model.add(onto)
+	pass(cex,model)
   }
 
-  describe("Comparing the expanded model using Computex with the example") {
+  
+/*  describe("Comparing the expanded model using Computex with the example") {
     it("Should have the same values for observations with the same dimensions") {
     	val model = cex.loadData(ontologyURI,demoAbbrURI)
     	val expandedCube = cex.expandCube(model)
@@ -76,42 +80,31 @@ class ComputexSuite
     	// merge.write(new FileOutputStream("ontology/examples/queries/merged.ttl"),"TURTLE")
     	
     }
-  }
+  } */
    
   describe("The expanded model using computex") {
-	val model 			= cex.loadData(ontologyURI,demoAbbrURI)
-	val expandedCube 	= cex.expandCube(model)
-	val expandedCex 	= cex.expandComputex(expandedCube)
+	val model 			= JenaUtils.parseFromURI(demoAbbrURI)
+	val ontology        = JenaUtils.parseFromURI(ontologyURI)
+	val expandedCube 	= Profile.Cube.expand(model)
+	val expandedCex 	= Profile.Computex.expand(expandedCube)
+	expandedCex.write(new FileOutputStream("generated.ttl"),"TURTLE")
     
-    describe("Should pass all validation tests from Computex") {
-	  passDir(expandedCex,validationDir)
+    ignore("Should pass all validation tests from Computex") {
+	  pass(Profile.Computex, expandedCex)
     } 
 
 	it("Should contain 6 imputed values using Mean") {
-	  val rdfType = model.createProperty("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
-	  val mean = model.createResource("http://purl.org/weso/ontology/computex#Mean")
-      val ls = model.listResourcesWithProperty(rdfType,mean)
+      val ls = model.listResourcesWithProperty(rdf_type,cex_Mean)
 	  ls.toList.size should be(6)
     } 
 
     it("Should contain 1 imputed values using AvgGrowth") {
-	  val rdfType = model.createProperty("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
-	  val avgGrowth = model.createResource("http://purl.org/weso/ontology/computex#AverageGrowth")
-      val ls = model.listResourcesWithProperty(rdfType,avgGrowth)
+      val ls = model.listResourcesWithProperty(rdf_type,cex_AverageGrowth)
 	  ls.toList.size should be(1)
     } 
 
-   it("Should contain 42 filtered values") {
-	  val rdfType = model.createProperty("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
-	  val filter  = model.createResource("http://purl.org/weso/ontology/computex#Filter")
-      val ls = model.listResourcesWithProperty(rdfType,filter)
-	  ls.toList.size should be(42)
-    } 
-
    it("Should contain 42 normalized values") {
-	  val rdfType = model.createProperty("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
-	  val normalize = model.createResource("http://purl.org/weso/ontology/computex#Normalize")
-      val ls = model.listResourcesWithProperty(rdfType,normalize)
+      val ls = model.listResourcesWithProperty(rdf_type,cex_Normalize)
 	  ls.toList.size should be(42)
     } 
 
@@ -145,17 +138,14 @@ class ComputexSuite
 
   }
   
-  
   describe("The validation process") {
     
-  it("Should raise error if obs has no value") {
-   val model = loadExample("obs_noValue.ttl") 
-   val reportModel = cex.validate2Model(model,validationDir)  
-   assert(reportModel.size > 0)
-   assertMsgError(reportModel, "Observation does not have value")
-  }
+/*  it("Should raise error if obs has no value") {
+   val model = JenaUtils.modelFromPath("obs_noValue.ttl") 
+   val (vr,_) = Profile.Computex.validate(model)
+  } */
 
- it("Should raise error if an observation has 2 values") {
+/* it("Should raise error if an observation has 2 values") {
    val model = loadExample("obs2Values.ttl") 
    val reportModel = cex.validate2Model(model,validationDir)  
    assert(reportModel.size > 0)
@@ -289,26 +279,13 @@ class ComputexSuite
    noError(reportModel)
   }
  
+ */ 
   
- def loadExample(name: String) : Model = {
-    val model = ModelFactory.createDefaultModel()
-    cex.loadTurtle(model,ontologyURI)
-    FileManager.get.readModel(model, testDataDir + name)
-    model
   }
- 
- 
- }
- 
- def model2String (model: Model): String = {
-    val out : StringWriter = new StringWriter
-    model.write(out,"TURTLE")
-    out.toString
-  }
-
- def noError(model: Model) = {
+  
+  def noError(model: Model) = {
     if (model.size > 0) {
-      fail("Model is not empty: " + model2String(model))
+      fail("Model is not empty: " + JenaUtils.model2Str(model))
     }
   }
 
@@ -320,7 +297,17 @@ class ComputexSuite
                 yield r.get("?msg").asLiteral.getString
               ).toList
     msgs should contain(msg)
-  }
-  
-  */
+ }
+ 
+ def pass(profile: Profile, model: Model) {
+   it("Should pass profile validation") {
+     val (vr,_) = profile.validate(model) 
+     vr match {
+       case Passed(_) => info("Passed validation")
+       case NotPassed(_) => fail("Not passed validation. " + VReport.show(vr))
+     }
+   }
+ }
+ 
 }
+

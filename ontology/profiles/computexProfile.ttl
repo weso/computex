@@ -47,9 +47,9 @@ cex:computex a cex:ValidationProfile ;
     	[ cex:name "WeightedMean" ; 
     	  cex:uri cexURICompute:WeightedMean.sparql 
     	]
-    	[ cex:name "Ranking" ; 
-    	  cex:uri cexURICompute:Ranking.sparql 
-    	]
+      #	[ cex:name "Ranking" ; 
+      #	  cex:uri cexURICompute:Ranking.sparql 
+      #	]
       ) ;        
    cex:integrityQuery 
 	    [ cex:name "Adjusted computation must have a value" ;

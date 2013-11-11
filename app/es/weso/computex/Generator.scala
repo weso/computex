@@ -20,7 +20,7 @@ import com.hp.hpl.jena.update.GraphStoreFactory
 import com.hp.hpl.jena.update.UpdateAction
 import es.weso.computex.entities.CMessage
 import es.weso.computex.entities.CIntegrityQuery
-import es.weso.utils.JenaUtils.Turtle
+import es.weso.utils.JenaUtils._
 import play.api.Logger
 import es.weso.computex.entities.CQuery
 import com.typesafe.config.ConfigFactory
@@ -55,13 +55,6 @@ case class Generator(
 
    val indicatorWeights			= ResourceFactory.createResource(PREFIXES.wi_weightSchema + "indicatorWeights")
    val index_index				= ResourceFactory.createProperty(PREFIXES.wi_index 	+ "index")
-
-
-   val literalTrue				= m.createTypedLiteral("true",XSDDatatype.XSDboolean)
-
-   def literalInt(i : Int) 		= m.createTypedLiteral(new Integer(i))
-   def literalFloat(n : Float) 	= m.createTypedLiteral(n.toString,XSDDatatype.XSDfloat)
-   def literal(name: String) 	= m.createLiteral(name)
 
   private def indicator(name: String) : Resource = {
     m.createResource(PREFIXES.wi_indicator + name)
@@ -360,7 +353,7 @@ case class Generator(
     m.add(ranking,qb_structure,wf_onto_DSD)
     m.add(ranking,rdfs_label,m.createLiteral("Dataset " + "Ranking","en"))
     val computation = m.createResource()
-    m.add(computation,rdf_type,cex_Ranking)
+    m.add(computation,rdf_type,cex_RankingDataset)
     m.add(computation,cex_slice,slice_composite)
     m.add(computation,cex_dimension,wf_onto_ref_area)
     m.add(ranking,cex_computation,computation)

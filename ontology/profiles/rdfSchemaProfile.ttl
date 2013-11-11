@@ -1,0 +1,26 @@
+# RDF Data Cube Profile
+
+@prefix cex: 				<http://purl.org/weso/ontology/computex#> .
+@prefix dcterms: 			<http://purl.org/dc/terms/> .
+@prefix qb: 				<http://purl.org/linked-data/cube#> .
+@prefix profileURI: 		<ontology/profiles/> .
+@prefix cexOntology: 		<ontology/> .
+@prefix rdfsURICompute: 	<ontology/computation/rdfSchema/> .
+@prefix rdfsURIValidate: 	<ontology/validation/rdfSchema/> .
+
+cex:schema a cex:ValidationProfile ;
+   cex:name 			"RDF Schema" ;
+   cex:computeSteps 
+	 	([ cex:name "RDFS 9" ; 
+           cex:uri rdfsURICompute:rdfs9.sparql  
+         ]
+         [ cex:name "RDFS 11" ; 
+           cex:uri rdfsURICompute:rdfs11.sparql  
+         ]
+        ) ;
+   # Integrity queries from RDF Schema
+   cex:integrityQuery 
+	    [ cex:name "RDFS 9" ;
+	      cex:uri	rdfsURIValidate:rdfs9.sparql 
+	    ] ; 
+   .
