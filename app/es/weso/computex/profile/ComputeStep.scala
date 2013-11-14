@@ -35,6 +35,7 @@ import java.io.FileOutputStream
 import com.hp.hpl.jena.update.UpdateRequest
 import com.hp.hpl.jena.update.UpdateFactory
 import java.net.URI
+import org.slf4j.LoggerFactory
 
 /**
  * A computer step is made from a CONSTRUCT query
@@ -47,6 +48,8 @@ case class ComputeStep(
     val name: 	String 		= "",
     val uri: 	URI 		= new URI("")
 ) {
+
+  val logger = LoggerFactory.getLogger("Application")
   
   /**
    * Applies a construct query to a model 
@@ -55,6 +58,7 @@ case class ComputeStep(
     val resultModel = ModelFactory.createDefaultModel
     val qexec = QueryExecutionFactory.create(query, model)
     qexec.execConstruct(resultModel)
+    logger.info("[step] ResultModel, size: " + resultModel.size)
     resultModel
   }
   

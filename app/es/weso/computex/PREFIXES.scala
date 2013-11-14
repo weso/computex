@@ -145,14 +145,16 @@ object PREFIXES {
  lazy val rdfs_comment		= property("rdfs","comment")
  lazy val rdfs_range		= property("rdfs","range")
 
+ // Structural elements
+ lazy val cex_Component			= resource("cex","Component")
+ lazy val cex_SubIndex			= resource("cex","SubIndex")
+ 
  lazy val cex_AdjustDataSet		= resource("cex","AdjustDataSet")
  lazy val cex_AvgGrowth2Missing = resource("cex","AvgGrowth2Missing")
  lazy val cex_AverageGrowth 	= resource("cex","AverageGrowth")
  lazy val cex_Copy				= resource("cex","Copy")
  lazy val cex_CopyRaw			= resource("cex","CopyRaw")
  lazy val cex_High				= resource("cex","High")
- lazy val cex_ImputeDataSet		= resource("cex","ImputeDataSet")
- lazy val cex_Imputed	 		= resource("cex","Imputed")
  lazy val cex_Indicator 		= resource("cex","Indicator")
  lazy val cex_Low				= resource("cex","Low")
  
@@ -166,11 +168,19 @@ object PREFIXES {
  lazy val cex_WeightSchema	    = resource("cex","WeightSchema")
  lazy val cex_Weight		    = resource("cex","Weight")
  lazy val cex_Normalized		= resource("cex","Normalized")
+ lazy val cex_GroupMean			= resource("cex","GroupMean")
 
  // Computations between Datasets
+ lazy val cex_ImputeDataSet		= resource("cex","ImputeDataSet")
+ lazy val cex_Imputed	 		= resource("cex","Imputed")
+ lazy val cex_Raw				= resource("cex","Raw")
  lazy val cex_ClusterDataSets	= resource("cex","ClusterDataSets")
  lazy val cex_NormalizeDataSet	= resource("cex","NormalizeDataSet")
  lazy val cex_RankingDataset	= resource("cex","RankingDataset")
+ lazy val cex_GroupClusters		= resource("cex","GroupClusters")
+ lazy val cex_GroupSubIndex		= resource("cex","GroupSubIndex")
+ lazy val cex_GroupIndex		= resource("cex","GroupIndex")
+ 
  
  lazy val cex_computation 			= property("cex","computation")
  lazy val cex_component				= property("cex","component")
@@ -224,9 +234,18 @@ object PREFIXES {
  lazy val wf_onto_sliceByArea 	= property("wf-onto","sliceByArea")
  lazy val wf_onto_ref_area 		= property("wf-onto","ref-area")
 
- lazy val wi_dataset_IndicatorsWeighted	= property("wi-dataset","IndicatorsWeighted")
- lazy val wi_dataset_ClusterIndicators  = property("wi-dataset","ClusterIndicators")
+ lazy val wi_dataset_IndicatorsWeighted	= resource("wi-dataset","IndicatorsWeighted")
+ lazy val wi_dataset_ClusterIndicators  = resource("wi-dataset","ClusterIndicators")
+ lazy val wi_dataset_ClustersGrouped 	= resource("wi-dataset","ClustersGrouped")
+ lazy val wi_dataset_SubIndexGrouped 	= resource("wi-dataset","SubIndexGrouped")
+ lazy val wi_dataset_Composite 			= resource("wi-dataset","Composite")
+ lazy val wi_dataset_Rankings 			= resource("wi-dataset","Rankings")
 
+ lazy val wi_weightSchema_indicatorWeights = resource("wi-weightSchema","indicatorWeights")
+ lazy val wi_weightSchema_componentWeights = resource("wi-weightSchema","componentWeights")
+ lazy val wi_weightSchema_subindexWeights  = resource("wi-weightSchema","subindexWeights")
+ lazy val wi_index_index				   = resource("wi-index","index")
+ 
  def property(prefix: String, name: String) : Property = {
    if (cexMap.contains(prefix)) ResourceFactory.createProperty(cexMap(prefix)+name)
    else throw new Exception("property: Prefix " + prefix + " does not belong to Prefix Map")

@@ -52,6 +52,8 @@ class AddDatasetsOpts(arguments: Array[String],
 
 object AddDatasets extends App {
 
+ lazy val YearDataset = 2013
+ 
  def hasComputation(m:Model, r:Resource, t:Resource) : Boolean = {
    if (hasProperty(m,r,cex_computation)) {
      val comp = findProperty_asResource(m,r,cex_computation)
@@ -102,11 +104,7 @@ object AddDatasets extends App {
    
    while (datasetsIter.hasNext) {
      val dataset = datasetsIter.nextResource()
-     val localName = dataset.getLocalName()
-//     val computation = findProperty_asResource(m,dataset,cex_computation)
-//     val typeComputation = findProperty(m,computation,rdf_type)
-//     if (typeComputation == cex_ImputeDataSet) {
-     if (localName.contains("Imputed")) {
+     if (hasComputation(m,dataset,cex_Imputed) || hasComputation(m,dataset,cex_Raw)) {
        val newDataSet = newModel.createResource()
        newModel.add(newDataSet,rdf_type,qb_DataSet)
        
@@ -168,15 +166,15 @@ object AddDatasets extends App {
    newModel
  }
 
- def clusterDataset(m:Model) : Model = {
+ def clusterIndicatorsDataset(m:Model) : Model = {
    val newModel = ModelFactory.createDefaultModel()
-   val newDataSet = newModel.createResource(wi_dataset_ClusterIndicators)
+   val newDataSet = wi_dataset_ClusterIndicators
 
    newModel.add(newDataSet,rdf_type,qb_DataSet)
    
    val computation = newModel.createResource
    newModel.add(computation,rdf_type,cex_ClusterDataSets)
-
+   newModel.add(newDataSet,cex_computation,computation)
    // Collect normalized datasets
    val iterDatasets = m.listSubjectsWithProperty(rdf_type,qb_DataSet)
    while (iterDatasets.hasNext) {
@@ -185,30 +183,197 @@ object AddDatasets extends App {
        newModel.add(computation,cex_dataSet,dataset)
      }
    }
-   newModel.add(computation,cex_dimension,wf_onto_ref_year)
+   val dim = wf_onto_ref_year
+   val valueDim = literalInt(YearDataset)
+   newModel.add(computation,cex_dimension,dim)
    // TODO: Year should be a parameter
-   newModel.add(computation,cex_value,literalInt(2013))
+   newModel.add(computation,cex_value,valueDim)
 
    newModel.add(newDataSet,sdmxAttribute_unitMeasure,dbpedia_Year)
    newModel.add(newDataSet,qb_structure,wf_onto_DSD)
-   // Todo
+   
+   // Todo: Create slices for each indicator
+   val iterIndicators = m.listSubjectsWithProperty(rdf_type,cex_Indicator)
+   while (iterIndicators.hasNext) {
+     val indicator = iterIndicators.nextResource
+     val sliceIndicator = newModel.createResource
+     newModel.add(sliceIndicator,rdf_type,qb_Slice)
+     newModel.add(newDataSet,qb_slice,sliceIndicator)
+     newModel.add(sliceIndicator,cex_indicator,indicator)
+     newModel.add(sliceIndicator,dim,valueDim)
+   }
+   
    newModel.setNsPrefixes(PREFIXES.cexMapping)
    newModel
  }
 
  def indicatorsWeightedDataset(m:Model) : Model = {
    val newModel = ModelFactory.createDefaultModel()
-   val newDataSet = newModel.createResource(wi_dataset_IndicatorsWeighted)
+   val newDataSet = newModel.createResource(wi_dataset_IndicatorsWeighted.getURI)
 
    newModel.add(newDataSet,rdf_type,qb_DataSet)
    
    val computation = newModel.createResource
    newModel.add(computation,rdf_type,cex_WeightedSimple)
    newModel.add(computation,cex_dataSet,wi_dataset_ClusterIndicators)
+   newModel.add(computation,cex_weightSchema,wi_weightSchema_indicatorWeights)
    newModel.add(newDataSet,cex_computation,computation)
    newModel.add(newDataSet,sdmxAttribute_unitMeasure,dbpedia_Year)
    newModel.add(newDataSet,qb_structure,wf_onto_DSD)
-   // Todo
+   
+   val iterIndicators = m.listSubjectsWithProperty(rdf_type,cex_Indicator)
+   while (iterIndicators.hasNext) {
+     val indicator = iterIndicators.nextResource
+     val slice = newModel.createResource()
+     newModel.add(slice,rdf_type,qb_Slice)
+     newModel.add(slice,cex_indicator,indicator)
+     newModel.add(slice,wf_onto_ref_year,literalInt(YearDataset))
+     newModel.add(slice,qb_sliceStructure,wf_onto_sliceByArea)
+     newModel.add(newDataSet,qb_slice,slice)
+   }
+   newModel.setNsPrefixes(PREFIXES.cexMapping)
+   newModel
+ }
+
+  def clustersGroupedDataset(m:Model) : Model = {
+   val newModel = ModelFactory.createDefaultModel()
+   val newDataSet = newModel.createResource(wi_dataset_ClustersGrouped.getURI)
+
+   newModel.add(newDataSet,rdf_type,qb_DataSet)
+   
+   val computation = newModel.createResource
+   newModel.add(computation,rdf_type,cex_GroupClusters)
+   newModel.add(computation,cex_dataSet,wi_dataset_IndicatorsWeighted)
+   newModel.add(computation,cex_dimension,wf_onto_ref_area)
+
+   
+   newModel.add(newDataSet,cex_computation,computation)
+
+   newModel.add(newDataSet,sdmxAttribute_unitMeasure,dbpedia_Year)
+   newModel.add(newDataSet,qb_structure,wf_onto_DSD)
+   
+   // Collect components
+   val iterComponents = m.listSubjectsWithProperty(rdf_type,cex_Component)
+   while (iterComponents.hasNext) {
+     val component = iterComponents.nextResource()
+     newModel.add(computation,cex_component,component)
+     
+     val slice = newModel.createResource()
+     newModel.add(slice,rdf_type,qb_Slice)
+     newModel.add(slice,cex_indicator,component)
+     newModel.add(slice,wf_onto_ref_year,literalInt(YearDataset))
+     newModel.add(slice,qb_sliceStructure,wf_onto_sliceByArea)
+     newModel.add(newDataSet,qb_slice,slice)
+   }
+
+   newModel.setNsPrefixes(PREFIXES.cexMapping)
+   newModel
+ }
+
+  def mkSlice(m: Model, s: String) : Resource = m.createResource(wi_slice + s)
+  def mkSlice(m:Model, r: Resource) : Resource = mkSlice(m,r.getLocalName)
+  
+  def mkRanking(m: Model, s: String) : Resource  = m.createResource(wi_ranking + s)
+  def mkRanking(m: Model, r: Resource): Resource = mkRanking(m,r.getLocalName)
+
+  def subindexGroupedDataset(m:Model) : Model = {
+   val newModel = ModelFactory.createDefaultModel()
+   val newDataSet = newModel.createResource(wi_dataset_SubIndexGrouped.getURI)
+
+   newModel.add(newDataSet,rdf_type,qb_DataSet)
+   
+   val computation = newModel.createResource
+   newModel.add(computation,rdf_type,cex_GroupSubIndex)
+   newModel.add(computation,cex_dataSet,wi_dataset_ClustersGrouped)
+   newModel.add(computation,cex_dimension,wf_onto_ref_area)
+
+   newModel.add(newDataSet,cex_computation,computation)
+
+   newModel.add(newDataSet,sdmxAttribute_unitMeasure,dbpedia_Year)
+   newModel.add(newDataSet,qb_structure,wf_onto_DSD)
+   
+   // Collect subindexes
+   val iterSubindexes = m.listSubjectsWithProperty(rdf_type,cex_SubIndex)
+   while (iterSubindexes.hasNext) {
+     val subindex = iterSubindexes.nextResource()
+     newModel.add(computation,cex_component,subindex)
+     
+     val slice = mkSlice(newModel,subindex)
+     newModel.add(slice,rdf_type,qb_Slice)
+     newModel.add(slice,cex_indicator,subindex)
+     newModel.add(slice,wf_onto_ref_year,literalInt(YearDataset))
+     newModel.add(slice,qb_sliceStructure,wf_onto_sliceByArea)
+     newModel.add(newDataSet,qb_slice,slice)
+   }
+
+   newModel.setNsPrefixes(PREFIXES.cexMapping)
+   newModel
+ }
+
+ def compositeDataset(m:Model) : Model = {
+   val newModel = ModelFactory.createDefaultModel()
+   val newDataSet = newModel.createResource(wi_dataset_Composite.getURI)
+
+   newModel.add(newDataSet,rdf_type,qb_DataSet)
+   
+   val computation = newModel.createResource
+   newModel.add(computation,rdf_type,cex_GroupIndex)
+   newModel.add(computation,cex_dataSet,wi_dataset_SubIndexGrouped)
+   newModel.add(computation,cex_dimension,wf_onto_ref_area)
+
+   newModel.add(newDataSet,cex_computation,computation)
+
+   newModel.add(newDataSet,sdmxAttribute_unitMeasure,dbpedia_Year)
+   newModel.add(newDataSet,qb_structure,wf_onto_DSD)
+   
+   val index = newModel.createResource(wi_index_index.getURI)
+   newModel.add(computation,cex_component,index)
+     
+   val slice = mkSlice(m,"Composite")
+   newModel.add(slice,rdf_type,qb_Slice)
+   newModel.add(slice,cex_indicator,index)
+   newModel.add(slice,wf_onto_ref_year,literalInt(YearDataset))
+   newModel.add(slice,qb_sliceStructure,wf_onto_sliceByArea)
+   newModel.add(newDataSet,qb_slice,slice)
+
+   newModel.setNsPrefixes(PREFIXES.cexMapping)
+   newModel
+ }
+
+ def rankingsDataset(m:Model) : Model = {
+   val newModel = ModelFactory.createDefaultModel()
+   val newDataSet = newModel.createResource(wi_dataset_Rankings.getURI)
+
+   newModel.add(newDataSet,rdf_type,qb_DataSet)
+   
+   val computation = newModel.createResource
+   newModel.add(computation,rdf_type,cex_RankingDataset)
+   newModel.add(computation,cex_dimension,wf_onto_ref_area)
+   newModel.add(newDataSet,cex_computation,computation)
+
+   newModel.add(newDataSet,sdmxAttribute_unitMeasure,dbpedia_Year)
+   newModel.add(newDataSet,qb_structure,wf_onto_DSD)
+
+   val iterSubindexes = m.listSubjectsWithProperty(rdf_type,cex_SubIndex)
+   while (iterSubindexes.hasNext) {
+     val subindex = iterSubindexes.nextResource
+     newModel.add(computation,cex_slice,mkSlice(m,subindex))
+     val sliceToRank = mkRanking(m,subindex)
+     newModel.add(newDataSet,qb_slice,sliceToRank)
+     newModel.add(sliceToRank,rdf_type,qb_slice)
+     newModel.add(sliceToRank,cex_indicator,subindex)
+     newModel.add(sliceToRank,wf_onto_ref_year,literalInt(YearDataset))
+     newModel.add(sliceToRank,qb_sliceStructure,wf_onto_sliceByArea)
+   }
+   
+   val sliceRankComposite = mkRanking(m,"Composite")
+   newModel.add(computation,cex_slice,mkSlice(m,"Composite"))
+   newModel.add(newDataSet,qb_slice,sliceRankComposite)
+   newModel.add(sliceRankComposite,rdf_type,qb_slice)
+   newModel.add(sliceRankComposite,cex_indicator,wi_index_index)
+   newModel.add(sliceRankComposite,wf_onto_ref_year,literalInt(YearDataset))
+   newModel.add(sliceRankComposite,qb_sliceStructure,wf_onto_sliceByArea)
+
    newModel.setNsPrefixes(PREFIXES.cexMapping)
    newModel
  }
@@ -216,6 +381,12 @@ object AddDatasets extends App {
  def addDatasets(m: Model) : Model = {
 //   m.add(imputedDatasets(m))
    m.add(normalizedDatasets(m))
+   m.add(clusterIndicatorsDataset(m))
+   m.add(indicatorsWeightedDataset(m))
+   m.add(clustersGroupedDataset(m))
+   m.add(subindexGroupedDataset(m))
+   m.add(compositeDataset(m))
+   m.add(rankingsDataset(m))
  } 
 
  override def main(args: Array[String]) {

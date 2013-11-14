@@ -29,7 +29,8 @@ CONSTRUCT {
 	   qb:dataset ?dataSetToCopy ;
 	   cex:computation [ a cex:GroupMean ;
 	                       cex:reason "Group clusters"@en ;
-		                   cex:component ?lsObs ] 
+		                #   cex:component ?lsObs 
+						] 
   ]
   
 } WHERE {
@@ -47,7 +48,7 @@ CONSTRUCT {
       wf-onto:ref-year ?year .
 
  { SELECT (AVG(?value) as ?mean) 
-          (GROUP_CONCAT(?obs) as ?lsObs) 
+        #  (GROUP_CONCAT(?obs) as ?lsObs) 
           ?dataset 
           ?component 
           ?dimension 

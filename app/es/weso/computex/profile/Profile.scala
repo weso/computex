@@ -65,10 +65,11 @@ case class Profile(
     allComputeSteps.find(c => c.name == stepName) match {
       case Some(cstep) => {
         val newModel = cstep.step(model)
-        println("Constructed model of size: " + newModel.size)
+        println("Constructed model of size: " + newModel.size + " for step " + cstep.name)
         model.add(newModel)
       }
-      case None => throw new Exception("expandStep. stepName " + stepName + " not found")
+      case None => 
+        throw new Exception("expandStep. stepName " + stepName + " not found")
     }
   }
 
