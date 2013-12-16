@@ -24,7 +24,7 @@
     dcterms:title "Core Computational Index ontology"@en;
     dcterms:author wf-people:Labra , wf-people:Chema, wf-org:WESO ;
     dcterms:publisher  wf-org:WebFoundation;
-    dcterms:contributor  wf-people:Hania, wf-people:Jules ;
+    dcterms:contributor  wf-people:Labra , wf-people:Chema, wf-org:WESO, wf-people:Hania, wf-people:Jules ;
 	dcterms:license <http://www.opendatacommons.org/licenses/pddl/1.0/> ;
 	.
 

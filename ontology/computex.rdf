@@ -46,18 +46,21 @@
   <rdf:Description rdf:about="http://purl.org/weso/ontology/computex">
     <owl:versionInfo>0.2</owl:versionInfo>
     <dcterms:contributor rdf:resource="http://data.webfoundation.org/people/Hania"/>
+    <dcterms:contributor rdf:resource="http://data.webfoundation.org/people/Chema"/>
     <rdfs:label xml:lang="en">Computational Index ontology</rdfs:label>
     <dcterms:author rdf:resource="http://data.webfoundation.org/people/Chema"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
     <dcterms:contributor rdf:resource="http://data.webfoundation.org/people/Jules"/>
     <dcterms:author rdf:resource="http://data.webfoundation.org/people/Labra"/>
-    <dcterms:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2013-06-07</dcterms:modified>
-    <dcterms:license rdf:resource="http://www.opendatacommons.org/licenses/pddl/1.0/"/>
-    <dcterms:title xml:lang="en">Core Computational Index ontology</dcterms:title>
-    <rdfs:comment xml:lang="en">Vocabulary for describing index structures and observations.</rdfs:comment>
     <dcterms:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2012-06-07</dcterms:created>
+    <dcterms:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2013-06-07</dcterms:modified>
+    <dcterms:title xml:lang="en">Core Computational Index ontology</dcterms:title>
+    <dcterms:license rdf:resource="http://www.opendatacommons.org/licenses/pddl/1.0/"/>
+    <rdfs:comment xml:lang="en">Vocabulary for describing index structures and observations.</rdfs:comment>
     <dcterms:publisher rdf:resource="http://data.webfoundation.org/organization/WebFoundation"/>
+    <dcterms:contributor rdf:resource="http://data.webfoundation.org/organization/WESO"/>
     <dcterms:author rdf:resource="http://data.webfoundation.org/organization/WESO"/>
+    <dcterms:contributor rdf:resource="http://data.webfoundation.org/people/Labra"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://purl.org/weso/ontology/computex#Normalize">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -125,11 +128,6 @@
     <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
     <rdfs:label xml:lang="en">High/Low</rdfs:label>
   </rdf:Description>
-  <rdf:Description rdf:nodeID="A0">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
-    <owl:onProperty rdf:resource="http://www.w3.org/ns/earl#outcome"/>
-    <owl:hasValue rdf:resource="http://www.w3.org/ns/earl#failed"/>
-  </rdf:Description>
   <rdf:Description rdf:about="http://purl.org/weso/ontology/computex#SheetData">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
@@ -158,6 +156,11 @@
     <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
     <rdfs:label xml:lang="en">Index</rdfs:label>
     <rdfs:label xml:lang="es">Índice</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A0">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://www.w3.org/ns/earl#outcome"/>
+    <owl:hasValue rdf:resource="http://www.w3.org/ns/earl#failed"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://purl.org/weso/ontology/computex#Error">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
