@@ -89,6 +89,7 @@ indicator:A
 	  cex:component component:AB ;
 	  cex:highLow cex:High ;
       dcterms:source "Example" ;
+ 	  rdf:type cex:Indicator ;
       rdf:type wf-onto:SecondaryIndicator ;
       rdfs:label "Indicator A"@en ;      
       rdfs:comment "This is a sample indicator called A"@en ;
@@ -134,6 +135,7 @@ indicator:D
 	  cex:component component:DQ1 ;
 	  cex:highLow cex:High ;
       dcterms:source "Example" ;
+ 	  rdf:type cex:Indicator ;
       rdf:type wf-onto:SecondaryIndicator ;
       rdfs:label "Indicator D"@en ;      
       rdfs:comment "This is a sample indicator called D"@en ;
@@ -145,6 +147,7 @@ indicator:D
 	  .
 
 indicator:Q1 a wf-onto:PrimaryIndicator ;
+ 	  rdf:type cex:Indicator ;
     cex:md5-checksum "MD5 checksum for indicator Q1" ;
 	cex:component component:DQ1 ;
 	cex:highLow cex:High ;
@@ -160,6 +163,7 @@ indicator:Q1 a wf-onto:PrimaryIndicator ;
 	.
 
 indicator:Q2 a wf-onto:PrimaryIndicator ;
+ 	  rdf:type cex:Indicator ;
     cex:md5-checksum "MD5 checksum for indicator Q2" ;
     cex:component component:Q2 ;
     cex:highLow cex:High ;

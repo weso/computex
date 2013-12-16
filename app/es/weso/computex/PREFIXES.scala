@@ -228,7 +228,7 @@ object PREFIXES {
  lazy val wf_onto_DSD 					= resource("wf-onto","DSD")
  lazy val wf_onto_Country 				= resource("wf-onto","Country")
  lazy val wf_onto_SecondaryIndicator 	= resource("wf-onto","SecondaryIndicator")
- lazy val wf_onto_PrimaryIndicator 		= resource("wf-onto","SecondaryIndicator")
+ lazy val wf_onto_PrimaryIndicator 		= resource("wf-onto","PrimaryIndicator")
 
  lazy val wf_onto_ref_year 		= property("wf-onto","ref-year")
  lazy val wf_onto_sliceByArea 	= property("wf-onto","sliceByArea")

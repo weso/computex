@@ -360,7 +360,9 @@ object JenaUtils {
      val node = iter.next.getObject
      if (!iter.hasNext) node 
      else {
-       logger.error("findProperty: Resource " + r + " has more than one value for property " + p)
+       val msg = "findProperty: Resource " + r + " has more than one value for property " + p
+       println(msg)
+       logger.error(msg)
        node
      }
    }

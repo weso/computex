@@ -155,24 +155,63 @@ object AddComputations extends App {
  // Todo: Unfinnished (Check Cluster.sparql query)
  def addCluster(m:Model) : Model = {
    val newModel = ModelFactory.createDefaultModel()
-   val iterDatasets = m.listSubjectsWithProperty(rdf_type,qb_DataSet)
-   while (iterDatasets.hasNext) {
-     val datasetToCopy = iterDatasets.nextResource()
-     if (hasComputationType(m,datasetToCopy,cex_ClusterDataSets)) {
-      val computation = findProperty_asResource(m, datasetToCopy, cex_computation)
-      val datasetFrom = findProperty_asResource(m, computation, cex_dataSet)
-      val dim = findProperty_asResource(m,computation,cex_dimension)
-      val valueDim = findProperty_asResource(m,computation,cex_value)
-      
-      val iterSlices = m.listObjectsOfProperty(datasetToCopy,qb_slice)
+   findDatasetWithComputation(m,cex_ClusterDataSets) match {
+     case None => {
+       logger.warn("No dataset with computation " + cex_ClusterDataSets)
+     }
+     case Some((datasetTo,computation)) => {
+      val iterDataSets = m.listObjectsOfProperty(computation,cex_dataSet)
+      while (iterDataSets.hasNext) {
+        val datasetFrom = iterDataSets.nextNode().asResource
+      val dim = findProperty_asProperty(m,computation,cex_dimension)
+      val valueDim = findProperty(m,computation,cex_value)
+      val iterSlices = m.listObjectsOfProperty(datasetTo,qb_slice)
       while (iterSlices.hasNext) {
-        val sliceToCopy = iterSlices.nextNode()
+        val sliceTo = iterSlices.nextNode().asResource
+        val valueDimSlice = findProperty(m,sliceTo,dim)
+        if (valueDimSlice == valueDim) {
+         val indicatorTo = findProperty_asResource(m,sliceTo,cex_indicator)
+         val iterSlicesFrom = m.listObjectsOfProperty(datasetFrom,qb_slice)
+         while (iterSlicesFrom.hasNext) {
+           val sliceFrom = iterSlicesFrom.nextNode.asResource
+           val indicatorFrom = findProperty_asResource(m,sliceFrom,cex_indicator)
+           if (indicatorTo == indicatorFrom) {
+             val iterObs = m.listObjectsOfProperty(sliceFrom,qb_observation)
+             while (iterObs.hasNext) {
+               val obsFrom = iterObs.nextNode().asResource()
+               val obsTo = newModel.createResource()
+               newModel.add(sliceTo,qb_observation,obsTo)
+               copyProperties(obsTo,newModel,Seq(wf_onto_ref_area, cex_value,wf_onto_ref_year),obsFrom,m)
+             } 
+           }
+         }
+        }
       }
-    }
+     }
+     }
    }
    newModel
  }
 
+ def findProperty_asProperty(m:Model, r:Resource, p:Property): Property = {
+   val vr = findProperty_asResource(m,r,p)
+   if (vr.isURIResource()) {
+     m.getProperty(vr.getURI)
+   } else
+     throw new Exception("findProperty_asProperty: value of property " + p + 
+                         " for resource " + r + " is " + vr + ", but should be an URI")
+ }
+ def copyProperties(to:Resource, modelTo: Model, ps:Seq[Property],from:Resource,modelFrom:Model): Unit = {
+   ps.foreach(p => copyProperty(to,modelTo,p,from,modelFrom))
+ }
+
+ def copyProperty(to: Resource, modelTo: Model,p: Property, from: Resource, modelFrom: Model): Unit = {
+   if (hasProperty(modelFrom,from,p)) {
+     val value = findProperty(modelFrom,from,p)
+     modelTo.add(to,p,value)
+   }
+ }
+ 
  def getObsValue(m: Model, obs: Resource) : Double = {
    val value = findProperty(m,obs,cex_value)
    value.asLiteral.getDouble()
@@ -184,14 +223,13 @@ object AddComputations extends App {
 
  def groupClusters(m:Model) : Model = {
    val newModel = ModelFactory.createDefaultModel()
-   val iterDatasets = m.listSubjectsWithProperty(rdf_type,qb_DataSet)
    findDatasetWithComputation(m,cex_GroupClusters) match {
-     case None => newModel
+     case None => {
+       logger.warn("No dataset with computation " + cex_GroupClusters)
+       newModel
+     }
      case Some((dataset,computation)) => {
-       println("Dataset to group: " + dataset)
        val datasetFrom = findProperty_asResource(m, computation, cex_dataSet)
-
-       println("Dataset From: " + datasetFrom)
        val dimension	  = findProperty_asResource(m, computation, cex_dimension)
        
        val table = TableComputations.empty
@@ -271,9 +309,11 @@ object AddComputations extends App {
  
  def groupSubIndex(m:Model) : Model = {
    val newModel = ModelFactory.createDefaultModel()
-   val iterDatasets = m.listSubjectsWithProperty(rdf_type,qb_DataSet)
    findDatasetWithComputation(m,cex_GroupSubIndex) match {
-     case None => newModel
+     case None =>{
+       logger.warn("No dataset with computation " + cex_GroupSubIndex)
+       newModel
+     } 
      case Some((dataset,computation)) => {
        println("Dataset to group: " + dataset)
        val datasetFrom = findProperty_asResource(m, computation, cex_dataSet)
@@ -359,9 +399,11 @@ object AddComputations extends App {
 
  def groupIndex(m:Model) : Model = {
    val newModel = ModelFactory.createDefaultModel()
-   val iterDatasets = m.listSubjectsWithProperty(rdf_type,qb_DataSet)
    findDatasetWithComputation(m,cex_GroupIndex) match {
-     case None => newModel
+     case None => {
+       logger.warn("No dataset with computation " + cex_GroupIndex)
+       newModel
+     }
      case Some((dataset,computation)) => {
        println("Dataset to group: " + dataset)
        val datasetFrom = findProperty_asResource(m, computation, cex_dataSet)
@@ -447,9 +489,10 @@ object AddComputations extends App {
    println("Normalized: " + normalize.size)
    m.add(normalize)  
 
-   val cex = Profile.Computex
-   cex.expandStep("Cluster", m)
-   cex.expandStep("WeightedSimple",m) 
+   val clustered = addCluster(m)
+   println("Clustered: " + clustered.size)
+   m.add(clustered)
+   
    val groups = groupClusters(m)
    println("Groups: " + groups.size)
    m.add(groups) 
@@ -462,7 +505,7 @@ object AddComputations extends App {
    println("Index: " + index.size)
    m.add(index) 
 
-//   AddRanking.addRankings(m)
+   AddRanking.addRankings(m)
    m
  } 
 

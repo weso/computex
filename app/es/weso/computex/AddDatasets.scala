@@ -207,7 +207,7 @@ object AddDatasets extends App {
    newModel
  }
 
- def indicatorsWeightedDataset(m:Model) : Model = {
+/* def indicatorsWeightedDataset(m:Model) : Model = {
    val newModel = ModelFactory.createDefaultModel()
    val newDataSet = newModel.createResource(wi_dataset_IndicatorsWeighted.getURI)
 
@@ -233,17 +233,17 @@ object AddDatasets extends App {
    }
    newModel.setNsPrefixes(PREFIXES.cexMapping)
    newModel
- }
+ } */
 
   def clustersGroupedDataset(m:Model) : Model = {
    val newModel = ModelFactory.createDefaultModel()
-   val newDataSet = newModel.createResource(wi_dataset_ClustersGrouped.getURI)
+   val newDataSet = wi_dataset_ClustersGrouped // newModel.createResource(wi_dataset_ClustersGrouped.getURI)
 
    newModel.add(newDataSet,rdf_type,qb_DataSet)
    
    val computation = newModel.createResource
    newModel.add(computation,rdf_type,cex_GroupClusters)
-   newModel.add(computation,cex_dataSet,wi_dataset_IndicatorsWeighted)
+   newModel.add(computation,cex_dataSet,wi_dataset_ClusterIndicators)
    newModel.add(computation,cex_dimension,wf_onto_ref_area)
 
    
@@ -278,7 +278,7 @@ object AddDatasets extends App {
 
   def subindexGroupedDataset(m:Model) : Model = {
    val newModel = ModelFactory.createDefaultModel()
-   val newDataSet = newModel.createResource(wi_dataset_SubIndexGrouped.getURI)
+   val newDataSet = wi_dataset_SubIndexGrouped // newModel.createResource(wi_dataset_SubIndexGrouped.getURI)
 
    newModel.add(newDataSet,rdf_type,qb_DataSet)
    
@@ -312,7 +312,7 @@ object AddDatasets extends App {
 
  def compositeDataset(m:Model) : Model = {
    val newModel = ModelFactory.createDefaultModel()
-   val newDataSet = newModel.createResource(wi_dataset_Composite.getURI)
+   val newDataSet = wi_dataset_Composite // newModel.createResource(wi_dataset_Composite.getURI)
 
    newModel.add(newDataSet,rdf_type,qb_DataSet)
    
@@ -342,7 +342,7 @@ object AddDatasets extends App {
 
  def rankingsDataset(m:Model) : Model = {
    val newModel = ModelFactory.createDefaultModel()
-   val newDataSet = newModel.createResource(wi_dataset_Rankings.getURI)
+   val newDataSet = wi_dataset_Rankings // newModel.createResource(wi_dataset_Rankings.getURI)
 
    newModel.add(newDataSet,rdf_type,qb_DataSet)
    
@@ -382,7 +382,7 @@ object AddDatasets extends App {
 //   m.add(imputedDatasets(m))
    m.add(normalizedDatasets(m))
    m.add(clusterIndicatorsDataset(m))
-   m.add(indicatorsWeightedDataset(m))
+//   m.add(indicatorsWeightedDataset(m))
    m.add(clustersGroupedDataset(m))
    m.add(subindexGroupedDataset(m))
    m.add(compositeDataset(m))
