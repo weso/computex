@@ -120,9 +120,9 @@ object PREFIXES {
   
     /**
      * Generates a string with the prefix mapping alphabetically 
-     * ordered in HTML table syntax  
+     * ordered in HTML syntax  
      */
-    def prefixTemplateTable(): String = {
+    def prefixTemplateHTML(): String = {
       val strBuilder = new StringBuilder
       for (p <- cexMap.toList.sortBy(_._1)) {
         strBuilder.append("<dt><code>" + p._1 + "</code></dt>" +
