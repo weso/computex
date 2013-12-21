@@ -15,6 +15,7 @@ GET     /about	               		controllers.Application.about
 GET 	/prefixes/sparql			controllers.Prefixes.sparql
 GET 	/prefixes/turtle			controllers.Prefixes.turtle
 GET 	/prefixes/json				controllers.Prefixes.json
+GET 	/prefixes/table				controllers.Prefixes.table
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

@@ -42,6 +42,7 @@ object PREFIXES {
   lazy val rdf 			= "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
   lazy val qb  			= "http://purl.org/linked-data/cube#"
   lazy val owl 			= "http://www.w3.org/2002/07/owl#"
+  lazy val org 			= "http://www.w3.org/ns/org#"
   lazy val rdfs			= "http://www.w3.org/2000/01/rdf-schema#"
   lazy val sdmxAttribute = "http://purl.org/linked-data/sdmx/2009/attribute#"
   lazy val sdmxCode		= "http://purl.org/linked-data/sdmx/2009/code#"
@@ -86,6 +87,7 @@ object PREFIXES {
 		    "geo"			-> geo,
 		    "qb"			-> qb,
 		    "owl"			-> owl,
+		    "org"			-> org,
 		    "rdf"			-> rdf,
 		    "rdfs"			-> rdfs,
 		    "sdmxAttribute" -> sdmxAttribute,
@@ -116,6 +118,19 @@ object PREFIXES {
       strBuilder.toString
     }
   
+    /**
+     * Generates a string with the prefix mapping alphabetically 
+     * ordered in HTML table syntax  
+     */
+    def prefixTemplateTable(): String = {
+      val strBuilder = new StringBuilder
+      for (p <- cexMap.toList.sortBy(_._1)) {
+        strBuilder.append("<dt><code>" + p._1 + "</code></dt>" +
+                          "<dd><code><a href=\""+ p._2 + "\">" + p._2 + "</a></code></dd>") 
+      }
+      strBuilder.toString
+    }
+
     /**
      * Generates a string with the prefix mapping alphabetically 
      * ordered in SPARQL syntax  
