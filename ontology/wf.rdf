@@ -1,0 +1,97 @@
+<rdf:RDF
+    xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+    xmlns:cex="http://purl.org/weso/ontology/computex#"
+    xmlns:wf-onto="http://data.webfoundation.org/ontology/"
+    xmlns:sdmx-concept="http://purl.org/linked-data/sdmx/2009/concept#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:wf-org="http://data.webfoundation.org/organization/"
+    xmlns:wf-people="http://data.webfoundation.org/people/"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:dcterms="http://purl.org/dc/terms/"
+    xmlns:earl="http://www.w3.org/ns/earl#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:lg="http://linkedgeodata.org/ontology/"
+    xmlns:qb="http://purl.org/linked-data/cube#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" > 
+  <rdf:Description rdf:about="http://data.webfoundation.org/ontology/Country">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <rdf:type rdf:resource="http://linkedgeodata.org/ontology/Country"/>
+    <skos:broader rdf:resource="http://data.webfoundation.org/ontology/Region"/>
+    <rdfs:label xml:lang="en">Country concept</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://data.webfoundation.org/ontology/Area"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://data.webfoundation.org/ontology/has-country">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+    <rdfs:label xml:lang="en">has Country property</rdfs:label>
+    <rdfs:comment xml:lang="en">Creates a link between a region and a country.</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://data.webfoundation.org/ontology/ref-dbpedia">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+    <rdfs:label xml:lang="en">link to DBPedia resource</rdfs:label>
+    <rdfs:comment xml:lang="en">A mapping property to link an entity with a DBPedia resource</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://data.webfoundation.org/ontology/Region">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <rdf:type rdf:resource="http://linkedgeodata.org/ontology/Place"/>
+    <rdfs:label xml:lang="en">Region concept</rdfs:label>
+    <rdfs:comment xml:lang="en">A region represents a set of countries.</rdfs:comment>
+    <skos:narrower rdf:resource="http://data.webfoundation.org/ontology/Country"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://data.webfoundation.org/ontology/ExternalIndicator">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+    <rdfs:subClassOf rdf:resource="http://purl.org/weso/ontology/computex#Indicator"/>
+    <rdfs:label xml:lang="en">External Indicator</rdfs:label>
+    <rdfs:comment xml:lang="en">This indicator is established by third parties such as Worldbank but its observations are not part of a component.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://data.webfoundation.org/ontology/SecondaryIndicator">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+    <rdfs:subClassOf rdf:resource="http://purl.org/weso/ontology/computex#Indicator"/>
+    <rdfs:label xml:lang="en">Secondary Indicator</rdfs:label>
+    <rdfs:comment xml:lang="en">This indicator is established by third parties such as ITU, UN, etc. Its observations are part of a component.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://data.webfoundation.org/ontology/ref-year">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:domain rdf:resource="http://data.webfoundation.org/ontology/Observation"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://data.webfoundation.org/ontology/has-iso-alpha2-code">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+    <rdfs:label xml:lang="en">ISO-code-alpha 2 digit</rdfs:label>
+    <rdfs:comment xml:lang="en">This property creates a link between a country and its ISO code (2 digit)</rdfs:comment>
+    <rdfs:subPropertyOf rdf:resource="http://purl.org/dc/terms/identifier"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://data.webfoundation.org/ontology/PrimaryIndicator">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+    <rdfs:subClassOf rdf:resource="http://purl.org/weso/ontology/computex#Indicator"/>
+    <rdfs:label xml:lang="en">Primary Indicator</rdfs:label>
+    <rdfs:comment xml:lang="en">Primary indicator is an indicator defined by the Webfoundation.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://data.webfoundation.org/ontology/ref-area">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:domain rdf:resource="http://data.webfoundation.org/ontology/Observation"/>
+    <rdfs:range rdf:resource="http://data.webfoundation.org/ontology/Area"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://data.webfoundation.org/ontology/Area">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <rdfs:label xml:lang="en">Area</rdfs:label>
+    <rdfs:isDefinedBy rdf:resource="http://purl.org/weso/ontology/webindex"/>
+    <skos:narrower rdf:resource="http://data.webfoundation.org/ontology/Region"/>
+    <skos:narrower rdf:resource="http://data.webfoundation.org/ontology/Country"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://data.webfoundation.org/ontology/has-iso-alpha3-code">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+    <rdfs:label xml:lang="en">ISO-code-alpha 3 property</rdfs:label>
+    <rdfs:comment xml:lang="en">This property creates a link between a country and its ISO code (3 digit)</rdfs:comment>
+    <rdfs:subPropertyOf rdf:resource="http://purl.org/dc/terms/identifier"/>
+  </rdf:Description>
+</rdf:RDF>
