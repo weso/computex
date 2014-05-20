@@ -33,6 +33,8 @@ dist
 *.aux
 *.log
 *.out
+/document.synctex.gz
+
 
 # Sbt specific
 dist/*
