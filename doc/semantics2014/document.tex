@@ -1,4 +1,5 @@
 \documentclass{acm_proc_article-sp}
+\usepackage[utf8]{inputenc}
 \usepackage{epstopdf}
 \usepackage{times}
 \usepackage{natbib}
@@ -97,9 +98,9 @@
 
 \begin{document}
 
-\title{Representing statistical index computations as linked data}
+\title{Representing verifiable statistical index computations as linked data}
 
-\numberofauthors{2} 
+\numberofauthors{3} 
 \author{
 \alignauthor
 Jose Emilio Labra Gayo\\
@@ -110,25 +111,33 @@ Jose Emilio Labra Gayo\\
 \alignauthor
 Hania Farham\\
        \affaddr{The Web Foundation}\\
-       \affaddr{P.O. Box 1212}\\
-       \affaddr{Dublin, Ohio 43017-6221}\\
-       \email{webmaster@marysville-ohio.com}
+       \email{hania@webfoundation.org}
+\alignauthor
+Juan Castro Fernández\\
+       \affaddr{WESO Research Group} \\
+       \affaddr{University of Oviedo}\\
+       \affaddr{C/Calvo Sotelo, S/N}\\
+       \email{juan.castro@weso.es}
 }
 
 \maketitle
 \begin{abstract}
 
-In this paper we describe a methodology to represent statistical index data and computations 
-following the linked data principles. 
-The methodology has been applied to the creation of the
- WebIndex and its associated data portal.
-One requirement of the project was that every published data value should be justified. 
-The justification could be that it was just raw data obtained from an external source or that it was computed from other values to which is should be linked. 
+In this paper we describe the development of the Web Index linked data portal that represents statistical index data and computations. 
+
+ The Web Index is a multi-dimensional measure of the World Wide Web’s contribution to development and human rights globally. It covers 81 countries and incorporates indicators that assess several areas like universal access; freedom and openness; relevant content; and empowerment.
+
+In order to empower the Web Index transparency, one internal requirement was that every published data could be externally verified. 
+The verification could be that it was just raw data obtained from an external source, in which case, the system must provide a link to the data source or that the value has been internally computed, 
+ in which case, the system provides links to those values.
 The resulting portal contains data that can be tracked to its sources so an external agent
 can validate the whole index computation process.
-We describe the practical application of this methodology to the development of the WebIndex data portal, 
-which also offers new linked data visualization tools.
 
+We describe the different aspects on the development of the WebIndex data portal, which also offers new linked data visualization tools. 
+
+Although in this paper we concentrate on the Web Index development, 
+we consider that this approach can be generalized to other projects which involve 
+ the publication of externally verifiable statistical computations.
 \end{abstract}
 
 % A category with the (minimum) three required fields
@@ -142,13 +151,10 @@ which also offers new linked data visualization tools.
 
 \section{Introduction}
 
-% Hablar de la importancia de los índices...
-Indices are statistical measures employed in several domains like economics and finance. 
 The creation and use of quantitative indexes is a widely 
 accepted practice that has been applied to numerous domains like economics and
 Bibliometrics (Impact factor), 
-research and academic performance 
-  (H-Index or Shanghai rankings), 
+research and academic performance (H-Index or Shanghai rankings), 
  cloud computing (Global Cloud Index, by CISCO), 
 etc.
 
@@ -159,6 +165,7 @@ We consider that those indexes could benefit from a
 We participated in the Web Index project
 (\url{http://thewebindex.org}), which created an index to measure 
  the Web impact in different countries.
+
 The 2012 version offered a data
 portal\footnoteUrl{http://data.webfoundation.org} whose data was obtained 
 by transforming raw observations and precomputed values 
@@ -187,6 +194,16 @@ The validation process employs SPARQL~\cite{SPARQL11} queries to model the
  Along the paper we will use Turtle and SPARQL notation and assume that the
 namespaces have been declared using the most common prefixes found in
 \url{http://prefix.cc}.
+
+\section{WebIndex workflow}
+
+\begin{figure*}[h]
+\label{Fig:WebIndexWorkFlow}
+\begin{center}
+  \makebox[\textwidth]{\includegraphics[width=\textwidth]{WebIndexWorkFlow}}
+\end{center}
+\caption{Web Index data portal WorkFlow}
+\end{figure*}
 
 \section{WebIndex computation model}
 
@@ -428,6 +445,8 @@ CONSTRUCT {
 \end{lstlisting}
 
 \end{itemize}
+
+\section{Visualizing the Web Index}
 
 \section{Related work}
 
