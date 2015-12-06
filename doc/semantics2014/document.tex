@@ -1,4 +1,4 @@
-\documentclass{acm_proc_article-sp}
+\documentclass{llncs}
 \usepackage[utf8]{inputenc}
 \usepackage{epstopdf}
 \usepackage{times}
@@ -102,31 +102,18 @@
 
 \title{Representing verifiable statistical index computations as linked data}
 
-\numberofauthors{2} 
-\author{
-\alignauthor
-Jose Emilio Labra Gayo\\
-       \affaddr{University of Oviedo}\\
-       \affaddr{Dept. of Computer Science}\\
-       \affaddr{C/Calvo Sotelo, S/N}\\
-       \email{labra@uniovi.es}
-\alignauthor
-Hania Farham\\
-       \affaddr{The Web Foundation}\\
+\author{Jose Emilio Labra Gayo\inst{1} 
+ \and Hania Farham\inst{2}
+ \and Juan Castro Fernández\inst{1}
+ \and Jose María Álvarez Rodríguez\inst{3}}
+ 
+\institute{WESO Research Group \\
+           \email{\{jelabra,juan.castro\}@weso.es}
+        \and The Web Foundation \\
        \email{hania@webfoundation.org}
-\and
-\alignauthor
-Juan Castro Fernández\\
-       \affaddr{WESO Research Group} \\
-       \affaddr{University of Oviedo}\\
-       \affaddr{C/Calvo Sotelo, S/N}\\
-       \email{juan.castro@weso.es}
-\alignauthor
-Jose María Álvarez Rodríguez\\
-       \affaddr{Dept. Computer Science} \\
-       \affaddr{Carlos III University}\\
-       \affaddr{Leganés, Madrid}\\
-       \email{josemaria.alvarez@uc3m.es}
+       \and Dept. Computer Science \\
+            Carlos III University \\
+            \email{josemaria.alvarez@uc3m.es}
 }
 
 \maketitle
@@ -142,59 +129,52 @@ The verification could be that it was just raw data obtained from an external so
 The resulting portal contains data that can be tracked to its sources so an external agent
 can validate the whole index computation process.
 
-We describe the different aspects on the development of the WebIndex data portal, which also offers new linked data visualization tools. 
-
-Although in this paper we concentrate on the Web Index development, 
+We describe the different aspects on the development of the WebIndex data portal, which also offers new linked data visualization tools. Although in this paper we concentrate on the Web Index development, 
 we consider that this approach can be generalized to other projects which involve 
  the publication of externally verifiable statistical computations.
 \end{abstract}
 
-% A category with the (minimum) three required fields
-\category{H.2.8}{Database Applications}{Statistical databases}
-%A category including the fourth, optional field follows...
-\category{H.3.5}{Online Information Services}{Web-based services}
-
-\terms{Theory}
-
-\keywords{Linked data, Statistics, Computations, RDF} 
 
 \section{Introduction}
 
-The creation and use of quantitative indexes is a widely 
-accepted practice that has been applied to numerous domains like economics and
-Bibliometrics (Impact factor), 
+Statistical indexes are a widely accepted practice that have been applied 
+to numerous domains like economics and Bibliometrics (Impact factor), 
 research and academic performance (H-Index or Shanghai rankings), 
- cloud computing (Global Cloud Index, by CISCO), 
-etc.
-
+cloud computing (Global Cloud Index, by CISCO), 
+etc. 
 We consider that those indexes could benefit from a 
  Linked Data approach where the rankings could be seen, tracked and 
- verified by their users.
+ verified by their users linking each rank to the original values and observations 
+ from which it has been computed.
 
-We participated in the Web Index project
-(\url{http://thewebindex.org}), which created an index to measure the Web impact in different countries.
+As a motivating example, we will employ the Web Index project
+(\url{http://thewebindex.org}), which created an index to measure the World Wide Web’s 
+contribution to development and human rights globally. Scores are given in the areas of access; freedom and openness; relevant content; and empowerment. 
+First released in 2012, the 2013 Index has been expanded and refined to include 20 new countries and features an enhanced data set, particularly in the areas of gender, Open Data, privacy rights and security.
 
 The 2012 version offered a data
 portal\footnoteUrl{http://data.webfoundation.org} whose data was obtained 
 by transforming raw observations and precomputed values 
-from Excel sheets to RDF~\cite{Alvarez13}. 
+from Excel sheets to RDF. 
+The technical description of that process was described in~\cite{Alvarez13} where we followed
+the methodology presented in~\cite{Silva11}. 
 
-In the 2013 version of that data portal, we are working on 
-both validating and computing observations to automatically generate the index from raw data.
+In this paper, we describe the development of the 2013 version of that data portal, where we employ 
+a new validation and computation approach that enables the publication of a verifiable linked data version of WebIndex results.
 
-We have defined a generic vocabulary 
-of computational index structures which could be applied to compute and validate any other kind of index and can be seen as an specialization of the RDF Data Cube vocabulary~\cite{Cube}.
+We defined a generic vocabulary 
+of computational index structures called \emph{Computex} which could be applied to compute 
+and validate any other kind of index and can be seen as an specialization of the RDF Data Cube vocabulary~\cite{Cube}.
+
+Given that the most important part of a data portal about statistical indexes are the 
+numeric values of each observation we established the internal requirement that any value published should be justified either declaring from where it had been obtained or
+linking it to the values of other observations
+from which it had been computed.
 
 The validation process employs a combination of SPARQL~\cite{SPARQL11} queries and Shape Expressions \cite{Boneva2014} to check the 
  different integrity constraints and computation steps in a declarative way.
 
-Given that the most important part of a data portal about statistical indexes are the 
-numeric values of each observations we established the internal requirement that any value published should be justified either declaring from where it had been obtained or
-linking it to the values of other observations
-from which it had been computed.
-
-The resulting data portal \url{http://data.webfoundation.org/webindex/2013} contains not only a linked data view about
-the statistical data but also a machine verifiable justification of the index ranks.
+The resulting data portal \url{http://data.webfoundation.org/webindex/2013} contains not only a linked data view about the statistical data but also a machine verifiable justification of the index ranks.
 
 %At this moment, we have a running example and a validator which 
 % reads and executes the SPARQL queries. 
@@ -217,27 +197,23 @@ A number of experts in the relevant fields were selected to overcome these chall
 produce a robust and rigorous Index.
 
 Two types of data were used in the construction of the Index: existing data from other data providers (\emph{secondary data}), and new data gathered via a multi-country questionnaire (\emph{primary data}) 
-that was specifically designed by the Web Foundation and its advisers. 
+which was specifically designed by the Web Foundation and its advisers. 
 These primary data will begin to fill in some of the gaps in measurement of the utility and impact of the Web in various countries. 
-Indeed, the data gaps in this field are significant, and we aim to expand those questionnaires in future editions of the Index, both in terms of the questions/indicators gathered and the number of countries covered by the Index.
 
-There are several steps in the process of constructing a composite Index. Some of those involve deciding which statistical method to use in the normalisation and aggregation processes. In arriving at that decision, we took into account several factors, including the purpose of the Index, the number of dimensions we were
-aggregating, and the ease of disseminating and communicating it, in an understandable, replicable and transparent way. The following 10 steps summarise the computation process of the Index:
+The following 10 steps summarise the computation process of the Index:
 
 \begin{enumerate}
 
 \item Take the data for each indicator from the data source for the 81 countries covered by the Index for the 2007-2012 time period (or 2013, in the case of the Web Index expert assessment survey).
 
-\item Impute missing data for every secondary indicator for the sample of 81 countries over the period 2007-2012. Some indicators were not imputed as it was not logical to do so. None of the primary data indicators were imputed. Hence the 2013 Index is very different from the 2007-2012 Indexes that were computed using secondary data only.
-
+\item Impute missing data for every secondary indicator for the sample of 81 countries over the period 2007-2012.  
 Broadly, the imputation of missing data was done using two methods: country-mean substitution if the missing number is in the middle year (e.g. have 2008 and 2010 but not 2009), or taking arithmetic growth rates on a year-by-year basis. Most missing data for 2011 and 2012 are imputed by applying the arithmetic growth rate for the period, to the 2010 number. For the indicators that did not cover a particular country in any of the years, no imputation was done for that country/indicator.
 
 \item Normalise the full (imputed) dataset using z-scores, making sure that for all indicators, a high value is \emph{good} and a low value is \emph{bad}.
 
-\item Cluster some of the variables (as per the scheme in the tree diagram), taking the average of the clustered indicators post normalisation. For the clustered indicators, this clustered value is the one to be used in the computation of the Index components.
+\item Cluster some of the variables, taking the average of the clustered indicators post normalisation. For the clustered indicators, this clustered value is the one to be used in the computation of the Index components.
 
-\item Compute the nine component scores using arithmetic means, 
- using the clustered values where relevant.
+\item Compute the component scores using arithmetic means, using the clustered values where relevant.
 
 \item Compute the min-max values for each z-score value of the components, 
  as this is what will be shown in the visualisation tool and other 
@@ -251,33 +227,32 @@ Broadly, the imputation of missing data was done using two methods: country-mean
 
 \item Compute overall composite scores by calculating the weighted average of the sub-indexes.
 
-\item Compute the min-max values (on a scale of 0-100) for each z-score value of the overall composite scores, as this is what will be shown in the visualisation tool and other publications containing the composite scores.
+\item Compute the min-max values (on a scale of 0-100) for each z-score value of the overall composite scores.
 \end{enumerate}
 
-The computation process was originally done by human experts using the Excel file although
-once the process was established, we considered that it could be automated so we
-could validate the whole process. 
+The computation process was originally done by human experts using an Excel file although
+once the process was established, the computation was automated to validate the whole process. 
 
 \section{WebIndex workflow}
 
 The WebIndex workflow has been depicted in figure~\ref{Fig:WebIndexWorkFlow}. 
-
 The Excel file was comprised of 184 Excel sheets and contained a combination
- of raw, imputed and normalized data created by human experts using Excel. 
+ of raw, imputed and normalized data created by the statistical experts. 
 
-That external data filtered and converted to RDF by means of an specialized web service called \emph{wiFetcher}. 
+That external data was filtered and converted to RDF by means of an specialized web service called \emph{wiFetcher}\footnote{\url{https://github.com/weso/wiFetcher}}. 
 
 Although some of the imported values had been
- pre-computed in Excel by human experts, we collected only the raw values, so we could validate the computation process. 
+ pre-computed in Excel by human experts, we collected only the raw values, so we could automatically compute and validate the results. 
 
-In this way, another application called \emph{wiCompute} took the raw values and computed the index following the
-computation steps defined by the experts. 
+In this way, another application called \emph{wiCompute}\footnote{\url{https://github.com/weso/wiCompute}} 
+ took the raw values and computed the index following the
+ computation steps defined by the experts. 
 \emph{wiCompute} carried out the computations
  generating RDF datasets for the intermediary results and linking the generated values
  to the values from which they had been computed.
  
 Finally, the RDF data generated was published to a SPARQL endpoint from which we created
-a specialized visualization tool called \emph{Wesby}.
+a specialized visualization tool called \emph{Wesby}\footnote{\url{https://github.com/weso/wesby}}.
 
 \begin{figure*}[h]
 \begin{center}
@@ -287,45 +262,98 @@ a specialized visualization tool called \emph{Wesby}.
 \label{Fig:WebIndexWorkFlow}
 \end{figure*}
 
+\section{WebIndex data model}
 
-\section{WebIndex data portal representation}
+Given the statistical nature of the data, the WebIndex data model is based on the RDF Data Cube vocabulary. Figure~\ref{SimplifiedModel} represents the main concepts of the data model
 
-Given the statistical nature of the data, we opted by reusing the RDF Data Cube vocabulary. 
-  
-Our data model consists of a list of observations which can be raw observations
-obtained from an external source or computed observations derived from other
-observations. 
-An example observation can be:
+\begin{figure*}[h]
+\label{SimplifiedModel}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{SimplifiedModel}
+\end{center}
+\caption{Simplified WebIndex data model}
+\end{figure*}
+
+As can be seen, the main concept are observations of type \lstinline|qb:Observation|, which 
+can be raw observations,
+obtained from an external source, 
+or computed observations derived from other observations. 
+Each observation has a float value \lstinline|cex:value| 
+and is related to a country, a year, a dataset 
+and an indicator.
+
+A dataset contains a number of slices, each of which also contains a number of observations. 
+
+Indicators are provided by an organization of type \lstinline|org:Organization| which employs the Organization ontology\cite{Organization14}. Datasets are also published by organizations. 
+
+As a sample of some data, 
+an observation can be that Spain has value 23.78 in 2011 for the indicator ITU-B ( \emph{Broadband subscribers per 100 population}) in the dataset DITU provided by ITU (International Telecommunication Union). This information can be represented in RDF using Turtle syntax as\footnote{The URI of the real observation is \url{http://data.webfoundation.org/webindex/v2013/observation/obs8165}}:
+
+\begin{lstlisting}[style=Turtle]
+obs:obs8165 a qb:Observation ;
+ rdfs:label "ITU B in ESP, 2009" ;
+ dct:issued
+   "2013-05-30T09:15:00"^^xsd:dateTime ;
+ cex:indicator indicator:ITU_B ;
+ qb:dataSet dataset:DITU ;
+ cex:value 23.78 ;
+ cex:ref-area country:Spain ;
+ cex:ref-year 2009 ;
+ ...other properties omitted for brevity
+ .
+\end{lstlisting}
+
+Notice that the WebIndex data model contains data that is completely interrelated. Observations are linked to indicators and datasets. Datasets contain also links to slices and slices have links to indicators and observations again. 
+Both datasets and indicators are linked to the organizations that publish or provide them. 
+
+The following example contains a sample of interrelated 
+data for this domain. 
+ 
+\begin{lstlisting}[style=Turtle]
+dataset:DITU a qb:DataSet ;
+ rdfs:label "ITU Dataset" ;
+ dct:publisher org:ITU ;
+ qb:slice slice:ITU09B , 
+          sliceITU10B, 
+          ...;
+ ...
+slice:ITU09B a qb:Slice ;
+ qb:sliceStructure wf:sliceByArea ;
+ qb:observation obs:obs8165,
+                obs:obs8166,
+                ...
+ ...
+org:ITU a org:Organization ;
+ rdfs:label "ITU" ;
+ foaf:homepage <http://www.itu.int/>
+ .
+country:Spain a wf:Country ;
+ wf:iso2 "ES" ; wf:iso2 "ESP" ;
+ rdfs:label "Spain" 
+ .
+\end{lstlisting}
+
+Computed observations and datasets contain a property \lstinline|cex:computation| that associate them to a node of type \lstinline|cex:Computation| which represents the computation linkind the computed observation to the observations
+from which it has been obtained.
+For example:
 
 \begin{lstlisting}[style=SPARQL]
 obs:obsM23 a qb:Observation ;
  cex:computation [ a cex:Z-Score ; 
-      cex:observation obs:obsA23 ; cex:slice slice:sliceA09 ; ] ;
+      cex:observation obs:obsA23 ; cex:slice slice:sliceA09 ] ;
  cex:value 0.56 ;
- cex:md5-checksum "2917835203..." ;
- cex:indicator indicator:A ;
- cex:concept country:ESP ;
- qb:dataSet dataset:A-Normalized ;
  # ... other declarations omitted for brevity
 \end{lstlisting}
 
 Where we declare that \lstinline|obs:obsM23| is an observation
- whose value is \lstinline|0.56| that has been obtained as the Z-Score
+ that has been obtained as the Z-Score (computation of type \lstinline|cex:Z-Score|)
  of the observation \lstinline|obs:A23| using the slice
- \lstinline|slice:sliceA09|. The observations refers to indicator
- \lstinline|indicator:A|, to the concept \lstinline|country:ESP| and to the
- dataset \lstinline|dataset:A-Normalized|.
+ \lstinline|slice:sliceA09|. 
+ The different types of computations are represented using the Computex vocabulary that we describe in next section.
  
-For each observation, we also add a value for 
-\lstinline|cex:md5-checksum| which is obtained as a combination of the 
-different values of the observation and allows a user to verify the
-values asserted to that observation.
-
-
 \section{Computex vocabulary}
 
-The \emph{Computex} vocabulary is available
-at~\url{http://purl.org/weso/computex}. It defines terms related to the
+The \emph{Computex}\footnote{\url{\url{purl.org/weso/ontology/computex#}} defines terms related to the
 computation of statistical index data and is compatible with RDF Data Cube
 vocabulary. Some terms defined in the vocabulary are:
 
@@ -342,15 +370,14 @@ suscriptions per 100 population, or can be composed from other
 indicators. 
 
 \item\textbf{\lstinline|qb:Observation|}. This is the same term as in the 
-RDF Data Cube vocabulary. It contains values for the
-properties: \lstinline|cex:value|, \lstinline|cex:indicator| 
+RDF Data Cube vocabulary so we maintain the same namespace, although we add some more properties like \lstinline|cex:value|, \lstinline|cex:indicator| 
 and \lstinline|cex:concept|, etc. 
 The value of a \lstinline|qb:Observation| can be a Raw value
    obtained from an external source or a computed value obtained from other
    observations.
 
-\item\textbf{\lstinline|cex:Computation|}. We have declared the main computation
-types that we needed for the WebIndex project, which have been summarized in
+\item\textbf{\lstinline|cex:Computation|}. It represents computation
+types. We included the main computation types that we needed for the WebIndex project, which have been summarized in
 Table~\ref{table:computations}. That list of computation types is non-exhaustive
 and can be further extended in the future. 
 
@@ -395,7 +422,7 @@ WeightedMean & Weighted mean of an observation
 \end{center}
 \end{table*}
 
-\section{Validation approach}
+\section{Development and Validation approach}
 
 The validation approach employed in the 2012 WebIndex project was based on
  resource templates similar to the OSLC resource
@@ -441,7 +468,7 @@ In order to make our error messages compatible with EARL~\cite{EARL}, we have
  
 We have also created our own set of SPARQL \lstinline|CONSTRUCT| queries to
 validate the \emph{Computex} vocabulary terms, specially the computation of index data.
-For example, the following query validates that every observation 
+For example, the following query validates whether every observation 
   has at most one value.
  
 \begin{lstlisting}[style=SPARQL]
@@ -455,7 +482,7 @@ CONSTRUCT {
 \end{lstlisting}
 
 Using this approach, it is possible to define more expressive validations.
-For example, we are able to validate that an observation has been obtained as
+For example, we are able to validate whether an observation has been obtained as
 the mean of other observations. 
 
 \begin{lstlisting}[style=SPARQL]
@@ -489,7 +516,7 @@ Validating statistical computations using SPARQL queries offered
  a good exercise to check SPARQL expressivity. Although we were able 
  to express most of the computation types, some of them had to employ functions
  that are not part of SPARQL 1.1 or had to be defined in a limited way. 
- In this section we review some of the challenges that we found.
+ In this section we review some of the challenges we have found.
 
 \begin{itemize} 
 
@@ -545,7 +572,7 @@ In order to document the resulting data portal we created a set of templates usi
 
 As an example, the Shape Expression declaration of observations is:
 
-\begin{lstlisting}
+\begin{lstlisting}[style=SPARQL]
 <Observation> { 
   rdf:type ( qb:Observation )  
 , rdfs:label ( @en ) ?
@@ -583,10 +610,12 @@ Wesby handles combines the visualization with a set of templates to offer specia
 \end{figure*}
 
 When there is no template for a given type of node, Wesby shows a table of properties and values similar to Pubby. For example, figure~\ref{Fig:WebIndexWeightMap}
+presents the visualization of Weighted maps which have no
+template associated.
 
 \begin{figure*}[h]
 \begin{center}
-  \includegraphics[width=0.9\textwidth]{WebIndexSpain}
+  \includegraphics[width=0.9\textwidth]{WebIndexWeightMap}
 \end{center}
 \caption{Web Index visualization of a weight map}
 \label{Fig:WebIndexWeightMap}
@@ -595,19 +624,22 @@ When there is no template for a given type of node, Wesby shows a table of prope
 \section{Related work}
 
 There is a growing interest in developing solutions to improve the quality of linked data~\cite{hogan10,Mendes12,kontokostasDatabugger}. 
-We consider that is is very important to publish linked data that is not only of high
+We consider that it is very important to publish linked data that is not only of high
  quality, but also that can automatically be validated. 
  Validating RDF has also attracted a number of approaches. 
  Most of them were presented at the W3c Workshop on RDF Validation~\cite{RDFValidation} and can
-be summarized as: 
+be classified as inference based, SPARQL queries or grammar based.
 
-Inference based approaches which try to adapt
-RDF Schema or OWL. However, the use of Open World and Non-unique name assumption limits the
-validation possibilities. \cite{ClarkSirin13,Tiao10,Motik07} propose the use of OWL expressions with a Closed World Assumption to express integrity constraints. 
+Inference based approaches try to adapt
+RDF Schema, OWL or RIF for validation proposes. 
+However, the use of Open World and Non-unique name assumption limits the
+validation possibilities. 
+A variation of the OWL semantics using Closed World Assumption to express integrity constraints has been proposed in \cite{ClarkSirin13,Tiao10,Motik07}.
 
-SPARQL queries can express the validation constraints. SPARQL has much more expressiveness than Shape Expressions and was proposed in~\cite{Labra13} to validate the WebIndex before it was generated. 
+SPARQL queries can also express the validation constraints. SPARQL has much more expressiveness than Shape Expressions and was proposed in~\cite{Labra13} to validate the WebIndex before it was generated. 
 After the WebIndex has been launched we noticed that validating the whole WebIndex data portal using the
-SPARQL approach was not efficient so we have been involved in the development of Shape Expressions. 
+SPARQL approach was not efficient so we have been involved in the development of Shape Expressions first as a documentation technology and in the next stage as as a whole validation technology with a more intuitive
+language to express constraints. 
 
 Grammar based approaches define a domain specific language to declare the validation rules. 
 OSLC Resource Shapes~\cite{OSLCResourceShapes} 
@@ -615,44 +647,50 @@ have been proposed as a high level and declarative description of the expected c
 on RDF terms. Dublic Core Application Profiles~\cite{KarenCoyleTomBaker13} also define a set of validation constraints using Description Templates. Finally, Shape Expressions have been proposed as another technology inspired by RelaxNG~\cite{RelaxNG} and based on regular bag expresions~\cite{Boneva2014}.
 
 Representing statistical linked data has also seen an increasing interest. 
-SDMX~\footnote{\url{http://sdmx.org/}} is the primary format of the main statistical data organizations. In~\cite{Capadisli13} describes a the transformation of SDMX-ML data to RDF/XML. 
+SDMX~\footnote{\url{http://sdmx.org/}} is the primary format of the main statistical data organizations. The transformation of SDMX-ML to RDF/XML has been described in~\cite{Capadisli13}.
 The RDF Data Cube vocabulary~\cite{Cube} has been accepted as a W3c Recommendation technology to publish multi-dimensional statistical data and to link it with other concepts and data. 
 We have opted to follow the RDF Data Cube vocabulary and in fact, we consider that Computex can be seen as a further specialization of RDF Data Cube to represent statistical index computations.
 
-Another piece of related work is how to represent mathematical expressions in RDF. 
+Another line of related work is the representation of mathematical expressions as linked data. 
 Lange~\cite{Lange13} gives an overview of the different approaches. 
 OpenMath was proposed as an extensible standard that can represent the semantic meaning of mathematical objects. 
 Wenzel and Reinhardt~\cite{Wenzel12} 
 propose an approach to integrate OpenMath with
 RDF data for the representation of mathematical relationships and the integration
 of mathematical computations into reasoning systems.
+We consider \emph{Computex} as a first step in that 
+direction to represent statistical computations and 
+we expect more future work to appear about how to
+represent statistical computations as linked data.
 
 \section{Conclusions}
 
 In this paper, we described how we were able to represent statistical index computations as linked data which include information to track the origin of any published observation.
 
-Although the number of triples were around 3 million, we consider that the data portal is of medium size, so we were able to play with different validation possibilities.
-In fact, although we initially wanted to do the whole computation process using SPARQL CONSTRUCT queries, we found that it took longer than expected (around 15 minutes for a subset of the whole dataset) so we opted to develop an independent Scala program in Scala that did all the computation in a few seconds.
+Although the number of triples were around 3,5 million, we consider that the data portal is of medium size, so we were able to play with different validation possibilities.
+In fact, we initially wanted to do the whole computation process using SPARQL CONSTRUCT queries, but we found that it took longer than expected (around 15 minutes for a subset of the whole dataset) so we opted to develop an independent Scala program that did all the computation process in a few seconds.
 
-After participating in the W3c RDF Validation workshop we were attracted by the Shape Expressions formalism. We developed the documentation of the data portal using Shape Expressions and we have developed an RDF validation tool using it. We consider that some structural parts of the data portal can be better expressed in Shape Expressions, while the computational parts could be expressed using Shape Expression semantic actions, all of which could be finally translated to SPARQL.
+After participating in the W3c RDF Validation workshop we were attracted by the Shape Expressions formalism so we developed the documentation of the WebIndex data portal using Shape Expressions and we have developed an RDF validation tool using it. We consider that some structural parts of the data portal can be better expressed in Shape Expressions, while the computational parts could be expressed using Shape Expression semantic actions, all of which could be finally translated to SPARQL.
 
 Using SPARQL queries to validate and compute index data seems a promising use
 case for linked data applications. 
 Although we have successfully employed this approach to validate most of the
 statistical computations we needed for the WebIndex project, we have found some
-limitations in current SPARQL 1.1 expressivity with regards to built-in
+limitations in current SPARQL 1.1 expressiveness with regards to built-in
 functions on maths, strings and RDF Collections.
 
 Our future work is to automate the declarative computation of index data
  from the raw observations and to check the performance using
  the Web Index data. 
 We are also studying the feasibility of this approach 
- for online calculation of index scores and rankings. 
+ for online calculation of index scores and rankings
+ and the application to compute statistical indexes in
+ other domains. 
 % \TODO{Visualization of computed values?}
 
 \section{Acknowledgements}
 
-We would like to thank Jules Clements, Karin Alexander, César Luis Alvargonzález and Ignacio Fuertes Bernardo for their collaboration in the development of the WebIndex project.
+We would like to thank Jules Clements, Karin Alexander, César Luis Alvargonzález, Ignacio Fuertes Bernardo and Alejandro Montes for their collaboration in the development of the WebIndex project.
 
 \bibliographystyle{abbrv}
 \bibliography{computex}
